@@ -1,7 +1,20 @@
 'use client';
 
 import React, { createContext, useContext, useReducer } from 'react';
-import { SurveyState, Gender, PregnancyStatus, AgeGroup, BodyMetrics, ChronicCondition, Lifestyle, Symptoms, Supplements, Goals, PregnancyTerm, BreastfeedingTerm } from '@/types/survey';
+import {
+  SurveyState,
+  Gender,
+  PregnancyStatus,
+  AgeGroup,
+  BodyMetrics,
+  ChronicCondition,
+  Lifestyle,
+  Symptoms,
+  Supplements,
+  Goals,
+  PregnancyTerm,
+  BreastfeedingTerm,
+} from '@/types/survey';
 
 type SurveyAction =
   | { type: 'SET_STEP'; payload: number }
@@ -84,11 +97,7 @@ function surveyReducer(state: SurveyState, action: SurveyAction): SurveyState {
 export function SurveyProvider({ children }: { children: React.ReactNode }) {
   const [state, dispatch] = useReducer(surveyReducer, initialState);
 
-  return (
-    <SurveyContext.Provider value={{ state, dispatch }}>
-      {children}
-    </SurveyContext.Provider>
-  );
+  return <SurveyContext.Provider value={{ state, dispatch }}>{children}</SurveyContext.Provider>;
 }
 
 export function useSurvey() {
@@ -97,4 +106,4 @@ export function useSurvey() {
     throw new Error('useSurvey must be used within a SurveyProvider');
   }
   return context;
-} 
+}

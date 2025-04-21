@@ -90,4 +90,27 @@ export interface SurveyState {
   symptoms: Symptoms | null;
   supplements: Supplements | null;
   goals: Goals;
-} 
+}
+
+// Модель данных опросника для отправки на сервер
+export interface SurveySubmission {
+  userId: string;
+  completedAt: string;
+  surveyData: Omit<SurveyState, 'step'>;
+  recommendations?: string[];
+  status: 'completed' | 'in_progress' | 'abandoned';
+  version: string;
+}
+
+// Модель для хранения в базе данных
+export interface SurveyRecord {
+  id: string;
+  userId: string;
+  createdAt: string;
+  updatedAt: string;
+  completedAt?: string;
+  surveyData: Omit<SurveyState, 'step'>;
+  recommendations?: string[];
+  status: 'completed' | 'in_progress' | 'abandoned';
+  version: string;
+}

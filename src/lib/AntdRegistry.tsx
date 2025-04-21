@@ -5,16 +5,11 @@ import { createCache, extractStyle, StyleProvider } from '@ant-design/cssinjs';
 import { useServerInsertedHTML } from 'next/navigation';
 
 export default function StyledComponentsRegistry({ children }: { children: React.ReactNode }) {
-    const cache = React.useMemo(() => createCache(), []);
-    
-    useServerInsertedHTML(() => {
-        return (
-            <style 
-                id="antd" 
-                dangerouslySetInnerHTML={{ __html: extractStyle(cache, true) }} 
-            />
-        );
-    });
+  const cache = React.useMemo(() => createCache(), []);
 
-    return <StyleProvider cache={cache}>{children}</StyleProvider>;
-} 
+  useServerInsertedHTML(() => {
+    return <style id="antd" dangerouslySetInnerHTML={{ __html: extractStyle(cache, true) }} />;
+  });
+
+  return <StyleProvider cache={cache}>{children}</StyleProvider>;
+}

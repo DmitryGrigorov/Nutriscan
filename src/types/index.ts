@@ -1,21 +1,22 @@
+/* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any */
 export interface User {
-    $id: string;
-    name: string;
-    email: string;
-    emailVerification: boolean;
+  $id: string;
+  name: string;
+  email: string;
+  emailVerification: boolean;
 }
 
 export interface SurveyData {
-    $id?: string;
-    userId: string;
-    age: number;
-    gender: 'male' | 'female';
-    goal: 'weight-loss' | 'muscle-gain' | 'maintenance';
-    activityLevel: 'sedentary' | 'moderate' | 'active' | 'very-active';
-    createdAt: Date;
+  $id?: string;
+  userId: string;
+  age: number;
+  gender: 'male' | 'female';
+  goal: 'weight-loss' | 'muscle-gain' | 'maintenance';
+  activityLevel: 'sedentary' | 'moderate' | 'active' | 'very-active';
+  createdAt: Date;
 }
 
 export interface AuthResponse {
-    user: User;
-    session: any;
-} 
+  user: User;
+  session: any;
+}

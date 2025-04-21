@@ -5,7 +5,7 @@ import { Form, Radio, Space, Typography } from 'antd';
 import { useSurvey } from '@/contexts/SurveyContext';
 import { PregnancyStatus, PregnancyTerm, BreastfeedingTerm } from '@/types/survey';
 
-const { Title, Paragraph } = Typography;
+const { Title } = Typography;
 
 export const PregnancyStep: React.FC = () => {
   const { state, dispatch } = useSurvey();
@@ -15,10 +15,11 @@ export const PregnancyStep: React.FC = () => {
   };
 
   const handleTermChange = (term: PregnancyTerm | BreastfeedingTerm) => {
-    dispatch({ 
-      type: state.pregnancyStatus === 'pregnant' ? 'SET_PREGNANCY_TERM' : 'SET_BREASTFEEDING_TERM', 
-      payload: term 
-    });
+    if (state.pregnancyStatus === 'pregnant') {
+      dispatch({ type: 'SET_PREGNANCY_TERM', payload: term as PregnancyTerm });
+    } else {
+      dispatch({ type: 'SET_BREASTFEEDING_TERM', payload: term as BreastfeedingTerm });
+    }
   };
 
   return (
@@ -54,13 +55,22 @@ export const PregnancyStep: React.FC = () => {
               className="w-full"
             >
               <Space direction="vertical" className="w-full">
-                <Radio.Button value="first_trimester" className="w-full h-12 flex items-center px-4">
+                <Radio.Button
+                  value="first_trimester"
+                  className="w-full h-12 flex items-center px-4"
+                >
                   Первый триместр
                 </Radio.Button>
-                <Radio.Button value="second_trimester" className="w-full h-12 flex items-center px-4">
+                <Radio.Button
+                  value="second_trimester"
+                  className="w-full h-12 flex items-center px-4"
+                >
                   Второй триместр
                 </Radio.Button>
-                <Radio.Button value="third_trimester" className="w-full h-12 flex items-center px-4">
+                <Radio.Button
+                  value="third_trimester"
+                  className="w-full h-12 flex items-center px-4"
+                >
                   Третий триместр
                 </Radio.Button>
               </Space>
@@ -93,4 +103,4 @@ export const PregnancyStep: React.FC = () => {
       </Form>
     </div>
   );
-}; 
+};

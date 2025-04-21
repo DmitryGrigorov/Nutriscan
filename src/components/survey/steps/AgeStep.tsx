@@ -17,9 +17,7 @@ export const AgeStep: React.FC = () => {
   return (
     <div className="flex flex-col gap-4">
       <Title level={4}>Укажите ваш возраст</Title>
-      <Paragraph>
-        Возраст является важным фактором при подборе рекомендаций и дозировок.
-      </Paragraph>
+      <Paragraph>Возраст является важным фактором при подборе рекомендаций и дозировок.</Paragraph>
       <Form layout="vertical" className="w-full">
         <Form.Item>
           <Radio.Group
@@ -49,4 +47,4 @@ export const AgeStep: React.FC = () => {
       </Form>
     </div>
   );
-}; 
+};

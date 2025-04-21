@@ -7,6 +7,7 @@ import { GenderStep } from './steps/GenderStep';
 import { AgeStep } from './steps/AgeStep';
 import { PregnancyStep } from './steps/PregnancyStep';
 import { BodyMetricsStep } from './steps/BodyMetricsStep';
+import { SurveySubmit } from './SurveySubmit';
 
 const getSteps = (gender: string | null) => [
   {
@@ -17,10 +18,14 @@ const getSteps = (gender: string | null) => [
     title: 'Возраст',
     content: <AgeStep />,
   },
-  ...(gender === 'female' ? [{
-    title: 'Беременность',
-    content: <PregnancyStep />,
-  }] : []),
+  ...(gender === 'female'
+    ? [
+        {
+          title: 'Беременность',
+          content: <PregnancyStep />,
+        },
+      ]
+    : []),
   {
     title: 'Метрики',
     content: <BodyMetricsStep />,
@@ -39,6 +44,8 @@ const SurveyForm: React.FC = () => {
     dispatch({ type: 'SET_STEP', payload: state.step - 1 });
   };
 
+  const isLastStep = state.step === steps.length - 1;
+
   return (
     <Card className="w-full max-w-4xl mx-auto">
       <Steps
@@ -48,26 +55,21 @@ const SurveyForm: React.FC = () => {
         responsive
         size="small"
       />
-      <div className="min-h-[400px] p-4">
-        {steps[state.step].content}
-      </div>
+      <div className="min-h-[400px] p-4">{steps[state.step].content}</div>
       <div className="flex justify-between mt-8">
-        <Button 
-          onClick={prev}
-          disabled={state.step === 0}
-        >
+        <Button onClick={prev} disabled={state.step === 0}>
           Назад
         </Button>
-        <Button
-          type="primary"
-          onClick={next}
-          disabled={state.step === steps.length - 1}
-        >
-          {state.step === steps.length - 1 ? 'Завершить' : 'Далее'}
-        </Button>
+        {isLastStep ? (
+          <SurveySubmit />
+        ) : (
+          <Button type="primary" onClick={next}>
+            Далее
+          </Button>
+        )}
       </div>
     </Card>
   );
 };
 
-export default SurveyForm; 
+export default SurveyForm;

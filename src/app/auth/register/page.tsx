@@ -7,31 +7,33 @@ import { useAuth } from '@/contexts/AuthContext';
 import { Spin } from 'antd';
 
 export default function RegisterPage() {
-    const { user, loading } = useAuth();
-    const router = useRouter();
+  const { user, loading } = useAuth();
+  const router = useRouter();
 
-    useEffect(() => {
-        if (!loading && user) {
-            router.push('/dashboard');
-        }
-    }, [user, loading, router]);
-
-    if (loading) {
-        return (
-            <div style={{ 
-                display: 'flex', 
-                justifyContent: 'center', 
-                alignItems: 'center', 
-                height: '100vh' 
-            }}>
-                <Spin size="large" />
-            </div>
-        );
+  useEffect(() => {
+    if (!loading && user) {
+      router.push('/dashboard');
     }
+  }, [user, loading, router]);
 
-    if (user) {
-        return null;
-    }
+  if (loading) {
+    return (
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100vh',
+        }}
+      >
+        <Spin size="large" />
+      </div>
+    );
+  }
 
-    return <AuthForm mode="register" />;
-} 
+  if (user) {
+    return null;
+  }
+
+  return <AuthForm mode="register" />;
+}

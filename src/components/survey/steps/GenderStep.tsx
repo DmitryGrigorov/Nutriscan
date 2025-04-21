@@ -18,13 +18,13 @@ export const GenderStep: React.FC = () => {
     <div className="flex flex-col gap-4">
       <Title level={4}>Укажите ваш пол</Title>
       <Paragraph>
-        Этот вопрос поможет нам определить дальнейшие шаги опросника и подобрать
-        наиболее подходящие рекомендации.
+        Этот вопрос поможет нам определить дальнейшие шаги опросника и подобрать наиболее подходящие
+        рекомендации.
       </Paragraph>
       <Form layout="vertical" className="w-full">
         <Form.Item>
-          <Radio.Group 
-            value={state.gender} 
+          <Radio.Group
+            value={state.gender}
             onChange={(e) => handleGenderChange(e.target.value)}
             className="w-full"
           >
@@ -41,4 +41,4 @@ export const GenderStep: React.FC = () => {
       </Form>
     </div>
   );
-}; 
+};

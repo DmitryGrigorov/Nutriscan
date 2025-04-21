@@ -13,11 +13,11 @@ export const BodyMetricsStep: React.FC = () => {
   const handleMetricsChange = (values: BodyMetrics) => {
     const height = values.height;
     const weight = values.weight;
-    const bmi = height && weight ? weight / ((height / 100) ** 2) : undefined;
-    
-    dispatch({ 
-      type: 'SET_BODY_METRICS', 
-      payload: { ...values, bmi } 
+    const bmi = height && weight ? weight / (height / 100) ** 2 : undefined;
+
+    dispatch({
+      type: 'SET_BODY_METRICS',
+      payload: { ...values, bmi },
     });
   };
 
@@ -27,44 +27,42 @@ export const BodyMetricsStep: React.FC = () => {
       <Paragraph>
         Эти данные помогут нам рассчитать индекс массы тела и подобрать оптимальные дозировки.
       </Paragraph>
-      <Form 
-        layout="vertical" 
+      <Form
+        layout="vertical"
         className="w-full"
         onValuesChange={(_, values) => handleMetricsChange(values)}
         initialValues={state.bodyMetrics || {}}
       >
-        <Form.Item 
-          name="height" 
+        <Form.Item
+          name="height"
           label="Рост (см)"
           rules={[{ required: true, message: 'Пожалуйста, укажите рост' }]}
         >
-          <InputNumber 
-            min={100} 
-            max={250} 
-            className="w-full" 
+          <InputNumber
+            min={100}
+            max={250}
+            className="w-full"
             placeholder="Введите рост в сантиметрах"
           />
         </Form.Item>
 
-        <Form.Item 
-          name="weight" 
+        <Form.Item
+          name="weight"
           label="Вес (кг)"
           rules={[{ required: true, message: 'Пожалуйста, укажите вес' }]}
         >
-          <InputNumber 
-            min={30} 
-            max={200} 
-            className="w-full" 
+          <InputNumber
+            min={30}
+            max={200}
+            className="w-full"
             placeholder="Введите вес в килограммах"
           />
         </Form.Item>
 
         {state.bodyMetrics?.bmi && (
-          <Paragraph>
-            Ваш ИМТ: {state.bodyMetrics.bmi.toFixed(1)}
-          </Paragraph>
+          <Paragraph>Ваш ИМТ: {state.bodyMetrics.bmi.toFixed(1)}</Paragraph>
         )}
       </Form>
     </div>
   );
-}; 
+};
