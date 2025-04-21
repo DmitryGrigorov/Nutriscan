@@ -3,7 +3,7 @@ import { databases } from '@/lib/appwrite';
 import { SurveySubmission, SurveyRecord, SurveyState } from '@/types/survey';
 
 const DATABASE_ID = process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID || '';
-const SURVEYS_COLLECTION_ID = 'surveys';
+const SURVEYS_COLLECTION_ID = process.env.NEXT_PUBLIC_APPWRITE_SURVEYS_COLLECTION_ID || '';
 
 export const surveyService = {
   // Создание нового опросника
