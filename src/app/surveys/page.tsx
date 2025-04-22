@@ -19,15 +19,6 @@ export default function SurveysPage() {
         defaultActiveKey="new"
         items={[
           {
-            key: 'new',
-            label: 'Новый опросник',
-            children: (
-              <SurveyProvider>
-                <SurveyForm />
-              </SurveyProvider>
-            ),
-          },
-          {
             key: 'history',
             label: 'История опросников',
             children: <SurveyHistory />,
