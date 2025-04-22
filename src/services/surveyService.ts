@@ -7,50 +7,33 @@ const SURVEYS_COLLECTION_ID = process.env.NEXT_PUBLIC_APPWRITE_SURVEYS_COLLECTIO
 
 export const surveyService = {
   // Создание нового опросника
-  async createSurvey(userId: string, surveyData: Omit<SurveyState, 'step'>): Promise<SurveyRecord> {
-    const submission: SurveySubmission = {
+  async createSurvey(userId: string, data: SurveyFormData): Promise<SurveyData> {
+    const now = new Date().toISOString();
+
+    const surveyData: SurveyData = {
+      ...data,
+      id: ID.unique(),
       userId,
-      completedAt: new Date().toISOString(),
-      surveyData,
       status: 'completed',
-      version: '1.0',
+      createdAt: now,
+      updatedAt: now,
     };
 
     const response = await databases.createDocument(
       DATABASE_ID,
       SURVEYS_COLLECTION_ID,
       ID.unique(),
-      submission
+      surveyData
     );
 
-    return {
-      id: response.$id,
-      userId: response.userId,
-      createdAt: response.$createdAt,
-      updatedAt: response.$updatedAt,
-      completedAt: response.completedAt,
-      surveyData: response.surveyData,
-      recommendations: response.recommendations,
-      status: response.status,
-      version: response.version,
-    };
+    return response as unknown as SurveyData;
   },
 
   // Получение опросника по ID
-  async getSurveyById(surveyId: string): Promise<SurveyRecord> {
+  async getSurveyById(surveyId: string): Promise<SurveyData> {
     const response = await databases.getDocument(DATABASE_ID, SURVEYS_COLLECTION_ID, surveyId);
 
-    return {
-      id: response.$id,
-      userId: response.userId,
-      createdAt: response.$createdAt,
-      updatedAt: response.$updatedAt,
-      completedAt: response.completedAt,
-      surveyData: response.surveyData,
-      recommendations: response.recommendations,
-      status: response.status,
-      version: response.version,
-    };
+    return response as unknown as SurveyData;
   },
 
   // Получение всех опросников пользователя
@@ -65,7 +48,7 @@ export const surveyService = {
       createdAt: doc.$createdAt,
       updatedAt: doc.$updatedAt,
       completedAt: doc.completedAt,
-      surveyData: doc.surveyData,
+      surveyData: doc,
       recommendations: doc.recommendations,
       status: doc.status,
       version: doc.version,
@@ -126,5 +109,14 @@ export const surveyService = {
   // Удаление опросника
   async deleteSurvey(surveyId: string): Promise<void> {
     await databases.deleteDocument(DATABASE_ID, SURVEYS_COLLECTION_ID, surveyId);
+  },
+
+  async getSurveysByUser(userId: string): Promise<SurveyData[]> {
+    const response = await databases.listDocuments(DATABASE_ID, SURVEYS_COLLECTION_ID, [
+      // Add query to filter by userId
+      // Add sorting by createdAt
+    ]);
+
+    return response.documents as unknown as SurveyData[];
   },
 };

@@ -77,6 +77,8 @@ export const SurveyHistory: React.FC = () => {
     return <Empty description="У вас пока нет опросников" className="my-8" />;
   }
 
+  console.log(surveys);
+
   return (
     <List
       grid={{ gutter: 16, xs: 1, sm: 1, md: 2, lg: 2, xl: 3, xxl: 3 }}

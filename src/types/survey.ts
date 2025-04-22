@@ -1,6 +1,6 @@
 export type Gender = 'male' | 'female';
 
-export type PregnancyStatus = 'pregnant' | 'breastfeeding' | 'none';
+export type PregnancyStatus = 'not_pregnant' | 'pregnant' | 'breastfeeding';
 export type PregnancyTerm = 'first_trimester' | 'second_trimester' | 'third_trimester';
 export type BreastfeedingTerm = 'early' | 'middle' | 'late';
 
@@ -12,7 +12,7 @@ export type MenstrualStatus = {
 export type GynecologicalCondition = 'pcos' | 'endometriosis' | 'fibroids' | 'other' | 'none';
 export type MenopauseStatus = 'premenopause' | 'menopause' | 'postmenopause' | 'none';
 
-export type AgeGroup = 'under_18' | '18_30' | '31_45' | '46_60' | 'over_60';
+export type AgeGroup = '18-24' | '25-34' | '35-44' | '45-54' | '55+';
 
 export interface BodyMetrics {
   height: number;
@@ -103,14 +103,35 @@ export interface SurveySubmission {
 }
 
 // Модель для хранения в базе данных
-export interface SurveyRecord {
+export interface SurveyRecord extends SurveyState {
   id: string;
   userId: string;
   createdAt: string;
   updatedAt: string;
   completedAt?: string;
-  surveyData: Omit<SurveyState, 'step'>;
   recommendations?: string[];
   status: 'completed' | 'in_progress' | 'abandoned';
   version: string;
 }
+
+export type ActivityLevel = 'sedentary' | 'light' | 'moderate' | 'very_active';
+export type SurveyStatus = 'draft' | 'completed';
+
+export interface SurveyData {
+  userId: string;
+  status: SurveyStatus;
+  gender: Gender;
+  ageGroup: AgeGroup;
+  pregnancyStatus: PregnancyStatus;
+  height: number;
+  weight: number;
+  activityLevel: ActivityLevel;
+  healthConditions: string[];
+  allergies: string[];
+  dietaryRestrictions: string[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface SurveyFormData
+  extends Omit<SurveyData, 'userId' | 'status' | 'createdAt' | 'updatedAt'> {}

@@ -113,55 +113,49 @@ export const SurveyDetails: React.FC<SurveyDetailsProps> = ({ surveyId }) => {
 
         <Descriptions bordered column={1}>
           <Descriptions.Item label="Пол">
-            {survey.surveyData.gender === 'male' ? 'Мужской' : 'Женский'}
+            {survey.gender === 'male' ? 'Мужской' : 'Женский'}
           </Descriptions.Item>
-          {survey.surveyData.ageGroup && (
-            <Descriptions.Item label="Возрастная группа">
-              {survey.surveyData.ageGroup}
-            </Descriptions.Item>
+          {survey.ageGroup && (
+            <Descriptions.Item label="Возрастная группа">{survey.ageGroup}</Descriptions.Item>
           )}
-          {survey.surveyData.pregnancyStatus && (
+          {survey.pregnancyStatus && (
             <Descriptions.Item label="Беременность/Грудное вскармливание">
-              {survey.surveyData.pregnancyStatus === 'pregnant'
+              {survey.pregnancyStatus === 'pregnant'
                 ? 'Беременна'
-                : survey.surveyData.pregnancyStatus === 'breastfeeding'
+                : survey.pregnancyStatus === 'breastfeeding'
                   ? 'Кормит грудью'
                   : 'Нет'}
             </Descriptions.Item>
           )}
-          {survey.surveyData.pregnancyTerm && (
+          {survey.pregnancyTerm && (
             <Descriptions.Item label="Срок беременности">
-              {survey.surveyData.pregnancyTerm === 'first_trimester'
+              {survey.pregnancyTerm === 'first_trimester'
                 ? 'Первый триместр'
-                : survey.surveyData.pregnancyTerm === 'second_trimester'
+                : survey.pregnancyTerm === 'second_trimester'
                   ? 'Второй триместр'
                   : 'Третий триместр'}
             </Descriptions.Item>
           )}
-          {survey.surveyData.breastfeedingTerm && (
+          {survey.breastfeedingTerm && (
             <Descriptions.Item label="Срок грудного вскармливания">
-              {survey.surveyData.breastfeedingTerm === 'early'
+              {survey.breastfeedingTerm === 'early'
                 ? 'До 3 месяцев'
-                : survey.surveyData.breastfeedingTerm === 'middle'
+                : survey.breastfeedingTerm === 'middle'
                   ? '3-6 месяцев'
                   : 'Более 6 месяцев'}
             </Descriptions.Item>
           )}
         </Descriptions>
 
-        {survey.surveyData.bodyMetrics && (
+        {survey.bodyMetrics && (
           <>
             <Divider orientation="left">Антропометрические данные</Divider>
             <Descriptions bordered column={1}>
-              <Descriptions.Item label="Рост">
-                {survey.surveyData.bodyMetrics.height} см
-              </Descriptions.Item>
-              <Descriptions.Item label="Вес">
-                {survey.surveyData.bodyMetrics.weight} кг
-              </Descriptions.Item>
-              {survey.surveyData.bodyMetrics.bmi && (
+              <Descriptions.Item label="Рост">{survey.bodyMetrics.height} см</Descriptions.Item>
+              <Descriptions.Item label="Вес">{survey.bodyMetrics.weight} кг</Descriptions.Item>
+              {survey.bodyMetrics.bmi && (
                 <Descriptions.Item label="Индекс массы тела (ИМТ)">
-                  {survey.surveyData.bodyMetrics.bmi.toFixed(1)}
+                  {survey.bodyMetrics.bmi.toFixed(1)}
                 </Descriptions.Item>
               )}
             </Descriptions>
