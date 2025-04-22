@@ -1,6 +1,6 @@
 'use client';
 
-import { ConfigProvider } from 'antd';
+import { ConfigProvider, theme } from 'antd';
 import { AuthProvider } from '@/contexts/AuthContext';
 import ruRU from 'antd/locale/ru_RU';
 
@@ -11,6 +11,16 @@ export function Providers({ children }: { children: React.ReactNode }) {
       theme={{
         token: {
           colorPrimary: '#1677ff',
+        },
+        algorithm: theme.defaultAlgorithm,
+        components: {
+          Layout: {
+            colorBgHeader: '#ffffff',
+            colorBgBody: '#f5f5f5',
+          },
+          Card: {
+            colorBgContainer: '#ffffff',
+          },
         },
       }}
     >

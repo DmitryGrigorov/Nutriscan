@@ -83,18 +83,26 @@ export const SurveyDetails: React.FC<SurveyDetailsProps> = ({ surveyId }) => {
   }
 
   return (
-    <div className="w-full max-w-4xl mx-auto">
-      <Button icon={<ArrowLeftOutlined />} onClick={() => router.back()} className="mb-4">
+    <div className="w-full max-w-4xl mx-auto px-4 sm:px-0">
+      <Button
+        icon={<ArrowLeftOutlined />}
+        onClick={() => router.back()}
+        className="mb-4 text-sm sm:text-base"
+      >
         Назад
       </Button>
 
-      <Card>
-        <div className="flex justify-between items-center mb-6">
-          <Title level={3}>Опросник от {formatDate(survey.createdAt)}</Title>
-          <Tag color={getStatusColor(survey.status)}>{getStatusText(survey.status)}</Tag>
+      <Card className="w-full">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-2 sm:gap-0">
+          <Title level={3} className="text-lg sm:text-2xl">
+            Опросник от {formatDate(survey.createdAt)}
+          </Title>
+          <Tag color={getStatusColor(survey.status)} className="text-xs sm:text-sm">
+            {getStatusText(survey.status)}
+          </Tag>
         </div>
 
-        <Descriptions bordered column={1}>
+        <Descriptions bordered column={1} className="text-sm sm:text-base">
           <Descriptions.Item label="Дата создания">
             {formatDate(survey.createdAt)}
           </Descriptions.Item>
@@ -109,16 +117,18 @@ export const SurveyDetails: React.FC<SurveyDetailsProps> = ({ surveyId }) => {
           <Descriptions.Item label="Версия">{survey.version}</Descriptions.Item>
         </Descriptions>
 
-        <Divider orientation="left">Основная информация</Divider>
+        <Divider orientation="left" className="text-sm sm:text-base">
+          Основная информация
+        </Divider>
 
-        <Descriptions bordered column={1}>
+        <Descriptions bordered column={1} className="text-sm sm:text-base">
           <Descriptions.Item label="Пол">
             {survey.gender === 'male' ? 'Мужской' : 'Женский'}
           </Descriptions.Item>
           {survey.ageGroup && (
             <Descriptions.Item label="Возрастная группа">{survey.ageGroup}</Descriptions.Item>
           )}
-          {survey.pregnancyStatus && (
+          {survey.gender === 'female' && survey.pregnancyStatus && (
             <Descriptions.Item label="Беременность/Грудное вскармливание">
               {survey.pregnancyStatus === 'pregnant'
                 ? 'Беременна'
@@ -127,7 +137,7 @@ export const SurveyDetails: React.FC<SurveyDetailsProps> = ({ surveyId }) => {
                   : 'Нет'}
             </Descriptions.Item>
           )}
-          {survey.pregnancyTerm && (
+          {survey.gender === 'female' && survey.pregnancyTerm && (
             <Descriptions.Item label="Срок беременности">
               {survey.pregnancyTerm === 'first_trimester'
                 ? 'Первый триместр'
@@ -136,7 +146,7 @@ export const SurveyDetails: React.FC<SurveyDetailsProps> = ({ surveyId }) => {
                   : 'Третий триместр'}
             </Descriptions.Item>
           )}
-          {survey.breastfeedingTerm && (
+          {survey.gender === 'female' && survey.breastfeedingTerm && (
             <Descriptions.Item label="Срок грудного вскармливания">
               {survey.breastfeedingTerm === 'early'
                 ? 'До 3 месяцев'
@@ -149,8 +159,10 @@ export const SurveyDetails: React.FC<SurveyDetailsProps> = ({ surveyId }) => {
 
         {survey.bodyMetrics && (
           <>
-            <Divider orientation="left">Антропометрические данные</Divider>
-            <Descriptions bordered column={1}>
+            <Divider orientation="left" className="text-sm sm:text-base">
+              Антропометрические данные
+            </Divider>
+            <Descriptions bordered column={1} className="text-sm sm:text-base">
               <Descriptions.Item label="Рост">{survey.bodyMetrics.height} см</Descriptions.Item>
               <Descriptions.Item label="Вес">{survey.bodyMetrics.weight} кг</Descriptions.Item>
               {survey.bodyMetrics.bmi && (
@@ -164,10 +176,12 @@ export const SurveyDetails: React.FC<SurveyDetailsProps> = ({ surveyId }) => {
 
         {survey.recommendations && survey.recommendations.length > 0 && (
           <>
-            <Divider orientation="left">Рекомендации</Divider>
-            <div className="bg-gray-50 p-4 rounded">
+            <Divider orientation="left" className="text-sm sm:text-base">
+              Рекомендации
+            </Divider>
+            <div className="bg-gray-50 p-3 sm:p-4 rounded">
               {survey.recommendations.map((rec, index) => (
-                <Paragraph key={index} className="mb-2">
+                <Paragraph key={index} className="mb-2 text-sm sm:text-base">
                   {rec}
                 </Paragraph>
               ))}

@@ -38,68 +38,62 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
     {
       key: '/',
       icon: <HomeOutlined />,
-      label: <Link href="/">Home</Link>,
+      label: <Link href="/">Главная</Link>,
     },
     {
       key: 'pharmacy',
       icon: <ShoppingOutlined />,
-      label: 'Pharmacy',
+      label: 'Продукты',
       children: [
         {
           key: '/pharmacy',
-          label: <Link href="/pharmacy">All Products</Link>,
+          label: <Link href="/pharmacy">Все продукты</Link>,
         },
         {
           key: '/pharmacy/category',
-          label: <Link href="/pharmacy/category">Categories</Link>,
+          label: <Link href="/pharmacy/category">Категории</Link>,
         },
       ],
     },
     {
       key: 'survey',
       icon: <FormOutlined />,
-      label: 'Survey',
+      label: 'Опросы',
       children: [
         {
           key: '/survey',
-          label: <Link href="/survey">New Survey</Link>,
+          label: <Link href="/survey">Новый опрос</Link>,
         },
         {
           key: '/surveys',
-          label: <Link href="/surveys">My Surveys</Link>,
+          label: <Link href="/surveys">Мои опросы</Link>,
         },
       ],
     },
-    {
-      key: 'auth',
-      icon: <LoginOutlined />,
-      label: 'Authentication',
-      children: [
-        ...(user
-          ? [
-              {
-                key: '/dashboard',
-                label: <Link href="/dashboard">Dashboard</Link>,
-              },
-              {
-                key: 'logout',
-                icon: <LogoutOutlined />,
-                label: 'Logout',
-                onClick: handleLogout,
-              },
-            ]
-          : [
-              {
-                key: '/auth/login',
-                label: <Link href="/auth/login">Login</Link>,
-              },
-              {
-                key: '/auth/register',
-                label: <Link href="/auth/register">Register</Link>,
-              },
-            ]),
-      ],
-    },
+    ...(user
+      ? [
+          {
+            key: '/dashboard',
+            icon: <UserOutlined />,
+            label: <Link href="/dashboard">Личный кабинет</Link>,
+          },
+          {
+            key: 'logout',
+            icon: <LogoutOutlined />,
+            label: 'Выйти',
+            onClick: handleLogout,
+          },
+        ]
+      : [
+          {
+            key: '/auth/login',
+            label: <Link href="/auth/login">Вход</Link>,
+          },
+          {
+            key: '/auth/register',
+            label: <Link href="/auth/register">Регистрация</Link>,
+          },
+        ]),
   ];
 
   return (
@@ -107,7 +101,6 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
       <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
         <div className="logo" />
         <Menu
-          theme="dark"
           mode="horizontal"
           selectedKeys={[pathname]}
           items={menuItems}

@@ -10,6 +10,11 @@ const { Title } = Typography;
 export const PregnancyStep: React.FC = () => {
   const { state, dispatch } = useSurvey();
 
+  // Если пол мужской, не отображаем компонент
+  if (state.gender === 'male') {
+    return null;
+  }
+
   const handleStatusChange = (status: PregnancyStatus) => {
     dispatch({ type: 'SET_PREGNANCY_STATUS', payload: status });
   };
@@ -23,23 +28,34 @@ export const PregnancyStep: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col gap-4">
-      <Title level={4}>Беременность и грудное вскармливание</Title>
+    <div className="flex flex-col gap-4 px-4 sm:px-0">
+      <Title level={4} className="text-lg sm:text-xl">
+        Беременность и грудное вскармливание
+      </Title>
       <Form layout="vertical" className="w-full">
-        <Form.Item>
+        <Form.Item className="mb-2">
           <Radio.Group
             value={state.pregnancyStatus}
             onChange={(e) => handleStatusChange(e.target.value)}
             className="w-full"
           >
             <Space direction="vertical" className="w-full">
-              <Radio.Button value="pregnant" className="w-full h-12 flex items-center px-4">
+              <Radio.Button
+                value="pregnant"
+                className="w-full h-10 sm:h-12 flex items-center px-3 sm:px-4 text-sm sm:text-base"
+              >
                 Да, я беременна
               </Radio.Button>
-              <Radio.Button value="breastfeeding" className="w-full h-12 flex items-center px-4">
+              <Radio.Button
+                value="breastfeeding"
+                className="w-full h-10 sm:h-12 flex items-center px-3 sm:px-4 text-sm sm:text-base"
+              >
                 Да, кормлю грудью
               </Radio.Button>
-              <Radio.Button value="none" className="w-full h-12 flex items-center px-4">
+              <Radio.Button
+                value="none"
+                className="w-full h-10 sm:h-12 flex items-center px-3 sm:px-4 text-sm sm:text-base"
+              >
                 Нет
               </Radio.Button>
             </Space>
@@ -47,8 +63,10 @@ export const PregnancyStep: React.FC = () => {
         </Form.Item>
 
         {state.pregnancyStatus === 'pregnant' && (
-          <Form.Item>
-            <Title level={5}>На каком сроке беременности вы находитесь?</Title>
+          <Form.Item className="mb-2">
+            <Title level={5} className="text-base sm:text-lg">
+              На каком сроке беременности вы находитесь?
+            </Title>
             <Radio.Group
               value={state.pregnancyTerm}
               onChange={(e) => handleTermChange(e.target.value)}
@@ -57,19 +75,19 @@ export const PregnancyStep: React.FC = () => {
               <Space direction="vertical" className="w-full">
                 <Radio.Button
                   value="first_trimester"
-                  className="w-full h-12 flex items-center px-4"
+                  className="w-full h-10 sm:h-12 flex items-center px-3 sm:px-4 text-sm sm:text-base"
                 >
                   Первый триместр
                 </Radio.Button>
                 <Radio.Button
                   value="second_trimester"
-                  className="w-full h-12 flex items-center px-4"
+                  className="w-full h-10 sm:h-12 flex items-center px-3 sm:px-4 text-sm sm:text-base"
                 >
                   Второй триместр
                 </Radio.Button>
                 <Radio.Button
                   value="third_trimester"
-                  className="w-full h-12 flex items-center px-4"
+                  className="w-full h-10 sm:h-12 flex items-center px-3 sm:px-4 text-sm sm:text-base"
                 >
                   Третий триместр
                 </Radio.Button>
@@ -79,21 +97,32 @@ export const PregnancyStep: React.FC = () => {
         )}
 
         {state.pregnancyStatus === 'breastfeeding' && (
-          <Form.Item>
-            <Title level={5}>Как долго вы кормите грудью?</Title>
+          <Form.Item className="mb-2">
+            <Title level={5} className="text-base sm:text-lg">
+              Как долго вы кормите грудью?
+            </Title>
             <Radio.Group
               value={state.breastfeedingTerm}
               onChange={(e) => handleTermChange(e.target.value)}
               className="w-full"
             >
               <Space direction="vertical" className="w-full">
-                <Radio.Button value="early" className="w-full h-12 flex items-center px-4">
+                <Radio.Button
+                  value="early"
+                  className="w-full h-10 sm:h-12 flex items-center px-3 sm:px-4 text-sm sm:text-base"
+                >
                   До 3 месяцев
                 </Radio.Button>
-                <Radio.Button value="middle" className="w-full h-12 flex items-center px-4">
+                <Radio.Button
+                  value="middle"
+                  className="w-full h-10 sm:h-12 flex items-center px-3 sm:px-4 text-sm sm:text-base"
+                >
                   3-6 месяцев
                 </Radio.Button>
-                <Radio.Button value="late" className="w-full h-12 flex items-center px-4">
+                <Radio.Button
+                  value="late"
+                  className="w-full h-10 sm:h-12 flex items-center px-3 sm:px-4 text-sm sm:text-base"
+                >
                   Более 6 месяцев
                 </Radio.Button>
               </Space>

@@ -11,10 +11,10 @@ export default function SurveyPage() {
     <div className="container mx-auto px-4 py-8">
       <Card>
         <Typography className="text-center mb-8">
-          <Title level={2}>Health Survey</Title>
+          <Title level={2}>Опросник для подбора БАДов</Title>
           <Paragraph>
-            Please fill out this survey to help us understand your health needs and provide
-            personalized recommendations.
+            Пожалуйста, заполните этот опросник, чтобы помочь нам понять ваши потребности в здоровье
+            и предоставить персонализированные рекомендации.
           </Paragraph>
         </Typography>
         <SurveyForm />

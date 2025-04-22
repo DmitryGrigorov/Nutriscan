@@ -12,6 +12,7 @@ const SurveyForm: React.FC = () => {
   const [form] = Form.useForm();
   const { user } = useAuth();
   const [loading, setLoading] = useState(false);
+  const [gender, setGender] = useState<Gender | null>(null);
 
   const onFinish = async (values: SurveyFormData) => {
     if (!user) {
@@ -37,25 +38,31 @@ const SurveyForm: React.FC = () => {
       form={form}
       layout="vertical"
       onFinish={onFinish}
-      style={{ maxWidth: 600, margin: '0 auto' }}
+      className="w-full max-w-[600px] mx-auto px-4 sm:px-0"
     >
       <Form.Item
         name="gender"
-        label="Gender"
-        rules={[{ required: true, message: 'Please select your gender' }]}
+        label={<span className="text-sm sm:text-base">Пол</span>}
+        rules={[{ required: true, message: 'Пожалуйста, выберите ваш пол' }]}
+        className="mb-2"
       >
-        <Select placeholder="Select your gender">
-          <Option value="male">Male</Option>
-          <Option value="female">Female</Option>
+        <Select
+          placeholder="Выберите ваш пол"
+          onChange={(value) => setGender(value)}
+          className="text-sm sm:text-base"
+        >
+          <Option value="male">Мужской</Option>
+          <Option value="female">Женский</Option>
         </Select>
       </Form.Item>
 
       <Form.Item
         name="ageGroup"
-        label="Age Group"
-        rules={[{ required: true, message: 'Please select your age group' }]}
+        label={<span className="text-sm sm:text-base">Возрастная группа</span>}
+        rules={[{ required: true, message: 'Пожалуйста, выберите вашу возрастную группу' }]}
+        className="mb-2"
       >
-        <Select placeholder="Select your age group">
+        <Select placeholder="Выберите вашу возрастную группу" className="text-sm sm:text-base">
           <Option value="18-24">18-24</Option>
           <Option value="25-34">25-34</Option>
           <Option value="35-44">35-44</Option>
@@ -64,96 +71,110 @@ const SurveyForm: React.FC = () => {
         </Select>
       </Form.Item>
 
-      <Form.Item
-        name="pregnancyStatus"
-        label="Pregnancy Status"
-        rules={[{ required: true, message: 'Please select your pregnancy status' }]}
-      >
-        <Select placeholder="Select your pregnancy status">
-          <Option value="not_pregnant">Not Pregnant</Option>
-          <Option value="pregnant">Pregnant</Option>
-          <Option value="breastfeeding">Breastfeeding</Option>
-        </Select>
-      </Form.Item>
+      {gender === 'female' && (
+        <Form.Item
+          name="pregnancyStatus"
+          label={<span className="text-sm sm:text-base">Статус беременности</span>}
+          rules={[{ required: true, message: 'Пожалуйста, выберите ваш статус беременности' }]}
+          className="mb-2"
+        >
+          <Select placeholder="Выберите ваш статус беременности" className="text-sm sm:text-base">
+            <Option value="not_pregnant">Не беременна</Option>
+            <Option value="pregnant">Беременна</Option>
+            <Option value="breastfeeding">Кормите грудью</Option>
+          </Select>
+        </Form.Item>
+      )}
 
       <Form.Item
         name="height"
-        label="Height (cm)"
-        rules={[{ required: true, message: 'Please enter your height' }]}
+        label={<span className="text-sm sm:text-base">Рост (см)</span>}
+        rules={[{ required: true, message: 'Пожалуйста, введите ваш рост' }]}
+        className="mb-2"
       >
         <InputNumber
           min={100}
           max={250}
-          style={{ width: '100%' }}
-          placeholder="Enter your height in centimeters"
+          className="w-full text-sm sm:text-base"
+          placeholder="Введите ваш рост в сантиметрах"
         />
       </Form.Item>
 
       <Form.Item
         name="weight"
-        label="Weight (kg)"
-        rules={[{ required: true, message: 'Please enter your weight' }]}
+        label={<span className="text-sm sm:text-base">Вес (кг)</span>}
+        rules={[{ required: true, message: 'Пожалуйста, введите ваш вес' }]}
+        className="mb-2"
       >
         <InputNumber
           min={30}
           max={200}
-          style={{ width: '100%' }}
-          placeholder="Enter your weight in kilograms"
+          className="w-full text-sm sm:text-base"
+          placeholder="Введите ваш вес в килограммах"
         />
       </Form.Item>
 
       <Form.Item
         name="activityLevel"
-        label="Activity Level"
-        rules={[{ required: true, message: 'Please select your activity level' }]}
+        label={<span className="text-sm sm:text-base">Уровень активности</span>}
+        rules={[{ required: true, message: 'Пожалуйста, выберите ваш уровень активности' }]}
+        className="mb-2"
       >
-        <Select placeholder="Select your activity level">
-          <Option value="sedentary">Sedentary (little or no exercise)</Option>
-          <Option value="light">Light (exercise 1-3 days/week)</Option>
-          <Option value="moderate">Moderate (exercise 3-5 days/week)</Option>
-          <Option value="very_active">Very Active (exercise 6-7 days/week)</Option>
+        <Select placeholder="Выберите ваш уровень активности" className="text-sm sm:text-base">
+          <Option value="sedentary">Сейчас (мало или нет физических упражнений)</Option>
+          <Option value="light">Легкий (тренировки 1-3 дня в неделю)</Option>
+          <Option value="moderate">Средний (тренировки 3-5 дней в неделю)</Option>
+          <Option value="very_active">Очень активный (тренировки 6-7 дней в неделю)</Option>
         </Select>
       </Form.Item>
 
       <Form.Item
         name="healthConditions"
-        label="Health Conditions"
-        rules={[{ required: true, message: 'Please enter your health conditions' }]}
+        label={<span className="text-sm sm:text-base">Состояния здоровья</span>}
+        rules={[{ required: true, message: 'Пожалуйста, введите ваши состояния здоровья' }]}
+        className="mb-2"
       >
         <Select
           mode="tags"
-          style={{ width: '100%' }}
-          placeholder="Enter your health conditions (press enter to add)"
+          className="w-full text-sm sm:text-base"
+          placeholder="Введите ваши состояния здоровья (нажмите enter для добавления)"
         />
       </Form.Item>
 
       <Form.Item
         name="allergies"
-        label="Allergies"
-        rules={[{ required: true, message: 'Please enter your allergies' }]}
+        label={<span className="text-sm sm:text-base">Аллергии</span>}
+        rules={[{ required: true, message: 'Пожалуйста, введите ваши аллергии' }]}
+        className="mb-2"
       >
         <Select
           mode="tags"
-          style={{ width: '100%' }}
-          placeholder="Enter your allergies (press enter to add)"
+          className="w-full text-sm sm:text-base"
+          placeholder="Введите ваши аллергии (нажмите enter для добавления)"
         />
       </Form.Item>
 
       <Form.Item
         name="dietaryRestrictions"
-        label="Dietary Restrictions"
-        rules={[{ required: true, message: 'Please enter your dietary restrictions' }]}
+        label={<span className="text-sm sm:text-base">Диетические ограничения</span>}
+        rules={[{ required: true, message: 'Пожалуйста, введите ваши диетические ограничения' }]}
+        className="mb-2"
       >
         <Select
           mode="tags"
-          style={{ width: '100%' }}
-          placeholder="Enter your dietary restrictions (press enter to add)"
+          className="w-full text-sm sm:text-base"
+          placeholder="Введите ваши диетические ограничения (нажмите enter для добавления)"
         />
       </Form.Item>
 
-      <Form.Item>
-        <Button type="primary" htmlType="submit" loading={loading} block>
-          Submit Survey
+      <Form.Item className="mb-2">
+        <Button
+          type="primary"
+          htmlType="submit"
+          loading={loading}
+          className="w-full h-10 sm:h-12 text-sm sm:text-base"
+        >
+          Отправить опрос
         </Button>
       </Form.Item>
     </Form>
