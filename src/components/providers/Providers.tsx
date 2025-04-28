@@ -2,6 +2,7 @@
 
 import { ConfigProvider, theme } from 'antd';
 import { AuthProvider } from '@/contexts/AuthContext';
+import { CartProvider } from '@/contexts/CartContext';
 import ruRU from 'antd/locale/ru_RU';
 
 export function Providers({ children }: { children: React.ReactNode }) {
@@ -24,7 +25,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
         },
       }}
     >
-      <AuthProvider>{children}</AuthProvider>
+      <AuthProvider>
+        <CartProvider>{children}</CartProvider>
+      </AuthProvider>
     </ConfigProvider>
   );
 }

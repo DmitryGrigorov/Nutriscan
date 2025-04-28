@@ -13,6 +13,7 @@ import {
   LogoutOutlined,
 } from '@ant-design/icons';
 import { useAuth } from '@/contexts/AuthContext';
+import { CartButton } from '@/components/pharmacy/CartButton';
 
 const { Header, Content } = Layout;
 
@@ -98,17 +99,24 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
-      <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
-        <div className="logo" />
-        <Menu
+      <Header style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <div className="logo" style={{ marginRight: 24 }}>
+            <Link href="/" style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>
+              NutriScan
+            </Link>
+          </div>
+          <Menu
           mode="horizontal"
           selectedKeys={[pathname]}
           items={menuItems}
           style={{ lineHeight: '64px' }}
         />
+        </div>
+        <CartButton />
       </Header>
-      <Content style={{ padding: '0 50px', marginTop: 64 }}>
-        <div style={{ background: '#fff', padding: 24, minHeight: 380 }}>{children}</div>
+      <Content style={{ padding: '0 50px', marginTop: 24 }}>
+        {children}
       </Content>
     </Layout>
   );
