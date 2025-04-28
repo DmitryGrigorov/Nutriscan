@@ -2,8 +2,9 @@
 
 import React, { useState } from 'react';
 import { Table, Button, Space, Modal, Form, Input, Switch, DatePicker, message, Tag } from 'antd';
-import { EditOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons';
+import { EditOutlined, DeleteOutlined, PlusOutlined, FormOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
+import { useRouter } from 'next/navigation';
 
 const { TextArea } = Input;
 const { RangePicker } = DatePicker;
@@ -19,6 +20,7 @@ interface Survey {
 }
 
 export default function SurveysPage() {
+  const router = useRouter();
   const [surveys, setSurveys] = useState<Survey[]>([
     { 
       id: 1, 
@@ -91,6 +93,10 @@ export default function SurveysPage() {
       render: (_: any, record: Survey) => (
         <Space>
           <Button
+            icon={<FormOutlined />}
+            onClick={() => handleEditQuestions(record.id)}
+          />
+          <Button
             icon={<EditOutlined />}
             onClick={() => handleEdit(record)}
           />
@@ -117,6 +123,10 @@ export default function SurveysPage() {
       dateRange: [dayjs(survey.startDate), dayjs(survey.endDate)]
     });
     setIsModalVisible(true);
+  };
+
+  const handleEditQuestions = (surveyId: number) => {
+    router.push(`/admin/surveys/${surveyId}`);
   };
 
   const handleDelete = (id: number) => {
