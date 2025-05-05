@@ -1,23 +1,12 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Table, Button, Space, Modal, Form, Input, InputNumber, message } from 'antd';
+import { Table, Button, Space, Modal, Form, Input, InputNumber, Select, message } from 'antd';
 import { EditOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons';
-
-interface Product {
-  id: number;
-  name: string;
-  description: string;
-  price: number;
-  stock: number;
-}
+import { Product, initialProducts, categories } from '@/data/products';
 
 export default function ProductsPage() {
-  const [products, setProducts] = useState<Product[]>([
-    { id: 1, name: 'Витамин C', description: 'Аскорбиновая кислота', price: 299, stock: 100 },
-    { id: 2, name: 'Омега-3', description: 'Рыбий жир', price: 599, stock: 50 },
-  ]);
-
+  const [products, setProducts] = useState<Product[]>(initialProducts);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
   const [form] = Form.useForm();
@@ -37,6 +26,11 @@ export default function ProductsPage() {
       title: 'Описание',
       dataIndex: 'description',
       key: 'description',
+    },
+    {
+      title: 'Категория',
+      dataIndex: 'category',
+      key: 'category',
     },
     {
       title: 'Цена',
@@ -95,6 +89,7 @@ export default function ProductsPage() {
       } else {
         const newProduct = {
           id: Math.max(...products.map(p => p.id)) + 1,
+          image: 'https://via.placeholder.com/150',
           ...values,
         };
         setProducts([...products, newProduct]);
@@ -134,6 +129,17 @@ export default function ProductsPage() {
             rules={[{ required: true, message: 'Пожалуйста, введите описание' }]}
           >
             <Input.TextArea />
+          </Form.Item>
+          <Form.Item
+            name="category"
+            label="Категория"
+            rules={[{ required: true, message: 'Пожалуйста, выберите категорию' }]}
+          >
+            <Select>
+              {categories.filter(cat => cat !== 'Все').map(category => (
+                <Select.Option key={category} value={category}>{category}</Select.Option>
+              ))}
+            </Select>
           </Form.Item>
           <Form.Item
             name="price"

@@ -2,67 +2,13 @@
 
 import React, { useState, useEffect } from 'react';
 import { Card, Row, Col, Input, Select, Typography, Tag, Space, Button, Pagination, message } from 'antd';
-import { SearchOutlined, FilterOutlined, ShoppingCartOutlined } from '@ant-design/icons';
+import { SearchOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { useCart } from '@/contexts/CartContext';
+import { Product, initialProducts, categories } from '@/data/products';
 
 const { Title, Paragraph } = Typography;
 const { Option } = Select;
-
-// Mock data for products
-const mockProducts = [
-  {
-    id: 1,
-    name: 'Витамин D3',
-    category: 'Витамины',
-    price: 450,
-    description: 'Витамин D3 для укрепления иммунитета и здоровья костей',
-    image: 'https://via.placeholder.com/150',
-  },
-  {
-    id: 2,
-    name: 'Омега-3',
-    category: 'Жирные кислоты',
-    price: 890,
-    description: 'Омега-3 жирные кислоты для здоровья сердца и мозга',
-    image: 'https://via.placeholder.com/150',
-  },
-  {
-    id: 3,
-    name: 'Магний',
-    category: 'Минералы',
-    price: 320,
-    description: 'Магний для нормализации сна и снижения стресса',
-    image: 'https://via.placeholder.com/150',
-  },
-  {
-    id: 4,
-    name: 'Пробиотики',
-    category: 'Пробиотики',
-    price: 780,
-    description: 'Пробиотики для здоровья кишечника и иммунитета',
-    image: 'https://via.placeholder.com/150',
-  },
-  {
-    id: 5,
-    name: 'Коллаген',
-    category: 'Белки',
-    price: 1200,
-    description: 'Коллаген для здоровья кожи, волос и суставов',
-    image: 'https://via.placeholder.com/150',
-  },
-  {
-    id: 6,
-    name: 'Железо',
-    category: 'Минералы',
-    price: 420,
-    description: 'Железо для профилактики анемии',
-    image: 'https://via.placeholder.com/150',
-  },
-];
-
-// Categories for filter
-const categories = ['Все', 'Витамины', 'Минералы', 'Жирные кислоты', 'Пробиотики', 'Белки'];
 
 export default function PharmacyPage() {
   const searchParams = useSearchParams();
@@ -92,7 +38,7 @@ export default function PharmacyPage() {
   };
 
   // Filter products based on search text and category
-  const filteredProducts = mockProducts.filter(product => {
+  const filteredProducts = initialProducts.filter(product => {
     const matchesSearch = product.name.toLowerCase().includes(searchText.toLowerCase()) ||
                          product.description.toLowerCase().includes(searchText.toLowerCase());
     const matchesCategory = selectedCategory === 'Все' || product.category === selectedCategory;
@@ -107,14 +53,18 @@ export default function PharmacyPage() {
   );
 
   // Handle add to cart
-  const handleAddToCart = (product: typeof mockProducts[0]) => {
-    addToCart({
-      id: product.id.toString(),
-      name: product.name,
-      price: product.price,
-      image: product.image
-    });
-    message.success('Товар добавлен в корзину');
+  const handleAddToCart = (product: Product) => {
+    if (product.stock > 0) {
+      addToCart({
+        id: product.id.toString(),
+        name: product.name,
+        price: product.price,
+        image: product.image
+      });
+      message.success('Товар добавлен в корзину');
+    } else {
+      message.error('Товар отсутствует в наличии');
+    }
   };
 
   return (
@@ -152,8 +102,9 @@ export default function PharmacyPage() {
                   type="primary" 
                   icon={<ShoppingCartOutlined />}
                   onClick={() => handleAddToCart(product)}
+                  disabled={product.stock === 0}
                 >
-                  В корзину
+                  {product.stock > 0 ? 'В корзину' : 'Нет в наличии'}
                 </Button>
               ]}
             >
@@ -165,6 +116,9 @@ export default function PharmacyPage() {
                     <div style={{ marginTop: 8 }}>
                       <Tag color="blue">{product.category}</Tag>
                       <Tag color="green">{product.price} ₽</Tag>
+                      <Tag color={product.stock > 0 ? 'green' : 'red'}>
+                        {product.stock > 0 ? `В наличии: ${product.stock}` : 'Нет в наличии'}
+                      </Tag>
                     </div>
                   </>
                 }

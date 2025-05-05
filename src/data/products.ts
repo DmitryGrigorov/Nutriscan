@@ -1,0 +1,232 @@
+export interface Product {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  stock: number;
+  category: string;
+  image: string;
+}
+
+// Initial products data
+export const initialProducts: Product[] = [
+  {
+    id: 1,
+    name: 'Витамин C',
+    description: 'Аскорбиновая кислота',
+    price: 299,
+    stock: 100,
+    category: 'Витамины',
+    image: 'https://via.placeholder.com/150'
+  },
+  {
+    id: 2,
+    name: 'Омега-3',
+    description: 'Рыбий жир',
+    price: 599,
+    stock: 50,
+    category: 'Жирные кислоты',
+    image: 'https://via.placeholder.com/150'
+  },
+  {
+    id: 3,
+    name: 'Магний',
+    description: 'Магний для нормализации сна и снижения стресса',
+    price: 320,
+    stock: 75,
+    category: 'Минералы',
+    image: 'https://via.placeholder.com/150'
+  },
+  {
+    id: 4,
+    name: 'Пробиотики',
+    description: 'Пробиотики для здоровья кишечника и иммунитета',
+    price: 780,
+    stock: 30,
+    category: 'Пробиотики',
+    image: 'https://via.placeholder.com/150'
+  },
+  {
+    id: 5,
+    name: 'Кальций',
+    description: 'Кальций для укрепления костей',
+    price: 450,
+    stock: 60,
+    category: 'Минералы',
+    image: 'https://via.placeholder.com/150'
+  },
+  {
+    id: 6,
+    name: 'Железо',
+    description: 'Железо для повышения уровня гемоглобина',
+    price: 350,
+    stock: 80,
+    category: 'Минералы',
+    image: 'https://via.placeholder.com/150'
+  },
+  {
+    id: 7,
+    name: 'Витамин D',
+    description: 'Витамин D для поддержки иммунной системы',
+    price: 400,
+    stock: 90,
+    category: 'Витамины',
+    image: 'https://via.placeholder.com/150'
+  },
+  {
+    id: 8,
+    name: 'Цинк',
+    description: 'Цинк для улучшения состояния кожи',
+    price: 300,
+    stock: 70,
+    category: 'Минералы',
+    image: 'https://via.placeholder.com/150'
+  },
+  {
+    id: 9,
+    name: 'Коэнзим Q10',
+    description: 'Коэнзим Q10 для поддержки сердечно-сосудистой системы',
+    price: 850,
+    stock: 40,
+    category: 'Антиоксиданты',
+    image: 'https://via.placeholder.com/150'
+  },
+  {
+    id: 10,
+    name: 'Витамин B12',
+    description: 'Витамин B12 для улучшения обмена веществ',
+    price: 500,
+    stock: 65,
+    category: 'Витамины',
+    image: 'https://via.placeholder.com/150'
+  },
+  {
+    id: 11,
+    name: 'Фолиевая кислота',
+    description: 'Фолиевая кислота для поддержки беременности',
+    price: 250,
+    stock: 85,
+    category: 'Витамины',
+    image: 'https://via.placeholder.com/150'
+  },
+  {
+    id: 12,
+    name: 'Витамин E',
+    description: 'Витамин E для защиты клеток от окисления',
+    price: 550,
+    stock: 55,
+    category: 'Витамины',
+    image: 'https://via.placeholder.com/150'
+  },
+  {
+    id: 13,
+    name: 'Лютеин',
+    description: 'Лютеин для улучшения зрения',
+    price: 600,
+    stock: 45,
+    category: 'Антиоксиданты',
+    image: 'https://via.placeholder.com/150'
+  },
+  {
+    id: 14,
+    name: 'Куркумин',
+    description: 'Куркумин для снижения воспаления',
+    price: 700,
+    stock: 35,
+    category: 'Антиоксиданты',
+    image: 'https://via.placeholder.com/150'
+  },
+  {
+    id: 15,
+    name: 'Коллаген',
+    description: 'Коллаген для улучшения состояния кожи и суставов',
+    price: 950,
+    stock: 25,
+    category: 'Белки',
+    image: 'https://via.placeholder.com/150'
+  },
+  {
+    id: 16,
+    name: 'Спирулина',
+    description: 'Спирулина для повышения уровня энергии',
+    price: 650,
+    stock: 50,
+    category: 'Суперфуды',
+    image: 'https://via.placeholder.com/150'
+  },
+  {
+    id: 17,
+    name: 'Хлорелла',
+    description: 'Хлорелла для детоксикации организма',
+    price: 550,
+    stock: 60,
+    category: 'Суперфуды',
+    image: 'https://via.placeholder.com/150'
+  },
+  {
+    id: 18,
+    name: 'Ашваганда',
+    description: 'Ашваганда для снижения стресса и тревожности',
+    price: 750,
+    stock: 40,
+    category: 'Адаптогены',
+    image: 'https://via.placeholder.com/150'
+  },
+  {
+    id: 19,
+    name: 'Родиола',
+    description: 'Родиола для повышения выносливости',
+    price: 800,
+    stock: 30,
+    category: 'Адаптогены',
+    image: 'https://via.placeholder.com/150'
+  },
+  {
+    id: 20,
+    name: 'Гинкго билоба',
+    description: 'Гинкго билоба для улучшения памяти и концентрации',
+    price: 650,
+    stock: 50,
+    category: 'Антиоксиданты',
+    image: 'https://via.placeholder.com/150'
+  },
+  {
+    id: 21,
+    name: 'Мелатонин',
+    description: 'Мелатонин для улучшения качества сна',
+    price: 300,
+    stock: 70,
+    category: 'Гормоны',
+    image: 'https://via.placeholder.com/150'
+  },
+  {
+    id: 22,
+    name: 'Л-карнитин',
+    description: 'Л-карнитин для повышения выносливости и сжигания жира',
+    price: 900,
+    stock: 20,
+    category: 'Аминокислоты',
+    image: 'https://via.placeholder.com/150'
+  },
+  {
+    id: 23,
+    name: 'Глутамин',
+    description: 'Глутамин для восстановления после тренировок',
+    price: 700,
+    stock: 30,
+    category: 'Аминокислоты',
+    image: 'https://via.placeholder.com/150'
+  },
+  {
+    id: 24,
+    name: 'Креатин',
+    description: 'Креатин для увеличения мышечной массы',
+    price: 850,
+    stock: 40,
+    category: 'Аминокислоты',
+    image: 'https://via.placeholder.com/150'
+  }
+];
+
+// Categories for filter
+export const categories = ['Все', 'Витамины', 'Минералы', 'Жирные кислоты', 'Пробиотики', 'Белки']; 
