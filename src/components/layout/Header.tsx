@@ -22,6 +22,7 @@ import {
   LineChartOutlined,
 } from '@ant-design/icons';
 import { useState } from 'react';
+import { useCart } from '@/contexts/CartContext';
 
 const { Header: AntHeader } = Layout;
 const { Title, Text } = Typography;
@@ -82,6 +83,7 @@ export const Header = () => {
   const pathname = usePathname();
   const { user, logout } = useAuth();
   const { reminders, unreadCount, markAsRead } = useReminders();
+  const { cart } = useCart();
   const [reminderOpen, setReminderOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
 
@@ -251,24 +253,66 @@ export const Header = () => {
 
   const cartContent = (
     <div style={{ width: 300 }}>
-      <div style={{ marginBottom: 8 }}>
+      <div style={{ 
+        padding: '12px 16px', 
+        borderBottom: '1px solid #f0f0f0',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+      }}>
         <Text strong>Корзина</Text>
+        <Text type="secondary">{cart.length} товаров</Text>
       </div>
       <div style={{ maxHeight: 300, overflowY: 'auto' }}>
-        {/* Здесь будут отображаться товары в корзине */}
-        <div style={{ padding: '8px 0', borderBottom: '1px solid #f0f0f0' }}>
-          <Text>Витамин D3 - 1 шт.</Text>
-        </div>
-        <div style={{ padding: '8px 0', borderBottom: '1px solid #f0f0f0' }}>
-          <Text>Омега-3 - 2 шт.</Text>
-        </div>
+        {cart.length === 0 ? (
+          <div style={{ padding: '16px', textAlign: 'center' }}>
+            <Text type="secondary">Корзина пуста</Text>
+          </div>
+        ) : (
+          <List
+            size="small"
+            dataSource={cart}
+            renderItem={item => (
+              <List.Item>
+                <List.Item.Meta
+                  avatar={<img src={item.image} alt={item.name} style={{ width: 40, height: 40, objectFit: 'cover' }} />}
+                  title={<Text ellipsis>{item.name}</Text>}
+                  description={
+                    <Space>
+                      <Text type="secondary">{item.quantity} шт.</Text>
+                      <Text strong>{item.price * item.quantity} ₽</Text>
+                    </Space>
+                  }
+                />
+              </List.Item>
+            )}
+          />
+        )}
       </div>
-      <div style={{ marginTop: 8, textAlign: 'right' }}>
-        <Button type="primary" onClick={() => {
-          setCartOpen(false);
-          router.push('/pharmacy/cart');
+      {cart.length > 0 && (
+        <div style={{ 
+          padding: '12px 16px', 
+          borderTop: '1px solid #f0f0f0',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center'
         }}>
-          Оформить заказ
+          <Text strong>Итого:</Text>
+          <Text strong>
+            {cart.reduce((total, item) => total + (item.price * item.quantity), 0)} ₽
+          </Text>
+        </div>
+      )}
+      <div style={{ padding: '12px 16px' }}>
+        <Button 
+          type="primary" 
+          block 
+          onClick={() => {
+            router.push('/pharmacy/cart');
+            setCartOpen(false);
+          }}
+        >
+          Перейти в корзину
         </Button>
       </div>
     </div>
@@ -324,7 +368,7 @@ export const Header = () => {
               placement="bottomRight"
               arrow={false}
             >
-              <Badge count={3} style={{ cursor: 'pointer' }}>
+              <Badge count={cart.length} style={{ cursor: 'pointer' }}>
                 <ShoppingCartOutlined style={{ fontSize: '20px' }} />
               </Badge>
             </Popover>

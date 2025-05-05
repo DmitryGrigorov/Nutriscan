@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Card, Row, Col, Input, Select, Typography, Tag, Space, Button, Pagination } from 'antd';
+import { Card, Row, Col, Input, Select, Typography, Tag, Space, Button, Pagination, message } from 'antd';
 import { SearchOutlined, FilterOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { useCart } from '@/contexts/CartContext';
@@ -67,7 +67,7 @@ const categories = ['Все', 'Витамины', 'Минералы', 'Жирн�
 export default function PharmacyPage() {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const { addItem } = useCart();
+  const { cart, addToCart } = useCart();
   const [searchText, setSearchText] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('Все');
   const [currentPage, setCurrentPage] = useState(1);
@@ -108,13 +108,13 @@ export default function PharmacyPage() {
 
   // Handle add to cart
   const handleAddToCart = (product: typeof mockProducts[0]) => {
-    addItem({
-      id: product.id,
+    addToCart({
+      id: product.id.toString(),
       name: product.name,
       price: product.price,
-      image: product.image,
-      category: product.category,
+      image: product.image
     });
+    message.success('Товар добавлен в корзину');
   };
 
   return (
