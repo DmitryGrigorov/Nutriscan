@@ -23,7 +23,7 @@ const items = [
   {
     key: '/dashboard/surveys',
     icon: <FileTextOutlined />,
-    label: 'Результаты опросов',
+    label: 'Опросы',
   },
   {
     key: '/dashboard/analyses',

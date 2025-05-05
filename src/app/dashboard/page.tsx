@@ -1,138 +1,131 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { Card, Typography, Descriptions, Space, Spin, Button, Modal } from 'antd';
-import { useAuth } from '@/contexts/AuthContext';
-import { appwriteApi } from '@/lib/appwrite/api';
-import { SurveyData, UserProfile } from '@/types';
-import { ProfileForm } from '@/components/profile/ProfileForm';
-import { UserOutlined, MailOutlined, PhoneOutlined, CalendarOutlined, LineChartOutlined, ArrowsAltOutlined, EditOutlined } from '@ant-design/icons';
+import React from 'react';
+import { Card, Row, Col, Typography, Space, Button, Divider } from 'antd';
+import { 
+  FileTextOutlined, 
+  MedicineBoxOutlined, 
+  ExperimentOutlined, 
+  LineChartOutlined, 
+  GiftOutlined, 
+  BulbOutlined,
+  CalendarOutlined,
+  BellOutlined,
+  UserOutlined,
+  HeartOutlined,
+  AppleOutlined
+} from '@ant-design/icons';
+import { useRouter } from 'next/navigation';
+import { BasePage } from '@/components/dashboard/BasePage';
 
-const { Title } = Typography;
+const { Title, Text } = Typography;
 
-function DashboardContent() {
-  const { user } = useAuth();
-  const [surveyData, setSurveyData] = useState<SurveyData | null>(null);
-  const [profile, setProfile] = useState<UserProfile | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [isEditModalVisible, setIsEditModalVisible] = useState(false);
-
-  useEffect(() => {
-    const loadData = async () => {
-      if (!user) return;
-      try {
-        const [survey, userProfile] = await Promise.all([
-          appwriteApi.surveys.getUserSurvey(user.$id),
-          appwriteApi.profile.get(user.$id),
-        ]);
-        setSurveyData(survey);
-        setProfile(userProfile);
-      } catch (error) {
-        console.error('Error loading data:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadData();
-  }, [user]);
-
-  if (loading) {
-    return (
-      <div style={{ textAlign: 'center', padding: '50px' }}>
-        <Spin size="large" />
-      </div>
-    );
-  }
-
-  const handleEditComplete = () => {
-    setIsEditModalVisible(false);
-    // Reload profile data
-    if (user) {
-      appwriteApi.profile.get(user.$id).then(setProfile);
-    }
-  };
-
-  return (
-    <div style={{ padding: '24px' }}>
-      <Space direction="vertical" size="large" style={{ width: '100%' }}>
-        <Card
-          title="Информация о профиле"
-          extra={
-            <Button
-              type="primary"
-              icon={<EditOutlined />}
-              onClick={() => setIsEditModalVisible(true)}
-            >
-              Edit Profile
-            </Button>
-          }
-        >
-          {profile ? (
-            <Descriptions column={1}>
-              <Descriptions.Item label={<><UserOutlined /> ФИО</>}>
-                {profile.name}
-              </Descriptions.Item>
-              <Descriptions.Item label={<><MailOutlined /> Email</>}>
-                {profile.email}
-              </Descriptions.Item>
-              <Descriptions.Item label={<><PhoneOutlined /> Номер телефона</>}>
-                {profile.phone}
-              </Descriptions.Item>
-              <Descriptions.Item label={<><CalendarOutlined /> Возраст</>}>
-                {profile.age} лет
-              </Descriptions.Item>
-              <Descriptions.Item label={<><LineChartOutlined /> Вес</>}>
-                {profile.weight} кг
-              </Descriptions.Item>
-              <Descriptions.Item label={<><ArrowsAltOutlined /> Рост</>}>
-                {profile.height} см
-              </Descriptions.Item>
-            </Descriptions>
-          ) : (
-            <Typography.Text type="secondary">
-              Нет доступной информации о профиле. Пожалуйста, заполните ваш профиль.
-            </Typography.Text>
-          )}
-        </Card>
-
-        {surveyData && (
-          <Card title="Latest Survey Results">
-            <Descriptions column={1}>
-              <Descriptions.Item label="Age Group">
-                {surveyData.age}
-              </Descriptions.Item>
-              <Descriptions.Item label="Gender">
-                {surveyData.gender}
-              </Descriptions.Item>
-              <Descriptions.Item label="Goal">
-                {surveyData.goal}
-              </Descriptions.Item>
-              <Descriptions.Item label="Activity Level">
-                {surveyData.activityLevel}
-              </Descriptions.Item>
-            </Descriptions>
-          </Card>
-        )}
-      </Space>
-
-      <Modal
-        title="Edit Profile"
-        open={isEditModalVisible}
-        onCancel={() => setIsEditModalVisible(false)}
-        footer={null}
-        width={600}
-      >
-        <ProfileForm onComplete={handleEditComplete} mode="edit" />
-      </Modal>
-    </div>
-  );
+interface DashboardCardProps {
+  title: string;
+  description: string;
+  icon: React.ReactNode;
+  path: string;
 }
 
-export default function DashboardPage() {
+const DashboardCard: React.FC<DashboardCardProps> = ({ title, description, icon, path }) => {
+  const router = useRouter();
+
   return (
-    <div className="container mx-auto">
-      <DashboardContent />
-    </div>
+    <Card 
+      hoverable 
+      onClick={() => router.push(path)}
+      style={{ height: '100%' }}
+    >
+      <Space direction="vertical" size="middle" style={{ width: '100%' }}>
+        <Space>
+          {icon}
+          <Title level={4} style={{ margin: 0 }}>{title}</Title>
+        </Space>
+        <Text type="secondary">{description}</Text>
+      </Space>
+    </Card>
+  );
+};
+
+export default function DashboardPage() {
+  const cards: DashboardCardProps[] = [
+    {
+      title: 'Опросы',
+      description: 'Пройдите необходимые опросы для получения персонализированных рекомендаций',
+      icon: <FileTextOutlined style={{ fontSize: '24px' }} />,
+      path: '/dashboard/surveys'
+    },
+    {
+      title: 'Профиль пользователя',
+      description: 'Заполните информацию о себе для персонализации рекомендаций',
+      icon: <UserOutlined style={{ fontSize: '24px' }} />,
+      path: '/dashboard/surveys/user-profile-survey'
+    },
+    {
+      title: 'Оценка здоровья',
+      description: 'Оцените ваше текущее состояние здоровья и образ жизни',
+      icon: <HeartOutlined style={{ fontSize: '24px' }} />,
+      path: '/dashboard/surveys/health-assessment'
+    },
+    {
+      title: 'Пищевые привычки',
+      description: 'Расскажите о ваших пищевых привычках и предпочтениях',
+      icon: <AppleOutlined style={{ fontSize: '24px' }} />,
+      path: '/dashboard/surveys/nutrition-habits'
+    },
+    {
+      title: 'Анализы',
+      description: 'Просмотр и загрузка результатов медицинских анализов',
+      icon: <ExperimentOutlined style={{ fontSize: '24px' }} />,
+      path: '/dashboard/analyses'
+    },
+    {
+      title: 'Тренды',
+      description: 'Отслеживание изменений в показателях здоровья и анализов',
+      icon: <LineChartOutlined style={{ fontSize: '24px' }} />,
+      path: '/dashboard/trends'
+    },
+    {
+      title: 'БАДы',
+      description: 'Управление приемом биологически активных добавок',
+      icon: <MedicineBoxOutlined style={{ fontSize: '24px' }} />,
+      path: '/dashboard/supplements'
+    },
+    {
+      title: 'Рекомендации',
+      description: 'Персонализированные рекомендации по здоровью и питанию',
+      icon: <BulbOutlined style={{ fontSize: '24px' }} />,
+      path: '/dashboard/recommendations'
+    },
+    {
+      title: 'Акции',
+      description: 'Специальные предложения и скидки на БАДы и анализы',
+      icon: <GiftOutlined style={{ fontSize: '24px' }} />,
+      path: '/dashboard/promotions'
+    },
+    {
+      title: 'Напоминания о БАДах',
+      description: 'Управление напоминаниями о приеме добавок',
+      icon: <BellOutlined style={{ fontSize: '24px' }} />,
+      path: '/dashboard/supplement-reminders'
+    },
+    {
+      title: 'Напоминания об анализах',
+      description: 'Управление напоминаниями о сдаче анализов',
+      icon: <CalendarOutlined style={{ fontSize: '24px' }} />,
+      path: '/dashboard/analysis-reminders'
+    }
+  ];
+
+  return (
+    <BasePage title="Панель управления">
+      <Row gutter={[16, 16]}>
+        {cards.map((card, index) => (
+          <Col xs={24} sm={12} md={8} lg={6} key={index}>
+            <DashboardCard {...card} />
+          </Col>
+        ))}
+      </Row>
+    </BasePage>
   );
 }

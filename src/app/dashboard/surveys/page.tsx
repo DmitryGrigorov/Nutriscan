@@ -1,92 +1,131 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import { Card, List, Typography, Tag, Button, Space } from 'antd';
-import { useAuth } from '@/contexts/AuthContext';
-import { appwriteApi } from '@/lib/appwrite/api';
-import { SurveyData } from '@/types';
+import React, { useState, useEffect } from 'react';
+import { Card, List, Typography, Button, Tag, Space, Progress } from 'antd';
+import { useRouter } from 'next/navigation';
+import { FileTextOutlined, CheckCircleOutlined, ClockCircleOutlined } from '@ant-design/icons';
 import { BasePage } from '@/components/dashboard/BasePage';
-import { FileTextOutlined } from '@ant-design/icons';
+import { appwriteApi } from '@/lib/appwrite/api';
 
 const { Text } = Typography;
 
-export default function SurveysPage() {
-  const { user } = useAuth();
-  const [surveys, setSurveys] = useState<SurveyData[]>([]);
-  const [loading, setLoading] = useState(true);
+interface Survey {
+  id: string;
+  title: string;
+  description: string;
+  status: 'completed' | 'in-progress' | 'not-started';
+  progress: number;
+  lastUpdated?: string;
+}
 
-  useEffect(() => {
-    const loadSurveys = async () => {
-      if (!user) return;
-      try {
-        const response = await appwriteApi.surveys.getUserSurvey(user.$id);
-        if (response) {
-          setSurveys([response]);
-        }
-      } catch (error) {
-        console.error('Error loading surveys:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
+export default function SurveysDashboardPage() {
+  const [surveys, setSurveys] = useState<Survey[]>([
+    {
+      id: 'user-profile-survey',
+      title: 'Профиль пользователя',
+      description: 'Анкета для определения ваших целей, образа жизни и предпочтений',
+      status: 'not-started',
+      progress: 0,
+    },
+    {
+      id: 'health-assessment',
+      title: 'Оценка состояния здоровья',
+      description: 'Опросник для оценки текущего состояния здоровья и выявления проблемных зон',
+      status: 'in-progress',
+      progress: 30,
+      lastUpdated: '2024-03-15',
+    },
+    {
+      id: 'nutrition-habits',
+      title: 'Пищевые привычки',
+      description: 'Анализ ваших пищевых привычек и предпочтений в питании',
+      status: 'completed',
+      progress: 100,
+      lastUpdated: '2024-03-10',
+    },
+  ]);
+  const router = useRouter();
 
-    loadSurveys();
-  }, [user]);
-
-  const getGoalLabel = (goal: string) => {
-    switch (goal) {
-      case 'weight-loss':
-        return 'Похудение';
-      case 'muscle-gain':
-        return 'Набор мышечной массы';
-      case 'maintenance':
-        return 'Поддержание веса';
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'completed':
+        return 'success';
+      case 'in-progress':
+        return 'processing';
+      case 'not-started':
+        return 'default';
       default:
-        return goal;
+        return 'default';
     }
   };
 
-  const getActivityLabel = (activity: string) => {
-    switch (activity) {
-      case 'sedentary':
-        return 'Малоподвижный';
-      case 'moderate':
-        return 'Умеренный';
-      case 'active':
-        return 'Активный';
-      case 'very-active':
-        return 'Очень активный';
+  const getStatusIcon = (status: string) => {
+    switch (status) {
+      case 'completed':
+        return <CheckCircleOutlined />;
+      case 'in-progress':
+        return <ClockCircleOutlined />;
+      case 'not-started':
+        return <FileTextOutlined />;
       default:
-        return activity;
+        return <FileTextOutlined />;
     }
+  };
+
+  const handleStartSurvey = (surveyId: string) => {
+    router.push(`/dashboard/surveys/${surveyId}`);
   };
 
   return (
-    <BasePage
-      title="Результаты опросов"
-      extra={
-        <Button type="primary" icon={<FileTextOutlined />}>
-          Пройти новый опрос
-        </Button>
-      }
-    >
+    <BasePage title="Опросы">
       <List
-        loading={loading}
         dataSource={surveys}
         renderItem={(survey) => (
           <List.Item>
             <Card style={{ width: '100%' }}>
               <List.Item.Meta
-                title={`Опрос от ${new Date(survey.createdAt).toLocaleDateString()}`}
-                description={
-                  <Space direction="vertical">
-                    <Text>Возраст: {survey.age}</Text>
-                    <Text>Пол: {survey.gender === 'male' ? 'Мужской' : 'Женский'}</Text>
-                    <Text>Цель: {getGoalLabel(survey.goal)}</Text>
-                    <Text>Уровень активности: {getActivityLabel(survey.activityLevel)}</Text>
+                avatar={getStatusIcon(survey.status)}
+                title={
+                  <Space>
+                    {survey.title}
+                    <Tag color={getStatusColor(survey.status)}>
+                      {survey.status === 'completed'
+                        ? 'Завершено'
+                        : survey.status === 'in-progress'
+                        ? 'В процессе'
+                        : 'Не начато'}
+                    </Tag>
                   </Space>
                 }
+                description={
+                  <>
+                    <Text>{survey.description}</Text>
+                    <br />
+                    {survey.lastUpdated && (
+                      <Text type="secondary">
+                        Последнее обновление:{' '}
+                        {new Date(survey.lastUpdated).toLocaleDateString()}
+                      </Text>
+                    )}
+                    <Progress
+                      percent={survey.progress}
+                      size="small"
+                      style={{ marginTop: 8 }}
+                    />
+                  </>
+                }
               />
+              <Button
+                type="primary"
+                onClick={() => handleStartSurvey(survey.id)}
+                style={{ marginTop: 16 }}
+              >
+                {survey.status === 'completed'
+                  ? 'Пройти заново'
+                  : survey.status === 'in-progress'
+                  ? 'Продолжить'
+                  : 'Начать'}
+              </Button>
             </Card>
           </List.Item>
         )}

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any */
 import { ID, Query } from 'appwrite';
 import { account, databases } from './config';
-import { SurveyData, User, AuthResponse, UserProfile } from '@/types';
+import { SurveyData, User, AuthResponse, UserProfile, SurveyFormData, HealthAssessmentFormData, NutritionHabitsFormData } from '@/types';
 
 const DATABASE_ID = process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID || '';
 const COLLECTION_SURVEY = process.env.NEXT_PUBLIC_APPWRITE_SURVEY_COLLECTION_ID || '';
@@ -60,6 +60,50 @@ export const appwriteApi = {
       } catch {
         return null;
       }
+    },
+
+    saveUserProfileSurvey: async (data: SurveyFormData) => {
+      const response = await databases.createDocument(
+        process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID!,
+        process.env.NEXT_PUBLIC_APPWRITE_SURVEYS_COLLECTION_ID!,
+        ID.unique(),
+        {
+          ...data,
+          userId: (await account.get()).$id,
+          createdAt: new Date().toISOString(),
+        }
+      );
+      return response;
+    },
+
+    saveHealthAssessment: async (data: HealthAssessmentFormData) => {
+      const response = await databases.createDocument(
+        process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID!,
+        process.env.NEXT_PUBLIC_APPWRITE_SURVEYS_COLLECTION_ID!,
+        ID.unique(),
+        {
+          ...data,
+          userId: (await account.get()).$id,
+          type: 'health-assessment',
+          createdAt: new Date().toISOString(),
+        }
+      );
+      return response;
+    },
+
+    saveNutritionHabits: async (data: NutritionHabitsFormData) => {
+      const response = await databases.createDocument(
+        process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID!,
+        process.env.NEXT_PUBLIC_APPWRITE_SURVEYS_COLLECTION_ID!,
+        ID.unique(),
+        {
+          ...data,
+          userId: (await account.get()).$id,
+          type: 'nutrition-habits',
+          createdAt: new Date().toISOString(),
+        }
+      );
+      return response;
     },
   },
 

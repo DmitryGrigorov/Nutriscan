@@ -33,3 +33,56 @@ export interface UserProfile {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface SurveyFormData {
+  education: 'higher' | 'secondary';
+  location: string;
+  lifestyle: {
+    healthyLifestyle: boolean;
+    selfDevelopment: boolean;
+    healthValues: boolean;
+    longevityValues: boolean;
+  };
+  onlineActivity: {
+    healthResearch: boolean;
+    supplementsResearch: boolean;
+  };
+  buyingHabits: {
+    regularPurchases: boolean;
+    trustReviews: boolean;
+    trustExperts: boolean;
+  };
+  painPoints: {
+    lackOfTime: boolean;
+    difficultyChoosing: boolean;
+    overwhelmedByChoice: boolean;
+    tooManyPills: boolean;
+  };
+}
+
+export interface HealthAssessmentFormData {
+  generalHealth: 'excellent' | 'good' | 'fair' | 'poor';
+  chronicConditions: string[];
+  medications: string;
+  allergies: string;
+  sleepQuality: 'excellent' | 'good' | 'fair' | 'poor';
+  stressLevel: 'low' | 'medium' | 'high';
+  energyLevel: 'high' | 'medium' | 'low';
+  physicalActivity: 'daily' | 'weekly' | 'monthly' | 'rarely';
+  healthGoals: string[];
+  additionalInfo: string;
+}
+
+export interface NutritionHabitsFormData {
+  eatingSchedule: 'regular' | 'irregular' | 'skipsMeals';
+  mealFrequency: number;
+  breakfast: 'always' | 'sometimes' | 'rarely' | 'never';
+  lunch: 'always' | 'sometimes' | 'rarely' | 'never';
+  dinner: 'always' | 'sometimes' | 'rarely' | 'never';
+  snacks: 'frequent' | 'occasional' | 'rare' | 'never';
+  waterIntake: 'adequate' | 'insufficient' | 'excessive';
+  foodPreferences: string[];
+  dietaryRestrictions: string[];
+  cookingHabits: 'home' | 'takeout' | 'mixed';
+  additionalInfo: string;
+}
