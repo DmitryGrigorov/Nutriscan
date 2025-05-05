@@ -4,6 +4,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import { User } from '@/types';
 import { appwriteApi } from '@/lib/appwrite/api';
 import { message } from 'antd';
+import { useRouter } from 'next/navigation';
 
 interface AuthContextType {
   user: User | null;
@@ -18,6 +19,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
     checkUser();
@@ -50,6 +52,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const response = await appwriteApi.auth.register(email, password, name);
       setUser(response.user);
       message.success('Регистрация успешна');
+      router.push('/profile/complete');
     } catch (error) {
       message.error('Ошибка при регистрации');
       throw error;

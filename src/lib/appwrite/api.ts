@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any */
 import { ID, Query } from 'appwrite';
 import { account, databases } from './config';
-import { SurveyData, User, AuthResponse } from '@/types';
+import { SurveyData, User, AuthResponse, UserProfile } from '@/types';
 
 const DATABASE_ID = process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID || '';
 const COLLECTION_SURVEY = process.env.NEXT_PUBLIC_APPWRITE_SURVEY_COLLECTION_ID || '';
+const COLLECTION_USERS = process.env.NEXT_PUBLIC_APPWRITE_USERS_COLLECTION_ID || '';
 
 export const appwriteApi = {
   // Аутентификация
@@ -56,6 +57,54 @@ export const appwriteApi = {
           [Query.equal('userId', userId)]
         );
         return (response.documents[0] || null) as unknown as SurveyData | null;
+      } catch {
+        return null;
+      }
+    },
+  },
+
+  // User Profile Management
+  profile: {
+    create: async (userId: string, data: Omit<UserProfile, '$id' | 'userId' | 'createdAt' | 'updatedAt'>): Promise<UserProfile> => {
+      return (await databases.createDocument(
+        DATABASE_ID,
+        COLLECTION_USERS,
+        ID.unique(),
+        {
+          ...data,
+          userId,
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+        }
+      )) as unknown as UserProfile;
+    },
+
+    update: async (userId: string, data: Partial<Omit<UserProfile, '$id' | 'userId' | 'createdAt' | 'updatedAt'>>): Promise<UserProfile> => {
+      const profile = await appwriteApi.profile.get(userId);
+      if (!profile) {
+        throw new Error('Profile not found');
+      }
+
+      return (await databases.updateDocument(
+        DATABASE_ID,
+        COLLECTION_USERS,
+        profile.$id,
+        {
+          ...data,
+          updatedAt: new Date().toISOString(),
+        }
+      )) as unknown as UserProfile;
+    },
+
+    get: async (userId: string): Promise<UserProfile | null> => {
+      try {
+        const response = await databases.listDocuments(
+          DATABASE_ID,
+          COLLECTION_USERS,
+          [Query.equal('userId', userId)]
+        );
+        console.log({response});
+        return (response.documents[0] || null) as unknown as UserProfile | null;
       } catch {
         return null;
       }

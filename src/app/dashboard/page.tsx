@@ -1,33 +1,40 @@
 'use client';
 
-import { ProtectedRoute } from '@/components/auth/ProtectedRoute';
-import { Card, Typography, Descriptions, Space, Spin } from 'antd';
+import { useEffect, useState } from 'react';
+import { Card, Typography, Descriptions, Space, Spin, Button, Modal } from 'antd';
 import { useAuth } from '@/contexts/AuthContext';
 import { appwriteApi } from '@/lib/appwrite/api';
-import { SurveyData } from '@/types';
-import { useEffect, useState } from 'react';
+import { SurveyData, UserProfile } from '@/types';
+import { ProfileForm } from '@/components/profile/ProfileForm';
+import { UserOutlined, MailOutlined, PhoneOutlined, CalendarOutlined, LineChartOutlined, ArrowsAltOutlined, EditOutlined } from '@ant-design/icons';
 
 const { Title } = Typography;
 
 function DashboardContent() {
   const { user } = useAuth();
   const [surveyData, setSurveyData] = useState<SurveyData | null>(null);
+  const [profile, setProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
+  const [isEditModalVisible, setIsEditModalVisible] = useState(false);
 
   useEffect(() => {
-    const loadSurveyData = async () => {
+    const loadData = async () => {
       if (!user) return;
       try {
-        const data = await appwriteApi.surveys.getUserSurvey(user.$id);
-        setSurveyData(data);
+        const [survey, userProfile] = await Promise.all([
+          appwriteApi.surveys.getUserSurvey(user.$id),
+          appwriteApi.profile.get(user.$id),
+        ]);
+        setSurveyData(survey);
+        setProfile(userProfile);
       } catch (error) {
-        console.error('Error loading survey data:', error);
+        console.error('Error loading data:', error);
       } finally {
         setLoading(false);
       }
     };
 
-    loadSurveyData();
+    loadData();
   }, [user]);
 
   if (loading) {
@@ -38,46 +45,94 @@ function DashboardContent() {
     );
   }
 
-  return (
-    <Space direction="vertical" size="large" style={{ width: '100%' }}>
-      <Card>
-        <Title level={3}>Личный кабинет</Title>
-        <Descriptions bordered>
-          <Descriptions.Item label="Имя" span={3}>
-            {user?.name}
-          </Descriptions.Item>
-          <Descriptions.Item label="Email" span={3}>
-            {user?.email}
-          </Descriptions.Item>
-        </Descriptions>
-      </Card>
+  const handleEditComplete = () => {
+    setIsEditModalVisible(false);
+    // Reload profile data
+    if (user) {
+      appwriteApi.profile.get(user.$id).then(setProfile);
+    }
+  };
 
-      {surveyData && (
-        <Card title="Данные опроса">
-          <Descriptions bordered>
-            <Descriptions.Item label="Возраст" span={3}>
-              {surveyData.age}
-            </Descriptions.Item>
-            <Descriptions.Item label="Пол" span={3}>
-              {surveyData.gender === 'male' ? 'Мужской' : 'Женский'}
-            </Descriptions.Item>
-            <Descriptions.Item label="Цель" span={3}>
-              {surveyData.goal}
-            </Descriptions.Item>
-            <Descriptions.Item label="Уровень активности" span={3}>
-              {surveyData.activityLevel}
-            </Descriptions.Item>
-          </Descriptions>
+  return (
+    <div style={{ padding: '24px' }}>
+      <Space direction="vertical" size="large" style={{ width: '100%' }}>
+        <Card
+          title="Информация о профиле"
+          extra={
+            <Button
+              type="primary"
+              icon={<EditOutlined />}
+              onClick={() => setIsEditModalVisible(true)}
+            >
+              Edit Profile
+            </Button>
+          }
+        >
+          {profile ? (
+            <Descriptions column={1}>
+              <Descriptions.Item label={<><UserOutlined /> ФИО</>}>
+                {profile.name}
+              </Descriptions.Item>
+              <Descriptions.Item label={<><MailOutlined /> Email</>}>
+                {profile.email}
+              </Descriptions.Item>
+              <Descriptions.Item label={<><PhoneOutlined /> Номер телефона</>}>
+                {profile.phone}
+              </Descriptions.Item>
+              <Descriptions.Item label={<><CalendarOutlined /> Возраст</>}>
+                {profile.age} лет
+              </Descriptions.Item>
+              <Descriptions.Item label={<><LineChartOutlined /> Вес</>}>
+                {profile.weight} кг
+              </Descriptions.Item>
+              <Descriptions.Item label={<><ArrowsAltOutlined /> Рост</>}>
+                {profile.height} см
+              </Descriptions.Item>
+            </Descriptions>
+          ) : (
+            <Typography.Text type="secondary">
+              Нет доступной информации о профиле. Пожалуйста, заполните ваш профиль.
+            </Typography.Text>
+          )}
         </Card>
-      )}
-    </Space>
+
+        {surveyData && (
+          <Card title="Latest Survey Results">
+            <Descriptions column={1}>
+              <Descriptions.Item label="Age Group">
+                {surveyData.age}
+              </Descriptions.Item>
+              <Descriptions.Item label="Gender">
+                {surveyData.gender}
+              </Descriptions.Item>
+              <Descriptions.Item label="Goal">
+                {surveyData.goal}
+              </Descriptions.Item>
+              <Descriptions.Item label="Activity Level">
+                {surveyData.activityLevel}
+              </Descriptions.Item>
+            </Descriptions>
+          </Card>
+        )}
+      </Space>
+
+      <Modal
+        title="Edit Profile"
+        open={isEditModalVisible}
+        onCancel={() => setIsEditModalVisible(false)}
+        footer={null}
+        width={600}
+      >
+        <ProfileForm onComplete={handleEditComplete} mode="edit" />
+      </Modal>
+    </div>
   );
 }
 
 export default function DashboardPage() {
   return (
-    <ProtectedRoute>
+    <div className="container mx-auto">
       <DashboardContent />
-    </ProtectedRoute>
+    </div>
   );
 }

@@ -20,3 +20,16 @@ export interface AuthResponse {
   user: User;
   session: any;
 }
+
+export interface UserProfile {
+  $id: string;
+  userId: string;
+  name: string;
+  email: string;
+  phone: string;
+  age: number;
+  weight: number;
+  height: number;
+  createdAt: string;
+  updatedAt: string;
+}
