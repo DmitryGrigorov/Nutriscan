@@ -1,21 +1,278 @@
 'use client';
 
-import { Layout, Button, Space, Typography } from 'antd';
-import { useRouter } from 'next/navigation';
+import { Layout, Button, Space, Typography, Badge, Popover, List, Tag, Menu } from 'antd';
+import { useRouter, usePathname } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
+import { useReminders } from '@/contexts/ReminderContext';
 import Link from 'next/link';
+import { 
+  BellOutlined, 
+  ShoppingCartOutlined,
+  MedicineBoxOutlined,
+  ExperimentOutlined,
+  ClockCircleOutlined,
+  CheckCircleOutlined,
+  HomeOutlined,
+  ShoppingOutlined,
+  FormOutlined,
+  UserOutlined,
+  BarChartOutlined,
+  GiftOutlined,
+  FileTextOutlined,
+  LineChartOutlined,
+} from '@ant-design/icons';
+import { useState } from 'react';
 
 const { Header: AntHeader } = Layout;
-const { Text } = Typography;
+const { Title, Text } = Typography;
+
+const ReminderItem = ({ title, datetime, type, completed }: { 
+  title: string;
+  datetime: string;
+  type: 'supplement' | 'analysis';
+  completed: boolean;
+}) => {
+  const date = new Date(datetime);
+  const isToday = new Date().toDateString() === date.toDateString();
+  const isTomorrow = new Date(Date.now() + 86400000).toDateString() === date.toDateString();
+  
+  const getDateText = () => {
+    if (isToday) return 'Сегодня';
+    if (isTomorrow) return 'Завтра';
+    return date.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' });
+  };
+
+  const getTimeText = () => {
+    return date.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
+  };
+
+  return (
+    <List.Item>
+      <Space align="start">
+        {type === 'supplement' ? (
+          <MedicineBoxOutlined style={{ fontSize: '20px', color: '#1677ff' }} />
+        ) : (
+          <ExperimentOutlined style={{ fontSize: '20px', color: '#1677ff' }} />
+        )}
+        <Space direction="vertical" size={0}>
+          <Text strong>{title}</Text>
+          <Space size={4}>
+            <ClockCircleOutlined style={{ fontSize: '12px' }} />
+            <Text type="secondary" style={{ fontSize: '12px' }}>
+              {getDateText()} в {getTimeText()}
+            </Text>
+          </Space>
+        </Space>
+        {completed ? (
+          <Tag color="success" icon={<CheckCircleOutlined />}>
+            Выполнено
+          </Tag>
+        ) : (
+          <Tag color={isToday ? 'warning' : 'default'}>
+            {isToday ? 'Сегодня' : isTomorrow ? 'Завтра' : 'Запланировано'}
+          </Tag>
+        )}
+      </Space>
+    </List.Item>
+  );
+};
 
 export const Header = () => {
   const router = useRouter();
+  const pathname = usePathname();
   const { user, logout } = useAuth();
+  const { reminders, unreadCount, markAsRead } = useReminders();
+  const [reminderOpen, setReminderOpen] = useState(false);
+  const [cartOpen, setCartOpen] = useState(false);
 
   const handleLogout = async () => {
     await logout();
     router.push('/');
   };
+
+  const handleReminderClick = (id: string) => {
+    markAsRead(id);
+  };
+
+  const menuItems = [
+    {
+      key: '/',
+      icon: <HomeOutlined />,
+      label: <Link href="/">Главная</Link>,
+    },
+    {
+      key: 'pharmacy',
+      icon: <ShoppingOutlined />,
+      label: 'Аптека',
+      children: [
+        {
+          key: '/pharmacy',
+          icon: <MedicineBoxOutlined />,
+          label: <Link href="/pharmacy">Все продукты</Link>,
+        },
+        {
+          key: '/pharmacy/category',
+          icon: <ExperimentOutlined />,
+          label: <Link href="/pharmacy/category">Категории</Link>,
+        },
+        {
+          key: '/pharmacy/cart',
+          icon: <ShoppingCartOutlined />,
+          label: <Link href="/pharmacy/cart">Корзина</Link>,
+        },
+      ],
+    },
+    {
+      key: 'dashboard',
+      icon: <UserOutlined />,
+      label: 'Личный кабинет',
+      children: [
+        {
+          key: '/dashboard',
+          icon: <UserOutlined />,
+          label: <Link href="/dashboard">Обзор</Link>,
+        },
+        {
+          key: '/dashboard/supplements',
+          icon: <MedicineBoxOutlined />,
+          label: <Link href="/dashboard/supplements">Мои БАДы</Link>,
+        },
+        {
+          key: '/dashboard/analyses',
+          icon: <ExperimentOutlined />,
+          label: <Link href="/dashboard/analyses">Мои анализы</Link>,
+        },
+        {
+          key: '/dashboard/supplement-reminders',
+          icon: <BellOutlined />,
+          label: <Link href="/dashboard/supplement-reminders">Напоминания о БАДах</Link>,
+        },
+        {
+          key: '/dashboard/analysis-reminders',
+          icon: <BellOutlined />,
+          label: <Link href="/dashboard/analysis-reminders">Напоминания об анализах</Link>,
+        },
+        {
+          key: '/dashboard/recommendations',
+          icon: <BarChartOutlined />,
+          label: <Link href="/dashboard/recommendations">Рекомендации</Link>,
+        },
+        {
+          key: '/dashboard/promotions',
+          icon: <GiftOutlined />,
+          label: <Link href="/dashboard/promotions">Акции</Link>,
+        },
+        {
+          key: '/dashboard/surveys',
+          icon: <FileTextOutlined />,
+          label: <Link href="/dashboard/surveys">Опросы</Link>,
+        },
+        {
+          key: '/dashboard/trends',
+          icon: <LineChartOutlined />,
+          label: <Link href="/dashboard/trends">Тренды</Link>,
+        },
+      ],
+    },
+    {
+      key: 'survey',
+      icon: <FormOutlined />,
+      label: 'Опросы',
+      children: [
+        {
+          key: '/survey',
+          label: <Link href="/survey">Новый опрос</Link>,
+        },
+        {
+          key: '/surveys',
+          label: <Link href="/surveys">Мои опросы</Link>,
+        },
+      ],
+    },
+  ];
+
+  const reminderContent = (
+    <div style={{ width: 350 }}>
+      <div style={{ marginBottom: 16 }}>
+        <Space style={{ width: '100%', justifyContent: 'space-between' }}>
+          <Title level={5} style={{ margin: 0 }}>Напоминания</Title>
+          <Space>
+            <Button 
+              type="link" 
+              size="small"
+              onClick={() => {
+                setReminderOpen(false);
+                router.push('/dashboard/analysis-reminders');
+              }}
+            >
+              Анализы
+            </Button>
+            <Button 
+              type="link" 
+              size="small"
+              onClick={() => {
+                setReminderOpen(false);
+                router.push('/dashboard/supplement-reminders');
+              }}
+            >
+              БАДы
+            </Button>
+          </Space>
+        </Space>
+      </div>
+      <List
+        dataSource={reminders}
+        renderItem={(reminder) => (
+          <ReminderItem
+            key={reminder.id}
+            title={reminder.title}
+            datetime={reminder.datetime}
+            type={reminder.type}
+            completed={reminder.completed}
+          />
+        )}
+        locale={{
+          emptyText: (
+            <div style={{ padding: '24px 0', textAlign: 'center' }}>
+              <Text type="secondary">Нет активных напоминаний</Text>
+            </div>
+          )
+        }}
+        style={{ 
+          maxHeight: 350,
+          overflowY: 'auto',
+          marginLeft: -16,
+          marginRight: -16,
+          padding: '0 16px'
+        }}
+      />
+    </div>
+  );
+
+  const cartContent = (
+    <div style={{ width: 300 }}>
+      <div style={{ marginBottom: 8 }}>
+        <Text strong>Корзина</Text>
+      </div>
+      <div style={{ maxHeight: 300, overflowY: 'auto' }}>
+        {/* Здесь будут отображаться товары в корзине */}
+        <div style={{ padding: '8px 0', borderBottom: '1px solid #f0f0f0' }}>
+          <Text>Витамин D3 - 1 шт.</Text>
+        </div>
+        <div style={{ padding: '8px 0', borderBottom: '1px solid #f0f0f0' }}>
+          <Text>Омега-3 - 2 шт.</Text>
+        </div>
+      </div>
+      <div style={{ marginTop: 8, textAlign: 'right' }}>
+        <Button type="primary" onClick={() => {
+          setCartOpen(false);
+          router.push('/pharmacy/cart');
+        }}>
+          Оформить заказ
+        </Button>
+      </div>
+    </div>
+  );
 
   return (
     <AntHeader
@@ -28,18 +285,49 @@ export const Header = () => {
         boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
       }}
     >
-      <Link href="/" style={{ textDecoration: 'none' }}>
-        <Text strong style={{ fontSize: '18px', color: '#1677ff' }}>
-          NutriScan
-        </Text>
-      </Link>
+      <div style={{ display: 'flex', alignItems: 'center' }}>
+        <Link href="/" style={{ textDecoration: 'none', marginRight: 24 }}>
+          <Text strong style={{ fontSize: '18px', color: '#1677ff' }}>
+            NutriScan
+          </Text>
+        </Link>
+        <Menu
+          mode="horizontal"
+          selectedKeys={[pathname]}
+          items={menuItems}
+          style={{ lineHeight: '64px', borderBottom: 'none' }}
+        />
+      </div>
 
-      <Space>
+      <Space size="large">
         {user ? (
           <>
-            <Button type="link" onClick={() => router.push('/dashboard')}>
-              Личный кабинет
-            </Button>
+            <Popover
+              content={reminderContent}
+              title={null}
+              trigger="click"
+              open={reminderOpen}
+              onOpenChange={setReminderOpen}
+              placement="bottomRight"
+              arrow={false}
+            >
+              <Badge count={unreadCount} style={{ cursor: 'pointer' }}>
+                <BellOutlined style={{ fontSize: '20px' }} />
+              </Badge>
+            </Popover>
+            <Popover
+              content={cartContent}
+              title={null}
+              trigger="click"
+              open={cartOpen}
+              onOpenChange={setCartOpen}
+              placement="bottomRight"
+              arrow={false}
+            >
+              <Badge count={3} style={{ cursor: 'pointer' }}>
+                <ShoppingCartOutlined style={{ fontSize: '20px' }} />
+              </Badge>
+            </Popover>
             <Button onClick={handleLogout}>Выйти</Button>
           </>
         ) : (

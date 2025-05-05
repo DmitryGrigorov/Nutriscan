@@ -2,6 +2,10 @@ import { Inter } from 'next/font/google';
 import StyledComponentsRegistry from '@/lib/AntdRegistry';
 import { Providers } from '@/components/providers/Providers';
 import { AppLayout } from '@/components/layout/AppLayout';
+import { ConfigProvider } from 'antd';
+import ruRU from 'antd/locale/ru_RU';
+import { CartProvider } from '@/contexts/CartContext';
+import './globals.css';
 
 const inter = Inter({ subsets: ['latin', 'cyrillic'] });
 
@@ -27,11 +31,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="theme-color" content="#1890ff" />
       </head>
       <body className={inter.className}>
-        <StyledComponentsRegistry>
-          <Providers>
-            <AppLayout>{children}</AppLayout>
-          </Providers>
-        </StyledComponentsRegistry>
+        <ConfigProvider locale={ruRU}>
+          <CartProvider>
+            <StyledComponentsRegistry>
+              <Providers>
+                <AppLayout>{children}</AppLayout>
+              </Providers>
+            </StyledComponentsRegistry>
+          </CartProvider>
+        </ConfigProvider>
       </body>
     </html>
   );

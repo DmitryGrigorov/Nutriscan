@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Layout, Menu } from 'antd';
-import { useRouter, usePathname } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import {
   HomeOutlined,
@@ -11,29 +11,28 @@ import {
   UserOutlined,
   LoginOutlined,
   LogoutOutlined,
+  MedicineBoxOutlined,
+  ExperimentOutlined,
+  ShoppingCartOutlined,
+  BellOutlined,
+  BarChartOutlined,
+  GiftOutlined,
+  FileTextOutlined,
+  LineChartOutlined,
 } from '@ant-design/icons';
 import { useAuth } from '@/contexts/AuthContext';
 import { CartButton } from '@/components/pharmacy/CartButton';
+import { Header } from './Header';
 
-const { Header, Content } = Layout;
+const { Content } = Layout;
 
 interface AppLayoutProps {
   children: React.ReactNode;
 }
 
 export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
-  const router = useRouter();
   const pathname = usePathname();
-  const { user, logout } = useAuth();
-
-  const handleLogout = async () => {
-    try {
-      await logout();
-      router.push('/');
-    } catch (error) {
-      console.error('Logout failed:', error);
-    }
-  };
+  const { user } = useAuth();
 
   const menuItems = [
     {
@@ -44,15 +43,74 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
     {
       key: 'pharmacy',
       icon: <ShoppingOutlined />,
-      label: 'Продукты',
+      label: 'Аптека',
       children: [
         {
           key: '/pharmacy',
+          icon: <MedicineBoxOutlined />,
           label: <Link href="/pharmacy">Все продукты</Link>,
         },
         {
           key: '/pharmacy/category',
+          icon: <ExperimentOutlined />,
           label: <Link href="/pharmacy/category">Категории</Link>,
+        },
+        {
+          key: '/pharmacy/cart',
+          icon: <ShoppingCartOutlined />,
+          label: <Link href="/pharmacy/cart">Корзина</Link>,
+        },
+      ],
+    },
+    {
+      key: 'dashboard',
+      icon: <UserOutlined />,
+      label: 'Личный кабинет',
+      children: [
+        {
+          key: '/dashboard',
+          icon: <UserOutlined />,
+          label: <Link href="/dashboard">Обзор</Link>,
+        },
+        {
+          key: '/dashboard/supplements',
+          icon: <MedicineBoxOutlined />,
+          label: <Link href="/dashboard/supplements">Мои БАДы</Link>,
+        },
+        {
+          key: '/dashboard/analyses',
+          icon: <ExperimentOutlined />,
+          label: <Link href="/dashboard/analyses">Мои анализы</Link>,
+        },
+        {
+          key: '/dashboard/supplement-reminders',
+          icon: <BellOutlined />,
+          label: <Link href="/dashboard/supplement-reminders">Напоминания о БАДах</Link>,
+        },
+        {
+          key: '/dashboard/analysis-reminders',
+          icon: <BellOutlined />,
+          label: <Link href="/dashboard/analysis-reminders">Напоминания об анализах</Link>,
+        },
+        {
+          key: '/dashboard/recommendations',
+          icon: <BarChartOutlined />,
+          label: <Link href="/dashboard/recommendations">Рекомендации</Link>,
+        },
+        {
+          key: '/dashboard/promotions',
+          icon: <GiftOutlined />,
+          label: <Link href="/dashboard/promotions">Акции</Link>,
+        },
+        {
+          key: '/dashboard/surveys',
+          icon: <FileTextOutlined />,
+          label: <Link href="/dashboard/surveys">Опросы</Link>,
+        },
+        {
+          key: '/dashboard/trends',
+          icon: <LineChartOutlined />,
+          label: <Link href="/dashboard/trends">Тренды</Link>,
         },
       ],
     },
@@ -72,19 +130,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
       ],
     },
     ...(user
-      ? [
-          {
-            key: '/dashboard',
-            icon: <UserOutlined />,
-            label: <Link href="/dashboard">Личный кабинет</Link>,
-          },
-          {
-            key: 'logout',
-            icon: <LogoutOutlined />,
-            label: 'Выйти',
-            onClick: handleLogout,
-          },
-        ]
+      ? []
       : [
           {
             key: '/auth/login',
@@ -99,22 +145,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
-      <Header style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <div className="logo" style={{ marginRight: 24 }}>
-            <Link href="/" style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>
-              NutriScan
-            </Link>
-          </div>
-          <Menu
-          mode="horizontal"
-          selectedKeys={[pathname]}
-          items={menuItems}
-          style={{ lineHeight: '64px' }}
-        />
-        </div>
-        <CartButton />
-      </Header>
+      <Header />
       <Content style={{ padding: '0 50px', marginTop: 24 }}>
         {children}
       </Content>
