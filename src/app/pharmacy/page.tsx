@@ -17,7 +17,7 @@ export default function PharmacyPage() {
   const [searchText, setSearchText] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('Все');
   const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 4;
+  const pageSize = 8;
 
   // Get category from URL parameters
   useEffect(() => {

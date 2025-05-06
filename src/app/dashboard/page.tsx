@@ -80,19 +80,19 @@ export default function DashboardPage() {
       path: '/dashboard/analyses'
     },
     {
-      title: 'Тренды',
+      title: 'Динамика показателей здоровья',
       description: 'Отслеживание изменений в показателях здоровья и анализов',
       icon: <LineChartOutlined style={{ fontSize: '24px' }} />,
       path: '/dashboard/trends'
     },
     {
-      title: 'БАДы',
+      title: 'История потребления БАДов',
       description: 'Управление приемом биологически активных добавок',
       icon: <MedicineBoxOutlined style={{ fontSize: '24px' }} />,
       path: '/dashboard/supplements'
     },
     {
-      title: 'Рекомендации',
+      title: 'Персональные рекомендации',
       description: 'Персонализированные рекомендации по здоровью и питанию',
       icon: <BulbOutlined style={{ fontSize: '24px' }} />,
       path: '/dashboard/recommendations'
