@@ -36,13 +36,13 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onComplete, mode = 'cr
       }
     } catch (error) {
       console.error('Error loading profile:', error);
-      message.error('Failed to load profile');
+      message.error('Не удалось загрузить профиль');
     }
   };
 
   const onFinish = async (values: Omit<UserProfile, '$id' | 'userId' | 'createdAt' | 'updatedAt'>) => {
     if (!user) {
-      message.error('Please login to save profile');
+      message.error('Пожалуйста, войдите в систему для сохранения профиля');
       return;
     }
 
@@ -50,15 +50,15 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onComplete, mode = 'cr
       setLoading(true);
       if (mode === 'create') {
         await appwriteApi.profile.create(user.$id, values);
-        message.success('Profile created successfully!');
+        message.success('Профиль успешно создан!');
       } else {
         await appwriteApi.profile.update(user.$id, values);
-        message.success('Profile updated successfully!');
+        message.success('Профиль успешно обновлен!');
       }
       onComplete?.();
     } catch (error) {
       console.error('Error saving profile:', error);
-      message.error('Failed to save profile. Please try again.');
+      message.error('Не удалось сохранить профиль. Пожалуйста, попробуйте снова.');
     } finally {
       setLoading(false);
     }
@@ -77,7 +77,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onComplete, mode = 'cr
       >
         <Form.Item
           name="name"
-          label="Full Name"
+          label="ФИО"
           rules={[{ required: true, message: 'Пожалуйста, введите ваше ФИО' }]}
         >
           <Input prefix={<UserOutlined />} placeholder="Введите ваше ФИО" />
@@ -118,7 +118,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onComplete, mode = 'cr
 
         <Form.Item
           name="weight"
-          label="Weight (kg)"
+          label="Вес (кг)"
           rules={[{ required: true, message: 'Пожалуйста, введите ваш вес' }]}
         >
           <InputNumber

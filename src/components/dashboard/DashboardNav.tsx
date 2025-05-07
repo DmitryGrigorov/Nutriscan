@@ -12,9 +12,15 @@ import {
   GiftOutlined,
   BellOutlined,
   ShoppingCartOutlined,
+  UserOutlined,
 } from '@ant-design/icons';
 
 const items = [
+  {
+    key: '/dashboard/account',
+    icon: <UserOutlined />,
+    label: 'Личный кабинет',
+  },
   {
     key: '/dashboard',
     icon: <BarChartOutlined />,

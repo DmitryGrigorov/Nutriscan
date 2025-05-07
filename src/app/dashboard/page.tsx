@@ -50,25 +50,31 @@ const DashboardCard: React.FC<DashboardCardProps> = ({ title, description, icon,
 export default function DashboardPage() {
   const cards: DashboardCardProps[] = [
     {
+      title: 'Личный кабинет',
+      description: '',
+      icon: <UserOutlined style={{ fontSize: '24px' }} />,
+      path: '/dashboard/account'
+    },
+    {
       title: 'Опросы',
       description: 'Пройдите необходимые опросы для получения персонализированных рекомендаций',
       icon: <FileTextOutlined style={{ fontSize: '24px' }} />,
       path: '/dashboard/surveys'
     },
     {
-      title: 'Профиль пользователя',
+      title: 'Опросник информация о о себе',
       description: 'Заполните информацию о себе для персонализации рекомендаций',
       icon: <UserOutlined style={{ fontSize: '24px' }} />,
       path: '/dashboard/surveys/user-profile-survey'
     },
     {
-      title: 'Оценка здоровья',
+      title: 'Опросник оценка здоровья',
       description: 'Оцените ваше текущее состояние здоровья и образ жизни',
       icon: <HeartOutlined style={{ fontSize: '24px' }} />,
       path: '/dashboard/surveys/health-assessment'
     },
     {
-      title: 'Пищевые привычки',
+      title: 'Опросник пищевые привычки',
       description: 'Расскажите о ваших пищевых привычках и предпочтениях',
       icon: <AppleOutlined style={{ fontSize: '24px' }} />,
       path: '/dashboard/surveys/nutrition-habits'

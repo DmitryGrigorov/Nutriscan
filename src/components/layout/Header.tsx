@@ -130,6 +130,11 @@ export const Header = () => {
       label: 'Личный кабинет',
       children: [
         {
+          key: '/dashboard/account',
+          icon: <UserOutlined />,
+          label: <Link href="/dashboard/account">Аккаунт</Link>,
+        },
+        {
           key: '/dashboard',
           icon: <UserOutlined />,
           label: <Link href="/dashboard">Обзор</Link>,
