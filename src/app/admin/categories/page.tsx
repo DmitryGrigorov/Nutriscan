@@ -1,52 +1,49 @@
 'use client';
 
-import React, { useState } from 'react';
-import { Table, Button, Space, Modal, Form, Input, message, Tag } from 'antd';
+import React, { useState, useEffect } from 'react';
+import { Table, Button, Space, Modal, Form, Input, Upload, message } from 'antd';
 import { EditOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons';
+import { Category } from '@/types/category';
+import { ID, Storage, Databases, Query } from 'appwrite';
+import { client } from '@/lib/appwrite';
+import type { UploadFile } from 'antd/es/upload/interface';
 
-interface Category {
-  id: number;
-  name: string;
-  description: string;
-  productsCount: number;
-  isActive: boolean;
-}
+const storage = new Storage(client);
+const databases = new Databases(client);
+const BUCKET_ID = process.env.NEXT_PUBLIC_APPWRITE_BUCKET_IMAGES || '';
+const COLLECTION_ID = process.env.NEXT_PUBLIC_APPWRITE_CATEGORIES_COLLECTION_ID || '';
+const DATABASE_ID = process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID || '';
 
 export default function CategoriesPage() {
-  const [categories, setCategories] = useState<Category[]>([
-    { 
-      id: 1, 
-      name: 'Витамины', 
-      description: 'Витаминные добавки и комплексы', 
-      productsCount: 25,
-      isActive: true
-    },
-    { 
-      id: 2, 
-      name: 'Минералы', 
-      description: 'Минеральные добавки', 
-      productsCount: 18,
-      isActive: true
-    },
-    { 
-      id: 3, 
-      name: 'Протеины', 
-      description: 'Протеиновые добавки', 
-      productsCount: 12,
-      isActive: true
-    },
-  ]);
-
+  const [categories, setCategories] = useState<Category[]>([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [editingCategory, setEditingCategory] = useState<Category | null>(null);
   const [form] = Form.useForm();
+  const [uploading, setUploading] = useState(false);
+  const [fileList, setFileList] = useState<UploadFile[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
+  const fetchCategories = async () => {
+    try {
+      const response = await databases.listDocuments(
+        DATABASE_ID,
+        COLLECTION_ID,
+        [Query.orderDesc('$createdAt')]
+      );
+      setCategories(response.documents as Category[]);
+    } catch (error) {
+      message.error('Ошибка при загрузке категорий');
+      console.error('Fetch error:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const columns = [
-    {
-      title: 'ID',
-      dataIndex: 'id',
-      key: 'id',
-    },
     {
       title: 'Название',
       dataIndex: 'name',
@@ -56,22 +53,12 @@ export default function CategoriesPage() {
       title: 'Описание',
       dataIndex: 'description',
       key: 'description',
-      ellipsis: true,
     },
     {
-      title: 'Товаров',
-      dataIndex: 'productsCount',
-      key: 'productsCount',
-    },
-    {
-      title: 'Статус',
+      title: 'Активна',
       dataIndex: 'isActive',
       key: 'isActive',
-      render: (isActive: boolean) => (
-        <Tag color={isActive ? 'green' : 'red'}>
-          {isActive ? 'Активна' : 'Неактивна'}
-        </Tag>
-      ),
+      render: (isActive: boolean) => isActive ? 'Да' : 'Нет',
     },
     {
       title: 'Действия',
@@ -85,7 +72,7 @@ export default function CategoriesPage() {
           <Button
             danger
             icon={<DeleteOutlined />}
-            onClick={() => handleDelete(record.id)}
+            onClick={() => handleDelete(record.$id)}
           />
         </Space>
       ),
@@ -95,38 +82,110 @@ export default function CategoriesPage() {
   const handleAdd = () => {
     setEditingCategory(null);
     form.resetFields();
+    setFileList([]);
     setIsModalVisible(true);
   };
 
   const handleEdit = (category: Category) => {
     setEditingCategory(category);
     form.setFieldsValue(category);
+    if (category.imageUrl) {
+      setFileList([{
+        uid: '-1',
+        name: 'image.png',
+        status: 'done',
+        url: category.imageUrl,
+      }]);
+    }
     setIsModalVisible(true);
   };
 
-  const handleDelete = (id: number) => {
-    setCategories(categories.filter(category => category.id !== id));
-    message.success('Категория удалена');
+  const handleDelete = async (id: string) => {
+    try {
+      await databases.deleteDocument(DATABASE_ID, COLLECTION_ID, id);
+      setCategories(categories.filter(category => category.$id !== id));
+      message.success('Категория удалена');
+    } catch (error) {
+      message.error('Ошибка при удалении категории');
+      console.error('Delete error:', error);
+    }
   };
 
-  const handleModalOk = () => {
-    form.validateFields().then(values => {
+  const handleModalOk = async () => {
+    try {
+      const values = await form.validateFields();
+      const now = new Date().toISOString();
+
       if (editingCategory) {
-        setCategories(categories.map(category =>
-          category.id === editingCategory.id ? { ...category, ...values } : category
-        ));
+        await databases.updateDocument(
+          DATABASE_ID,
+          COLLECTION_ID,
+          editingCategory.$id,
+          {
+            ...values,
+            updatedAt: now,
+          }
+        );
         message.success('Категория обновлена');
       } else {
-        const newCategory = {
-          id: Math.max(...categories.map(c => c.id)) + 1,
-          ...values,
-          productsCount: 0,
-        };
-        setCategories([...categories, newCategory]);
+        await databases.createDocument(
+          DATABASE_ID,
+          COLLECTION_ID,
+          ID.unique(),
+          {
+            ...values,
+            slug: values.name.toLowerCase().replace(/\s+/g, '-'),
+            isActive: false,
+            createdAt: now,
+            updatedAt: now,
+          }
+        );
         message.success('Категория добавлена');
       }
+      fetchCategories();
       setIsModalVisible(false);
-    });
+    } catch (error) {
+      console.error('Validation failed:', error);
+      message.error('Ошибка при сохранении категории');
+    }
+  };
+
+  const handleUpload = async (file: File) => {
+    setUploading(true);
+    try {
+      const response = await storage.createFile(
+        BUCKET_ID,
+        ID.unique(),
+        file
+      );
+      const fileUrl = storage.getFileView(BUCKET_ID, response.$id).toString();
+      form.setFieldValue('imageUrl', fileUrl);
+      setFileList([{
+        uid: response.$id,
+        name: file.name,
+        status: 'done',
+        url: fileUrl,
+      }]);
+      message.success('Изображение успешно загружено');
+    } catch (error) {
+      message.error('Ошибка при загрузке изображения');
+      console.error('Upload error:', error);
+    } finally {
+      setUploading(false);
+    }
+    return false;
+  };
+
+  const uploadProps = {
+    onRemove: () => {
+      setFileList([]);
+      form.setFieldValue('imageUrl', '');
+    },
+    beforeUpload: handleUpload,
+    fileList,
+    maxCount: 1,
+    accept: 'image/*',
+    listType: 'picture-card' as const,
   };
 
   return (
@@ -137,13 +196,19 @@ export default function CategoriesPage() {
         </Button>
       </div>
 
-      <Table columns={columns} dataSource={categories} rowKey="id" />
+      <Table 
+        columns={columns} 
+        dataSource={categories} 
+        rowKey="$id" 
+        loading={loading}
+      />
 
       <Modal
         title={editingCategory ? 'Редактировать категорию' : 'Добавить категорию'}
         open={isModalVisible}
         onOk={handleModalOk}
         onCancel={() => setIsModalVisible(false)}
+        width={800}
       >
         <Form form={form} layout="vertical">
           <Form.Item
@@ -158,17 +223,24 @@ export default function CategoriesPage() {
             label="Описание"
             rules={[{ required: true, message: 'Пожалуйста, введите описание' }]}
           >
-            <Input.TextArea rows={4} />
+            <Input.TextArea />
           </Form.Item>
           <Form.Item
-            name="isActive"
-            label="Активна"
-            valuePropName="checked"
-            initialValue={true}
+            name="imageUrl"
+            label="Изображение"
+            rules={[{ required: true, message: 'Пожалуйста, загрузите изображение' }]}
           >
-            <Input type="checkbox" />
+            <Input />
           </Form.Item>
         </Form>
+        <Upload {...uploadProps}>
+          {fileList.length === 0 && (
+            <div>
+              <PlusOutlined />
+              <div style={{ marginTop: 8 }}>Загрузить</div>
+            </div>
+          )}
+        </Upload>
       </Modal>
     </div>
   );
