@@ -1,10 +1,9 @@
-import { Client, Databases, Account } from 'appwrite';
+import { Client } from 'appwrite';
 
-const client = new Client()
-  .setEndpoint(process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT || '')
-  .setProject(process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID || '');
+const client = new Client();
 
-const databases = new Databases(client);
-const account = new Account(client);
+client
+    .setEndpoint(process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT || '')
+    .setProject(process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID || '');
 
-export { client, databases, account };
+export { client };

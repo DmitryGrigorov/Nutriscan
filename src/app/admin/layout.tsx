@@ -41,6 +41,11 @@ export default function AdminLayout({
       icon: <AppstoreOutlined />,
       label: 'Категории',
     },
+    {
+      key: '/admin/images',
+      icon: <DashboardOutlined />,
+      label: 'Изображения',
+    },
   ];
 
   return (

@@ -13,7 +13,8 @@ import {
   BellOutlined,
   UserOutlined,
   HeartOutlined,
-  AppleOutlined
+  AppleOutlined,
+  DatabaseOutlined
 } from '@ant-design/icons';
 import { useRouter } from 'next/navigation';
 import { BasePage } from '@/components/dashboard/BasePage';
@@ -64,7 +65,7 @@ export default function DashboardPage() {
     {
       title: 'Опросник информация о о себе',
       description: 'Заполните информацию о себе для персонализации рекомендаций',
-      icon: <UserOutlined style={{ fontSize: '24px' }} />,
+      icon: <DatabaseOutlined style={{ fontSize: '24px' }} />,
       path: '/dashboard/surveys/user-profile-survey'
     },
     {
