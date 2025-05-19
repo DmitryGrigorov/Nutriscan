@@ -146,7 +146,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Header />
-      <Content style={{ padding: '0 50px', marginTop: 24 }}>
+      <Content>
         {children}
       </Content>
     </Layout>
