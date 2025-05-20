@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Table, Button, Space, Modal, Form, Input, InputNumber, Select, message, Upload } from 'antd';
-import { EditOutlined, DeleteOutlined, PlusOutlined, UploadOutlined } from '@ant-design/icons';
+import { Table, Button, Space, Modal, Form, Input, InputNumber, Select, message, Upload, Switch, Image } from 'antd';
+import { EditOutlined, DeleteOutlined, PlusOutlined, UploadOutlined, EyeOutlined } from '@ant-design/icons';
 import { Product } from '@/types/product';
 import { categories } from '@/data/products';
 import { ID, Storage, Databases, Query } from 'appwrite';
@@ -23,6 +23,8 @@ export default function ProductsPage() {
   const [uploading, setUploading] = useState(false);
   const [fileList, setFileList] = useState<UploadFile[]>([]);
   const [loading, setLoading] = useState(true);
+  const [previewVisible, setPreviewVisible] = useState(false);
+  const [previewImage, setPreviewImage] = useState('');
 
   useEffect(() => {
     fetchProducts();
@@ -44,6 +46,11 @@ export default function ProductsPage() {
     }
   };
 
+  const handlePreview = (imageUrl: string) => {
+    setPreviewImage(imageUrl);
+    setPreviewVisible(true);
+  };
+
   const columns = [
     {
       title: 'Название',
@@ -54,6 +61,21 @@ export default function ProductsPage() {
       title: 'Описание',
       dataIndex: 'description',
       key: 'description',
+    },
+    {
+      title: 'Изображение',
+      dataIndex: 'imageUrl',
+      key: 'imageUrl',
+      render: (imageUrl: string) => imageUrl ? (
+        <Image
+          src={imageUrl}
+          alt="Product"
+          width={50}
+          height={50}
+          style={{ objectFit: 'cover' }}
+          preview={false}
+        />
+      ) : null,
     },
     {
       title: 'Категория',
@@ -86,6 +108,12 @@ export default function ProductsPage() {
             icon={<EditOutlined />}
             onClick={() => handleEdit(record)}
           />
+          {record.imageUrl && (
+            <Button
+              icon={<EyeOutlined />}
+              onClick={() => handlePreview(record.imageUrl)}
+            />
+          )}
           <Button
             danger
             icon={<DeleteOutlined />}
@@ -202,7 +230,20 @@ export default function ProductsPage() {
     fileList,
     maxCount: 1,
     accept: 'image/*',
-    listType: 'picture-card' as const,
+    listType: 'text' as const,
+    itemRender: (originNode: React.ReactNode, file: UploadFile) => {
+      return (
+        <div onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          if (file.url) {
+            handlePreview(file.url);
+          }
+        }}>
+          {originNode}
+        </div>
+      );
+    }
   };
 
   return (
@@ -233,7 +274,17 @@ export default function ProductsPage() {
             label="Название"
             rules={[{ required: true, message: 'Пожалуйста, введите название' }]}
           >
-            <Input />
+            <Input onChange={(e) => {
+              const slug = e.target.value.toLowerCase().replace(/\s+/g, '-');
+              form.setFieldValue('slug', slug);
+            }} />
+          </Form.Item>
+          <Form.Item
+            name="slug"
+            label="Slug"
+            tooltip="URL-friendly версия названия"
+          >
+            <Input disabled />
           </Form.Item>
           <Form.Item
             name="description"
@@ -249,7 +300,9 @@ export default function ProductsPage() {
           >
             <Select>
               {categories.filter(cat => cat !== 'Все').map(category => (
-                <Select.Option key={category} value={category}>{category}</Select.Option>
+                <Select.Option key={category} value={category}>
+                  {category}
+                </Select.Option>
               ))}
             </Select>
           </Form.Item>
@@ -258,31 +311,85 @@ export default function ProductsPage() {
             label="Цена"
             rules={[{ required: true, message: 'Пожалуйста, введите цену' }]}
           >
-            <InputNumber min={0} style={{ width: '100%' }} />
+            <InputNumber
+              min={0}
+              prefix="₽"
+              style={{ width: '100%' }}
+            />
           </Form.Item>
           <Form.Item
             name="stock"
-            label="Количество"
+            label="Количество на складе"
             rules={[{ required: true, message: 'Пожалуйста, введите количество' }]}
           >
-            <InputNumber min={0} style={{ width: '100%' }} />
+            <InputNumber
+              min={0}
+              style={{ width: '100%' }}
+            />
+          </Form.Item>
+          <Form.Item
+            name="isActive"
+            label="Активен"
+            valuePropName="checked"
+          >
+            <Switch />
           </Form.Item>
           <Form.Item
             name="imageUrl"
             label="Изображение"
-            rules={[{ required: true, message: 'Пожалуйста, загрузите изображение' }]}
           >
-          <Input />
-          </Form.Item>
-        </Form>
-            <Upload {...uploadProps}>
-              {fileList.length === 0 && (
-                <div>
-                  <PlusOutlined />
-                  <div style={{ marginTop: 8 }}>Загрузить</div>
+            <Space direction="vertical" style={{ width: '100%' }}>
+              <Upload {...uploadProps}>
+                {fileList.length === 0 && (
+                  <div>
+                    <PlusOutlined />
+                    <div style={{ marginTop: 8 }}>Загрузить</div>
+                  </div>
+                )}
+              </Upload>
+              {form.getFieldValue('imageUrl') && (
+                <div style={{ marginTop: 8 }}>
+                  <Image
+                    src={form.getFieldValue('imageUrl')}
+                    alt="Preview"
+                    width={100}
+                    height={100}
+                    style={{ objectFit: 'cover' }}
+                    preview={{
+                      mask: <EyeOutlined />,
+                      maskClassName: 'custom-image-mask',
+                    }}
+                  />
                 </div>
               )}
-            </Upload>
+            </Space>
+          </Form.Item>
+          {editingProduct && (
+            <>
+              <Form.Item
+                name="createdAt"
+                label="Дата создания"
+              >
+                <Input disabled />
+              </Form.Item>
+              <Form.Item
+                name="updatedAt"
+                label="Дата обновления"
+              >
+                <Input disabled />
+              </Form.Item>
+            </>
+          )}
+        </Form>
+      </Modal>
+
+      <Modal
+        open={previewVisible}
+        footer={null}
+        onCancel={() => setPreviewVisible(false)}
+        width="80%"
+      >
+        <img alt="preview" style={{ width: '100%' }} src={previewImage} />
       </Modal>
     </div>
   );

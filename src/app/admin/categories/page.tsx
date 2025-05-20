@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Table, Button, Space, Modal, Form, Input, Upload, message } from 'antd';
-import { EditOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons';
+import { Table, Button, Space, Modal, Form, Input, Upload, message, Switch, Image } from 'antd';
+import { EditOutlined, DeleteOutlined, PlusOutlined, EyeOutlined } from '@ant-design/icons';
 import { Category } from '@/types/category';
 import { ID, Storage, Databases, Query } from 'appwrite';
 import { client } from '@/lib/appwrite';
@@ -22,6 +22,8 @@ export default function CategoriesPage() {
   const [uploading, setUploading] = useState(false);
   const [fileList, setFileList] = useState<UploadFile[]>([]);
   const [loading, setLoading] = useState(true);
+  const [previewVisible, setPreviewVisible] = useState(false);
+  const [previewImage, setPreviewImage] = useState('');
 
   useEffect(() => {
     fetchCategories();
@@ -43,6 +45,11 @@ export default function CategoriesPage() {
     }
   };
 
+  const handlePreview = (imageUrl: string) => {
+    setPreviewImage(imageUrl);
+    setPreviewVisible(true);
+  };
+
   const columns = [
     {
       title: 'Название',
@@ -53,6 +60,21 @@ export default function CategoriesPage() {
       title: 'Описание',
       dataIndex: 'description',
       key: 'description',
+    },
+    {
+      title: 'Изображение',
+      dataIndex: 'imageUrl',
+      key: 'imageUrl',
+      render: (imageUrl: string) => imageUrl ? (
+        <Image
+          src={imageUrl}
+          alt="Category"
+          width={50}
+          height={50}
+          style={{ objectFit: 'cover' }}
+          preview={false}
+        />
+      ) : null,
     },
     {
       title: 'Активна',
@@ -69,6 +91,12 @@ export default function CategoriesPage() {
             icon={<EditOutlined />}
             onClick={() => handleEdit(record)}
           />
+          {record.imageUrl && (
+            <Button
+              icon={<EyeOutlined />}
+              onClick={() => handlePreview(record.imageUrl)}
+            />
+          )}
           <Button
             danger
             icon={<DeleteOutlined />}
@@ -185,7 +213,20 @@ export default function CategoriesPage() {
     fileList,
     maxCount: 1,
     accept: 'image/*',
-    listType: 'picture-card' as const,
+    listType: 'text' as const,
+    itemRender: (originNode: React.ReactNode, file: UploadFile) => {
+      return (
+        <div onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          if (file.url) {
+            handlePreview(file.url);
+          }
+        }}>
+          {originNode}
+        </div>
+      );
+    }
   };
 
   return (
@@ -216,7 +257,17 @@ export default function CategoriesPage() {
             label="Название"
             rules={[{ required: true, message: 'Пожалуйста, введите название' }]}
           >
-            <Input />
+            <Input onChange={(e) => {
+              const slug = e.target.value.toLowerCase().replace(/\s+/g, '-');
+              form.setFieldValue('slug', slug);
+            }} />
+          </Form.Item>
+          <Form.Item
+            name="slug"
+            label="Slug"
+            tooltip="URL-friendly версия названия"
+          >
+            <Input disabled />
           </Form.Item>
           <Form.Item
             name="description"
@@ -226,21 +277,68 @@ export default function CategoriesPage() {
             <Input.TextArea />
           </Form.Item>
           <Form.Item
+            name="isActive"
+            label="Активна"
+            valuePropName="checked"
+          >
+            <Switch />
+          </Form.Item>
+          <Form.Item
             name="imageUrl"
             label="Изображение"
-            rules={[{ required: true, message: 'Пожалуйста, загрузите изображение' }]}
           >
-            <Input />
+            <Space direction="vertical" style={{ width: '100%' }}>
+              <Upload {...uploadProps}>
+                {fileList.length === 0 && (
+                  <div>
+                    <PlusOutlined />
+                    <div style={{ marginTop: 8 }}>Загрузить</div>
+                  </div>
+                )}
+              </Upload>
+              {form.getFieldValue('imageUrl') && (
+                <div style={{ marginTop: 8 }}>
+                  <Image
+                    src={form.getFieldValue('imageUrl')}
+                    alt="Preview"
+                    width={100}
+                    height={100}
+                    style={{ objectFit: 'cover' }}
+                    preview={{
+                      mask: <EyeOutlined />,
+                      maskClassName: 'custom-image-mask',
+                    }}
+                  />
+                </div>
+              )}
+            </Space>
           </Form.Item>
-        </Form>
-        <Upload {...uploadProps}>
-          {fileList.length === 0 && (
-            <div>
-              <PlusOutlined />
-              <div style={{ marginTop: 8 }}>Загрузить</div>
-            </div>
+          {editingCategory && (
+            <>
+              <Form.Item
+                name="createdAt"
+                label="Дата создания"
+              >
+                <Input disabled />
+              </Form.Item>
+              <Form.Item
+                name="updatedAt"
+                label="Дата обновления"
+              >
+                <Input disabled />
+              </Form.Item>
+            </>
           )}
-        </Upload>
+        </Form>
+      </Modal>
+
+      <Modal
+        open={previewVisible}
+        footer={null}
+        onCancel={() => setPreviewVisible(false)}
+        width="80%"
+      >
+        <img alt="preview" style={{ width: '100%' }} src={previewImage} />
       </Modal>
     </div>
   );
