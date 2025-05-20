@@ -106,6 +106,7 @@ export default function ProductsPage() {
       title: 'Название',
       dataIndex: 'name',
       key: 'name',
+      sorter: (a: Product, b: Product) => a.name.localeCompare(b.name),
     },
     {
       title: 'Описание',
@@ -140,20 +141,30 @@ export default function ProductsPage() {
       title: 'Цена',
       dataIndex: 'price',
       key: 'price',
+      sorter: (a: Product, b: Product) => a.price - b.price,
       render: (price: number) => `₽${price}`,
     },
     {
       title: 'В наличии',
       dataIndex: 'stock',
       key: 'stock',
+      sorter: (a: Product, b: Product) => a.stock - b.stock,
     },
     {
       title: 'Активен',
       dataIndex: 'isActive',
       key: 'isActive',
+      sorter: (a: Product, b: Product) => Number(a.isActive) - Number(b.isActive),
       render: (isActive: boolean, record: Product) => (
         <Switch checked={isActive} onChange={checked => handleToggleActive(record, checked)} />
       ),
+    },
+    {
+      title: 'Дата создания',
+      dataIndex: 'createdAt',
+      key: 'createdAt',
+      sorter: (a: Product, b: Product) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
+      render: (date: string) => new Date(date).toLocaleString(),
     },
     {
       title: 'Действия',

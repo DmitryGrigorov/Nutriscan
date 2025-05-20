@@ -31,7 +31,7 @@ export default function PharmacyPage() {
   const { addToCart } = useCart();
   const searchParams = useSearchParams();
   const router = useRouter();
-  const [pageSize, setPageSize] = useState(12);
+  const [pageSize, setPageSize] = useState(8);
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {

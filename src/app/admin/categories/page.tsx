@@ -47,9 +47,17 @@ export default function CategoriesPage() {
   const [loading, setLoading] = useState(true);
   const [previewVisible, setPreviewVisible] = useState(false);
   const [previewImage, setPreviewImage] = useState('');
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     fetchCategories();
+  }, []);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 600);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
   }, []);
 
   const fetchCategories = async () => {
@@ -88,6 +96,7 @@ export default function CategoriesPage() {
       title: 'Название',
       dataIndex: 'name',
       key: 'name',
+      sorter: (a: Category, b: Category) => a.name.localeCompare(b.name),
     },
     {
       title: 'Описание',
@@ -113,9 +122,17 @@ export default function CategoriesPage() {
       title: 'Активна',
       dataIndex: 'isActive',
       key: 'isActive',
+      sorter: (a: Category, b: Category) => Number(a.isActive) - Number(b.isActive),
       render: (isActive: boolean, record: Category) => (
         <Switch checked={isActive} onChange={checked => handleToggleActive(record, checked)} />
       ),
+    },
+    {
+      title: 'Дата создания',
+      dataIndex: 'createdAt',
+      key: 'createdAt',
+      sorter: (a: Category, b: Category) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
+      render: (date: string) => new Date(date).toLocaleString(),
     },
     {
       title: 'Действия',
@@ -287,7 +304,9 @@ export default function CategoriesPage() {
         open={isModalVisible}
         onOk={handleModalOk}
         onCancel={() => setIsModalVisible(false)}
-        width={800}
+        width={isMobile ? '100vw' : 800}
+        style={isMobile ? { top: 0, padding: 0 } : {}}
+        bodyStyle={isMobile ? { padding: 16, minHeight: '100vh' } : {}}
       >
         <Form form={form} layout="vertical">
           <Form.Item
