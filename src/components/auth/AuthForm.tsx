@@ -30,7 +30,6 @@ export const AuthForm: React.FC<AuthFormProps> = ({ mode }) => {
       } else {
         await login(values.email, values.password);
       }
-      router.push('/dashboard');
     } catch (error) {
       // Ошибка уже обработана в контексте
     }

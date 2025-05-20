@@ -21,6 +21,15 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onComplete, mode = 'cr
   const [profile, setProfile] = useState<UserProfile | null>(null);
 
   useEffect(() => {
+    if (user) {
+      form.setFieldsValue({
+        email: user.email,
+        name: user.name,
+      });
+    }
+  }, [user]);
+
+  useEffect(() => {
     if (mode === 'edit' && user) {
       loadProfile();
     }
@@ -63,6 +72,8 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onComplete, mode = 'cr
       setLoading(false);
     }
   };
+
+  console.log('user', user);
 
   return (
     <Card style={{ maxWidth: 600, margin: '0 auto' }}>
