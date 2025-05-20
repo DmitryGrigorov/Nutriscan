@@ -73,6 +73,16 @@ export default function CategoriesPage() {
     setPreviewVisible(true);
   };
 
+  const handleToggleActive = async (record: Category, checked: boolean) => {
+    try {
+      await databases.updateDocument(DATABASE_ID, COLLECTION_ID, record.$id, { isActive: checked });
+      setCategories(prev => prev.map(cat => cat.$id === record.$id ? { ...cat, isActive: checked } : cat));
+      message.success('Статус активности обновлён');
+    } catch (error) {
+      message.error('Ошибка при обновлении статуса');
+    }
+  };
+
   const columns = [
     {
       title: 'Название',
@@ -103,7 +113,9 @@ export default function CategoriesPage() {
       title: 'Активна',
       dataIndex: 'isActive',
       key: 'isActive',
-      render: (isActive: boolean) => isActive ? 'Да' : 'Нет',
+      render: (isActive: boolean, record: Category) => (
+        <Switch checked={isActive} onChange={checked => handleToggleActive(record, checked)} />
+      ),
     },
     {
       title: 'Действия',
@@ -254,6 +266,9 @@ export default function CategoriesPage() {
 
   return (
     <div>
+      <div style={{ marginBottom: 16 }}>
+        <b>Всего категорий: {categories.length}</b>
+      </div>
       <div style={{ marginBottom: 16 }}>
         <Button type="primary" icon={<PlusOutlined />} onClick={handleAdd}>
           Добавить категорию

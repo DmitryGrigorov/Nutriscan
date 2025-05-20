@@ -90,6 +90,7 @@ export default function ProductDetailPage() {
                   src={product.imageUrl}
                   alt={product.name}
                   fill
+                  sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 300px"
                   style={{ objectFit: 'cover', borderRadius: 8 }}
                 />
               </div>
@@ -97,9 +98,29 @@ export default function ProductDetailPage() {
           </Col>
           <Col xs={24} md={14}>
             <Title level={2}>{product.name}</Title>
+            <div style={{ margin: '16px 0' }}>
+              {product.oldPrice && (
+                <span style={{
+                  color: '#b0b0b0',
+                  textDecoration: 'line-through',
+                  fontSize: 18,
+                  marginRight: 12,
+                  fontWeight: 400,
+                }}>
+                  {product.oldPrice} <span style={{ fontSize: 15 }}>₽</span>
+                </span>
+              )}
+              <span style={{
+                color: '#222',
+                fontWeight: 700,
+                fontSize: 28,
+                letterSpacing: '-1px',
+              }}>
+                {product.price} <span style={{ fontSize: 20, fontWeight: 500 }}>₽</span>
+              </span>
+            </div>
             <div style={{ marginBottom: 16 }}>
               {category && <Tag color="blue">{category.name}</Tag>}
-              <Tag color="green">{product.price} ₽</Tag>
               <Tag color={product.stock > 0 ? 'green' : 'red'}>
                 {product.stock > 0 ? `В наличии: ${product.stock}` : 'Нет в наличии'}
               </Tag>

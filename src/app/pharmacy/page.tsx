@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Card, Typography, Input, Select, Space, Spin, Empty, Tag, Button, message } from 'antd';
+import { Row, Col, Card, Typography, Input, Select, Space, Spin, Empty, Tag, Button, message, Pagination } from 'antd';
 import { SearchOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 import { Product } from '@/types/product';
 import { Category } from '@/types/category';
@@ -20,6 +20,8 @@ const PRODUCTS_COLLECTION_ID = process.env.NEXT_PUBLIC_APPWRITE_PRODUCTS_COLLECT
 const CATEGORIES_COLLECTION_ID = process.env.NEXT_PUBLIC_APPWRITE_CATEGORIES_COLLECTION_ID || '';
 const DATABASE_ID = process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID || '';
 
+const pageSizeOptions = [8, 12, 16, 20, 24, 32, 50, 100];
+
 export default function PharmacyPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
@@ -29,6 +31,8 @@ export default function PharmacyPage() {
   const { addToCart } = useCart();
   const searchParams = useSearchParams();
   const router = useRouter();
+  const [pageSize, setPageSize] = useState(12);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     fetchProducts();
@@ -103,31 +107,49 @@ export default function PharmacyPage() {
     return matchesSearch && matchesCategory;
   });
 
+  const paginatedProducts = filteredProducts.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+
   return (
     <div style={{ padding: '24px' }}>
       <Title level={2}>Аптека</Title>
       
-      <Space direction="vertical" size="large" style={{ width: '100%', marginBottom: '24px' }}>
-        <Input
-          placeholder="Поиск товаров..."
-          prefix={<SearchOutlined />}
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          style={{ maxWidth: '300px' }}
-        />
-        
-        <Select
-          value={selectedCategory}
-          style={{ width: 200 }}
-          onChange={handleCategoryChange}
-        >
-          <Option value="all">Все категории</Option>
-          {categories.map(category => (
-            <Option key={category.$id} value={category.$id}>
-              {category.name}
-            </Option>
-          ))}
-        </Select>
+      <Space direction="horizontal" size="large" style={{ width: '100%', marginBottom: '24px', justifyContent: 'space-between' }}>
+        <Space>
+          <Input
+            placeholder="Поиск товаров..."
+            prefix={<SearchOutlined />}
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            style={{ maxWidth: '300px' }}
+          />
+          <Select
+            value={selectedCategory}
+            style={{ width: 200 }}
+            onChange={handleCategoryChange}
+          >
+            <Option value="all">Все категории</Option>
+            {categories.map(category => (
+              <Option key={category.$id} value={category.$id}>
+                {category.name}
+              </Option>
+            ))}
+          </Select>
+        </Space>
+        <Space>
+          <span>Товаров на страницу:</span>
+          <Select
+            value={pageSize}
+            style={{ width: 80 }}
+            onChange={value => {
+              setPageSize(value);
+              setCurrentPage(1);
+            }}
+          >
+            {pageSizeOptions.map(size => (
+              <Option key={size} value={size}>{size}</Option>
+            ))}
+          </Select>
+        </Space>
       </Space>
 
       {loading ? (
@@ -137,68 +159,84 @@ export default function PharmacyPage() {
       ) : filteredProducts.length === 0 ? (
         <Empty description="Товары не найдены" />
       ) : (
-        <Row gutter={[16, 16]}>
-          {filteredProducts.map(product => {
-            const category = categories.find(cat => cat.$id === product.categoryId);
-            return (
-              <Col xs={24} sm={12} md={8} lg={6} key={product.$id}>
-                <Card
-                  hoverable
-                  cover={
-                    product.imageUrl ? (
-                      <div style={{ position: 'relative', height: '200px' }}>
-                        <Image
-                          src={product.imageUrl}
-                          alt={product.name}
-                          fill
-                          style={{ objectFit: 'cover' }}
-                        />
-                      </div>
-                    ) : null
-                  }
-                  actions={[
-                    <Button
-                      type="primary"
-                      icon={<ShoppingCartOutlined />}
-                      disabled={product.stock === 0}
-                      onClick={() => {
-                        if (product.stock > 0) {
-                          addToCart({
-                            id: product.$id,
-                            name: product.name,
-                            price: product.price,
-                            image: product.imageUrl || '',
-                          });
-                          message.success('Товар добавлен в корзину');
-                        } else {
-                          message.error('Товар отсутствует в наличии');
-                        }
-                      }}
+        <>
+          <Row gutter={[16, 16]}>
+            {paginatedProducts.map(product => {
+              const category = categories.find(cat => cat.$id === product.categoryId);
+              return (
+                <Col xs={24} sm={12} md={8} lg={6} key={product.$id}>
+                  <Link href={`/pharmacy/product/${product.slug}`} style={{ textDecoration: 'none' }}>
+                    <Card
+                      hoverable
+                      cover={
+                        product.imageUrl ? (
+                          <div style={{ position: 'relative', height: '200px' }}>
+                            <Image
+                              src={product.imageUrl}
+                              alt={product.name}
+                              fill
+                              sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                              style={{ objectFit: 'cover' }}
+                            />
+                          </div>
+                        ) : null
+                      }
+                      actions={[
+                        <Button
+                          type="primary"
+                          icon={<ShoppingCartOutlined />}
+                          disabled={product.stock === 0}
+                          onClick={e => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            if (product.stock > 0) {
+                              addToCart({
+                                id: product.$id,
+                                name: product.name,
+                                price: product.price,
+                                image: product.imageUrl || '',
+                              });
+                              message.success('Товар добавлен в корзину');
+                            } else {
+                              message.error('Товар отсутствует в наличии');
+                            }
+                          }}
+                        >
+                          {product.stock > 0 ? 'В корзину' : 'Нет в наличии'}
+                        </Button>
+                      ]}
                     >
-                      {product.stock > 0 ? 'В корзину' : 'Нет в наличии'}
-                    </Button>
-                  ]}
-                >
-                  <Card.Meta
-                    title={product.name}
-                    description={
-                      <>
-                        <div>{product.description}</div>
-                        <div style={{ marginTop: 8 }}>
-                          {category && <Tag color="blue">{category.name}</Tag>}
-                          <Tag color="green">{product.price} ₽</Tag>
-                          <Tag color={product.stock > 0 ? 'green' : 'red'}>
-                            {product.stock > 0 ? `В наличии: ${product.stock}` : 'Нет в наличии'}
-                          </Tag>
-                        </div>
-                      </>
-                    }
-                  />
-                </Card>
-              </Col>
-            );
-          })}
-        </Row>
+                      <Card.Meta
+                        title={product.name}
+                        description={
+                          <>
+                            <div>{product.description}</div>
+                            <div style={{ marginTop: 8 }}>
+                              {category && <Tag color="blue">{category.name}</Tag>}
+                              <Tag color="green">{product.price} ₽</Tag>
+                              <Tag color={product.stock > 0 ? 'green' : 'red'}>
+                                {product.stock > 0 ? `В наличии: ${product.stock}` : 'Нет в наличии'}
+                              </Tag>
+                            </div>
+                          </>
+                        }
+                      />
+                    </Card>
+                  </Link>
+                </Col>
+              );
+            })}
+          </Row>
+          <div style={{ textAlign: 'center', marginTop: 32 }}>
+            <Pagination
+              current={currentPage}
+              pageSize={pageSize}
+              total={filteredProducts.length}
+              onChange={setCurrentPage}
+              showSizeChanger={false}
+            />
+          </div>
+        </>
       )}
     </div>
   );

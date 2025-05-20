@@ -91,6 +91,16 @@ export default function ProductsPage() {
     setPreviewVisible(true);
   };
 
+  const handleToggleActive = async (record: Product, checked: boolean) => {
+    try {
+      await databases.updateDocument(DATABASE_ID, COLLECTION_ID, record.$id, { isActive: checked });
+      setProducts(prev => prev.map(prod => prod.$id === record.$id ? { ...prod, isActive: checked } : prod));
+      message.success('Статус активности обновлён');
+    } catch (error) {
+      message.error('Ошибка при обновлении статуса');
+    }
+  };
+
   const columns = [
     {
       title: 'Название',
@@ -141,7 +151,9 @@ export default function ProductsPage() {
       title: 'Активен',
       dataIndex: 'isActive',
       key: 'isActive',
-      render: (isActive: boolean) => isActive ? 'Да' : 'Нет',
+      render: (isActive: boolean, record: Product) => (
+        <Switch checked={isActive} onChange={checked => handleToggleActive(record, checked)} />
+      ),
     },
     {
       title: 'Действия',
@@ -292,6 +304,9 @@ export default function ProductsPage() {
 
   return (
     <div>
+      <div style={{ marginBottom: 16 }}>
+        <b>Всего товаров: {products.length}</b>
+      </div>
       <div style={{ marginBottom: 16 }}>
         <Button type="primary" icon={<PlusOutlined />} onClick={handleAdd}>
           Добавить товар
