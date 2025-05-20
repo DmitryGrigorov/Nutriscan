@@ -15,6 +15,16 @@ const nextConfig = {
     }
     return config;
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'appwrite-todonotes.ru',
+        port: '',
+        pathname: '/v1/storage/buckets/**',
+      },
+    ],
+  },
 };
 
 module.exports = nextConfig;

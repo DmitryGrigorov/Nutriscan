@@ -2,9 +2,9 @@
 
 import React, { useState, useEffect } from 'react';
 import { Table, Button, Space, Modal, Form, Input, InputNumber, Select, message, Upload, Switch, Image } from 'antd';
-import { EditOutlined, DeleteOutlined, PlusOutlined, UploadOutlined, EyeOutlined } from '@ant-design/icons';
+import { EditOutlined, DeleteOutlined, PlusOutlined, UploadOutlined, EyeOutlined, InboxOutlined } from '@ant-design/icons';
 import { Product } from '@/types/product';
-import { categories } from '@/data/products';
+import { Category } from '@/types/category';
 import { ID, Storage, Databases, Query } from 'appwrite';
 import { client } from '@/lib/appwrite';
 import type { UploadFile } from 'antd/es/upload/interface';
@@ -13,10 +13,35 @@ const storage = new Storage(client);
 const databases = new Databases(client);
 const BUCKET_ID = process.env.NEXT_PUBLIC_APPWRITE_BUCKET_IMAGES || '';
 const COLLECTION_ID = process.env.NEXT_PUBLIC_APPWRITE_PRODUCTS_COLLECTION_ID || '';
+const CATEGORIES_COLLECTION_ID = process.env.NEXT_PUBLIC_APPWRITE_CATEGORIES_COLLECTION_ID || '';
 const DATABASE_ID = process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID || '';
+
+const transliterate = (text: string): string => {
+  const translitMap: { [key: string]: string } = {
+    'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e', 'ё': 'e',
+    'ж': 'zh', 'з': 'z', 'и': 'i', 'й': 'y', 'к': 'k', 'л': 'l', 'м': 'm',
+    'н': 'n', 'о': 'o', 'п': 'p', 'р': 'r', 'с': 's', 'т': 't', 'у': 'u',
+    'ф': 'f', 'х': 'h', 'ц': 'ts', 'ч': 'ch', 'ш': 'sh', 'щ': 'sch', 'ъ': '',
+    'ы': 'y', 'ь': '', 'э': 'e', 'ю': 'yu', 'я': 'ya',
+    'А': 'A', 'Б': 'B', 'В': 'V', 'Г': 'G', 'Д': 'D', 'Е': 'E', 'Ё': 'E',
+    'Ж': 'Zh', 'З': 'Z', 'И': 'I', 'Й': 'Y', 'К': 'K', 'Л': 'L', 'М': 'M',
+    'Н': 'N', 'О': 'O', 'П': 'P', 'Р': 'R', 'С': 'S', 'Т': 'T', 'У': 'U',
+    'Ф': 'F', 'Х': 'H', 'Ц': 'Ts', 'Ч': 'Ch', 'Ш': 'Sh', 'Щ': 'Sch', 'Ъ': '',
+    'Ы': 'Y', 'Ь': '', 'Э': 'E', 'Ю': 'Yu', 'Я': 'Ya'
+  };
+
+  return text
+    .split('')
+    .map(char => translitMap[char] || char)
+    .join('')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+};
 
 export default function ProductsPage() {
   const [products, setProducts] = useState<Product[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
   const [form] = Form.useForm();
@@ -28,6 +53,7 @@ export default function ProductsPage() {
 
   useEffect(() => {
     fetchProducts();
+    fetchCategories();
   }, []);
 
   const fetchProducts = async () => {
@@ -43,6 +69,20 @@ export default function ProductsPage() {
       console.error('Fetch error:', error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const fetchCategories = async () => {
+    try {
+      const response = await databases.listDocuments(
+        DATABASE_ID,
+        CATEGORIES_COLLECTION_ID,
+        [Query.orderDesc('$createdAt')]
+      );
+      setCategories(response.documents as Category[]);
+    } catch (error) {
+      message.error('Ошибка при загрузке категорий');
+      console.error('Fetch categories error:', error);
     }
   };
 
@@ -81,6 +121,10 @@ export default function ProductsPage() {
       title: 'Категория',
       dataIndex: 'categoryId',
       key: 'categoryId',
+      render: (categoryId: string) => {
+        const category = categories.find(cat => cat.$id === categoryId);
+        return category ? category.name : categoryId;
+      }
     },
     {
       title: 'Цена',
@@ -179,7 +223,7 @@ export default function ProductsPage() {
           ID.unique(),
           {
             ...values,
-            slug: values.name.toLowerCase().replace(/\s+/g, '-'),
+            slug: transliterate(values.name),
             isActive: false,
             createdAt: now,
             updatedAt: now,
@@ -275,7 +319,7 @@ export default function ProductsPage() {
             rules={[{ required: true, message: 'Пожалуйста, введите название' }]}
           >
             <Input onChange={(e) => {
-              const slug = e.target.value.toLowerCase().replace(/\s+/g, '-');
+              const slug = transliterate(e.target.value);
               form.setFieldValue('slug', slug);
             }} />
           </Form.Item>
@@ -299,9 +343,9 @@ export default function ProductsPage() {
             rules={[{ required: true, message: 'Пожалуйста, выберите категорию' }]}
           >
             <Select>
-              {categories.filter(cat => cat !== 'Все').map(category => (
-                <Select.Option key={category} value={category}>
-                  {category}
+              {categories.map(category => (
+                <Select.Option key={category.$id} value={category.$id}>
+                  {category.name}
                 </Select.Option>
               ))}
             </Select>
@@ -339,14 +383,15 @@ export default function ProductsPage() {
             label="Изображение"
           >
             <Space direction="vertical" style={{ width: '100%' }}>
-              <Upload {...uploadProps}>
-                {fileList.length === 0 && (
-                  <div>
-                    <PlusOutlined />
-                    <div style={{ marginTop: 8 }}>Загрузить</div>
-                  </div>
-                )}
-              </Upload>
+              <Upload.Dragger {...uploadProps}>
+                <p className="ant-upload-drag-icon">
+                  <InboxOutlined />
+                </p>
+                <p className="ant-upload-text">Нажмите или перетащите файл в эту область для загрузки</p>
+                <p className="ant-upload-hint">
+                  Поддерживаются только изображения
+                </p>
+              </Upload.Dragger>
               {form.getFieldValue('imageUrl') && (
                 <div style={{ marginTop: 8 }}>
                   <Image

@@ -1,149 +1,204 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Card, Row, Col, Input, Select, Typography, Tag, Space, Button, Pagination, message } from 'antd';
+import { Row, Col, Card, Typography, Input, Select, Space, Spin, Empty, Tag, Button, message } from 'antd';
 import { SearchOutlined, ShoppingCartOutlined } from '@ant-design/icons';
-import { useSearchParams, useRouter } from 'next/navigation';
+import { Product } from '@/types/product';
+import { Category } from '@/types/category';
+import { Databases, Query } from 'appwrite';
+import { client } from '@/lib/appwrite';
+import Link from 'next/link';
+import Image from 'next/image';
 import { useCart } from '@/contexts/CartContext';
-import { Product, initialProducts, categories } from '@/data/products';
+import { useSearchParams, useRouter } from 'next/navigation';
 
-const { Title, Paragraph } = Typography;
+const { Title } = Typography;
 const { Option } = Select;
 
+const databases = new Databases(client);
+const PRODUCTS_COLLECTION_ID = process.env.NEXT_PUBLIC_APPWRITE_PRODUCTS_COLLECTION_ID || '';
+const CATEGORIES_COLLECTION_ID = process.env.NEXT_PUBLIC_APPWRITE_CATEGORIES_COLLECTION_ID || '';
+const DATABASE_ID = process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID || '';
+
 export default function PharmacyPage() {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const { addToCart } = useCart();
   const searchParams = useSearchParams();
   const router = useRouter();
-  const { cart, addToCart } = useCart();
-  const [searchText, setSearchText] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('Все');
-  const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 8;
 
-  // Get category from URL parameters
   useEffect(() => {
-    const categoryParam = searchParams.get('category');
-    if (categoryParam && categories.includes(categoryParam)) {
-      setSelectedCategory(categoryParam);
-    }
-  }, [searchParams]);
+    fetchProducts();
+    fetchCategories();
+  }, []);
 
-  // Update URL when category changes
+  useEffect(() => {
+    if (categories.length === 0) return;
+    const categorySlug = searchParams.get('category');
+    if (categorySlug) {
+      const found = categories.find(cat => cat.slug === categorySlug);
+      if (found) {
+        setSelectedCategory(found.$id);
+      } else {
+        setSelectedCategory('all');
+      }
+    } else {
+      setSelectedCategory('all');
+    }
+  }, [categories, searchParams]);
+
   const handleCategoryChange = (value: string) => {
     setSelectedCategory(value);
-    if (value === 'Все') {
+    if (value === 'all') {
       router.push('/pharmacy');
     } else {
-      router.push(`/pharmacy?category=${encodeURIComponent(value)}`);
+      const cat = categories.find(c => c.$id === value);
+      if (cat) {
+        router.push(`/pharmacy?category=${encodeURIComponent(cat.slug)}`);
+      }
     }
   };
 
-  // Filter products based on search text and category
-  const filteredProducts = initialProducts.filter(product => {
-    const matchesSearch = product.name.toLowerCase().includes(searchText.toLowerCase()) ||
-                         product.description.toLowerCase().includes(searchText.toLowerCase());
-    const matchesCategory = selectedCategory === 'Все' || product.category === selectedCategory;
+  const fetchProducts = async () => {
+    try {
+      const response = await databases.listDocuments(
+        DATABASE_ID,
+        PRODUCTS_COLLECTION_ID,
+        [
+          Query.equal('isActive', true),
+          Query.orderDesc('$createdAt')
+        ]
+      );
+      setProducts(response.documents as Product[]);
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchCategories = async () => {
+    try {
+      const response = await databases.listDocuments(
+        DATABASE_ID,
+        CATEGORIES_COLLECTION_ID,
+        [
+          Query.equal('isActive', true),
+          Query.orderDesc('$createdAt')
+        ]
+      );
+      setCategories(response.documents as Category[]);
+    } catch (error) {
+      console.error('Error fetching categories:', error);
+    }
+  };
+
+  const filteredProducts = products.filter(product => {
+    const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         product.description.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory = selectedCategory === 'all' || product.categoryId === selectedCategory;
     return matchesSearch && matchesCategory;
   });
-
-  // Calculate pagination
-  const totalPages = Math.ceil(filteredProducts.length / pageSize);
-  const paginatedProducts = filteredProducts.slice(
-    (currentPage - 1) * pageSize,
-    currentPage * pageSize
-  );
-
-  // Handle add to cart
-  const handleAddToCart = (product: Product) => {
-    if (product.stock > 0) {
-      addToCart({
-        id: product.id.toString(),
-        name: product.name,
-        price: product.price,
-        image: product.image
-      });
-      message.success('Товар добавлен в корзину');
-    } else {
-      message.error('Товар отсутствует в наличии');
-    }
-  };
 
   return (
     <div style={{ padding: '24px' }}>
       <Title level={2}>Аптека</Title>
-      <Paragraph>Найдите необходимые вам витамины и добавки</Paragraph>
       
-      <Space style={{ marginBottom: 16, width: '100%', justifyContent: 'space-between' }}>
+      <Space direction="vertical" size="large" style={{ width: '100%', marginBottom: '24px' }}>
         <Input
-          placeholder="Поиск продуктов..."
+          placeholder="Поиск товаров..."
           prefix={<SearchOutlined />}
-          value={searchText}
-          onChange={e => setSearchText(e.target.value)}
-          style={{ width: 300 }}
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          style={{ maxWidth: '300px' }}
         />
+        
         <Select
           value={selectedCategory}
           style={{ width: 200 }}
           onChange={handleCategoryChange}
         >
+          <Option value="all">Все категории</Option>
           {categories.map(category => (
-            <Option key={category} value={category}>{category}</Option>
+            <Option key={category.$id} value={category.$id}>
+              {category.name}
+            </Option>
           ))}
         </Select>
       </Space>
 
-      <Row gutter={[16, 16]}>
-        {paginatedProducts.map(product => (
-          <Col xs={24} sm={12} md={8} lg={6} key={product.id}>
-            <Card
-              hoverable
-              cover={<img alt={product.name} src={product.image} style={{ height: 150, objectFit: 'cover' }} />}
-              actions={[
-                <Button 
-                  type="primary" 
-                  icon={<ShoppingCartOutlined />}
-                  onClick={() => handleAddToCart(product)}
-                  disabled={product.stock === 0}
+      {loading ? (
+        <div style={{ textAlign: 'center', padding: '50px' }}>
+          <Spin size="large" />
+        </div>
+      ) : filteredProducts.length === 0 ? (
+        <Empty description="Товары не найдены" />
+      ) : (
+        <Row gutter={[16, 16]}>
+          {filteredProducts.map(product => {
+            const category = categories.find(cat => cat.$id === product.categoryId);
+            return (
+              <Col xs={24} sm={12} md={8} lg={6} key={product.$id}>
+                <Card
+                  hoverable
+                  cover={
+                    product.imageUrl ? (
+                      <div style={{ position: 'relative', height: '200px' }}>
+                        <Image
+                          src={product.imageUrl}
+                          alt={product.name}
+                          fill
+                          style={{ objectFit: 'cover' }}
+                        />
+                      </div>
+                    ) : null
+                  }
+                  actions={[
+                    <Button
+                      type="primary"
+                      icon={<ShoppingCartOutlined />}
+                      disabled={product.stock === 0}
+                      onClick={() => {
+                        if (product.stock > 0) {
+                          addToCart({
+                            id: product.$id,
+                            name: product.name,
+                            price: product.price,
+                            image: product.imageUrl || '',
+                          });
+                          message.success('Товар добавлен в корзину');
+                        } else {
+                          message.error('Товар отсутствует в наличии');
+                        }
+                      }}
+                    >
+                      {product.stock > 0 ? 'В корзину' : 'Нет в наличии'}
+                    </Button>
+                  ]}
                 >
-                  {product.stock > 0 ? 'В корзину' : 'Нет в наличии'}
-                </Button>
-              ]}
-            >
-              <Card.Meta
-                title={product.name}
-                description={
-                  <>
-                    <div>{product.description}</div>
-                    <div style={{ marginTop: 8 }}>
-                      <Tag color="blue">{product.category}</Tag>
-                      <Tag color="green">{product.price} ₽</Tag>
-                      <Tag color={product.stock > 0 ? 'green' : 'red'}>
-                        {product.stock > 0 ? `В наличии: ${product.stock}` : 'Нет в наличии'}
-                      </Tag>
-                    </div>
-                  </>
-                }
-              />
-            </Card>
-          </Col>
-        ))}
-      </Row>
-
-      {filteredProducts.length === 0 && (
-        <div style={{ textAlign: 'center', padding: '40px 0' }}>
-          <Title level={4}>Товары не найдены</Title>
-          <Paragraph>Попробуйте изменить параметры поиска</Paragraph>
-        </div>
-      )}
-
-      {totalPages > 1 && (
-        <div style={{ textAlign: 'center', marginTop: 24 }}>
-          <Pagination
-            current={currentPage}
-            total={filteredProducts.length}
-            pageSize={pageSize}
-            onChange={page => setCurrentPage(page)}
-          />
-        </div>
+                  <Card.Meta
+                    title={product.name}
+                    description={
+                      <>
+                        <div>{product.description}</div>
+                        <div style={{ marginTop: 8 }}>
+                          {category && <Tag color="blue">{category.name}</Tag>}
+                          <Tag color="green">{product.price} ₽</Tag>
+                          <Tag color={product.stock > 0 ? 'green' : 'red'}>
+                            {product.stock > 0 ? `В наличии: ${product.stock}` : 'Нет в наличии'}
+                          </Tag>
+                        </div>
+                      </>
+                    }
+                  />
+                </Card>
+              </Col>
+            );
+          })}
+        </Row>
       )}
     </div>
   );
