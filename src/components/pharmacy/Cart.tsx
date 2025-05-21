@@ -1,27 +1,27 @@
 'use client';
 
 import React, { useState } from 'react';
-import { 
-  Drawer, 
-  List, 
-  Button, 
-  InputNumber, 
-  Typography, 
-  Divider, 
-  Space, 
-  Empty, 
+import {
+  Drawer,
+  List,
+  Button,
+  InputNumber,
+  Typography,
+  Divider,
+  Space,
+  Empty,
   message,
   Modal,
   Form,
   Input,
-  Select
+  Select,
 } from 'antd';
-import { 
-  ShoppingCartOutlined, 
-  DeleteOutlined, 
-  MinusOutlined, 
+import {
+  ShoppingCartOutlined,
+  DeleteOutlined,
+  MinusOutlined,
   PlusOutlined,
-  CreditCardOutlined
+  CreditCardOutlined,
 } from '@ant-design/icons';
 import { useCart, CartItem } from '@/contexts/CartContext';
 import { useRouter } from 'next/navigation';
@@ -59,18 +59,18 @@ export const Cart: React.FC<CartProps> = ({ visible, onClose }) => {
   const handleCheckoutSubmit = async (values: CheckoutFormValues) => {
     // Mock payment processing
     message.loading({ content: 'Обработка заказа...', key: 'checkout' });
-    
+
     // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+
     // Clear cart and show success message
     clearCart();
     message.success({ content: 'Заказ успешно оформлен!', key: 'checkout' });
-    
+
     // Close modals and redirect to order confirmation
     setCheckoutModalVisible(false);
     onClose();
-    
+
     // In a real app, you would redirect to an order confirmation page
     // router.push('/orders/confirmation');
   };
@@ -87,11 +87,7 @@ export const Cart: React.FC<CartProps> = ({ visible, onClose }) => {
           <div style={{ textAlign: 'right' }}>
             <Space>
               <Button onClick={onClose}>Продолжить покупки</Button>
-              <Button 
-                type="primary" 
-                onClick={handleCheckout}
-                disabled={items.length === 0}
-              >
+              <Button type="primary" onClick={handleCheckout} disabled={items.length === 0}>
                 Оформить заказ
               </Button>
             </Space>
@@ -111,16 +107,22 @@ export const Cart: React.FC<CartProps> = ({ visible, onClose }) => {
               renderItem={(item: CartItem) => (
                 <List.Item
                   actions={[
-                    <Button 
-                      type="text" 
-                      danger 
-                      icon={<DeleteOutlined />} 
+                    <Button
+                      type="text"
+                      danger
+                      icon={<DeleteOutlined />}
                       onClick={() => removeItem(item.id)}
-                    />
+                    />,
                   ]}
                 >
                   <List.Item.Meta
-                    avatar={<img src={item.image} alt={item.name} style={{ width: 50, height: 50, objectFit: 'cover' }} />}
+                    avatar={
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        style={{ width: 50, height: 50, objectFit: 'cover' }}
+                      />
+                    }
                     title={item.name}
                     description={
                       <Space direction="vertical" size={0}>
@@ -131,20 +133,20 @@ export const Cart: React.FC<CartProps> = ({ visible, onClose }) => {
                   />
                   <div>
                     <Space>
-                      <Button 
-                        size="small" 
-                        icon={<MinusOutlined />} 
+                      <Button
+                        size="small"
+                        icon={<MinusOutlined />}
                         onClick={() => updateQuantity(item.id, item.quantity - 1)}
                       />
-                      <InputNumber 
-                        min={1} 
-                        value={item.quantity} 
+                      <InputNumber
+                        min={1}
+                        value={item.quantity}
                         onChange={(value) => updateQuantity(item.id, value || 1)}
                         style={{ width: 50 }}
                       />
-                      <Button 
-                        size="small" 
-                        icon={<PlusOutlined />} 
+                      <Button
+                        size="small"
+                        icon={<PlusOutlined />}
                         onClick={() => updateQuantity(item.id, item.quantity + 1)}
                       />
                     </Space>
@@ -152,29 +154,26 @@ export const Cart: React.FC<CartProps> = ({ visible, onClose }) => {
                 </List.Item>
               )}
             />
-            
+
             <Divider />
-            
+
             <div style={{ marginBottom: 16 }}>
               <Space style={{ width: '100%', justifyContent: 'space-between' }}>
                 <Text>Товаров:</Text>
                 <Text strong>{totalItems}</Text>
               </Space>
             </div>
-            
+
             <div style={{ marginBottom: 16 }}>
               <Space style={{ width: '100%', justifyContent: 'space-between' }}>
                 <Text>Итого:</Text>
-                <Text strong style={{ fontSize: 18 }}>{totalPrice} ₽</Text>
+                <Text strong style={{ fontSize: 18 }}>
+                  {totalPrice} ₽
+                </Text>
               </Space>
             </div>
-            
-            <Button 
-              type="primary" 
-              block 
-              icon={<CreditCardOutlined />}
-              onClick={handleCheckout}
-            >
+
+            <Button type="primary" block icon={<CreditCardOutlined />} onClick={handleCheckout}>
               Оформить заказ
             </Button>
           </>
@@ -200,18 +199,18 @@ export const Cart: React.FC<CartProps> = ({ visible, onClose }) => {
           >
             <Input />
           </Form.Item>
-          
+
           <Form.Item
             name="email"
             label="Email"
             rules={[
               { required: true, message: 'Пожалуйста, введите ваш email' },
-              { type: 'email', message: 'Пожалуйста, введите корректный email' }
+              { type: 'email', message: 'Пожалуйста, введите корректный email' },
             ]}
           >
             <Input />
           </Form.Item>
-          
+
           <Form.Item
             name="phone"
             label="Телефон"
@@ -219,7 +218,7 @@ export const Cart: React.FC<CartProps> = ({ visible, onClose }) => {
           >
             <Input />
           </Form.Item>
-          
+
           <Form.Item
             name="address"
             label="Адрес доставки"
@@ -227,7 +226,7 @@ export const Cart: React.FC<CartProps> = ({ visible, onClose }) => {
           >
             <Input.TextArea rows={3} />
           </Form.Item>
-          
+
           <Form.Item
             name="paymentMethod"
             label="Способ оплаты"
@@ -238,16 +237,18 @@ export const Cart: React.FC<CartProps> = ({ visible, onClose }) => {
               <Option value="cash">Наличные при получении</Option>
             </Select>
           </Form.Item>
-          
+
           <Divider />
-          
+
           <div style={{ marginBottom: 16 }}>
             <Space style={{ width: '100%', justifyContent: 'space-between' }}>
               <Text>Итого к оплате:</Text>
-              <Text strong style={{ fontSize: 18 }}>{totalPrice} ₽</Text>
+              <Text strong style={{ fontSize: 18 }}>
+                {totalPrice} ₽
+              </Text>
             </Space>
           </div>
-          
+
           <Form.Item>
             <Button type="primary" htmlType="submit" block>
               Подтвердить заказ
@@ -257,4 +258,4 @@ export const Cart: React.FC<CartProps> = ({ visible, onClose }) => {
       </Modal>
     </>
   );
-}; 
+};

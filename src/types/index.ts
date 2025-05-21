@@ -7,7 +7,7 @@ export interface User {
 }
 
 export interface SurveyData {
-  $id?: string;
+  $id: string;
   userId: string;
   age: number;
   gender: 'male' | 'female';
@@ -35,6 +35,10 @@ export interface UserProfile {
 }
 
 export interface SurveyFormData {
+  age: number;
+  gender: 'male' | 'female';
+  goal: 'weight-loss' | 'muscle-gain' | 'maintenance';
+  activityLevel: 'sedentary' | 'moderate' | 'active' | 'very-active';
   education: 'higher' | 'secondary';
   location: string;
   lifestyle: {

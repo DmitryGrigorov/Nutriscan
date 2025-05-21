@@ -87,8 +87,8 @@ export default function RecommendationsPage() {
                       {recommendation.priority === 'high'
                         ? 'Высокий приоритет'
                         : recommendation.priority === 'medium'
-                        ? 'Средний приоритет'
-                        : 'Низкий приоритет'}
+                          ? 'Средний приоритет'
+                          : 'Низкий приоритет'}
                     </Tag>
                     <Tag>{getCategoryLabel(recommendation.category)}</Tag>
                   </Space>
@@ -101,4 +101,4 @@ export default function RecommendationsPage() {
       />
     </BasePage>
   );
-} 
+}

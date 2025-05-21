@@ -1,7 +1,19 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Upload, Button, message, List, Image, Space, Modal, Card, Row, Col, Typography, Input } from 'antd';
+import {
+  Upload,
+  Button,
+  message,
+  Image,
+  Space,
+  Modal,
+  Card,
+  Row,
+  Col,
+  Typography,
+  Input,
+} from 'antd';
 import { UploadOutlined, DeleteOutlined, EyeOutlined, CopyOutlined } from '@ant-design/icons';
 import { ID, Storage, Models } from 'appwrite';
 import { client } from '@/lib/appwrite';
@@ -39,11 +51,7 @@ export default function ImagesPage() {
 
     try {
       const uploadPromises = fileList.map(async (file) => {
-        const response = await storage.createFile(
-          BUCKET_ID,
-          ID.unique(),
-          file
-        );
+        const response = await storage.createFile(BUCKET_ID, ID.unique(), file);
         return response;
       });
 
@@ -81,11 +89,14 @@ export default function ImagesPage() {
 
   const handleCopyUrl = (fileId: string) => {
     const fileUrl = storage.getFileView(BUCKET_ID, fileId).toString();
-    navigator.clipboard.writeText(fileUrl).then(() => {
-      message.success('URL скопирован в буфер обмена');
-    }).catch(() => {
-      message.error('Ошибка при копировании URL');
-    });
+    navigator.clipboard
+      .writeText(fileUrl)
+      .then(() => {
+        message.success('URL скопирован в буфер обмена');
+      })
+      .catch(() => {
+        message.error('Ошибка при копировании URL');
+      });
   };
 
   const uploadProps = {
@@ -194,4 +205,4 @@ export default function ImagesPage() {
       </Modal>
     </BasePage>
   );
-} 
+}

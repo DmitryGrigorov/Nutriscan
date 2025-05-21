@@ -11,4 +11,4 @@ export interface Product extends Models.Document {
   createdAt: string;
   updatedAt: string;
   imageUrl: string;
-} 
+}

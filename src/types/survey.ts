@@ -103,7 +103,7 @@ export interface SurveySubmission {
 }
 
 // Модель для хранения в базе данных
-export interface SurveyRecord extends SurveyState {
+export interface SurveyRecord {
   id: string;
   userId: string;
   createdAt: string;
@@ -112,6 +112,11 @@ export interface SurveyRecord extends SurveyState {
   recommendations?: string[];
   status: 'completed' | 'in_progress' | 'abandoned';
   version: string;
+  surveyData: {
+    gender: Gender;
+    ageGroup: AgeGroup;
+    bodyMetrics?: BodyMetrics;
+  };
 }
 
 export type ActivityLevel = 'sedentary' | 'light' | 'moderate' | 'very_active';

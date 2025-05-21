@@ -25,14 +25,10 @@ export default function CategoryPage() {
 
   const fetchCategories = async () => {
     try {
-      const response = await databases.listDocuments(
-        DATABASE_ID,
-        CATEGORIES_COLLECTION_ID,
-        [
-          Query.equal('isActive', true),
-          Query.orderDesc('$createdAt')
-        ]
-      );
+      const response = await databases.listDocuments(DATABASE_ID, CATEGORIES_COLLECTION_ID, [
+        Query.equal('isActive', true),
+        Query.orderDesc('$createdAt'),
+      ]);
       setCategories(response.documents as Category[]);
     } catch (error) {
       setCategories([]);
@@ -58,18 +54,30 @@ export default function CategoryPage() {
         <Empty description="Категории не найдены" />
       ) : (
         <Row gutter={[16, 16]}>
-          {categories.map(category => (
+          {categories.map((category) => (
             <Col xs={24} sm={12} md={8} key={category.$id}>
               <Card
                 hoverable
-                cover={category.imageUrl ? (
-                  <img alt={category.name} src={category.imageUrl} style={{ height: 150, objectFit: 'cover' }} />
-                ) : null}
+                cover={
+                  category.imageUrl ? (
+                    <img
+                      alt={category.name}
+                      src={category.imageUrl}
+                      style={{ height: 150, objectFit: 'cover' }}
+                    />
+                  ) : null
+                }
                 onClick={() => handleCategoryClick(category.slug)}
               >
                 <Card.Meta
                   title={
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <div
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                      }}
+                    >
                       <span>{category.name}</span>
                       {/* <Tag color="blue">{category.productCount} товаров</Tag> */}
                     </div>
@@ -88,4 +96,4 @@ export default function CategoryPage() {
       )}
     </div>
   );
-} 
+}

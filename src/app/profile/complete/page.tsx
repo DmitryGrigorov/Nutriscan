@@ -40,4 +40,4 @@ export default function CompleteProfilePage() {
   };
 
   return <ProfileForm onComplete={handleComplete} mode="create" />;
-} 
+}

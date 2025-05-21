@@ -1,7 +1,18 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Card, Form, Select, Input, Button, Typography, Steps, message, Radio, Checkbox } from 'antd';
+import {
+  Card,
+  Form,
+  Select,
+  Input,
+  Button,
+  Typography,
+  Steps,
+  message,
+  Radio,
+  Checkbox,
+} from 'antd';
 import { useRouter } from 'next/navigation';
 import { appwriteApi } from '@/lib/appwrite/api';
 import { BasePage } from '@/components/dashboard/BasePage';
@@ -45,10 +56,7 @@ export default function HealthAssessmentPage() {
               <Radio value="poor">Плохое</Radio>
             </Radio.Group>
           </Form.Item>
-          <Form.Item
-            name="chronicConditions"
-            label="Есть ли у вас хронические заболевания?"
-          >
+          <Form.Item name="chronicConditions" label="Есть ли у вас хронические заболевания?">
             <Checkbox.Group>
               <Checkbox value="hypertension">Гипертония</Checkbox>
               <Checkbox value="diabetes">Сахарный диабет</Checkbox>
@@ -58,16 +66,10 @@ export default function HealthAssessmentPage() {
               <Checkbox value="other">Другое</Checkbox>
             </Checkbox.Group>
           </Form.Item>
-          <Form.Item
-            name="medications"
-            label="Какие лекарства вы принимаете регулярно?"
-          >
+          <Form.Item name="medications" label="Какие лекарства вы принимаете регулярно?">
             <TextArea rows={4} placeholder="Укажите названия и дозировки" />
           </Form.Item>
-          <Form.Item
-            name="allergies"
-            label="Есть ли у вас аллергии?"
-          >
+          <Form.Item name="allergies" label="Есть ли у вас аллергии?">
             <TextArea rows={4} placeholder="Укажите аллергены и реакции" />
           </Form.Item>
         </>
@@ -146,11 +148,11 @@ export default function HealthAssessmentPage() {
               <Checkbox value="other">Другое</Checkbox>
             </Checkbox.Group>
           </Form.Item>
-          <Form.Item
-            name="additionalInfo"
-            label="Дополнительная информация"
-          >
-            <TextArea rows={4} placeholder="Опишите любые дополнительные аспекты вашего здоровья, которые вы хотели бы улучшить" />
+          <Form.Item name="additionalInfo" label="Дополнительная информация">
+            <TextArea
+              rows={4}
+              placeholder="Опишите любые дополнительные аспекты вашего здоровья, которые вы хотели бы улучшить"
+            />
           </Form.Item>
         </>
       ),
@@ -181,7 +183,7 @@ export default function HealthAssessmentPage() {
   return (
     <BasePage title="Оценка состояния здоровья">
       <Card>
-        <Steps current={currentStep} items={steps.map(step => ({ title: step.title }))} />
+        <Steps current={currentStep} items={steps.map((step) => ({ title: step.title }))} />
         <div style={{ marginTop: 24 }}>
           <Form
             form={form}
@@ -194,11 +196,7 @@ export default function HealthAssessmentPage() {
           >
             {steps[currentStep].content}
             <div style={{ marginTop: 24, display: 'flex', justifyContent: 'space-between' }}>
-              {currentStep > 0 && (
-                <Button onClick={prev}>
-                  Назад
-                </Button>
-              )}
+              {currentStep > 0 && <Button onClick={prev}>Назад</Button>}
               {currentStep < steps.length - 1 && (
                 <Button type="primary" onClick={next}>
                   Далее
@@ -215,4 +213,4 @@ export default function HealthAssessmentPage() {
       </Card>
     </BasePage>
   );
-} 
+}

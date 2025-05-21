@@ -6,7 +6,15 @@ import { useAuth } from '@/contexts/AuthContext';
 import { appwriteApi } from '@/lib/appwrite/api';
 import { SurveyData, UserProfile } from '@/types';
 import { ProfileForm } from '@/components/profile/ProfileForm';
-import { UserOutlined, MailOutlined, PhoneOutlined, CalendarOutlined, LineChartOutlined, ArrowsAltOutlined, EditOutlined } from '@ant-design/icons';
+import {
+  UserOutlined,
+  MailOutlined,
+  PhoneOutlined,
+  CalendarOutlined,
+  LineChartOutlined,
+  ArrowsAltOutlined,
+  EditOutlined,
+} from '@ant-design/icons';
 
 const { Title } = Typography;
 
@@ -70,22 +78,64 @@ function DashboardContent() {
         >
           {profile ? (
             <Descriptions column={1}>
-              <Descriptions.Item label={<><UserOutlined />&nbsp; ФИО</>}>
+              <Descriptions.Item
+                label={
+                  <>
+                    <UserOutlined />
+                    &nbsp; ФИО
+                  </>
+                }
+              >
                 {profile.name}
               </Descriptions.Item>
-              <Descriptions.Item label={<><MailOutlined />&nbsp; Email</>}>
+              <Descriptions.Item
+                label={
+                  <>
+                    <MailOutlined />
+                    &nbsp; Email
+                  </>
+                }
+              >
                 {profile.email}
               </Descriptions.Item>
-              <Descriptions.Item label={<><PhoneOutlined />&nbsp; Номер телефона</>}>
+              <Descriptions.Item
+                label={
+                  <>
+                    <PhoneOutlined />
+                    &nbsp; Номер телефона
+                  </>
+                }
+              >
                 {profile.phone}
               </Descriptions.Item>
-              <Descriptions.Item label={<><CalendarOutlined />&nbsp; Возраст</>}>
+              <Descriptions.Item
+                label={
+                  <>
+                    <CalendarOutlined />
+                    &nbsp; Возраст
+                  </>
+                }
+              >
                 {profile.age} лет
               </Descriptions.Item>
-              <Descriptions.Item label={<><LineChartOutlined />&nbsp; Вес</>}>
+              <Descriptions.Item
+                label={
+                  <>
+                    <LineChartOutlined />
+                    &nbsp; Вес
+                  </>
+                }
+              >
                 {profile.weight} кг
               </Descriptions.Item>
-              <Descriptions.Item label={<><ArrowsAltOutlined />&nbsp; Рост</>}>
+              <Descriptions.Item
+                label={
+                  <>
+                    <ArrowsAltOutlined />
+                    &nbsp; Рост
+                  </>
+                }
+              >
                 {profile.height} см
               </Descriptions.Item>
             </Descriptions>
@@ -99,15 +149,9 @@ function DashboardContent() {
         {surveyData && (
           <Card title="Latest Survey Results">
             <Descriptions column={1}>
-              <Descriptions.Item label="Age Group">
-                {surveyData.age}
-              </Descriptions.Item>
-              <Descriptions.Item label="Gender">
-                {surveyData.gender}
-              </Descriptions.Item>
-              <Descriptions.Item label="Goal">
-                {surveyData.goal}
-              </Descriptions.Item>
+              <Descriptions.Item label="Age Group">{surveyData.age}</Descriptions.Item>
+              <Descriptions.Item label="Gender">{surveyData.gender}</Descriptions.Item>
+              <Descriptions.Item label="Goal">{surveyData.goal}</Descriptions.Item>
               <Descriptions.Item label="Activity Level">
                 {surveyData.activityLevel}
               </Descriptions.Item>

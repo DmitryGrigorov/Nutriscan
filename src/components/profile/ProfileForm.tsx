@@ -2,7 +2,14 @@
 
 import React, { useEffect, useState } from 'react';
 import { Form, Input, InputNumber, Button, message, Card, Typography } from 'antd';
-import { UserOutlined, MailOutlined, PhoneOutlined, CalendarOutlined, LineChartOutlined, ArrowsAltOutlined } from '@ant-design/icons';
+import {
+  UserOutlined,
+  MailOutlined,
+  PhoneOutlined,
+  CalendarOutlined,
+  LineChartOutlined,
+  ArrowsAltOutlined,
+} from '@ant-design/icons';
 import { useAuth } from '@/contexts/AuthContext';
 import { appwriteApi } from '@/lib/appwrite/api';
 import { UserProfile } from '@/types';
@@ -49,7 +56,9 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onComplete, mode = 'cr
     }
   };
 
-  const onFinish = async (values: Omit<UserProfile, '$id' | 'userId' | 'createdAt' | 'updatedAt'>) => {
+  const onFinish = async (
+    values: Omit<UserProfile, '$id' | 'userId' | 'createdAt' | 'updatedAt'>
+  ) => {
     if (!user) {
       message.error('Пожалуйста, войдите в систему для сохранения профиля');
       return;
@@ -80,12 +89,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onComplete, mode = 'cr
       <Title level={2} style={{ textAlign: 'center', marginBottom: 24 }}>
         {mode === 'create' ? 'Завершите ваш профиль' : 'Редактировать профиль'}
       </Title>
-      <Form
-        form={form}
-        layout="vertical"
-        onFinish={onFinish}
-        initialValues={profile || undefined}
-      >
+      <Form form={form} layout="vertical" onFinish={onFinish} initialValues={profile || undefined}>
         <Form.Item
           name="name"
           label="ФИО"
@@ -99,7 +103,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onComplete, mode = 'cr
           label="Email"
           rules={[
             { required: true, message: 'Пожалуйста, введите ваш email' },
-            { type: 'email', message: 'Пожалуйста, введите корректный email' }
+            { type: 'email', message: 'Пожалуйста, введите корректный email' },
           ]}
         >
           <Input prefix={<MailOutlined />} placeholder="Введите ваш email" />
@@ -163,4 +167,4 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({ onComplete, mode = 'cr
       </Form>
     </Card>
   );
-}; 
+};

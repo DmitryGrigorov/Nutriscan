@@ -5,8 +5,8 @@ import { useRouter, usePathname } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import { useReminders } from '@/contexts/ReminderContext';
 import Link from 'next/link';
-import { 
-  BellOutlined, 
+import {
+  BellOutlined,
   ShoppingCartOutlined,
   MedicineBoxOutlined,
   ExperimentOutlined,
@@ -27,7 +27,12 @@ import { useCart } from '@/contexts/CartContext';
 const { Header: AntHeader } = Layout;
 const { Title, Text } = Typography;
 
-const ReminderItem = ({ title, datetime, type, completed }: { 
+const ReminderItem = ({
+  title,
+  datetime,
+  type,
+  completed,
+}: {
   title: string;
   datetime: string;
   type: 'supplement' | 'analysis';
@@ -36,7 +41,7 @@ const ReminderItem = ({ title, datetime, type, completed }: {
   const date = new Date(datetime);
   const isToday = new Date().toDateString() === date.toDateString();
   const isTomorrow = new Date(Date.now() + 86400000).toDateString() === date.toDateString();
-  
+
   const getDateText = () => {
     if (isToday) return 'Сегодня';
     if (isTomorrow) return 'Завтра';
@@ -202,10 +207,12 @@ export const Header = () => {
     <div style={{ width: 350 }}>
       <div style={{ marginBottom: 16 }}>
         <Space style={{ width: '100%', justifyContent: 'space-between' }}>
-          <Title level={5} style={{ margin: 0 }}>Напоминания</Title>
+          <Title level={5} style={{ margin: 0 }}>
+            Напоминания
+          </Title>
           <Space>
-            <Button 
-              type="link" 
+            <Button
+              type="link"
               size="small"
               onClick={() => {
                 setReminderOpen(false);
@@ -214,8 +221,8 @@ export const Header = () => {
             >
               Анализы
             </Button>
-            <Button 
-              type="link" 
+            <Button
+              type="link"
               size="small"
               onClick={() => {
                 setReminderOpen(false);
@@ -243,14 +250,14 @@ export const Header = () => {
             <div style={{ padding: '24px 0', textAlign: 'center' }}>
               <Text type="secondary">Нет активных напоминаний</Text>
             </div>
-          )
+          ),
         }}
-        style={{ 
+        style={{
           maxHeight: 350,
           overflowY: 'auto',
           marginLeft: -16,
           marginRight: -16,
-          padding: '0 16px'
+          padding: '0 16px',
         }}
       />
     </div>
@@ -258,13 +265,15 @@ export const Header = () => {
 
   const cartContent = (
     <div style={{ width: 300 }}>
-      <div style={{ 
-        padding: '12px 16px', 
-        borderBottom: '1px solid #f0f0f0',
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center'
-      }}>
+      <div
+        style={{
+          padding: '12px 16px',
+          borderBottom: '1px solid #f0f0f0',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
         <Text strong>Корзина</Text>
         <Text type="secondary">{cart.length} товаров</Text>
       </div>
@@ -277,10 +286,16 @@ export const Header = () => {
           <List
             size="small"
             dataSource={cart}
-            renderItem={item => (
+            renderItem={(item) => (
               <List.Item>
                 <List.Item.Meta
-                  avatar={<img src={item.image} alt={item.name} style={{ width: 40, height: 40, objectFit: 'cover' }} />}
+                  avatar={
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      style={{ width: 40, height: 40, objectFit: 'cover' }}
+                    />
+                  }
                   title={<Text ellipsis>{item.name}</Text>}
                   description={
                     <Space>
@@ -295,23 +310,25 @@ export const Header = () => {
         )}
       </div>
       {cart.length > 0 && (
-        <div style={{ 
-          padding: '12px 16px', 
-          borderTop: '1px solid #f0f0f0',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center'
-        }}>
+        <div
+          style={{
+            padding: '12px 16px',
+            borderTop: '1px solid #f0f0f0',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
+        >
           <Text strong>Итого:</Text>
           <Text strong>
-            {cart.reduce((total, item) => total + (item.price * item.quantity), 0)} ₽
+            {cart.reduce((total, item) => total + item.price * item.quantity, 0)} ₽
           </Text>
         </div>
       )}
       <div style={{ padding: '12px 16px' }}>
-        <Button 
-          type="primary" 
-          block 
+        <Button
+          type="primary"
+          block
           onClick={() => {
             router.push('/pharmacy/cart');
             setCartOpen(false);

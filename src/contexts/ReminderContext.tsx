@@ -57,31 +57,29 @@ export function ReminderProvider({ children }: { children: React.ReactNode }) {
       ...reminder,
       id: Math.random().toString(36).substr(2, 9),
     };
-    setReminders(prev => [...prev, newReminder]);
-    setUnreadCount(prev => prev + 1);
+    setReminders((prev) => [...prev, newReminder]);
+    setUnreadCount((prev) => prev + 1);
   };
 
   const markAsRead = (id: string) => {
-    const reminder = reminders.find(r => r.id === id);
+    const reminder = reminders.find((r) => r.id === id);
     if (reminder && !reminder.completed) {
-      setUnreadCount(prev => Math.max(0, prev - 1));
+      setUnreadCount((prev) => Math.max(0, prev - 1));
     }
   };
 
   const markAsCompleted = (id: string) => {
-    setReminders(prev =>
-      prev.map(reminder =>
-        reminder.id === id ? { ...reminder, completed: true } : reminder
-      )
+    setReminders((prev) =>
+      prev.map((reminder) => (reminder.id === id ? { ...reminder, completed: true } : reminder))
     );
     markAsRead(id);
   };
 
   const deleteReminder = (id: string) => {
-    const reminder = reminders.find(r => r.id === id);
-    setReminders(prev => prev.filter(reminder => reminder.id !== id));
+    const reminder = reminders.find((r) => r.id === id);
+    setReminders((prev) => prev.filter((reminder) => reminder.id !== id));
     if (reminder && !reminder.completed) {
-      setUnreadCount(prev => Math.max(0, prev - 1));
+      setUnreadCount((prev) => Math.max(0, prev - 1));
     }
   };
 
@@ -107,4 +105,4 @@ export function useReminders() {
     throw new Error('useReminders must be used within a ReminderProvider');
   }
   return context;
-} 
+}

@@ -61,11 +61,7 @@ export default function SupplementsPage() {
     <BasePage
       title="История потребления БАДов"
       extra={
-        <Button
-          type="primary"
-          icon={<PlusOutlined />}
-          onClick={() => setIsModalVisible(true)}
-        >
+        <Button type="primary" icon={<PlusOutlined />} onClick={() => setIsModalVisible(true)}>
           Добавить БАД
         </Button>
       }
@@ -91,10 +87,7 @@ export default function SupplementsPage() {
                         : ' - настоящее время'}
                     </Text>
                     <br />
-                    <Text>
-                      Статус:{' '}
-                      {supplement.status === 'active' ? 'Активный' : 'Завершен'}
-                    </Text>
+                    <Text>Статус: {supplement.status === 'active' ? 'Активный' : 'Завершен'}</Text>
                   </>
                 }
               />
@@ -146,4 +139,4 @@ export default function SupplementsPage() {
       </Modal>
     </BasePage>
   );
-} 
+}

@@ -62,11 +62,7 @@ export default function AnalysisRemindersPage() {
     <BasePage
       title="Напоминания о необходимости сдачи анализов"
       extra={
-        <Button
-          type="primary"
-          icon={<PlusOutlined />}
-          onClick={() => setIsModalVisible(true)}
-        >
+        <Button type="primary" icon={<PlusOutlined />} onClick={() => setIsModalVisible(true)}>
           Добавить напоминание
         </Button>
       }
@@ -81,15 +77,12 @@ export default function AnalysisRemindersPage() {
                 title={reminder.type}
                 description={
                   <>
-                    <Text>
-                      Следующая сдача: {new Date(reminder.nextDate).toLocaleDateString()}
-                    </Text>
+                    <Text>Следующая сдача: {new Date(reminder.nextDate).toLocaleDateString()}</Text>
                     <br />
                     <Text>Частота: {reminder.frequency}</Text>
                     <br />
                     <Text>
-                      Статус:{' '}
-                      {reminder.status === 'upcoming' ? 'Предстоящий' : 'Выполнен'}
+                      Статус: {reminder.status === 'upcoming' ? 'Предстоящий' : 'Выполнен'}
                     </Text>
                   </>
                 }
@@ -141,4 +134,4 @@ export default function AnalysisRemindersPage() {
       </Modal>
     </BasePage>
   );
-} 
+}

@@ -19,7 +19,7 @@ const mockAnalyses = [
       { parameter: 'Лейкоциты', value: '6.5', unit: '×10⁹/л', norm: '4.0-9.0' },
       { parameter: 'Тромбоциты', value: '250', unit: '×10⁹/л', norm: '180-320' },
       { parameter: 'СОЭ', value: '8', unit: 'мм/ч', norm: '2-15' },
-    ]
+    ],
   },
   {
     id: '2',
@@ -31,7 +31,7 @@ const mockAnalyses = [
       { parameter: 'Холестерин', value: '4.8', unit: 'ммоль/л', norm: '3.0-5.2' },
       { parameter: 'Креатинин', value: '85', unit: 'мкмоль/л', norm: '60-110' },
       { parameter: 'АЛТ', value: '25', unit: 'Ед/л', norm: '0-40' },
-    ]
+    ],
   },
   {
     id: '3',
@@ -42,8 +42,8 @@ const mockAnalyses = [
       { parameter: 'ТТГ', value: '2.1', unit: 'мкМЕ/мл', norm: '0.4-4.0' },
       { parameter: 'Т4 свободный', value: '15', unit: 'пмоль/л', norm: '9-22' },
       { parameter: 'Кортизол', value: '450', unit: 'нмоль/л', norm: '138-635' },
-    ]
-  }
+    ],
+  },
 ];
 
 const columns = [
@@ -51,12 +51,12 @@ const columns = [
     title: 'Дата',
     dataIndex: 'date',
     key: 'date',
-    render: (date: string) => new Date(date).toLocaleDateString('ru-RU')
+    render: (date: string) => new Date(date).toLocaleDateString('ru-RU'),
   },
   {
     title: 'Тип анализа',
     dataIndex: 'type',
-    key: 'type'
+    key: 'type',
   },
   {
     title: 'Статус',
@@ -66,30 +66,30 @@ const columns = [
       <Tag color={status === 'completed' ? 'success' : 'processing'}>
         {status === 'completed' ? 'Завершен' : 'В обработке'}
       </Tag>
-    )
+    ),
   },
   {
     title: 'Действия',
     key: 'actions',
     render: (_: any, record: any) => (
       <Space>
-        <Button 
-          type="text" 
+        <Button
+          type="text"
           icon={<EyeOutlined />}
           onClick={() => message.info('Просмотр результатов анализа')}
         >
           Просмотр
         </Button>
-        <Button 
-          type="text" 
+        <Button
+          type="text"
           icon={<DownloadOutlined />}
           onClick={() => message.info('Скачивание результатов анализа')}
         >
           Скачать
         </Button>
       </Space>
-    )
-  }
+    ),
+  },
 ];
 
 const uploadProps: UploadProps = {
@@ -119,8 +119,8 @@ export default function AnalysesPage() {
         </div>
 
         <Card>
-          <Table 
-            columns={columns} 
+          <Table
+            columns={columns}
             dataSource={mockAnalyses}
             rowKey="id"
             expandable={{
@@ -143,4 +143,4 @@ export default function AnalysesPage() {
       </Space>
     </div>
   );
-} 
+}

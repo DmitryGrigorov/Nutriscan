@@ -31,4 +31,4 @@ export const SurveyNavigation: React.FC = () => {
       </Space>
     </div>
   );
-}; 
+};

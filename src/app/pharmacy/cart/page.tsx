@@ -27,7 +27,7 @@ export default function CartPage() {
   };
 
   const calculateTotal = () => {
-    return cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+    return cart.reduce((total, item) => total + item.price * item.quantity, 0);
   };
 
   if (cart.length === 0) {
@@ -36,8 +36,8 @@ export default function CartPage() {
         <Title level={3}>Корзина пуста</Title>
         <Text type="secondary">Добавьте товары в корзину, чтобы продолжить</Text>
         <div style={{ marginTop: '20px' }}>
-          <Button 
-            type="primary" 
+          <Button
+            type="primary"
             icon={<ShoppingOutlined />}
             onClick={() => router.push('/pharmacy')}
           >
@@ -54,19 +54,25 @@ export default function CartPage() {
       <List
         itemLayout="horizontal"
         dataSource={cart}
-        renderItem={item => (
+        renderItem={(item) => (
           <List.Item
             actions={[
-              <Button 
-                type="text" 
-                danger 
-                icon={<DeleteOutlined />} 
+              <Button
+                type="text"
+                danger
+                icon={<DeleteOutlined />}
                 onClick={() => handleRemove(item.id)}
-              />
+              />,
             ]}
           >
             <List.Item.Meta
-              avatar={<img src={item.image} alt={item.name} style={{ width: 64, height: 64, objectFit: 'cover' }} />}
+              avatar={
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  style={{ width: 64, height: 64, objectFit: 'cover' }}
+                />
+              }
               title={item.name}
               description={
                 <Space>
@@ -90,9 +96,7 @@ export default function CartPage() {
             <Text strong>{calculateTotal()} ₽</Text>
           </div>
           <Space>
-            <Button onClick={() => router.push('/pharmacy')}>
-              Продолжить покупки
-            </Button>
+            <Button onClick={() => router.push('/pharmacy')}>Продолжить покупки</Button>
             <Button type="primary" onClick={() => router.push('/pharmacy/checkout')}>
               Оформить заказ
             </Button>
@@ -101,4 +105,4 @@ export default function CartPage() {
       </Card>
     </div>
   );
-} 
+}

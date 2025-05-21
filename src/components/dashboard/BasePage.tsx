@@ -23,4 +23,4 @@ export const BasePage: React.FC<BasePageProps> = ({ title, children, extra }) =>
       {children}
     </Space>
   );
-}; 
+};

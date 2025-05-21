@@ -24,27 +24,21 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const [cart, setCart] = useState<CartItem[]>([]);
 
   const addToCart = (item: Omit<CartItem, 'quantity'>) => {
-    setCart(prev => {
-      const existingItem = prev.find(i => i.id === item.id);
+    setCart((prev) => {
+      const existingItem = prev.find((i) => i.id === item.id);
       if (existingItem) {
-        return prev.map(i => 
-          i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i
-        );
+        return prev.map((i) => (i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i));
       }
       return [...prev, { ...item, quantity: 1 }];
     });
   };
 
   const removeFromCart = (id: string) => {
-    setCart(prev => prev.filter(item => item.id !== id));
+    setCart((prev) => prev.filter((item) => item.id !== id));
   };
 
   const updateQuantity = (id: string, quantity: number) => {
-    setCart(prev => 
-      prev.map(item => 
-        item.id === id ? { ...item, quantity } : item
-      )
-    );
+    setCart((prev) => prev.map((item) => (item.id === id ? { ...item, quantity } : item)));
   };
 
   const clearCart = () => {
@@ -72,4 +66,4 @@ export function useCart() {
     throw new Error('useCart must be used within a CartProvider');
   }
   return context;
-} 
+}

@@ -22,23 +22,23 @@ interface Survey {
 export default function SurveysPage() {
   const router = useRouter();
   const [surveys, setSurveys] = useState<Survey[]>([
-    { 
-      id: 1, 
-      title: 'Опрос о витаминах', 
-      description: 'Выяснение потребностей в витаминах', 
-      startDate: '2023-10-01', 
-      endDate: '2023-12-31', 
+    {
+      id: 1,
+      title: 'Опрос о витаминах',
+      description: 'Выяснение потребностей в витаминах',
+      startDate: '2023-10-01',
+      endDate: '2023-12-31',
       isActive: true,
-      questionsCount: 15
+      questionsCount: 15,
     },
-    { 
-      id: 2, 
-      title: 'Опрос о пищевых добавках', 
-      description: 'Анализ использования пищевых добавок', 
-      startDate: '2023-11-01', 
-      endDate: '2024-01-31', 
+    {
+      id: 2,
+      title: 'Опрос о пищевых добавках',
+      description: 'Анализ использования пищевых добавок',
+      startDate: '2023-11-01',
+      endDate: '2024-01-31',
       isActive: true,
-      questionsCount: 20
+      questionsCount: 20,
     },
   ]);
 
@@ -68,7 +68,8 @@ export default function SurveysPage() {
       key: 'period',
       render: (record: Survey) => (
         <span>
-          {dayjs(record.startDate).format('DD.MM.YYYY')} - {dayjs(record.endDate).format('DD.MM.YYYY')}
+          {dayjs(record.startDate).format('DD.MM.YYYY')} -{' '}
+          {dayjs(record.endDate).format('DD.MM.YYYY')}
         </span>
       ),
     },
@@ -77,9 +78,7 @@ export default function SurveysPage() {
       dataIndex: 'isActive',
       key: 'isActive',
       render: (isActive: boolean) => (
-        <Tag color={isActive ? 'green' : 'red'}>
-          {isActive ? 'Активен' : 'Неактивен'}
-        </Tag>
+        <Tag color={isActive ? 'green' : 'red'}>{isActive ? 'Активен' : 'Неактивен'}</Tag>
       ),
     },
     {
@@ -92,19 +91,9 @@ export default function SurveysPage() {
       key: 'actions',
       render: (_: any, record: Survey) => (
         <Space>
-          <Button
-            icon={<FormOutlined />}
-            onClick={() => handleEditQuestions(record.id)}
-          />
-          <Button
-            icon={<EditOutlined />}
-            onClick={() => handleEdit(record)}
-          />
-          <Button
-            danger
-            icon={<DeleteOutlined />}
-            onClick={() => handleDelete(record.id)}
-          />
+          <Button icon={<FormOutlined />} onClick={() => handleEditQuestions(record.id)} />
+          <Button icon={<EditOutlined />} onClick={() => handleEdit(record)} />
+          <Button danger icon={<DeleteOutlined />} onClick={() => handleDelete(record.id)} />
         </Space>
       ),
     },
@@ -120,7 +109,7 @@ export default function SurveysPage() {
     setEditingSurvey(survey);
     form.setFieldsValue({
       ...survey,
-      dateRange: [dayjs(survey.startDate), dayjs(survey.endDate)]
+      dateRange: [dayjs(survey.startDate), dayjs(survey.endDate)],
     });
     setIsModalVisible(true);
   };
@@ -130,27 +119,29 @@ export default function SurveysPage() {
   };
 
   const handleDelete = (id: number) => {
-    setSurveys(surveys.filter(survey => survey.id !== id));
+    setSurveys(surveys.filter((survey) => survey.id !== id));
     message.success('Опрос удален');
   };
 
   const handleModalOk = () => {
-    form.validateFields().then(values => {
+    form.validateFields().then((values) => {
       const { dateRange, ...rest } = values;
       const surveyData = {
         ...rest,
         startDate: dateRange[0].format('YYYY-MM-DD'),
         endDate: dateRange[1].format('YYYY-MM-DD'),
       };
-      
+
       if (editingSurvey) {
-        setSurveys(surveys.map(survey =>
-          survey.id === editingSurvey.id ? { ...survey, ...surveyData } : survey
-        ));
+        setSurveys(
+          surveys.map((survey) =>
+            survey.id === editingSurvey.id ? { ...survey, ...surveyData } : survey
+          )
+        );
         message.success('Опрос обновлен');
       } else {
         const newSurvey = {
-          id: Math.max(...surveys.map(s => s.id)) + 1,
+          id: Math.max(...surveys.map((s) => s.id)) + 1,
           ...surveyData,
           questionsCount: 0,
         };
@@ -200,15 +191,11 @@ export default function SurveysPage() {
           >
             <RangePicker style={{ width: '100%' }} />
           </Form.Item>
-          <Form.Item
-            name="isActive"
-            label="Активен"
-            valuePropName="checked"
-          >
+          <Form.Item name="isActive" label="Активен" valuePropName="checked">
             <Switch />
           </Form.Item>
         </Form>
       </Modal>
     </div>
   );
-} 
+}

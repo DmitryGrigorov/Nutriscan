@@ -62,11 +62,7 @@ export default function SupplementRemindersPage() {
     <BasePage
       title="Напоминания о необходимости купить БАДы"
       extra={
-        <Button
-          type="primary"
-          icon={<PlusOutlined />}
-          onClick={() => setIsModalVisible(true)}
-        >
+        <Button type="primary" icon={<PlusOutlined />} onClick={() => setIsModalVisible(true)}>
           Добавить напоминание
         </Button>
       }
@@ -88,8 +84,7 @@ export default function SupplementRemindersPage() {
                     <Text>Частота: {reminder.frequency}</Text>
                     <br />
                     <Text>
-                      Статус:{' '}
-                      {reminder.status === 'upcoming' ? 'Предстоящий' : 'Выполнен'}
+                      Статус: {reminder.status === 'upcoming' ? 'Предстоящий' : 'Выполнен'}
                     </Text>
                   </>
                 }
@@ -136,4 +131,4 @@ export default function SupplementRemindersPage() {
       </Modal>
     </BasePage>
   );
-} 
+}

@@ -17,7 +17,7 @@ export const initialProducts: Product[] = [
     price: 299,
     stock: 100,
     category: 'Витамины',
-    image: 'https://via.placeholder.com/150'
+    image: 'https://via.placeholder.com/150',
   },
   {
     id: 2,
@@ -26,7 +26,7 @@ export const initialProducts: Product[] = [
     price: 599,
     stock: 50,
     category: 'Жирные кислоты',
-    image: 'https://via.placeholder.com/150'
+    image: 'https://via.placeholder.com/150',
   },
   {
     id: 3,
@@ -35,7 +35,7 @@ export const initialProducts: Product[] = [
     price: 320,
     stock: 75,
     category: 'Минералы',
-    image: 'https://via.placeholder.com/150'
+    image: 'https://via.placeholder.com/150',
   },
   {
     id: 4,
@@ -44,7 +44,7 @@ export const initialProducts: Product[] = [
     price: 780,
     stock: 30,
     category: 'Пробиотики',
-    image: 'https://via.placeholder.com/150'
+    image: 'https://via.placeholder.com/150',
   },
   {
     id: 5,
@@ -53,7 +53,7 @@ export const initialProducts: Product[] = [
     price: 450,
     stock: 60,
     category: 'Минералы',
-    image: 'https://via.placeholder.com/150'
+    image: 'https://via.placeholder.com/150',
   },
   {
     id: 6,
@@ -62,7 +62,7 @@ export const initialProducts: Product[] = [
     price: 350,
     stock: 80,
     category: 'Минералы',
-    image: 'https://via.placeholder.com/150'
+    image: 'https://via.placeholder.com/150',
   },
   {
     id: 7,
@@ -71,7 +71,7 @@ export const initialProducts: Product[] = [
     price: 400,
     stock: 90,
     category: 'Витамины',
-    image: 'https://via.placeholder.com/150'
+    image: 'https://via.placeholder.com/150',
   },
   {
     id: 8,
@@ -80,7 +80,7 @@ export const initialProducts: Product[] = [
     price: 300,
     stock: 70,
     category: 'Минералы',
-    image: 'https://via.placeholder.com/150'
+    image: 'https://via.placeholder.com/150',
   },
   {
     id: 9,
@@ -89,7 +89,7 @@ export const initialProducts: Product[] = [
     price: 850,
     stock: 40,
     category: 'Антиоксиданты',
-    image: 'https://via.placeholder.com/150'
+    image: 'https://via.placeholder.com/150',
   },
   {
     id: 10,
@@ -98,7 +98,7 @@ export const initialProducts: Product[] = [
     price: 500,
     stock: 65,
     category: 'Витамины',
-    image: 'https://via.placeholder.com/150'
+    image: 'https://via.placeholder.com/150',
   },
   {
     id: 11,
@@ -107,7 +107,7 @@ export const initialProducts: Product[] = [
     price: 250,
     stock: 85,
     category: 'Витамины',
-    image: 'https://via.placeholder.com/150'
+    image: 'https://via.placeholder.com/150',
   },
   {
     id: 12,
@@ -116,7 +116,7 @@ export const initialProducts: Product[] = [
     price: 550,
     stock: 55,
     category: 'Витамины',
-    image: 'https://via.placeholder.com/150'
+    image: 'https://via.placeholder.com/150',
   },
   {
     id: 13,
@@ -125,7 +125,7 @@ export const initialProducts: Product[] = [
     price: 600,
     stock: 45,
     category: 'Антиоксиданты',
-    image: 'https://via.placeholder.com/150'
+    image: 'https://via.placeholder.com/150',
   },
   {
     id: 14,
@@ -134,7 +134,7 @@ export const initialProducts: Product[] = [
     price: 700,
     stock: 35,
     category: 'Антиоксиданты',
-    image: 'https://via.placeholder.com/150'
+    image: 'https://via.placeholder.com/150',
   },
   {
     id: 15,
@@ -143,7 +143,7 @@ export const initialProducts: Product[] = [
     price: 950,
     stock: 25,
     category: 'Белки',
-    image: 'https://via.placeholder.com/150'
+    image: 'https://via.placeholder.com/150',
   },
   {
     id: 16,
@@ -152,7 +152,7 @@ export const initialProducts: Product[] = [
     price: 650,
     stock: 50,
     category: 'Суперфуды',
-    image: 'https://via.placeholder.com/150'
+    image: 'https://via.placeholder.com/150',
   },
   {
     id: 17,
@@ -161,7 +161,7 @@ export const initialProducts: Product[] = [
     price: 550,
     stock: 60,
     category: 'Суперфуды',
-    image: 'https://via.placeholder.com/150'
+    image: 'https://via.placeholder.com/150',
   },
   {
     id: 18,
@@ -170,7 +170,7 @@ export const initialProducts: Product[] = [
     price: 750,
     stock: 40,
     category: 'Адаптогены',
-    image: 'https://via.placeholder.com/150'
+    image: 'https://via.placeholder.com/150',
   },
   {
     id: 19,
@@ -179,7 +179,7 @@ export const initialProducts: Product[] = [
     price: 800,
     stock: 30,
     category: 'Адаптогены',
-    image: 'https://via.placeholder.com/150'
+    image: 'https://via.placeholder.com/150',
   },
   {
     id: 20,
@@ -188,7 +188,7 @@ export const initialProducts: Product[] = [
     price: 650,
     stock: 50,
     category: 'Антиоксиданты',
-    image: 'https://via.placeholder.com/150'
+    image: 'https://via.placeholder.com/150',
   },
   {
     id: 21,
@@ -197,7 +197,7 @@ export const initialProducts: Product[] = [
     price: 300,
     stock: 70,
     category: 'Гормоны',
-    image: 'https://via.placeholder.com/150'
+    image: 'https://via.placeholder.com/150',
   },
   {
     id: 22,
@@ -206,7 +206,7 @@ export const initialProducts: Product[] = [
     price: 900,
     stock: 20,
     category: 'Аминокислоты',
-    image: 'https://via.placeholder.com/150'
+    image: 'https://via.placeholder.com/150',
   },
   {
     id: 23,
@@ -215,7 +215,7 @@ export const initialProducts: Product[] = [
     price: 700,
     stock: 30,
     category: 'Аминокислоты',
-    image: 'https://via.placeholder.com/150'
+    image: 'https://via.placeholder.com/150',
   },
   {
     id: 24,
@@ -224,9 +224,9 @@ export const initialProducts: Product[] = [
     price: 850,
     stock: 40,
     category: 'Аминокислоты',
-    image: 'https://via.placeholder.com/150'
-  }
+    image: 'https://via.placeholder.com/150',
+  },
 ];
 
 // Categories for filter
-export const categories = ['Все', 'Витамины', 'Минералы', 'Жирные кислоты', 'Пробиотики', 'Белки']; 
+export const categories = ['Все', 'Витамины', 'Минералы', 'Жирные кислоты', 'Пробиотики', 'Белки'];

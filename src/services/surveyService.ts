@@ -1,6 +1,7 @@
 import { ID, Query } from 'appwrite';
-import { databases } from '@/lib/appwrite';
+import { databases } from '@/lib/appwrite/config';
 import { SurveySubmission, SurveyRecord, SurveyState } from '@/types/survey';
+import { SurveyData, SurveyFormData } from '@/types';
 
 const DATABASE_ID = process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID || '';
 const SURVEYS_COLLECTION_ID = process.env.NEXT_PUBLIC_APPWRITE_SURVEYS_COLLECTION_ID || '';
@@ -12,11 +13,13 @@ export const surveyService = {
 
     const surveyData: SurveyData = {
       ...data,
-      id: ID.unique(),
+      $id: ID.unique(),
       userId,
-      status: 'completed',
-      createdAt: now,
-      updatedAt: now,
+      age: data.age || 0,
+      gender: data.gender || 'male',
+      goal: data.goal || 'maintenance',
+      activityLevel: data.activityLevel || 'moderate',
+      createdAt: new Date(now)
     };
 
     const response = await databases.createDocument(
@@ -42,13 +45,17 @@ export const surveyService = {
       Query.equal('userId', userId),
     ]);
 
-    return response.documents.map((doc) => ({
+    return response.documents.map((doc: any) => ({
       id: doc.$id,
       userId: doc.userId,
       createdAt: doc.$createdAt,
       updatedAt: doc.$updatedAt,
       completedAt: doc.completedAt,
-      surveyData: doc,
+      surveyData: {
+        gender: doc.gender,
+        ageGroup: doc.ageGroup,
+        bodyMetrics: doc.bodyMetrics,
+      },
       recommendations: doc.recommendations,
       status: doc.status,
       version: doc.version,
@@ -99,7 +106,11 @@ export const surveyService = {
       createdAt: response.$createdAt,
       updatedAt: response.$updatedAt,
       completedAt: response.completedAt,
-      surveyData: response.surveyData,
+      surveyData: {
+        gender: response.gender,
+        ageGroup: response.ageGroup,
+        bodyMetrics: response.bodyMetrics,
+      },
       recommendations: response.recommendations,
       status: response.status,
       version: response.version,

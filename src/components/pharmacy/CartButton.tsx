@@ -21,15 +21,15 @@ export const CartButton: React.FC = () => {
   return (
     <>
       <Badge count={totalItems} offset={[-5, 5]}>
-        <Button 
-          type="text" 
-          icon={<ShoppingCartOutlined style={{ fontSize: 20 }} />} 
+        <Button
+          type="text"
+          icon={<ShoppingCartOutlined style={{ fontSize: 20 }} />}
           onClick={showCart}
           style={{ marginLeft: 8 }}
         />
       </Badge>
-      
+
       <Cart visible={cartVisible} onClose={hideCart} />
     </>
   );
-}; 
+};

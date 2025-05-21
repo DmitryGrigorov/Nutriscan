@@ -1,7 +1,18 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Card, Form, Select, Input, Button, Typography, Steps, message, Radio, Checkbox } from 'antd';
+import {
+  Card,
+  Form,
+  Select,
+  Input,
+  Button,
+  Typography,
+  Steps,
+  message,
+  Radio,
+  Checkbox,
+} from 'antd';
 import { useRouter } from 'next/navigation';
 import { appwriteApi } from '@/lib/appwrite/api';
 import { BasePage } from '@/components/dashboard/BasePage';
@@ -172,11 +183,11 @@ export default function NutritionHabitsPage() {
               <Radio value="mixed">Смешанный вариант</Radio>
             </Radio.Group>
           </Form.Item>
-          <Form.Item
-            name="additionalInfo"
-            label="Дополнительная информация"
-          >
-            <TextArea rows={4} placeholder="Опишите любые дополнительные аспекты вашего питания, которые вы хотели бы улучшить" />
+          <Form.Item name="additionalInfo" label="Дополнительная информация">
+            <TextArea
+              rows={4}
+              placeholder="Опишите любые дополнительные аспекты вашего питания, которые вы хотели бы улучшить"
+            />
           </Form.Item>
         </>
       ),
@@ -207,7 +218,7 @@ export default function NutritionHabitsPage() {
   return (
     <BasePage title="Пищевые привычки">
       <Card>
-        <Steps current={currentStep} items={steps.map(step => ({ title: step.title }))} />
+        <Steps current={currentStep} items={steps.map((step) => ({ title: step.title }))} />
         <div style={{ marginTop: 24 }}>
           <Form
             form={form}
@@ -220,11 +231,7 @@ export default function NutritionHabitsPage() {
           >
             {steps[currentStep].content}
             <div style={{ marginTop: 24, display: 'flex', justifyContent: 'space-between' }}>
-              {currentStep > 0 && (
-                <Button onClick={prev}>
-                  Назад
-                </Button>
-              )}
+              {currentStep > 0 && <Button onClick={prev}>Назад</Button>}
               {currentStep < steps.length - 1 && (
                 <Button type="primary" onClick={next}>
                   Далее
@@ -241,4 +248,4 @@ export default function NutritionHabitsPage() {
       </Card>
     </BasePage>
   );
-} 
+}

@@ -8,4 +8,4 @@ export interface Category extends Models.Document {
   createdAt: string;
   updatedAt: string;
   imageUrl: string;
-} 
+}

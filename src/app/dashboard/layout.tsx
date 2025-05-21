@@ -10,11 +10,7 @@ import { Spin } from 'antd';
 
 const { Content, Sider } = Layout;
 
-export default function DashboardLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth();
   const router = useRouter();
 
@@ -49,10 +45,8 @@ export default function DashboardLayout({
         <DashboardNav />
       </Sider>
       <Layout>
-        <Content style={{ padding: '24px', background: '#fff' }}>
-          {children}
-        </Content>
+        <Content style={{ padding: '24px', background: '#fff' }}>{children}</Content>
       </Layout>
     </Layout>
   );
-} 
+}

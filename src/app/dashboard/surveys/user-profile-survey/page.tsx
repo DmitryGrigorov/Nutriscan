@@ -139,7 +139,7 @@ export default function UserProfileSurveyPage() {
   return (
     <BasePage title="Анкета пользователя">
       <Card>
-        <Steps current={currentStep} items={steps.map(step => ({ title: step.title }))} />
+        <Steps current={currentStep} items={steps.map((step) => ({ title: step.title }))} />
         <div style={{ marginTop: 24 }}>
           <Form
             form={form}
@@ -154,11 +154,7 @@ export default function UserProfileSurveyPage() {
           >
             {steps[currentStep].content}
             <div style={{ marginTop: 24, display: 'flex', justifyContent: 'space-between' }}>
-              {currentStep > 0 && (
-                <Button onClick={prev}>
-                  Назад
-                </Button>
-              )}
+              {currentStep > 0 && <Button onClick={prev}>Назад</Button>}
               {currentStep < steps.length - 1 && (
                 <Button type="primary" onClick={next}>
                   Далее
@@ -175,4 +171,4 @@ export default function UserProfileSurveyPage() {
       </Card>
     </BasePage>
   );
-} 
+}

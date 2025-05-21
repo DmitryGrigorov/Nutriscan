@@ -2,29 +2,29 @@
 
 import React, { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { 
-  Card, 
-  Button, 
-  Form, 
-  Input, 
-  Select, 
-  Space, 
-  Typography, 
-  Divider, 
-  message, 
+import {
+  Card,
+  Button,
+  Form,
+  Input,
+  Select,
+  Space,
+  Typography,
+  Divider,
+  message,
   Modal,
   Radio,
   Checkbox,
   Switch,
-  InputNumber
+  InputNumber,
 } from 'antd';
-import { 
-  PlusOutlined, 
-  DeleteOutlined, 
-  EditOutlined, 
-  ArrowUpOutlined, 
+import {
+  PlusOutlined,
+  DeleteOutlined,
+  EditOutlined,
+  ArrowUpOutlined,
   ArrowDownOutlined,
-  SaveOutlined
+  SaveOutlined,
 } from '@ant-design/icons';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
@@ -53,7 +53,7 @@ export default function SurveyEditorPage() {
   const params = useParams();
   const router = useRouter();
   const surveyId = Number(params.id);
-  
+
   const [survey, setSurvey] = useState<Survey | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isQuestionModalVisible, setIsQuestionModalVisible] = useState(false);
@@ -73,21 +73,21 @@ export default function SurveyEditorPage() {
             id: '1',
             type: 'text',
             text: 'Какие витамины вы принимаете в настоящее время?',
-            required: true
+            required: true,
           },
           {
             id: '2',
             type: 'single',
             text: 'Как часто вы принимаете витамины?',
             required: true,
-            options: ['Ежедневно', 'Несколько раз в неделю', 'Редко', 'Никогда']
+            options: ['Ежедневно', 'Несколько раз в неделю', 'Редко', 'Никогда'],
           },
           {
             id: '3',
             type: 'multiple',
             text: 'Какие проблемы со здоровьем вы хотите решить с помощью витаминов?',
             required: false,
-            options: ['Иммунитет', 'Энергия', 'Кожа', 'Волосы', 'Ногти', 'Другое']
+            options: ['Иммунитет', 'Энергия', 'Кожа', 'Волосы', 'Ногти', 'Другое'],
           },
           {
             id: '4',
@@ -95,9 +95,9 @@ export default function SurveyEditorPage() {
             text: 'Насколько вы довольны своим текущим здоровьем?',
             required: true,
             min: 1,
-            max: 10
-          }
-        ]
+            max: 10,
+          },
+        ],
       });
       setIsLoading(false);
     }, 500);
@@ -117,62 +117,60 @@ export default function SurveyEditorPage() {
 
   const handleDeleteQuestion = (questionId: string) => {
     if (!survey) return;
-    
+
     setSurvey({
       ...survey,
-      questions: survey.questions.filter(q => q.id !== questionId)
+      questions: survey.questions.filter((q) => q.id !== questionId),
     });
     message.success('Вопрос удален');
   };
 
   const handleMoveQuestion = (fromIndex: number, toIndex: number) => {
     if (!survey) return;
-    
+
     const newQuestions = [...survey.questions];
     const [movedQuestion] = newQuestions.splice(fromIndex, 1);
     newQuestions.splice(toIndex, 0, movedQuestion);
-    
+
     setSurvey({
       ...survey,
-      questions: newQuestions
+      questions: newQuestions,
     });
   };
 
   const handleDragEnd = (result: any) => {
     if (!result.destination) return;
-    
+
     const fromIndex = result.source.index;
     const toIndex = result.destination.index;
-    
+
     handleMoveQuestion(fromIndex, toIndex);
   };
 
   const handleSaveQuestion = () => {
-    questionForm.validateFields().then(values => {
+    questionForm.validateFields().then((values) => {
       if (!survey) return;
-      
+
       const newQuestion: Question = {
         id: editingQuestion?.id || Date.now().toString(),
-        ...values
+        ...values,
       };
-      
+
       let newQuestions: Question[];
-      
+
       if (editingQuestion) {
         // Update existing question
-        newQuestions = survey.questions.map(q => 
-          q.id === editingQuestion.id ? newQuestion : q
-        );
+        newQuestions = survey.questions.map((q) => (q.id === editingQuestion.id ? newQuestion : q));
       } else {
         // Add new question
         newQuestions = [...survey.questions, newQuestion];
       }
-      
+
       setSurvey({
         ...survey,
-        questions: newQuestions
+        questions: newQuestions,
       });
-      
+
       setIsQuestionModalVisible(false);
       message.success(editingQuestion ? 'Вопрос обновлен' : 'Вопрос добавлен');
     });
@@ -188,25 +186,29 @@ export default function SurveyEditorPage() {
     switch (question.type) {
       case 'text':
         return <Input placeholder="Текстовый ответ" disabled />;
-      
+
       case 'single':
         return (
           <Radio.Group disabled>
             {question.options?.map((option, index) => (
-              <Radio key={index} value={option}>{option}</Radio>
+              <Radio key={index} value={option}>
+                {option}
+              </Radio>
             ))}
           </Radio.Group>
         );
-      
+
       case 'multiple':
         return (
           <Checkbox.Group disabled>
             {question.options?.map((option, index) => (
-              <Checkbox key={index} value={option}>{option}</Checkbox>
+              <Checkbox key={index} value={option}>
+                {option}
+              </Checkbox>
             ))}
           </Checkbox.Group>
         );
-      
+
       case 'scale':
         return (
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -215,7 +217,7 @@ export default function SurveyEditorPage() {
             ))}
           </div>
         );
-      
+
       default:
         return null;
     }
@@ -237,17 +239,17 @@ export default function SurveyEditorPage() {
           Сохранить опрос
         </Button>
       </div>
-      
+
       <Text>{survey.description}</Text>
-      
+
       <Divider />
-      
+
       <div style={{ marginBottom: 16 }}>
         <Button type="primary" icon={<PlusOutlined />} onClick={handleAddQuestion}>
           Добавить вопрос
         </Button>
       </div>
-      
+
       <DragDropContext onDragEnd={handleDragEnd}>
         <Droppable droppableId="questions">
           {(provided) => (
@@ -260,29 +262,35 @@ export default function SurveyEditorPage() {
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
                     >
-                      <Card 
+                      <Card
                         style={{ marginBottom: 16 }}
                         title={
-                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                          <div
+                            style={{
+                              display: 'flex',
+                              justifyContent: 'space-between',
+                              alignItems: 'center',
+                            }}
+                          >
                             <Text strong>Вопрос {index + 1}</Text>
                             <Space>
-                              <Button 
-                                icon={<ArrowUpOutlined />} 
+                              <Button
+                                icon={<ArrowUpOutlined />}
                                 disabled={index === 0}
                                 onClick={() => handleMoveQuestion(index, index - 1)}
                               />
-                              <Button 
-                                icon={<ArrowDownOutlined />} 
+                              <Button
+                                icon={<ArrowDownOutlined />}
                                 disabled={index === survey.questions.length - 1}
                                 onClick={() => handleMoveQuestion(index, index + 1)}
                               />
-                              <Button 
-                                icon={<EditOutlined />} 
+                              <Button
+                                icon={<EditOutlined />}
                                 onClick={() => handleEditQuestion(question)}
                               />
-                              <Button 
-                                danger 
-                                icon={<DeleteOutlined />} 
+                              <Button
+                                danger
+                                icon={<DeleteOutlined />}
                                 onClick={() => handleDeleteQuestion(question.id)}
                               />
                             </Space>
@@ -293,7 +301,7 @@ export default function SurveyEditorPage() {
                           <Text strong>{question.text}</Text>
                           {question.required && <Text type="danger"> *</Text>}
                         </div>
-                        
+
                         {renderQuestionPreview(question)}
                       </Card>
                     </div>
@@ -305,7 +313,7 @@ export default function SurveyEditorPage() {
           )}
         </Droppable>
       </DragDropContext>
-      
+
       <Modal
         title={editingQuestion ? 'Редактировать вопрос' : 'Добавить вопрос'}
         open={isQuestionModalVisible}
@@ -321,7 +329,7 @@ export default function SurveyEditorPage() {
           >
             <TextArea rows={3} />
           </Form.Item>
-          
+
           <Form.Item
             name="type"
             label="Тип вопроса"
@@ -334,22 +342,18 @@ export default function SurveyEditorPage() {
               <Option value="scale">Шкала</Option>
             </Select>
           </Form.Item>
-          
-          <Form.Item
-            name="required"
-            label="Обязательный"
-            valuePropName="checked"
-          >
+
+          <Form.Item name="required" label="Обязательный" valuePropName="checked">
             <Switch />
           </Form.Item>
-          
+
           <Form.Item
             noStyle
             shouldUpdate={(prevValues, currentValues) => prevValues.type !== currentValues.type}
           >
             {({ getFieldValue }) => {
               const type = getFieldValue('type');
-              
+
               if (type === 'single' || type === 'multiple') {
                 return (
                   <Form.Item
@@ -357,36 +361,34 @@ export default function SurveyEditorPage() {
                     label="Варианты ответов"
                     rules={[{ required: true, message: 'Пожалуйста, добавьте варианты ответов' }]}
                   >
-                    <Select mode="tags" style={{ width: '100%' }} placeholder="Введите вариант и нажмите Enter">
+                    <Select
+                      mode="tags"
+                      style={{ width: '100%' }}
+                      placeholder="Введите вариант и нажмите Enter"
+                    >
                       {editingQuestion?.options?.map((option, index) => (
-                        <Option key={index} value={option}>{option}</Option>
+                        <Option key={index} value={option}>
+                          {option}
+                        </Option>
                       ))}
                     </Select>
                   </Form.Item>
                 );
               }
-              
+
               if (type === 'scale') {
                 return (
                   <>
-                    <Form.Item
-                      name="min"
-                      label="Минимальное значение"
-                      initialValue={1}
-                    >
+                    <Form.Item name="min" label="Минимальное значение" initialValue={1}>
                       <InputNumber min={0} max={100} />
                     </Form.Item>
-                    <Form.Item
-                      name="max"
-                      label="Максимальное значение"
-                      initialValue={10}
-                    >
+                    <Form.Item name="max" label="Максимальное значение" initialValue={10}>
                       <InputNumber min={1} max={100} />
                     </Form.Item>
                   </>
                 );
               }
-              
+
               return null;
             }}
           </Form.Item>
@@ -394,4 +396,4 @@ export default function SurveyEditorPage() {
       </Modal>
     </div>
   );
-} 
+}

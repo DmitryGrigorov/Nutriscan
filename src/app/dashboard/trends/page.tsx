@@ -40,11 +40,7 @@ export default function TrendsPage() {
     <BasePage
       title="Динамика показателей"
       extra={
-        <Select
-          value={selectedMetric}
-          onChange={setSelectedMetric}
-          style={{ width: 200 }}
-        >
+        <Select value={selectedMetric} onChange={setSelectedMetric} style={{ width: 200 }}>
           <Option value="weight">Вес (кг)</Option>
           <Option value="bmi">ИМТ</Option>
           <Option value="activity">Активность (шаги)</Option>
@@ -57,10 +53,18 @@ export default function TrendsPage() {
             {selectedMetric === 'weight'
               ? 'Динамика веса'
               : selectedMetric === 'bmi'
-              ? 'Динамика ИМТ'
-              : 'Динамика активности'}
+                ? 'Динамика ИМТ'
+                : 'Динамика активности'}
           </Title>
-          <div style={{ height: 300, background: '#f0f0f0', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div
+            style={{
+              height: 300,
+              background: '#f0f0f0',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
             <Text type="secondary">График будет отображаться здесь</Text>
           </div>
           <List
@@ -78,4 +82,4 @@ export default function TrendsPage() {
       </Card>
     </BasePage>
   );
-} 
+}

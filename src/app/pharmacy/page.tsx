@@ -1,7 +1,21 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Card, Typography, Input, Select, Space, Spin, Empty, Tag, Button, message, Pagination } from 'antd';
+import {
+  Row,
+  Col,
+  Card,
+  Typography,
+  Input,
+  Select,
+  Space,
+  Spin,
+  Empty,
+  Tag,
+  Button,
+  message,
+  Pagination,
+} from 'antd';
 import { SearchOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 import { Product } from '@/types/product';
 import { Category } from '@/types/category';
@@ -43,7 +57,7 @@ export default function PharmacyPage() {
     if (categories.length === 0) return;
     const categorySlug = searchParams.get('category');
     if (categorySlug) {
-      const found = categories.find(cat => cat.slug === categorySlug);
+      const found = categories.find((cat) => cat.slug === categorySlug);
       if (found) {
         setSelectedCategory(found.$id);
       } else {
@@ -59,7 +73,7 @@ export default function PharmacyPage() {
     if (value === 'all') {
       router.push('/pharmacy');
     } else {
-      const cat = categories.find(c => c.$id === value);
+      const cat = categories.find((c) => c.$id === value);
       if (cat) {
         router.push(`/pharmacy?category=${encodeURIComponent(cat.slug)}`);
       }
@@ -68,14 +82,10 @@ export default function PharmacyPage() {
 
   const fetchProducts = async () => {
     try {
-      const response = await databases.listDocuments(
-        DATABASE_ID,
-        PRODUCTS_COLLECTION_ID,
-        [
-          Query.equal('isActive', true),
-          Query.orderDesc('$createdAt')
-        ]
-      );
+      const response = await databases.listDocuments(DATABASE_ID, PRODUCTS_COLLECTION_ID, [
+        Query.equal('isActive', true),
+        Query.orderDesc('$createdAt'),
+      ]);
       setProducts(response.documents as Product[]);
     } catch (error) {
       console.error('Error fetching products:', error);
@@ -86,34 +96,38 @@ export default function PharmacyPage() {
 
   const fetchCategories = async () => {
     try {
-      const response = await databases.listDocuments(
-        DATABASE_ID,
-        CATEGORIES_COLLECTION_ID,
-        [
-          Query.equal('isActive', true),
-          Query.orderDesc('$createdAt')
-        ]
-      );
+      const response = await databases.listDocuments(DATABASE_ID, CATEGORIES_COLLECTION_ID, [
+        Query.equal('isActive', true),
+        Query.orderDesc('$createdAt'),
+      ]);
       setCategories(response.documents as Category[]);
     } catch (error) {
       console.error('Error fetching categories:', error);
     }
   };
 
-  const filteredProducts = products.filter(product => {
-    const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         product.description.toLowerCase().includes(searchTerm.toLowerCase());
+  const filteredProducts = products.filter((product) => {
+    const matchesSearch =
+      product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      product.description.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory = selectedCategory === 'all' || product.categoryId === selectedCategory;
     return matchesSearch && matchesCategory;
   });
 
-  const paginatedProducts = filteredProducts.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+  const paginatedProducts = filteredProducts.slice(
+    (currentPage - 1) * pageSize,
+    currentPage * pageSize
+  );
 
   return (
     <div style={{ padding: '24px' }}>
       <Title level={2}>Аптека</Title>
-      
-      <Space direction="horizontal" size="large" style={{ width: '100%', marginBottom: '24px', justifyContent: 'space-between' }}>
+
+      <Space
+        direction="horizontal"
+        size="large"
+        style={{ width: '100%', marginBottom: '24px', justifyContent: 'space-between' }}
+      >
         <Space>
           <Input
             placeholder="Поиск товаров..."
@@ -122,13 +136,9 @@ export default function PharmacyPage() {
             onChange={(e) => setSearchTerm(e.target.value)}
             style={{ maxWidth: '300px' }}
           />
-          <Select
-            value={selectedCategory}
-            style={{ width: 200 }}
-            onChange={handleCategoryChange}
-          >
+          <Select value={selectedCategory} style={{ width: 200 }} onChange={handleCategoryChange}>
             <Option value="all">Все категории</Option>
-            {categories.map(category => (
+            {categories.map((category) => (
               <Option key={category.$id} value={category.$id}>
                 {category.name}
               </Option>
@@ -140,13 +150,15 @@ export default function PharmacyPage() {
           <Select
             value={pageSize}
             style={{ width: 80 }}
-            onChange={value => {
+            onChange={(value) => {
               setPageSize(value);
               setCurrentPage(1);
             }}
           >
-            {pageSizeOptions.map(size => (
-              <Option key={size} value={size}>{size}</Option>
+            {pageSizeOptions.map((size) => (
+              <Option key={size} value={size}>
+                {size}
+              </Option>
             ))}
           </Select>
         </Space>
@@ -161,11 +173,14 @@ export default function PharmacyPage() {
       ) : (
         <>
           <Row gutter={[16, 16]}>
-            {paginatedProducts.map(product => {
-              const category = categories.find(cat => cat.$id === product.categoryId);
+            {paginatedProducts.map((product) => {
+              const category = categories.find((cat) => cat.$id === product.categoryId);
               return (
                 <Col xs={24} sm={12} md={8} lg={6} key={product.$id}>
-                  <Link href={`/pharmacy/product/${product.slug}`} style={{ textDecoration: 'none' }}>
+                  <Link
+                    href={`/pharmacy/product/${product.slug}`}
+                    style={{ textDecoration: 'none' }}
+                  >
                     <Card
                       hoverable
                       cover={
@@ -186,7 +201,7 @@ export default function PharmacyPage() {
                           type="primary"
                           icon={<ShoppingCartOutlined />}
                           disabled={product.stock === 0}
-                          onClick={e => {
+                          onClick={(e) => {
                             e.preventDefault();
                             e.stopPropagation();
                             if (product.stock > 0) {
@@ -203,7 +218,7 @@ export default function PharmacyPage() {
                           }}
                         >
                           {product.stock > 0 ? 'В корзину' : 'Нет в наличии'}
-                        </Button>
+                        </Button>,
                       ]}
                     >
                       <Card.Meta
@@ -215,7 +230,9 @@ export default function PharmacyPage() {
                               {category && <Tag color="blue">{category.name}</Tag>}
                               <Tag color="green">{product.price} ₽</Tag>
                               <Tag color={product.stock > 0 ? 'green' : 'red'}>
-                                {product.stock > 0 ? `В наличии: ${product.stock}` : 'Нет в наличии'}
+                                {product.stock > 0
+                                  ? `В наличии: ${product.stock}`
+                                  : 'Нет в наличии'}
                               </Tag>
                             </div>
                           </>
@@ -240,4 +257,4 @@ export default function PharmacyPage() {
       )}
     </div>
   );
-} 
+}

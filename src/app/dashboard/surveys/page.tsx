@@ -92,8 +92,8 @@ export default function SurveysDashboardPage() {
                       {survey.status === 'completed'
                         ? 'Завершено'
                         : survey.status === 'in-progress'
-                        ? 'В процессе'
-                        : 'Не начато'}
+                          ? 'В процессе'
+                          : 'Не начато'}
                     </Tag>
                   </Space>
                 }
@@ -103,15 +103,10 @@ export default function SurveysDashboardPage() {
                     <br />
                     {survey.lastUpdated && (
                       <Text type="secondary">
-                        Последнее обновление:{' '}
-                        {new Date(survey.lastUpdated).toLocaleDateString()}
+                        Последнее обновление: {new Date(survey.lastUpdated).toLocaleDateString()}
                       </Text>
                     )}
-                    <Progress
-                      percent={survey.progress}
-                      size="small"
-                      style={{ marginTop: 8 }}
-                    />
+                    <Progress percent={survey.progress} size="small" style={{ marginTop: 8 }} />
                   </>
                 }
               />
@@ -123,8 +118,8 @@ export default function SurveysDashboardPage() {
                 {survey.status === 'completed'
                   ? 'Пройти заново'
                   : survey.status === 'in-progress'
-                  ? 'Продолжить'
-                  : 'Начать'}
+                    ? 'Продолжить'
+                    : 'Начать'}
               </Button>
             </Card>
           </List.Item>
@@ -132,4 +127,4 @@ export default function SurveysDashboardPage() {
       />
     </BasePage>
   );
-} 
+}

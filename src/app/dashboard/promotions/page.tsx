@@ -86,11 +86,7 @@ export default function PromotionsPage() {
                   </>
                 }
               />
-              <Button
-                type="primary"
-                icon={<ShoppingCartOutlined />}
-                style={{ marginTop: '16px' }}
-              >
+              <Button type="primary" icon={<ShoppingCartOutlined />} style={{ marginTop: '16px' }}>
                 Воспользоваться предложением
               </Button>
             </Card>
@@ -99,4 +95,4 @@ export default function PromotionsPage() {
       />
     </BasePage>
   );
-} 
+}

@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React, { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
@@ -36,11 +36,10 @@ export default function ProductDetailPage() {
   const fetchProduct = async (slug: string) => {
     setLoading(true);
     try {
-      const response = await databases.listDocuments(
-        DATABASE_ID,
-        PRODUCTS_COLLECTION_ID,
-        [Query.equal('slug', slug), Query.equal('isActive', true)]
-      );
+      const response = await databases.listDocuments(DATABASE_ID, PRODUCTS_COLLECTION_ID, [
+        Query.equal('slug', slug),
+        Query.equal('isActive', true),
+      ]);
       if (response.documents.length > 0) {
         const prod = response.documents[0] as Product;
         setProduct(prod);
@@ -69,16 +68,28 @@ export default function ProductDetailPage() {
   };
 
   if (loading) {
-    return <div style={{ textAlign: 'center', padding: '50px' }}><Spin size="large" /></div>;
+    return (
+      <div style={{ textAlign: 'center', padding: '50px' }}>
+        <Spin size="large" />
+      </div>
+    );
   }
 
   if (!product) {
-    return <div style={{ textAlign: 'center', padding: '50px' }}><Title level={3}>Товар не найден</Title></div>;
+    return (
+      <div style={{ textAlign: 'center', padding: '50px' }}>
+        <Title level={3}>Товар не найден</Title>
+      </div>
+    );
   }
 
   return (
     <div style={{ padding: '24px', maxWidth: 900, margin: '0 auto' }}>
-      <Button icon={<ArrowLeftOutlined />} onClick={() => router.back()} style={{ marginBottom: 24 }}>
+      <Button
+        icon={<ArrowLeftOutlined />}
+        onClick={() => router.back()}
+        style={{ marginBottom: 24 }}
+      >
         Назад
       </Button>
       <Card>
@@ -100,22 +111,26 @@ export default function ProductDetailPage() {
             <Title level={2}>{product.name}</Title>
             <div style={{ margin: '16px 0' }}>
               {product.oldPrice && (
-                <span style={{
-                  color: '#b0b0b0',
-                  textDecoration: 'line-through',
-                  fontSize: 18,
-                  marginRight: 12,
-                  fontWeight: 400,
-                }}>
+                <span
+                  style={{
+                    color: '#b0b0b0',
+                    textDecoration: 'line-through',
+                    fontSize: 18,
+                    marginRight: 12,
+                    fontWeight: 400,
+                  }}
+                >
                   {product.oldPrice} <span style={{ fontSize: 15 }}>₽</span>
                 </span>
               )}
-              <span style={{
-                color: '#222',
-                fontWeight: 700,
-                fontSize: 28,
-                letterSpacing: '-1px',
-              }}>
+              <span
+                style={{
+                  color: '#222',
+                  fontWeight: 700,
+                  fontSize: 28,
+                  letterSpacing: '-1px',
+                }}
+              >
                 {product.price} <span style={{ fontSize: 20, fontWeight: 500 }}>₽</span>
               </span>
             </div>
@@ -152,4 +167,4 @@ export default function ProductDetailPage() {
       </Card>
     </div>
   );
-} 
+}
