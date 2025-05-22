@@ -1,16 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import {
-  Card,
-  Form,
-  Input,
-  Button,
-  Steps,
-  message,
-  Radio,
-  Checkbox,
-} from 'antd';
+import { Card, Form, Input, Button, Steps, message, Radio, Checkbox } from 'antd';
 import { useRouter } from 'next/navigation';
 import { appwriteApi } from '@/lib/appwrite/api';
 import { BasePage } from '@/components/dashboard/BasePage';

@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { Card, Typography, Spin, Empty, Descriptions, Tag, Button, Divider } from 'antd';
 import { useAuth } from '@/contexts/AuthContext';
 import { surveyService } from '@/services/surveyService';
-import { SurveyRecord, AgeGroup } from '@/types/survey';
+import { SurveyRecord } from '@/types/survey';
 import { format } from 'date-fns';
 import { ru } from 'date-fns/locale';
 import { ArrowLeftOutlined } from '@ant-design/icons';

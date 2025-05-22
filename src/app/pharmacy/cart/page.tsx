@@ -58,6 +58,7 @@ export default function CartPage() {
           <List.Item
             actions={[
               <Button
+                key={item.id}
                 type="text"
                 danger
                 icon={<DeleteOutlined />}

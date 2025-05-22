@@ -14,6 +14,8 @@ const SurveyForm: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [gender, setGender] = useState<'male' | 'female' | null>(null);
 
+  console.log(gender);
+
   const onFinish = async (values: SurveyFormData) => {
     if (!user) {
       message.error('Please login to submit the survey');

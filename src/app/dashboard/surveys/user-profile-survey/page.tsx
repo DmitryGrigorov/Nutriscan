@@ -1,13 +1,12 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Card, Form, Input, Select, Checkbox, Button, Typography, Steps, message } from 'antd';
+import { Card, Form, Select, Checkbox, Button, Steps, message } from 'antd';
 import { useRouter } from 'next/navigation';
 import { appwriteApi } from '@/lib/appwrite/api';
 import { BasePage } from '@/components/dashboard/BasePage';
 import { SurveyFormData } from '@/types';
 
-const { Title, Text } = Typography;
 const { Option } = Select;
 
 export default function UserProfileSurveyPage() {

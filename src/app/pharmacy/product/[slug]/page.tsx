@@ -11,7 +11,7 @@ import { Category } from '@/types/category';
 import Image from 'next/image';
 import { useCart } from '@/contexts/CartContext';
 
-const { Title, Paragraph, Text } = Typography;
+const { Title, Paragraph } = Typography;
 
 const databases = new Databases(client);
 const PRODUCTS_COLLECTION_ID = process.env.NEXT_PUBLIC_APPWRITE_PRODUCTS_COLLECTION_ID || '';

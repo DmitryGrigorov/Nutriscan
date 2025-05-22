@@ -3,8 +3,6 @@
 import React from 'react';
 import { Typography, Tabs } from 'antd';
 import { SurveyHistory } from '@/components/survey/SurveyHistory';
-import SurveyForm from '@/components/survey/SurveyForm';
-import { SurveyProvider } from '@/contexts/SurveyContext';
 
 const { Title } = Typography;
 

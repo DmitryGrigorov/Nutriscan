@@ -198,6 +198,7 @@ export default function PharmacyPage() {
                       }
                       actions={[
                         <Button
+                          key={product.$id}
                           type="primary"
                           icon={<ShoppingCartOutlined />}
                           disabled={product.stock === 0}

@@ -1,25 +1,15 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Card, List, Typography, Button, Tag, Space, Progress } from 'antd';
 import { useRouter } from 'next/navigation';
 import { FileTextOutlined, CheckCircleOutlined, ClockCircleOutlined } from '@ant-design/icons';
 import { BasePage } from '@/components/dashboard/BasePage';
-import { appwriteApi } from '@/lib/appwrite/api';
 
 const { Text } = Typography;
 
-interface Survey {
-  id: string;
-  title: string;
-  description: string;
-  status: 'completed' | 'in-progress' | 'not-started';
-  progress: number;
-  lastUpdated?: string;
-}
-
 export default function SurveysDashboardPage() {
-  const [surveys, setSurveys] = useState<Survey[]>([
+  const surveys = [
     {
       id: 'user-profile-survey',
       title: 'Профиль пользователя',
@@ -43,7 +33,7 @@ export default function SurveysDashboardPage() {
       progress: 100,
       lastUpdated: '2024-03-10',
     },
-  ]);
+  ];
   const router = useRouter();
 
   const getStatusColor = (status: string) => {

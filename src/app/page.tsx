@@ -1,6 +1,6 @@
 'use client';
 
-import { Typography, Layout, Row, Col, Card, Button, Form, Input, message, Carousel } from 'antd';
+import { Typography, Layout, Row, Col, Card, Button, Form, Input, message } from 'antd';
 import { SurveyProvider } from '@/contexts/SurveyContext';
 import SurveyForm from '@/components/survey/SurveyForm';
 import {

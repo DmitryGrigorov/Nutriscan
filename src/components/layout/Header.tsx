@@ -87,7 +87,7 @@ export const Header = () => {
   const router = useRouter();
   const pathname = usePathname();
   const { user, logout } = useAuth();
-  const { reminders, unreadCount, markAsRead } = useReminders();
+  const { reminders, unreadCount } = useReminders();
   const { cart } = useCart();
   const [reminderOpen, setReminderOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
@@ -95,10 +95,6 @@ export const Header = () => {
   const handleLogout = async () => {
     await logout();
     router.push('/');
-  };
-
-  const handleReminderClick = (id: string) => {
-    markAsRead(id);
   };
 
   const menuItems = [

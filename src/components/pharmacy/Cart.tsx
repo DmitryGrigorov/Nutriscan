@@ -24,7 +24,7 @@ import {
   CreditCardOutlined,
 } from '@ant-design/icons';
 import { useCart } from '@/contexts/CartContext';
-import { useRouter } from 'next/navigation';
+// import { useRouter } from 'next/navigation';
 
 const { Text } = Typography;
 const { Option } = Select;
@@ -46,7 +46,7 @@ export const Cart: React.FC<CartProps> = ({ visible, onClose }) => {
   const { cart, removeFromCart, updateQuantity, clearCart } = useCart();
   const [checkoutModalVisible, setCheckoutModalVisible] = useState(false);
   const [form] = Form.useForm();
-  const router = useRouter();
+  // const router = useRouter();
 
   const handleCheckout = () => {
     if (cart.length === 0) {
@@ -60,6 +60,7 @@ export const Cart: React.FC<CartProps> = ({ visible, onClose }) => {
   const totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   const handleCheckoutSubmit = async (values: CheckoutFormValues) => {
+    console.log(values);
     // Mock payment processing
     message.loading({ content: 'Обработка заказа...', key: 'checkout' });
 
@@ -111,6 +112,7 @@ export const Cart: React.FC<CartProps> = ({ visible, onClose }) => {
                 <List.Item
                   actions={[
                     <Button
+                      key={item.id}
                       type="text"
                       danger
                       icon={<DeleteOutlined />}

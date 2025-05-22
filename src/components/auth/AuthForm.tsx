@@ -4,8 +4,6 @@ import React from 'react';
 import { Form, Input, Button, Card, Typography } from 'antd';
 import { UserOutlined, LockOutlined, MailOutlined } from '@ant-design/icons';
 import { useAuth } from '@/contexts/AuthContext';
-import { useRouter } from 'next/navigation';
-
 const { Title } = Typography;
 
 interface AuthFormProps {
@@ -20,7 +18,6 @@ interface FormValues {
 
 export const AuthForm: React.FC<AuthFormProps> = ({ mode }) => {
   const { login, register } = useAuth();
-  const router = useRouter();
   const [form] = Form.useForm();
 
   const onFinish = async (values: FormValues) => {

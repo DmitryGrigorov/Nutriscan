@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { Card, Row, Col, Typography, Tag, Button, Spin, Empty } from 'antd';
+import { Card, Row, Col, Typography, Button, Spin, Empty } from 'antd';
 import { RightOutlined } from '@ant-design/icons';
 import { useRouter } from 'next/navigation';
 import { Databases, Query } from 'appwrite';
