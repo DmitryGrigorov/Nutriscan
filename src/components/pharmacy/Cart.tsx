@@ -26,7 +26,7 @@ import {
 import { useCart, CartItem } from '@/contexts/CartContext';
 import { useRouter } from 'next/navigation';
 
-const { Title, Text } = Typography;
+const { Text } = Typography;
 const { Option } = Select;
 
 interface CartProps {
@@ -46,7 +46,7 @@ export const Cart: React.FC<CartProps> = ({ visible, onClose }) => {
   const { items, removeItem, updateQuantity, clearCart, totalItems, totalPrice } = useCart();
   const [checkoutModalVisible, setCheckoutModalVisible] = useState(false);
   const [form] = Form.useForm();
-  const router = useRouter();
+  // const router = useRouter();
 
   const handleCheckout = () => {
     if (items.length === 0) {

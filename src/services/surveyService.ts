@@ -1,6 +1,6 @@
 import { ID, Query } from 'appwrite';
 import { databases } from '@/lib/appwrite/config';
-import { SurveySubmission, SurveyRecord, SurveyState } from '@/types/survey';
+import { SurveySubmission, SurveyRecord } from '@/types/survey';
 import { SurveyData, SurveyFormData } from '@/types';
 
 const DATABASE_ID = process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID || '';
@@ -19,7 +19,7 @@ export const surveyService = {
       gender: data.gender || 'male',
       goal: data.goal || 'maintenance',
       activityLevel: data.activityLevel || 'moderate',
-      createdAt: new Date(now)
+      createdAt: new Date(now),
     };
 
     const response = await databases.createDocument(
@@ -122,7 +122,7 @@ export const surveyService = {
     await databases.deleteDocument(DATABASE_ID, SURVEYS_COLLECTION_ID, surveyId);
   },
 
-  async getSurveysByUser(userId: string): Promise<SurveyData[]> {
+  async getSurveysByUser(): Promise<SurveyData[]> {
     const response = await databases.listDocuments(DATABASE_ID, SURVEYS_COLLECTION_ID, [
       // Add query to filter by userId
       // Add sorting by createdAt

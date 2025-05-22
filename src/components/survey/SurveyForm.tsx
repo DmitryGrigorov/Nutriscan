@@ -1,10 +1,10 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Form, Input, Select, InputNumber, Button, message } from 'antd';
+import { Form, Select, InputNumber, Button, message } from 'antd';
 import { useAuth } from '@/contexts/AuthContext';
 import { surveyService } from '@/services/surveyService';
-import { SurveyFormData, Gender, AgeGroup, PregnancyStatus, ActivityLevel } from '@/types/survey';
+import { SurveyFormData, Gender } from '@/types/survey';
 
 const { Option } = Select;
 
