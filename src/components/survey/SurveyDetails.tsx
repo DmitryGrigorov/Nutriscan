@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { Card, Typography, Spin, Empty, Descriptions, Tag, Button, Divider } from 'antd';
 import { useAuth } from '@/contexts/AuthContext';
 import { surveyService } from '@/services/surveyService';
-import { SurveyRecord } from '@/types/survey';
+import { SurveyRecord, AgeGroup } from '@/types/survey';
 import { format } from 'date-fns';
 import { ru } from 'date-fns/locale';
 import { ArrowLeftOutlined } from '@ant-design/icons';
@@ -29,7 +29,22 @@ export const SurveyDetails: React.FC<SurveyDetailsProps> = ({ surveyId }) => {
       try {
         setLoading(true);
         const surveyData = await surveyService.getSurveyById(surveyId);
-        setSurvey(surveyData);
+        const surveyRecord: SurveyRecord = {
+          id: surveyData.$id,
+          userId: surveyData.userId,
+          createdAt: surveyData.createdAt.toISOString(),
+          updatedAt: new Date().toISOString(),
+          completedAt: undefined,
+          status: 'completed',
+          version: '1.0',
+          surveyData: {
+            gender: surveyData.gender,
+            ageGroup: '18-24', // Default age group since it's not in SurveyData
+            bodyMetrics: undefined, // No body metrics in SurveyData
+          },
+          recommendations: [],
+        };
+        setSurvey(surveyRecord);
       } catch (error) {
         console.error('Ошибка при загрузке опросника:', error);
       } finally {
@@ -40,7 +55,7 @@ export const SurveyDetails: React.FC<SurveyDetailsProps> = ({ surveyId }) => {
     fetchSurvey();
   }, [surveyId, user]);
 
-  const getStatusColor = (status: string) => {
+  const getStatusColor = (status: string): string => {
     switch (status) {
       case 'completed':
         return 'success';
@@ -53,7 +68,7 @@ export const SurveyDetails: React.FC<SurveyDetailsProps> = ({ surveyId }) => {
     }
   };
 
-  const getStatusText = (status: string) => {
+  const getStatusText = (status: string): string => {
     switch (status) {
       case 'completed':
         return 'Завершен';
@@ -66,7 +81,7 @@ export const SurveyDetails: React.FC<SurveyDetailsProps> = ({ surveyId }) => {
     }
   };
 
-  const formatDate = (dateString: string) => {
+  const formatDate = (dateString: string): string => {
     return format(new Date(dateString), 'dd MMMM yyyy, HH:mm', { locale: ru });
   };
 
@@ -123,51 +138,30 @@ export const SurveyDetails: React.FC<SurveyDetailsProps> = ({ surveyId }) => {
 
         <Descriptions bordered column={1} className="text-sm sm:text-base">
           <Descriptions.Item label="Пол">
-            {survey.gender === 'male' ? 'Мужской' : 'Женский'}
+            {survey.surveyData.gender === 'male' ? 'Мужской' : 'Женский'}
           </Descriptions.Item>
-          {survey.ageGroup && (
-            <Descriptions.Item label="Возрастная группа">{survey.ageGroup}</Descriptions.Item>
-          )}
-          {survey.gender === 'female' && survey.pregnancyStatus && (
-            <Descriptions.Item label="Беременность/Грудное вскармливание">
-              {survey.pregnancyStatus === 'pregnant'
-                ? 'Беременна'
-                : survey.pregnancyStatus === 'breastfeeding'
-                  ? 'Кормит грудью'
-                  : 'Нет'}
-            </Descriptions.Item>
-          )}
-          {survey.gender === 'female' && survey.pregnancyTerm && (
-            <Descriptions.Item label="Срок беременности">
-              {survey.pregnancyTerm === 'first_trimester'
-                ? 'Первый триместр'
-                : survey.pregnancyTerm === 'second_trimester'
-                  ? 'Второй триместр'
-                  : 'Третий триместр'}
-            </Descriptions.Item>
-          )}
-          {survey.gender === 'female' && survey.breastfeedingTerm && (
-            <Descriptions.Item label="Срок грудного вскармливания">
-              {survey.breastfeedingTerm === 'early'
-                ? 'До 3 месяцев'
-                : survey.breastfeedingTerm === 'middle'
-                  ? '3-6 месяцев'
-                  : 'Более 6 месяцев'}
+          {survey.surveyData.ageGroup && (
+            <Descriptions.Item label="Возрастная группа">
+              {survey.surveyData.ageGroup}
             </Descriptions.Item>
           )}
         </Descriptions>
 
-        {survey.bodyMetrics && (
+        {survey.surveyData.bodyMetrics && (
           <>
             <Divider orientation="left" className="text-sm sm:text-base">
               Антропометрические данные
             </Divider>
             <Descriptions bordered column={1} className="text-sm sm:text-base">
-              <Descriptions.Item label="Рост">{survey.bodyMetrics.height} см</Descriptions.Item>
-              <Descriptions.Item label="Вес">{survey.bodyMetrics.weight} кг</Descriptions.Item>
-              {survey.bodyMetrics.bmi && (
+              <Descriptions.Item label="Рост">
+                {survey.surveyData.bodyMetrics.height} см
+              </Descriptions.Item>
+              <Descriptions.Item label="Вес">
+                {survey.surveyData.bodyMetrics.weight} кг
+              </Descriptions.Item>
+              {survey.surveyData.bodyMetrics.bmi && (
                 <Descriptions.Item label="Индекс массы тела (ИМТ)">
-                  {survey.bodyMetrics.bmi.toFixed(1)}
+                  {survey.surveyData.bodyMetrics.bmi.toFixed(1)}
                 </Descriptions.Item>
               )}
             </Descriptions>

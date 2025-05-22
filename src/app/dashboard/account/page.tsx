@@ -16,8 +16,6 @@ import {
   EditOutlined,
 } from '@ant-design/icons';
 
-const { Title } = Typography;
-
 function DashboardContent() {
   const { user } = useAuth();
   const [surveyData, setSurveyData] = useState<SurveyData | null>(null);

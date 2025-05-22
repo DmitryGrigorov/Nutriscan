@@ -4,10 +4,8 @@ import React, { useState } from 'react';
 import {
   Card,
   Form,
-  Select,
   Input,
   Button,
-  Typography,
   Steps,
   message,
   Radio,
@@ -17,8 +15,6 @@ import { useRouter } from 'next/navigation';
 import { appwriteApi } from '@/lib/appwrite/api';
 import { BasePage } from '@/components/dashboard/BasePage';
 
-const { Title, Text } = Typography;
-const { Option } = Select;
 const { TextArea } = Input;
 
 interface NutritionHabitsFormData {

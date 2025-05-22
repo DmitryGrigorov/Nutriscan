@@ -1,10 +1,10 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Form, Select, InputNumber, Button, message } from 'antd';
+import { Form, Select, InputNumber, Button, message, Input } from 'antd';
 import { useAuth } from '@/contexts/AuthContext';
 import { surveyService } from '@/services/surveyService';
-import { SurveyFormData, Gender } from '@/types/survey';
+import { SurveyFormData } from '@/types';
 
 const { Option } = Select;
 
@@ -12,7 +12,7 @@ const SurveyForm: React.FC = () => {
   const [form] = Form.useForm();
   const { user } = useAuth();
   const [loading, setLoading] = useState(false);
-  const [gender, setGender] = useState<Gender | null>(null);
+  const [gender, setGender] = useState<'male' | 'female' | null>(null);
 
   const onFinish = async (values: SurveyFormData) => {
     if (!user) {
@@ -41,6 +41,20 @@ const SurveyForm: React.FC = () => {
       className="w-full max-w-[600px] mx-auto px-4 sm:px-0"
     >
       <Form.Item
+        name="age"
+        label={<span className="text-sm sm:text-base">Возраст</span>}
+        rules={[{ required: true, message: 'Пожалуйста, введите ваш возраст' }]}
+        className="mb-2"
+      >
+        <InputNumber
+          min={18}
+          max={100}
+          className="w-full text-sm sm:text-base"
+          placeholder="Введите ваш возраст"
+        />
+      </Form.Item>
+
+      <Form.Item
         name="gender"
         label={<span className="text-sm sm:text-base">Пол</span>}
         rules={[{ required: true, message: 'Пожалуйста, выберите ваш пол' }]}
@@ -57,61 +71,16 @@ const SurveyForm: React.FC = () => {
       </Form.Item>
 
       <Form.Item
-        name="ageGroup"
-        label={<span className="text-sm sm:text-base">Возрастная группа</span>}
-        rules={[{ required: true, message: 'Пожалуйста, выберите вашу возрастную группу' }]}
+        name="goal"
+        label={<span className="text-sm sm:text-base">Цель</span>}
+        rules={[{ required: true, message: 'Пожалуйста, выберите вашу цель' }]}
         className="mb-2"
       >
-        <Select placeholder="Выберите вашу возрастную группу" className="text-sm sm:text-base">
-          <Option value="18-24">18-24</Option>
-          <Option value="25-34">25-34</Option>
-          <Option value="35-44">35-44</Option>
-          <Option value="45-54">45-54</Option>
-          <Option value="55+">55+</Option>
+        <Select placeholder="Выберите вашу цель" className="text-sm sm:text-base">
+          <Option value="weight-loss">Снижение веса</Option>
+          <Option value="muscle-gain">Набор мышечной массы</Option>
+          <Option value="maintenance">Поддержание веса</Option>
         </Select>
-      </Form.Item>
-
-      {gender === 'female' && (
-        <Form.Item
-          name="pregnancyStatus"
-          label={<span className="text-sm sm:text-base">Статус беременности</span>}
-          rules={[{ required: true, message: 'Пожалуйста, выберите ваш статус беременности' }]}
-          className="mb-2"
-        >
-          <Select placeholder="Выберите ваш статус беременности" className="text-sm sm:text-base">
-            <Option value="not_pregnant">Не беременна</Option>
-            <Option value="pregnant">Беременна</Option>
-            <Option value="breastfeeding">Кормите грудью</Option>
-          </Select>
-        </Form.Item>
-      )}
-
-      <Form.Item
-        name="height"
-        label={<span className="text-sm sm:text-base">Рост (см)</span>}
-        rules={[{ required: true, message: 'Пожалуйста, введите ваш рост' }]}
-        className="mb-2"
-      >
-        <InputNumber
-          min={100}
-          max={250}
-          className="w-full text-sm sm:text-base"
-          placeholder="Введите ваш рост в сантиметрах"
-        />
-      </Form.Item>
-
-      <Form.Item
-        name="weight"
-        label={<span className="text-sm sm:text-base">Вес (кг)</span>}
-        rules={[{ required: true, message: 'Пожалуйста, введите ваш вес' }]}
-        className="mb-2"
-      >
-        <InputNumber
-          min={30}
-          max={200}
-          className="w-full text-sm sm:text-base"
-          placeholder="Введите ваш вес в килограммах"
-        />
       </Form.Item>
 
       <Form.Item
@@ -121,50 +90,103 @@ const SurveyForm: React.FC = () => {
         className="mb-2"
       >
         <Select placeholder="Выберите ваш уровень активности" className="text-sm sm:text-base">
-          <Option value="sedentary">Сейчас (мало или нет физических упражнений)</Option>
-          <Option value="light">Легкий (тренировки 1-3 дня в неделю)</Option>
-          <Option value="moderate">Средний (тренировки 3-5 дней в неделю)</Option>
-          <Option value="very_active">Очень активный (тренировки 6-7 дней в неделю)</Option>
+          <Option value="sedentary">Малоподвижный</Option>
+          <Option value="moderate">Умеренный</Option>
+          <Option value="active">Активный</Option>
+          <Option value="very-active">Очень активный</Option>
         </Select>
       </Form.Item>
 
       <Form.Item
-        name="healthConditions"
-        label={<span className="text-sm sm:text-base">Состояния здоровья</span>}
-        rules={[{ required: true, message: 'Пожалуйста, введите ваши состояния здоровья' }]}
+        name="education"
+        label={<span className="text-sm sm:text-base">Образование</span>}
+        rules={[{ required: true, message: 'Пожалуйста, выберите ваше образование' }]}
         className="mb-2"
       >
-        <Select
-          mode="tags"
-          className="w-full text-sm sm:text-base"
-          placeholder="Введите ваши состояния здоровья (нажмите enter для добавления)"
-        />
+        <Select placeholder="Выберите ваше образование" className="text-sm sm:text-base">
+          <Option value="higher">Высшее</Option>
+          <Option value="secondary">Среднее</Option>
+        </Select>
       </Form.Item>
 
       <Form.Item
-        name="allergies"
-        label={<span className="text-sm sm:text-base">Аллергии</span>}
-        rules={[{ required: true, message: 'Пожалуйста, введите ваши аллергии' }]}
+        name="location"
+        label={<span className="text-sm sm:text-base">Местоположение</span>}
+        rules={[{ required: true, message: 'Пожалуйста, введите ваше местоположение' }]}
         className="mb-2"
       >
-        <Select
-          mode="tags"
-          className="w-full text-sm sm:text-base"
-          placeholder="Введите ваши аллергии (нажмите enter для добавления)"
-        />
+        <Input placeholder="Введите ваше местоположение" className="text-sm sm:text-base" />
       </Form.Item>
 
       <Form.Item
-        name="dietaryRestrictions"
-        label={<span className="text-sm sm:text-base">Диетические ограничения</span>}
-        rules={[{ required: true, message: 'Пожалуйста, введите ваши диетические ограничения' }]}
+        name="lifestyle"
+        label={<span className="text-sm sm:text-base">Образ жизни</span>}
+        rules={[
+          { required: true, message: 'Пожалуйста, выберите характеристики вашего образа жизни' },
+        ]}
         className="mb-2"
       >
         <Select
-          mode="tags"
-          className="w-full text-sm sm:text-base"
-          placeholder="Введите ваши диетические ограничения (нажмите enter для добавления)"
-        />
+          mode="multiple"
+          placeholder="Выберите характеристики вашего образа жизни"
+          className="text-sm sm:text-base"
+        >
+          <Option value="healthyLifestyle">Ведет здоровый образ жизни</Option>
+          <Option value="selfDevelopment">Занимается саморазвитием</Option>
+          <Option value="healthValues">Ценит здоровье</Option>
+          <Option value="longevityValues">Ценит долголетие</Option>
+        </Select>
+      </Form.Item>
+
+      <Form.Item
+        name="onlineActivity"
+        label={<span className="text-sm sm:text-base">Онлайн активность</span>}
+        rules={[{ required: true, message: 'Пожалуйста, выберите вашу онлайн активность' }]}
+        className="mb-2"
+      >
+        <Select
+          mode="multiple"
+          placeholder="Выберите вашу онлайн активность"
+          className="text-sm sm:text-base"
+        >
+          <Option value="healthResearch">Изучает информацию о здоровье</Option>
+          <Option value="supplementsResearch">Изучает информацию о добавках</Option>
+        </Select>
+      </Form.Item>
+
+      <Form.Item
+        name="buyingHabits"
+        label={<span className="text-sm sm:text-base">Привычки покупок</span>}
+        rules={[{ required: true, message: 'Пожалуйста, выберите ваши привычки покупок' }]}
+        className="mb-2"
+      >
+        <Select
+          mode="multiple"
+          placeholder="Выберите ваши привычки покупок"
+          className="text-sm sm:text-base"
+        >
+          <Option value="regularPurchases">Регулярные покупки</Option>
+          <Option value="trustReviews">Доверяет отзывам</Option>
+          <Option value="trustExperts">Доверяет экспертам</Option>
+        </Select>
+      </Form.Item>
+
+      <Form.Item
+        name="painPoints"
+        label={<span className="text-sm sm:text-base">Проблемные места</span>}
+        rules={[{ required: true, message: 'Пожалуйста, выберите ваши проблемные места' }]}
+        className="mb-2"
+      >
+        <Select
+          mode="multiple"
+          placeholder="Выберите ваши проблемные места"
+          className="text-sm sm:text-base"
+        >
+          <Option value="lackOfTime">Нехватка времени</Option>
+          <Option value="difficultyChoosing">Сложность выбора</Option>
+          <Option value="overwhelmedByChoice">Перегружен выбором</Option>
+          <Option value="tooManyPills">Слишком много таблеток</Option>
+        </Select>
       </Form.Item>
 
       <Form.Item className="mb-2">

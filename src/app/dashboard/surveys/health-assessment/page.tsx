@@ -1,24 +1,11 @@
 'use client';
 
 import React, { useState } from 'react';
-import {
-  Card,
-  Form,
-  Select,
-  Input,
-  Button,
-  Typography,
-  Steps,
-  message,
-  Radio,
-  Checkbox,
-} from 'antd';
+import { Card, Form, Input, Button, Steps, message, Radio, Checkbox } from 'antd';
 import { useRouter } from 'next/navigation';
 import { appwriteApi } from '@/lib/appwrite/api';
 import { BasePage } from '@/components/dashboard/BasePage';
 
-const { Title, Text } = Typography;
-const { Option } = Select;
 const { TextArea } = Input;
 
 interface HealthAssessmentFormData {

@@ -535,7 +535,7 @@ function TeamSection() {
         <div style={{ display: 'flex', gap: 32, flexWrap: 'nowrap' }}>
           {shown.map((member, idx) => (
             <div
-              key={member.name}
+              key={member.name + idx}
               style={{
                 background: '#fff',
                 borderRadius: '50% / 40%',

@@ -7,8 +7,10 @@ import { useCart } from '@/contexts/CartContext';
 import { Cart } from './Cart';
 
 export const CartButton: React.FC = () => {
-  const { totalItems } = useCart();
+  const { cart } = useCart();
   const [cartVisible, setCartVisible] = useState(false);
+
+  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   const showCart = () => {
     setCartVisible(true);

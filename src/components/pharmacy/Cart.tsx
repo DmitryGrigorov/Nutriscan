@@ -23,7 +23,7 @@ import {
   PlusOutlined,
   CreditCardOutlined,
 } from '@ant-design/icons';
-import { useCart, CartItem } from '@/contexts/CartContext';
+import { useCart } from '@/contexts/CartContext';
 import { useRouter } from 'next/navigation';
 
 const { Text } = Typography;
@@ -43,18 +43,21 @@ interface CheckoutFormValues {
 }
 
 export const Cart: React.FC<CartProps> = ({ visible, onClose }) => {
-  const { items, removeItem, updateQuantity, clearCart, totalItems, totalPrice } = useCart();
+  const { cart, removeFromCart, updateQuantity, clearCart } = useCart();
   const [checkoutModalVisible, setCheckoutModalVisible] = useState(false);
   const [form] = Form.useForm();
-  // const router = useRouter();
+  const router = useRouter();
 
   const handleCheckout = () => {
-    if (items.length === 0) {
+    if (cart.length === 0) {
       message.warning('Корзина пуста');
       return;
     }
     setCheckoutModalVisible(true);
   };
+
+  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+  const totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   const handleCheckoutSubmit = async (values: CheckoutFormValues) => {
     // Mock payment processing
@@ -87,14 +90,14 @@ export const Cart: React.FC<CartProps> = ({ visible, onClose }) => {
           <div style={{ textAlign: 'right' }}>
             <Space>
               <Button onClick={onClose}>Продолжить покупки</Button>
-              <Button type="primary" onClick={handleCheckout} disabled={items.length === 0}>
+              <Button type="primary" onClick={handleCheckout} disabled={cart.length === 0}>
                 Оформить заказ
               </Button>
             </Space>
           </div>
         }
       >
-        {items.length === 0 ? (
+        {cart.length === 0 ? (
           <Empty
             image={<ShoppingCartOutlined style={{ fontSize: 64 }} />}
             description="Корзина пуста"
@@ -103,15 +106,15 @@ export const Cart: React.FC<CartProps> = ({ visible, onClose }) => {
           <>
             <List
               itemLayout="horizontal"
-              dataSource={items}
-              renderItem={(item: CartItem) => (
+              dataSource={cart}
+              renderItem={(item) => (
                 <List.Item
                   actions={[
                     <Button
                       type="text"
                       danger
                       icon={<DeleteOutlined />}
-                      onClick={() => removeItem(item.id)}
+                      onClick={() => removeFromCart(item.id)}
                     />,
                   ]}
                 >
@@ -126,7 +129,6 @@ export const Cart: React.FC<CartProps> = ({ visible, onClose }) => {
                     title={item.name}
                     description={
                       <Space direction="vertical" size={0}>
-                        <Text type="secondary">{item.category}</Text>
                         <Text strong>{item.price} ₽</Text>
                       </Space>
                     }
@@ -205,7 +207,7 @@ export const Cart: React.FC<CartProps> = ({ visible, onClose }) => {
             label="Email"
             rules={[
               { required: true, message: 'Пожалуйста, введите ваш email' },
-              { type: 'email', message: 'Пожалуйста, введите корректный email' },
+              { type: 'email', message: 'Введите корректный email' },
             ]}
           >
             <Input />

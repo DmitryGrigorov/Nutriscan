@@ -5,7 +5,7 @@ import { Card, Table, Typography, Tag, Space, Button, Upload, message } from 'an
 import { UploadOutlined, DownloadOutlined, EyeOutlined } from '@ant-design/icons';
 import type { UploadProps } from 'antd';
 
-const { Title, Text } = Typography;
+const { Title } = Typography;
 
 // Примеры анализов
 const mockAnalyses = [
@@ -71,7 +71,7 @@ const columns = [
   {
     title: 'Действия',
     key: 'actions',
-    render: (_: any, record: any) => (
+    render: () => (
       <Space>
         <Button
           type="text"
