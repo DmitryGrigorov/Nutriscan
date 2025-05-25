@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { Databases, Query } from 'appwrite';
 import { client } from '@/lib/appwrite';
 import { Category } from '@/types/category';
+import Image from 'next/image';
 
 const { Title, Paragraph } = Typography;
 
@@ -60,11 +61,15 @@ export default function CategoryPage() {
                 hoverable
                 cover={
                   category.imageUrl ? (
-                    <img
-                      alt={category.name}
-                      src={category.imageUrl}
-                      style={{ height: 150, objectFit: 'cover' }}
-                    />
+                    <div style={{ position: 'relative', height: 150 }}>
+                      <Image
+                        src={category.imageUrl}
+                        alt={category.name}
+                        fill
+                        sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        style={{ objectFit: 'cover' }}
+                      />
+                    </div>
                   ) : null
                 }
                 onClick={() => handleCategoryClick(category.slug)}

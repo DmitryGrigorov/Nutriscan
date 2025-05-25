@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import {
   Row,
   Col,
@@ -36,7 +36,7 @@ const DATABASE_ID = process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID || '';
 
 const pageSizeOptions = [8, 12, 16, 20, 24, 32, 50, 100];
 
-export default function PharmacyPage() {
+function PharmacyContent() {
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
@@ -257,5 +257,13 @@ export default function PharmacyPage() {
         </>
       )}
     </div>
+  );
+}
+
+export default function PharmacyPage() {
+  return (
+    <Suspense fallback={<div style={{ textAlign: 'center', padding: '50px' }}><Spin size="large" /></div>}>
+      <PharmacyContent />
+    </Suspense>
   );
 }
