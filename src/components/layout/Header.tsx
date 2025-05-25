@@ -181,22 +181,7 @@ export const Header = () => {
           label: <Link href="/dashboard/trends">Тренды</Link>,
         },
       ],
-    },
-    {
-      key: 'survey',
-      icon: <FormOutlined />,
-      label: 'Опросы',
-      children: [
-        {
-          key: '/survey',
-          label: <Link href="/survey">Новый опрос</Link>,
-        },
-        {
-          key: '/surveys',
-          label: <Link href="/surveys">Мои опросы</Link>,
-        },
-      ],
-    },
+    }
   ];
 
   const reminderContent = (
