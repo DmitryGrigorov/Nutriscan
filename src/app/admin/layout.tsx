@@ -47,7 +47,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Sider width={200} theme="light">
-        <div style={{ height: 32, margin: 16, background: 'rgba(0, 132, 255, 0.2)' }}>\</div>
+        <div style={{ height: 32, margin: 16, background: 'rgba(0, 132, 255, 0.2)' }} />
         <Menu
           mode="inline"
           selectedKeys={[pathname]}
