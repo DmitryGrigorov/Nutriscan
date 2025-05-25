@@ -16,7 +16,7 @@ const nextConfig = {
         hostname: 'cloud.appwrite.io',
         port: '',
         pathname: '/v1/storage/buckets/**',
-      }
+      },
     ],
   },
   webpack: (config, { isServer }) => {

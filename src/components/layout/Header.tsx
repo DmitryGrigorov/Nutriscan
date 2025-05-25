@@ -14,7 +14,6 @@ import {
   CheckCircleOutlined,
   HomeOutlined,
   ShoppingOutlined,
-  FormOutlined,
   UserOutlined,
   BarChartOutlined,
   GiftOutlined,
@@ -181,7 +180,7 @@ export const Header = () => {
           label: <Link href="/dashboard/trends">Тренды</Link>,
         },
       ],
-    }
+    },
   ];
 
   const reminderContent = (

@@ -262,7 +262,13 @@ function PharmacyContent() {
 
 export default function PharmacyPage() {
   return (
-    <Suspense fallback={<div style={{ textAlign: 'center', padding: '50px' }}><Spin size="large" /></div>}>
+    <Suspense
+      fallback={
+        <div style={{ textAlign: 'center', padding: '50px' }}>
+          <Spin size="large" />
+        </div>
+      }
+    >
       <PharmacyContent />
     </Suspense>
   );
