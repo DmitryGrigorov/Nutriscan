@@ -41,6 +41,15 @@ export const appwriteApi = {
         return null;
       }
     },
+
+    getSession: async () => {
+      try {
+        return await account.getSession('current');
+      } catch (error) {
+        console.error('Error getting session:', error);
+        return null;
+      }
+    },
   },
 
   // Опросы
