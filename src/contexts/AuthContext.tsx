@@ -43,16 +43,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const response = await appwriteApi.auth.login(email, password);
       console.log('Login response:', response);
       setUser(response.user);
-      
+
       const session = await appwriteApi.auth.getSession();
       console.log('Session:', session);
-      
+
       if (session?.$id) {
         Cookies.set('auth_token', session.$id, { expires: 7 });
       } else {
         console.error('No session ID found');
       }
-      
+
       message.success('Успешный вход в систему');
     } catch (error) {
       console.error('Login error:', error);
@@ -66,16 +66,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const response = await appwriteApi.auth.register(email, password, name);
       console.log('Register response:', response);
       setUser(response.user);
-      
+
       const session = await appwriteApi.auth.getSession();
       console.log('Session:', session);
-      
+
       if (session?.$id) {
         Cookies.set('auth_token', session.$id, { expires: 7 });
       } else {
         console.error('No session ID found');
       }
-      
+
       message.success('Регистрация успешна');
       router.push('/profile/complete');
     } catch (error) {
