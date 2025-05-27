@@ -3,9 +3,8 @@
 import React from 'react';
 import { Card, List, Typography, Tag, Button, Space } from 'antd';
 import { GiftOutlined, ShoppingCartOutlined } from '@ant-design/icons';
-import { BasePage } from '@/components/dashboard/BasePage';
 
-const { Text } = Typography;
+const { Text, Title } = Typography;
 
 interface Promotion {
   id: string;
@@ -61,38 +60,82 @@ const getCategoryLabel = (category: string) => {
 
 export default function PromotionsPage() {
   return (
-    <BasePage title="Акции и предложения">
-      <List
-        dataSource={promotions}
-        renderItem={(promotion) => (
-          <List.Item>
-            <Card style={{ width: '100%' }}>
-              <List.Item.Meta
-                avatar={<GiftOutlined style={{ fontSize: '24px' }} />}
-                title={
-                  <Space>
-                    {promotion.title}
-                    <Tag color="red">{promotion.discount}</Tag>
-                    <Tag>{getCategoryLabel(promotion.category)}</Tag>
-                  </Space>
-                }
-                description={
-                  <>
-                    <Text>{promotion.description}</Text>
-                    <br />
-                    <Text type="secondary">
-                      Действует до: {new Date(promotion.validUntil).toLocaleDateString()}
-                    </Text>
-                  </>
-                }
-              />
-              <Button type="primary" icon={<ShoppingCartOutlined />} style={{ marginTop: '16px' }}>
-                Воспользоваться предложением
-              </Button>
-            </Card>
-          </List.Item>
-        )}
-      />
-    </BasePage>
+    <div style={{ padding: '24px' }}>
+      <div
+        style={{
+          background: 'linear-gradient(120deg, #e0f7fa 0%, #f6fffe 100%)',
+          padding: '16px 24px',
+          borderRadius: '8px',
+          marginBottom: '24px',
+          border: '1px solid #2ec6c6',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '16px',
+        }}
+      >
+        <div
+          style={{
+            fontSize: '16px',
+            color: '#003b3b',
+            fontWeight: 500,
+            lineHeight: 1.5,
+          }}
+        >
+          <span
+            style={{
+              display: 'inline-block',
+              background: '#2ec6c6',
+              color: '#fff',
+              padding: '4px 12px',
+              borderRadius: '16px',
+              marginRight: '12px',
+              fontSize: '14px',
+            }}
+          >
+            В разработке
+          </span>
+          Раздел находится в разработке
+        </div>
+      </div>
+
+      <Card>
+        <Title level={2}>Акции и специальные предложения</Title>
+        <List
+          dataSource={promotions}
+          renderItem={(promotion) => (
+            <List.Item>
+              <Card style={{ width: '100%' }}>
+                <List.Item.Meta
+                  avatar={<GiftOutlined style={{ fontSize: '24px' }} />}
+                  title={
+                    <Space>
+                      {promotion.title}
+                      <Tag color="red">{promotion.discount}</Tag>
+                      <Tag>{getCategoryLabel(promotion.category)}</Tag>
+                    </Space>
+                  }
+                  description={
+                    <>
+                      <Text>{promotion.description}</Text>
+                      <br />
+                      <Text type="secondary">
+                        Действует до: {new Date(promotion.validUntil).toLocaleDateString()}
+                      </Text>
+                    </>
+                  }
+                />
+                <Button
+                  type="primary"
+                  icon={<ShoppingCartOutlined />}
+                  style={{ marginTop: '16px' }}
+                >
+                  Воспользоваться предложением
+                </Button>
+              </Card>
+            </List.Item>
+          )}
+        />
+      </Card>
+    </div>
   );
 }

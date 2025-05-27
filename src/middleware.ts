@@ -19,4 +19,4 @@ export function middleware(request: NextRequest) {
 // Указываем, для каких путей будет применяться middleware
 export const config = {
   matcher: '/admin/:path*',
-}; 
+};

@@ -3,9 +3,8 @@
 import React from 'react';
 import { Card, List, Typography, Tag, Space } from 'antd';
 import { BulbOutlined } from '@ant-design/icons';
-import { BasePage } from '@/components/dashboard/BasePage';
 
-const { Text } = Typography;
+const { Text, Title } = Typography;
 
 interface Recommendation {
   id: string;
@@ -72,33 +71,73 @@ const getCategoryLabel = (category: string) => {
 
 export default function RecommendationsPage() {
   return (
-    <BasePage title="Персональные рекомендации">
-      <List
-        dataSource={recommendations}
-        renderItem={(recommendation) => (
-          <List.Item>
-            <Card style={{ width: '100%' }}>
-              <List.Item.Meta
-                avatar={<BulbOutlined style={{ fontSize: '24px' }} />}
-                title={
-                  <Space>
-                    {recommendation.title}
-                    <Tag color={getPriorityColor(recommendation.priority)}>
-                      {recommendation.priority === 'high'
-                        ? 'Высокий приоритет'
-                        : recommendation.priority === 'medium'
-                          ? 'Средний приоритет'
-                          : 'Низкий приоритет'}
-                    </Tag>
-                    <Tag>{getCategoryLabel(recommendation.category)}</Tag>
-                  </Space>
-                }
-                description={<Text>{recommendation.description}</Text>}
-              />
-            </Card>
-          </List.Item>
-        )}
-      />
-    </BasePage>
+    <div style={{ padding: '24px' }}>
+      <div
+        style={{
+          background: 'linear-gradient(120deg, #e0f7fa 0%, #f6fffe 100%)',
+          padding: '16px 24px',
+          borderRadius: '8px',
+          marginBottom: '24px',
+          border: '1px solid #2ec6c6',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '16px',
+        }}
+      >
+        <div
+          style={{
+            fontSize: '16px',
+            color: '#003b3b',
+            fontWeight: 500,
+            lineHeight: 1.5,
+          }}
+        >
+          <span
+            style={{
+              display: 'inline-block',
+              background: '#2ec6c6',
+              color: '#fff',
+              padding: '4px 12px',
+              borderRadius: '16px',
+              marginRight: '12px',
+              fontSize: '14px',
+            }}
+          >
+            В разработке
+          </span>
+          Раздел находится в разработке
+        </div>
+      </div>
+
+      <Card>
+        <Title level={2}>Персональные рекомендации</Title>
+        <List
+          dataSource={recommendations}
+          renderItem={(recommendation) => (
+            <List.Item>
+              <Card style={{ width: '100%' }}>
+                <List.Item.Meta
+                  avatar={<BulbOutlined style={{ fontSize: '24px' }} />}
+                  title={
+                    <Space>
+                      {recommendation.title}
+                      <Tag color={getPriorityColor(recommendation.priority)}>
+                        {recommendation.priority === 'high'
+                          ? 'Высокий приоритет'
+                          : recommendation.priority === 'medium'
+                            ? 'Средний приоритет'
+                            : 'Низкий приоритет'}
+                      </Tag>
+                      <Tag>{getCategoryLabel(recommendation.category)}</Tag>
+                    </Space>
+                  }
+                  description={<Text>{recommendation.description}</Text>}
+                />
+              </Card>
+            </List.Item>
+          )}
+        />
+      </Card>
+    </div>
   );
 }

@@ -59,79 +59,120 @@ export default function AnalysisRemindersPage() {
   };
 
   return (
-    <BasePage
-      title="Напоминания о необходимости сдачи анализов"
-      extra={
-        <Button type="primary" icon={<PlusOutlined />} onClick={() => setIsModalVisible(true)}>
-          Добавить напоминание
-        </Button>
-      }
-    >
-      <List
-        dataSource={reminders}
-        renderItem={(reminder) => (
-          <List.Item>
-            <Card style={{ width: '100%' }}>
-              <List.Item.Meta
-                avatar={<BellOutlined style={{ fontSize: '24px' }} />}
-                title={reminder.type}
-                description={
-                  <>
-                    <Text>Следующая сдача: {new Date(reminder.nextDate).toLocaleDateString()}</Text>
-                    <br />
-                    <Text>Частота: {reminder.frequency}</Text>
-                    <br />
-                    <Text>
-                      Статус: {reminder.status === 'upcoming' ? 'Предстоящий' : 'Выполнен'}
-                    </Text>
-                  </>
-                }
-              />
-            </Card>
-          </List.Item>
-        )}
-      />
-
-      <Modal
-        title="Добавить напоминание"
-        open={isModalVisible}
-        onOk={handleAddReminder}
-        onCancel={() => setIsModalVisible(false)}
+    <div style={{ padding: '24px' }}>
+      <div
+        style={{
+          background: 'linear-gradient(120deg, #e0f7fa 0%, #f6fffe 100%)',
+          padding: '16px 24px',
+          borderRadius: '8px',
+          marginBottom: '24px',
+          border: '1px solid #2ec6c6',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '16px',
+        }}
       >
-        <Form form={form} layout="vertical">
-          <Form.Item
-            name="type"
-            label="Тип анализа"
-            rules={[{ required: true, message: 'Выберите тип анализа' }]}
+        <div
+          style={{
+            fontSize: '16px',
+            color: '#003b3b',
+            fontWeight: 500,
+            lineHeight: 1.5,
+          }}
+        >
+          <span
+            style={{
+              display: 'inline-block',
+              background: '#2ec6c6',
+              color: '#fff',
+              padding: '4px 12px',
+              borderRadius: '16px',
+              marginRight: '12px',
+              fontSize: '14px',
+            }}
           >
-            <Select placeholder="Выберите тип анализа">
-              <Option value="Общий анализ крови">Общий анализ крови</Option>
-              <Option value="Биохимический анализ">Биохимический анализ</Option>
-              <Option value="Анализ на витамин D">Анализ на витамин D</Option>
-              <Option value="Гормональный профиль">Гормональный профиль</Option>
-            </Select>
-          </Form.Item>
-          <Form.Item
-            name="nextDate"
-            label="Дата следующей сдачи"
-            rules={[{ required: true, message: 'Выберите дату' }]}
-          >
-            <DatePicker style={{ width: '100%' }} />
-          </Form.Item>
-          <Form.Item
-            name="frequency"
-            label="Частота сдачи"
-            rules={[{ required: true, message: 'Выберите частоту' }]}
-          >
-            <Select placeholder="Выберите частоту">
-              <Option value="Каждый месяц">Каждый месяц</Option>
-              <Option value="Каждые 3 месяца">Каждые 3 месяца</Option>
-              <Option value="Каждые 6 месяцев">Каждые 6 месяцев</Option>
-              <Option value="Каждый год">Каждый год</Option>
-            </Select>
-          </Form.Item>
-        </Form>
-      </Modal>
-    </BasePage>
+            В разработке
+          </span>
+          Раздел находится в разработке
+        </div>
+      </div>
+
+      <BasePage
+        title="Напоминания о необходимости сдачи анализов"
+        extra={
+          <Button type="primary" icon={<PlusOutlined />} onClick={() => setIsModalVisible(true)}>
+            Добавить напоминание
+          </Button>
+        }
+      >
+        <List
+          dataSource={reminders}
+          renderItem={(reminder) => (
+            <List.Item>
+              <Card style={{ width: '100%' }}>
+                <List.Item.Meta
+                  avatar={<BellOutlined style={{ fontSize: '24px' }} />}
+                  title={reminder.type}
+                  description={
+                    <>
+                      <Text>
+                        Следующая сдача: {new Date(reminder.nextDate).toLocaleDateString()}
+                      </Text>
+                      <br />
+                      <Text>Частота: {reminder.frequency}</Text>
+                      <br />
+                      <Text>
+                        Статус: {reminder.status === 'upcoming' ? 'Предстоящий' : 'Выполнен'}
+                      </Text>
+                    </>
+                  }
+                />
+              </Card>
+            </List.Item>
+          )}
+        />
+
+        <Modal
+          title="Добавить напоминание"
+          open={isModalVisible}
+          onOk={handleAddReminder}
+          onCancel={() => setIsModalVisible(false)}
+        >
+          <Form form={form} layout="vertical">
+            <Form.Item
+              name="type"
+              label="Тип анализа"
+              rules={[{ required: true, message: 'Выберите тип анализа' }]}
+            >
+              <Select placeholder="Выберите тип анализа">
+                <Option value="Общий анализ крови">Общий анализ крови</Option>
+                <Option value="Биохимический анализ">Биохимический анализ</Option>
+                <Option value="Анализ на витамин D">Анализ на витамин D</Option>
+                <Option value="Гормональный профиль">Гормональный профиль</Option>
+              </Select>
+            </Form.Item>
+            <Form.Item
+              name="nextDate"
+              label="Дата следующей сдачи"
+              rules={[{ required: true, message: 'Выберите дату' }]}
+            >
+              <DatePicker style={{ width: '100%' }} />
+            </Form.Item>
+            <Form.Item
+              name="frequency"
+              label="Частота сдачи"
+              rules={[{ required: true, message: 'Выберите частоту' }]}
+            >
+              <Select placeholder="Выберите частоту">
+                <Option value="Каждый месяц">Каждый месяц</Option>
+                <Option value="Каждые 3 месяца">Каждые 3 месяца</Option>
+                <Option value="Каждые 6 месяцев">Каждые 6 месяцев</Option>
+                <Option value="Каждый год">Каждый год</Option>
+              </Select>
+            </Form.Item>
+          </Form>
+        </Modal>
+      </BasePage>
+    </div>
   );
 }

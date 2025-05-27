@@ -58,85 +58,126 @@ export default function SupplementsPage() {
   };
 
   return (
-    <BasePage
-      title="История потребления БАДов"
-      extra={
-        <Button type="primary" icon={<PlusOutlined />} onClick={() => setIsModalVisible(true)}>
-          Добавить БАД
-        </Button>
-      }
-    >
-      <List
-        dataSource={supplements}
-        renderItem={(supplement) => (
-          <List.Item>
-            <Card style={{ width: '100%' }}>
-              <List.Item.Meta
-                avatar={<MedicineBoxOutlined style={{ fontSize: '24px' }} />}
-                title={supplement.name}
-                description={
-                  <>
-                    <Text>Дозировка: {supplement.dosage}</Text>
-                    <br />
-                    <Text>Частота приема: {supplement.frequency}</Text>
-                    <br />
-                    <Text>
-                      Период приема: {new Date(supplement.startDate).toLocaleDateString()}
-                      {supplement.endDate
-                        ? ` - ${new Date(supplement.endDate).toLocaleDateString()}`
-                        : ' - настоящее время'}
-                    </Text>
-                    <br />
-                    <Text>Статус: {supplement.status === 'active' ? 'Активный' : 'Завершен'}</Text>
-                  </>
-                }
-              />
-            </Card>
-          </List.Item>
-        )}
-      />
-
-      <Modal
-        title="Добавить БАД"
-        open={isModalVisible}
-        onOk={handleAddSupplement}
-        onCancel={() => setIsModalVisible(false)}
+    <div style={{ padding: '24px' }}>
+      <div
+        style={{
+          background: 'linear-gradient(120deg, #e0f7fa 0%, #f6fffe 100%)',
+          padding: '16px 24px',
+          borderRadius: '8px',
+          marginBottom: '24px',
+          border: '1px solid #2ec6c6',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '16px',
+        }}
       >
-        <Form form={form} layout="vertical">
-          <Form.Item
-            name="name"
-            label="Название"
-            rules={[{ required: true, message: 'Введите название БАДа' }]}
+        <div
+          style={{
+            fontSize: '16px',
+            color: '#003b3b',
+            fontWeight: 500,
+            lineHeight: 1.5,
+          }}
+        >
+          <span
+            style={{
+              display: 'inline-block',
+              background: '#2ec6c6',
+              color: '#fff',
+              padding: '4px 12px',
+              borderRadius: '16px',
+              marginRight: '12px',
+              fontSize: '14px',
+            }}
           >
-            <Input placeholder="Введите название БАДа" />
-          </Form.Item>
-          <Form.Item
-            name="dosage"
-            label="Дозировка"
-            rules={[{ required: true, message: 'Введите дозировку' }]}
-          >
-            <Input placeholder="Введите дозировку" />
-          </Form.Item>
-          <Form.Item
-            name="frequency"
-            label="Частота приема"
-            rules={[{ required: true, message: 'Выберите частоту приема' }]}
-          >
-            <Select placeholder="Выберите частоту приема">
-              <Option value="1 раз в день">1 раз в день</Option>
-              <Option value="2 раза в день">2 раза в день</Option>
-              <Option value="3 раза в день">3 раза в день</Option>
-            </Select>
-          </Form.Item>
-          <Form.Item
-            name="startDate"
-            label="Дата начала приема"
-            rules={[{ required: true, message: 'Выберите дату начала приема' }]}
-          >
-            <DatePicker style={{ width: '100%' }} />
-          </Form.Item>
-        </Form>
-      </Modal>
-    </BasePage>
+            В разработке
+          </span>
+          Раздел находится в разработке
+        </div>
+      </div>
+
+      <BasePage
+        title="История потребления БАДов"
+        extra={
+          <Button type="primary" icon={<PlusOutlined />} onClick={() => setIsModalVisible(true)}>
+            Добавить БАД
+          </Button>
+        }
+      >
+        <List
+          dataSource={supplements}
+          renderItem={(supplement) => (
+            <List.Item>
+              <Card style={{ width: '100%' }}>
+                <List.Item.Meta
+                  avatar={<MedicineBoxOutlined style={{ fontSize: '24px' }} />}
+                  title={supplement.name}
+                  description={
+                    <>
+                      <Text>Дозировка: {supplement.dosage}</Text>
+                      <br />
+                      <Text>Частота приема: {supplement.frequency}</Text>
+                      <br />
+                      <Text>
+                        Период приема: {new Date(supplement.startDate).toLocaleDateString()}
+                        {supplement.endDate
+                          ? ` - ${new Date(supplement.endDate).toLocaleDateString()}`
+                          : ' - настоящее время'}
+                      </Text>
+                      <br />
+                      <Text>
+                        Статус: {supplement.status === 'active' ? 'Активный' : 'Завершен'}
+                      </Text>
+                    </>
+                  }
+                />
+              </Card>
+            </List.Item>
+          )}
+        />
+
+        <Modal
+          title="Добавить БАД"
+          open={isModalVisible}
+          onOk={handleAddSupplement}
+          onCancel={() => setIsModalVisible(false)}
+        >
+          <Form form={form} layout="vertical">
+            <Form.Item
+              name="name"
+              label="Название"
+              rules={[{ required: true, message: 'Введите название БАДа' }]}
+            >
+              <Input placeholder="Введите название БАДа" />
+            </Form.Item>
+            <Form.Item
+              name="dosage"
+              label="Дозировка"
+              rules={[{ required: true, message: 'Введите дозировку' }]}
+            >
+              <Input placeholder="Введите дозировку" />
+            </Form.Item>
+            <Form.Item
+              name="frequency"
+              label="Частота приема"
+              rules={[{ required: true, message: 'Выберите частоту приема' }]}
+            >
+              <Select placeholder="Выберите частоту приема">
+                <Option value="1 раз в день">1 раз в день</Option>
+                <Option value="2 раза в день">2 раза в день</Option>
+                <Option value="3 раза в день">3 раза в день</Option>
+              </Select>
+            </Form.Item>
+            <Form.Item
+              name="startDate"
+              label="Дата начала приема"
+              rules={[{ required: true, message: 'Выберите дату начала приема' }]}
+            >
+              <DatePicker style={{ width: '100%' }} />
+            </Form.Item>
+          </Form>
+        </Modal>
+      </BasePage>
+    </div>
   );
 }
