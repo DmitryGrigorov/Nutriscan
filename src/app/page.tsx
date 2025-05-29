@@ -299,7 +299,7 @@ function Testimonials() {
         <Paragraph style={{ textAlign: 'center', color: '#888', marginBottom: 32, fontSize: 16 }}>
           Узнайте, как наш сервис помогает людям улучшать здоровье и достигать своих целей
         </Paragraph>
-        <Carousel autoplay style={{ maxWidth: 1000, margin: '0 auto' }}>
+        <Carousel autoplay style={{ maxWidth: 600, margin: '0 auto' }}>
           {testimonials.map((t, idx) => (
             <motion.div
               key={idx}
@@ -770,3 +770,103 @@ function ShieldCheckIcon(props: any) {
     </svg>
   );
 }
+
+<style jsx global>{`
+  @media (max-width: 480px) {
+    body {
+      overflow-x: hidden;
+    }
+    .ant-layout-content {
+      padding-left: 4px !important;
+      padding-right: 4px !important;
+      box-sizing: border-box;
+      max-width: 100vw !important;
+    }
+    .ant-row {
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+    }
+    .ant-col {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+    .ant-card {
+      padding: 10px !important;
+      min-width: 0 !important;
+      max-width: 100vw !important;
+      box-sizing: border-box;
+    }
+    .ant-carousel {
+      max-width: 100vw !important;
+      width: 100vw !important;
+      min-width: 0 !important;
+    }
+    .ant-carousel .slick-slide > div {
+      padding: 0 !important;
+    }
+    .ant-carousel .slick-arrow {
+      width: 38px !important;
+      height: 38px !important;
+      font-size: 18px !important;
+    }
+    .ant-carousel .slick-dots-bottom {
+      bottom: -16px !important;
+    }
+    .ant-typography, .ant-typography h1, .ant-typography h2, .ant-typography h3, .ant-typography h4 {
+      font-size: 15px !important;
+      line-height: 1.2 !important;
+      word-break: break-word;
+    }
+    .ant-typography h1 {
+      font-size: 22px !important;
+    }
+    .ant-typography h2 {
+      font-size: 18px !important;
+    }
+    .ant-typography h3 {
+      font-size: 16px !important;
+    }
+    .ant-typography h4 {
+      font-size: 15px !important;
+    }
+    .ant-btn {
+      font-size: 15px !important;
+      padding: 0 12px !important;
+      height: 38px !important;
+      border-radius: 8px !important;
+    }
+    .ant-avatar {
+      width: 40px !important;
+      height: 40px !important;
+      min-width: 40px !important;
+      min-height: 40px !important;
+    }
+    .ant-divider {
+      margin: 12px 0 !important;
+    }
+    .ant-space {
+      gap: 8px !important;
+    }
+    .ant-layout-footer {
+      padding-left: 8px !important;
+      padding-right: 8px !important;
+    }
+    .ant-list-item-meta-title {
+      font-size: 14px !important;
+    }
+    .ant-list-item {
+      padding: 6px 0 !important;
+    }
+    .ant-list {
+      margin-bottom: 0 !important;
+    }
+    .ant-modal {
+      padding: 0 !important;
+      width: 98vw !important;
+      max-width: 98vw !important;
+    }
+    .ant-modal-content {
+      padding: 8px !important;
+    }
+  }
+`}</style>
