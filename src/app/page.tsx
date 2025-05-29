@@ -176,13 +176,23 @@ function HowItWorks() {
       }}
       style={{ background: '#f6faff', padding: '40px 0' }}
     >
-      <Title level={2} style={{ textAlign: 'center', marginBottom: 12, fontSize: 28 }}>
+      <motion.h2
+        style={{ textAlign: 'center', marginBottom: 12, fontSize: 28 }}
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, ease: 'easeOut' }}
+      >
         Как это работает
-      </Title>
-      <Paragraph style={{ textAlign: 'center', color: '#888', marginBottom: 32, fontSize: 16 }}>
+      </motion.h2>
+      <motion.p
+        style={{ textAlign: 'center', color: '#888', marginBottom: 32, fontSize: 16 }}
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, delay: 0.15, ease: 'easeOut' }}
+      >
         Простой процесс подбора биологически активных добавок, адаптированных под ваши
         индивидуальные потребности
-      </Paragraph>
+      </motion.p>
       <Row gutter={[16, 16]} justify="center">
         {steps.map((step, idx) => (
           <Col xs={24} sm={12} md={6} key={idx}>
