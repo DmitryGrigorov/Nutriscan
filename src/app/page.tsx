@@ -249,55 +249,93 @@ function Testimonials() {
     },
   ];
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.7, ease: 'easeOut' }}
-      style={{ padding: '40px 0', background: '#fff' }}
-    >
-      <Title level={2} style={{ textAlign: 'center', marginBottom: 12, fontSize: 28 }}>
-        Отзывы пользователей
-      </Title>
-      <Paragraph style={{ textAlign: 'center', color: '#888', marginBottom: 32, fontSize: 16 }}>
-        Узнайте, как наш сервис помогает людям улучшать здоровье и достигать своих целей
-      </Paragraph>
-      <Carousel dots autoplay style={{ maxWidth: 700, margin: '0 auto' }}>
-        {testimonials.map((t, idx) => (
-          <motion.div
-            key={idx}
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.1 }}
-          >
-            <Card
-              style={{
-                minHeight: 260,
-                textAlign: 'center',
-                boxShadow: '0 2px 12px #e6f4ff',
-                padding: 24,
-                borderRadius: 18,
-                margin: '0 1vw',
-              }}
+    <>
+      <style jsx global>{`
+        .ant-carousel .slick-arrow {
+          width: 54px;
+          height: 54px;
+          background: #fff !important;
+          border-radius: 50%;
+          box-shadow: 0 2px 8px rgba(22, 119, 255, 0.62);
+          color: #1677ff !important;
+          border: 1.5px solid #e6f4ff;
+          z-index: 2;
+          transition: box-shadow 0.2s;
+        }
+        .ant-carousel .slick-arrow:hover {
+          box-shadow: 0 4px 16px rgba(22, 119, 255, 0.18);
+          color: #fff !important;
+          background:rgba(66, 86, 114, 0.47) !important;
+        }
+        .ant-carousel .slick-arrow:before {
+          color: #1677ff !important;
+          font-size: 28px !important;
+        }
+        .ant-carousel .slick-dots li button {
+          background: #000 !important;
+          opacity: 1;
+        }
+        .ant-carousel .slick-dots li.slick-active button {
+          background: #1677ff !important;
+        }
+        .ant-carousel .slick-dots-bottom {
+          bottom: -32px;
+        }
+        
+        :where(.css-dev-only-do-not-override-1a4icq8).ant-carousel .slick-dots li.slick-active::after {
+          background: #1677ff !important;
+        }
+      `}</style>
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.7, ease: 'easeOut' }}
+        style={{ padding: '40px 0', background: '#fff' }}
+      >
+        <Title level={2} style={{ textAlign: 'center', marginBottom: 12, fontSize: 28 }}>
+          Отзывы пользователей
+        </Title>
+        <Paragraph style={{ textAlign: 'center', color: '#888', marginBottom: 32, fontSize: 16 }}>
+          Узнайте, как наш сервис помогает людям улучшать здоровье и достигать своих целей
+        </Paragraph>
+        <Carousel autoplay style={{ maxWidth: 1000, margin: '0 auto' }}>
+          {testimonials.map((t, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.1 }}
             >
-              <div style={{ marginBottom: 12 }}>
-                <LikeOutlined style={{ fontSize: 28, color: '#1677ff' }} />
-              </div>
-              <Paragraph style={{ fontSize: 17, fontStyle: 'italic', marginBottom: 18 }}>
-                "{t.quote}"
-              </Paragraph>
-              <Avatar src={t.image} size={56} style={{ marginBottom: 6 }} />
-              <Title level={4} style={{ margin: 0, fontSize: 18 }}>
-                {t.name}
-              </Title>
-              <Text type="secondary" style={{ fontSize: 15 }}>
-                {t.role}
-              </Text>
-            </Card>
-          </motion.div>
-        ))}
-      </Carousel>
-    </motion.div>
+              <Card
+                style={{
+                  minHeight: 260,
+                  textAlign: 'center',
+                  boxShadow: '0 2px 12px #e6f4ff',
+                  padding: 24,
+                  borderRadius: 18,
+                  margin: '0 1vw',
+                }}
+              >
+                <div style={{ marginBottom: 12 }}>
+                  <LikeOutlined style={{ fontSize: 28, color: '#1677ff' }} />
+                </div>
+                <Paragraph style={{ fontSize: 17, fontStyle: 'italic', marginBottom: 18 }}>
+                  "{t.quote}"
+                </Paragraph>
+                <Avatar src={t.image} size={56} style={{ marginBottom: 6 }} />
+                <Title level={4} style={{ margin: 0, fontSize: 18 }}>
+                  {t.name}
+                </Title>
+                <Text type="secondary" style={{ fontSize: 15 }}>
+                  {t.role}
+                </Text>
+              </Card>
+            </motion.div>
+          ))}
+        </Carousel>
+      </motion.div>
+    </>
   );
 }
 
