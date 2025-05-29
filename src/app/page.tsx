@@ -31,42 +31,90 @@ import {
 const { Title, Paragraph, Text } = Typography;
 const { Footer, Content } = Layout;
 
+interface Expert {
+  name: string;
+  role: string;
+  image: string;
+  shortBio: string;
+  fullBio: string;
+  specialization: string[];
+  education: string[];
+}
+
 // --- Hero Section ---
 function HeroSection() {
   return (
-    <Row gutter={[32, 32]} align="middle" style={{ minHeight: 480, padding: '48px 0 32px 0' }}>
-      <Col xs={24} md={12}>
-        <Title style={{ fontSize: 44, fontWeight: 800, marginBottom: 16 }}>
+    <Row
+      gutter={[0, 48]}
+      align="middle"
+      style={{
+        minHeight: 420,
+        padding: '32px 0 24px 0',
+        flexDirection: 'row',
+      }}
+    >
+      <Col xs={24} md={12} style={{ textAlign: 'left', padding: '0 8vw' }}>
+        <Title
+          style={{
+            fontSize: 32,
+            fontWeight: 800,
+            marginBottom: 12,
+            lineHeight: 1.1,
+          }}
+          level={1}
+        >
           Найдите идеальные <span style={{ color: '#1677ff' }}>БАДы</span> за 2 минуты
         </Title>
-        <Paragraph style={{ fontSize: 20, color: '#555', marginBottom: 32 }}>
+        <Paragraph style={{ fontSize: 18, color: '#555', marginBottom: 28 }}>
           Персонализированный подбор биологически активных добавок на основе ваших индивидуальных
           потребностей, образа жизни и целей здоровья.
         </Paragraph>
-        <Space>
-          <Button type="primary" size="large" icon={<ProfileOutlined />}>
+        <Space direction="vertical" size={16} style={{ width: '100%' }}>
+          <Button
+            type="primary"
+            size="large"
+            icon={<ProfileOutlined />}
+            style={{
+              width: '100%',
+              maxWidth: 260,
+              fontWeight: 600,
+              fontSize: 18,
+              borderRadius: 12,
+            }}
+          >
             Пройти опрос
           </Button>
-          <Button size="large" icon={<ArrowRightOutlined />}>
+          <Button
+            size="large"
+            icon={<ArrowRightOutlined />}
+            style={{
+              width: '100%',
+              maxWidth: 260,
+              fontWeight: 600,
+              fontSize: 18,
+              borderRadius: 12,
+            }}
+          >
             Узнать больше
           </Button>
         </Space>
       </Col>
-      <Col xs={24} md={12} style={{ textAlign: 'center' }}>
+      <Col xs={24} md={12} style={{ textAlign: 'center', marginTop: 32 }}>
         <div
           style={{
             display: 'inline-flex',
             alignItems: 'center',
             justifyContent: 'center',
-            width: 260,
-            height: 260,
+            width: 'min(70vw, 260px)',
+            height: 'min(70vw, 260px)',
             borderRadius: '50%',
             background: 'radial-gradient(circle, #e6f4ff 60%, #fff 100%)',
             boxShadow: '0 0 64px #e6f4ff',
             position: 'relative',
+            margin: '0 auto',
           }}
         >
-          <MedicineBoxOutlined style={{ fontSize: 96, color: '#1677ff' }} />
+          <MedicineBoxOutlined style={{ fontSize: 'min(18vw, 96px)', color: '#1677ff' }} />
         </div>
       </Col>
     </Row>
@@ -98,24 +146,32 @@ function HowItWorks() {
     },
   ];
   return (
-    <div style={{ background: '#f6faff', padding: '56px 0' }}>
-      <Title level={2} style={{ textAlign: 'center', marginBottom: 16 }}>
+    <div style={{ background: '#f6faff', padding: '40px 0' }}>
+      <Title level={2} style={{ textAlign: 'center', marginBottom: 12, fontSize: 28 }}>
         Как это работает
       </Title>
-      <Paragraph style={{ textAlign: 'center', color: '#888', marginBottom: 40 }}>
+      <Paragraph style={{ textAlign: 'center', color: '#888', marginBottom: 32, fontSize: 16 }}>
         Простой процесс подбора биологически активных добавок, адаптированных под ваши
         индивидуальные потребности
       </Paragraph>
-      <Row gutter={[24, 24]} justify="center">
+      <Row gutter={[16, 16]} justify="center">
         {steps.map((step, idx) => (
-          <Col xs={24} md={6} key={idx}>
+          <Col xs={24} sm={12} md={6} key={idx}>
             <Card
               bordered={false}
-              style={{ minHeight: 220, textAlign: 'center', boxShadow: '0 2px 12px #e6f4ff' }}
+              style={{
+                minHeight: 180,
+                textAlign: 'center',
+                boxShadow: '0 2px 12px #e6f4ff',
+                borderRadius: 18,
+                margin: '0 0.5vw',
+              }}
             >
-              <div style={{ marginBottom: 16 }}>{step.icon}</div>
-              <Title level={4}>{step.title}</Title>
-              <Paragraph style={{ color: '#666' }}>{step.description}</Paragraph>
+              <div style={{ marginBottom: 12 }}>{step.icon}</div>
+              <Title level={4} style={{ fontSize: 20, marginBottom: 8 }}>
+                {step.title}
+              </Title>
+              <Paragraph style={{ color: '#666', fontSize: 15 }}>{step.description}</Paragraph>
             </Card>
           </Col>
         ))}
@@ -157,11 +213,11 @@ function Testimonials() {
     },
   ];
   return (
-    <div style={{ padding: '56px 0', background: '#fff' }}>
-      <Title level={2} style={{ textAlign: 'center', marginBottom: 16 }}>
+    <div style={{ padding: '40px 0', background: '#fff' }}>
+      <Title level={2} style={{ textAlign: 'center', marginBottom: 12, fontSize: 28 }}>
         Отзывы пользователей
       </Title>
-      <Paragraph style={{ textAlign: 'center', color: '#888', marginBottom: 40 }}>
+      <Paragraph style={{ textAlign: 'center', color: '#888', marginBottom: 32, fontSize: 16 }}>
         Узнайте, как наш сервис помогает людям улучшать здоровье и достигать своих целей
       </Paragraph>
       <Carousel dots autoplay style={{ maxWidth: 700, margin: '0 auto' }}>
@@ -169,23 +225,27 @@ function Testimonials() {
           <Card
             key={idx}
             style={{
-              minHeight: 320,
+              minHeight: 260,
               textAlign: 'center',
               boxShadow: '0 2px 12px #e6f4ff',
-              padding: 32,
+              padding: 24,
+              borderRadius: 18,
+              margin: '0 1vw',
             }}
           >
-            <div style={{ marginBottom: 16 }}>
-              <LikeOutlined style={{ fontSize: 32, color: '#1677ff' }} />
+            <div style={{ marginBottom: 12 }}>
+              <LikeOutlined style={{ fontSize: 28, color: '#1677ff' }} />
             </div>
-            <Paragraph style={{ fontSize: 20, fontStyle: 'italic', marginBottom: 24 }}>
+            <Paragraph style={{ fontSize: 17, fontStyle: 'italic', marginBottom: 18 }}>
               "{t.quote}"
             </Paragraph>
-            <Avatar src={t.image} size={64} style={{ marginBottom: 8 }} />
-            <Title level={4} style={{ margin: 0 }}>
+            <Avatar src={t.image} size={56} style={{ marginBottom: 6 }} />
+            <Title level={4} style={{ margin: 0, fontSize: 18 }}>
               {t.name}
             </Title>
-            <Text type="secondary">{t.role}</Text>
+            <Text type="secondary" style={{ fontSize: 15 }}>
+              {t.role}
+            </Text>
           </Card>
         ))}
       </Carousel>
@@ -196,29 +256,34 @@ function Testimonials() {
 // --- Scientific Basis ---
 function ScientificBasis() {
   return (
-    <div style={{ background: '#f6faff', padding: '56px 0' }}>
-      <Title level={2} style={{ textAlign: 'center', marginBottom: 16 }}>
+    <div style={{ background: '#f6faff', padding: '40px 0' }}>
+      <Title level={2} style={{ textAlign: 'center', marginBottom: 12, fontSize: 28 }}>
         Почему нам доверяют учёные
       </Title>
-      <Paragraph style={{ textAlign: 'center', color: '#888', marginBottom: 40 }}>
+      <Paragraph style={{ textAlign: 'center', color: '#888', marginBottom: 32, fontSize: 16 }}>
         Наш подход к подбору биологически активных добавок основан на научных данных и современных
         исследованиях
       </Paragraph>
-      <Row gutter={[24, 24]} justify="center" style={{ marginBottom: 32 }}>
+      <Row gutter={[16, 16]} justify="center" style={{ marginBottom: 24 }}>
         <Col xs={24} md={16}>
-          <Card bordered={false} style={{ minHeight: 220, boxShadow: '0 2px 12px #e6f4ff' }}>
-            <Title level={3}>Научно обоснованный подход</Title>
-            <Paragraph>
+          <Card
+            bordered={false}
+            style={{ minHeight: 180, boxShadow: '0 2px 12px #e6f4ff', borderRadius: 18 }}
+          >
+            <Title level={3} style={{ fontSize: 22, marginBottom: 10 }}>
+              Научно обоснованный подход
+            </Title>
+            <Paragraph style={{ fontSize: 15 }}>
               Наша методика подбора БАДов основана на комплексном анализе состава добавок и их
               влияния на организм. Мы учитываем индивидуальные особенности каждого человека:
               возраст, пол, образ жизни, имеющиеся заболевания и генетические предрасположенности.
             </Paragraph>
-            <Paragraph>
+            <Paragraph style={{ fontSize: 15 }}>
               Алгоритм рекомендаций постоянно совершенствуется на основе новейших клинических
               исследований и научных публикаций. Мы сотрудничаем с ведущими специалистами в области
               нутрициологии, фармакологии и спортивной медицины.
             </Paragraph>
-            <Paragraph>
+            <Paragraph style={{ fontSize: 15 }}>
               Каждая рекомендуемая добавка проходит многоступенчатую проверку на эффективность и
               безопасность. Мы отслеживаем возможные взаимодействия между компонентами и учитываем
               индивидуальную непереносимость.
@@ -229,13 +294,14 @@ function ScientificBasis() {
           <Card
             bordered={false}
             style={{
-              minHeight: 220,
+              minHeight: 180,
               background: '#1677ff',
               color: '#fff',
               boxShadow: '0 2px 12px #e6f4ff',
+              borderRadius: 18,
             }}
           >
-            <Title level={3} style={{ color: '#fff' }}>
+            <Title level={3} style={{ color: '#fff', fontSize: 22, marginBottom: 10 }}>
               Наши достижения
             </Title>
             <List
@@ -256,7 +322,7 @@ function ScientificBasis() {
                 <List.Item>
                   <List.Item.Meta
                     avatar={item.icon}
-                    title={<span style={{ color: '#fff' }}>{item.text}</span>}
+                    title={<span style={{ color: '#fff', fontSize: 15 }}>{item.text}</span>}
                   />
                 </List.Item>
               )}
@@ -264,35 +330,62 @@ function ScientificBasis() {
           </Card>
         </Col>
       </Row>
-      <Row gutter={[24, 24]} justify="center">
+      <Row gutter={[16, 16]} justify="center">
         <Col xs={24} md={8}>
           <Card
             bordered={false}
-            style={{ minHeight: 180, textAlign: 'center', boxShadow: '0 2px 12px #e6f4ff' }}
+            style={{
+              minHeight: 120,
+              textAlign: 'center',
+              boxShadow: '0 2px 12px #e6f4ff',
+              borderRadius: 18,
+            }}
           >
-            <ExperimentOutlined style={{ fontSize: 32, color: '#1677ff' }} />
-            <Title level={4}>Клинические исследования</Title>
-            <Paragraph>Все рекомендации основаны на результатах научных исследований</Paragraph>
+            <ExperimentOutlined style={{ fontSize: 28, color: '#1677ff' }} />
+            <Title level={4} style={{ fontSize: 18 }}>
+              Клинические исследования
+            </Title>
+            <Paragraph style={{ fontSize: 15 }}>
+              Все рекомендации основаны на результатах научных исследований
+            </Paragraph>
           </Card>
         </Col>
         <Col xs={24} md={8}>
           <Card
             bordered={false}
-            style={{ minHeight: 180, textAlign: 'center', boxShadow: '0 2px 12px #e6f4ff' }}
+            style={{
+              minHeight: 120,
+              textAlign: 'center',
+              boxShadow: '0 2px 12px #e6f4ff',
+              borderRadius: 18,
+            }}
           >
-            <TeamOutlined style={{ fontSize: 32, color: '#1677ff' }} />
-            <Title level={4}>Сертифицированные лаборатории</Title>
-            <Paragraph>Сотрудничаем только с проверенными производителями</Paragraph>
+            <TeamOutlined style={{ fontSize: 28, color: '#1677ff' }} />
+            <Title level={4} style={{ fontSize: 18 }}>
+              Сертифицированные лаборатории
+            </Title>
+            <Paragraph style={{ fontSize: 15 }}>
+              Сотрудничаем только с проверенными производителями
+            </Paragraph>
           </Card>
         </Col>
         <Col xs={24} md={8}>
           <Card
             bordered={false}
-            style={{ minHeight: 180, textAlign: 'center', boxShadow: '0 2px 12px #e6f4ff' }}
+            style={{
+              minHeight: 120,
+              textAlign: 'center',
+              boxShadow: '0 2px 12px #e6f4ff',
+              borderRadius: 18,
+            }}
           >
-            <ShieldCheckIcon style={{ fontSize: 32, color: '#1677ff' }} />
-            <Title level={4}>Независимая экспертиза</Title>
-            <Paragraph>Регулярная проверка качества и эффективности добавок</Paragraph>
+            <ShieldCheckIcon style={{ fontSize: 28, color: '#1677ff' }} />
+            <Title level={4} style={{ fontSize: 18 }}>
+              Независимая экспертиза
+            </Title>
+            <Paragraph style={{ fontSize: 15 }}>
+              Регулярная проверка качества и эффективности добавок
+            </Paragraph>
           </Card>
         </Col>
       </Row>
@@ -365,7 +458,10 @@ const experts = [
 ];
 
 function ExpertTeam() {
-  const [modal, setModal] = useState({ open: false, expert: null });
+  const [modal, setModal] = useState<{ open: boolean; expert: Expert | null }>({
+    open: false,
+    expert: null,
+  });
   return (
     <div style={{ padding: '56px 0', background: '#fff' }}>
       <Title level={2} style={{ textAlign: 'center', marginBottom: 16 }}>
@@ -478,7 +574,15 @@ function MainFooter() {
 export default function AntdHome() {
   return (
     <Layout style={{ background: '#fff' }}>
-      <Content style={{ maxWidth: 1200, margin: '0 auto', background: '#fff' }}>
+      <Content
+        style={{
+          background: '#fff',
+          maxWidth: 1720,
+          margin: '0 auto',
+          padding: '0 32px',
+          boxSizing: 'border-box',
+        }}
+      >
         <HeroSection />
         <HowItWorks />
         <Testimonials />
