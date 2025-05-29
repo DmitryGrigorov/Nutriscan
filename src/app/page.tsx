@@ -15,23 +15,16 @@ import {
   List,
 } from 'antd';
 import {
-  UserOutlined,
-  HeartOutlined,
   ExperimentOutlined,
   TeamOutlined,
   CheckCircleOutlined,
   ArrowRightOutlined,
-  ArrowLeftOutlined,
   TrophyOutlined,
   ReloadOutlined,
   GiftOutlined,
-  SmileOutlined,
-  StarOutlined,
   MedicineBoxOutlined,
   SolutionOutlined,
   ProfileOutlined,
-  ThunderboltOutlined,
-  FireOutlined,
   LikeOutlined,
 } from '@ant-design/icons';
 
