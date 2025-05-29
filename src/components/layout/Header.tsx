@@ -180,13 +180,15 @@ export const Header = () => {
           icon: <LineChartOutlined />,
           label: <Link href="/dashboard/trends">Тренды</Link>,
         },
-        ...(user?.$id === '683409e1a4097e2da357' || user?.$id === '680658de4352f354f0a9' ? [
-          {
-            key: '/admin',
-            icon: <SettingOutlined />,
-            label: <Link href="/admin">Админ панель</Link>,
-          }
-        ] : []),
+        ...(user?.$id === '683409e1a4097e2da357' || user?.$id === '680658de4352f354f0a9'
+          ? [
+              {
+                key: '/admin',
+                icon: <SettingOutlined />,
+                label: <Link href="/admin">Админ панель</Link>,
+              },
+            ]
+          : []),
       ],
     },
   ];
