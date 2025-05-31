@@ -275,7 +275,7 @@ function Testimonials() {
         .ant-carousel .slick-arrow:hover {
           box-shadow: 0 4px 16px rgba(22, 119, 255, 0.18);
           color: #fff !important;
-          background:rgba(66, 86, 114, 0.47) !important;
+          background: rgba(66, 86, 114, 0.47) !important;
         }
         .ant-carousel .slick-arrow:before {
           color: #1677ff !important;
@@ -291,8 +291,10 @@ function Testimonials() {
         .ant-carousel .slick-dots-bottom {
           bottom: -32px;
         }
-        
-        :where(.css-dev-only-do-not-override-1a4icq8).ant-carousel .slick-dots li.slick-active::after {
+
+        :where(.css-dev-only-do-not-override-1a4icq8).ant-carousel
+          .slick-dots
+          li.slick-active::after {
           background: #1677ff !important;
         }
       `}</style>
@@ -822,7 +824,11 @@ function ShieldCheckIcon(props: any) {
     .ant-carousel .slick-dots-bottom {
       bottom: -16px !important;
     }
-    .ant-typography, .ant-typography h1, .ant-typography h2, .ant-typography h3, .ant-typography h4 {
+    .ant-typography,
+    .ant-typography h1,
+    .ant-typography h2,
+    .ant-typography h3,
+    .ant-typography h4 {
       font-size: 15px !important;
       line-height: 1.2 !important;
       word-break: break-word;
@@ -879,4 +885,4 @@ function ShieldCheckIcon(props: any) {
       padding: 8px !important;
     }
   }
-`}</style>
+`}</style>;

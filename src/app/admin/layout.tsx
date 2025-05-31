@@ -8,6 +8,7 @@ import {
   FormOutlined,
   AppstoreOutlined,
   DashboardOutlined,
+  ShoppingCartOutlined,
 } from '@ant-design/icons';
 
 const { Header, Sider, Content } = Layout;
@@ -26,6 +27,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       key: '/admin/products',
       icon: <MedicineBoxOutlined />,
       label: 'Товары',
+    },
+    {
+      key: '/admin/orders',
+      icon: <ShoppingCartOutlined />,
+      label: 'Заказы',
     },
     {
       key: '/admin/surveys',
