@@ -14,7 +14,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   return (
     <Layout style={{ minHeight: '100vh', maxWidth: '100%' }}>
       <Header />
-      <Content style={{  maxWidth: '100%' }}>{children}</Content>
+      <Content style={{ maxWidth: '100%' }}>{children}</Content>
     </Layout>
   );
 };

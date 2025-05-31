@@ -100,10 +100,10 @@ export const Header = () => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth <= 768);
     };
-    
+
     checkMobile();
     window.addEventListener('resize', checkMobile);
-    
+
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
@@ -124,7 +124,11 @@ export const Header = () => {
     },
     {
       key: 'pharmacy-header',
-      label: <Text strong style={{ fontSize: '16px', color: '#1677ff' }}>Аптека</Text>,
+      label: (
+        <Text strong style={{ fontSize: '16px', color: '#1677ff' }}>
+          Аптека
+        </Text>
+      ),
       disabled: true,
     },
     {
@@ -147,7 +151,11 @@ export const Header = () => {
     },
     {
       key: 'dashboard-header',
-      label: <Text strong style={{ fontSize: '16px', color: '#1677ff' }}>Личный кабинет</Text>,
+      label: (
+        <Text strong style={{ fontSize: '16px', color: '#1677ff' }}>
+          Личный кабинет
+        </Text>
+      ),
       disabled: true,
     },
     {
@@ -484,15 +492,11 @@ export const Header = () => {
             width="100%"
             style={{ position: 'absolute' }}
           >
-            <div style={{ padding: '24px 0' }}>
-              {renderMenu('vertical')}
-            </div>
+            <div style={{ padding: '24px 0' }}>{renderMenu('vertical')}</div>
           </Drawer>
         </>
       ) : (
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          {renderMenu()}
-        </div>
+        <div style={{ display: 'flex', alignItems: 'center' }}>{renderMenu()}</div>
       )}
 
       <Space size="large">
