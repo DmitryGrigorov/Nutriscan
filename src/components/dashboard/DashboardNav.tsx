@@ -14,8 +14,9 @@ import {
   ShoppingCartOutlined,
   UserOutlined,
 } from '@ant-design/icons';
+import type { MenuProps } from 'antd';
 
-const items = [
+const items: MenuProps['items'] = [
   {
     key: '/dashboard/account',
     icon: <UserOutlined />,
@@ -68,21 +69,35 @@ const items = [
   },
 ];
 
-export const DashboardNav: React.FC = () => {
+interface DashboardNavProps {
+  isMobile?: boolean;
+  onMenuClick?: () => void;
+}
+
+export const DashboardNav: React.FC<DashboardNavProps> = ({ isMobile, onMenuClick }) => {
   const router = useRouter();
   const pathname = usePathname();
 
   const handleMenuClick = (key: string) => {
     router.push(key);
+    if (onMenuClick) {
+      onMenuClick();
+    }
   };
 
-  return (
+  const renderMenu = (mode: 'inline' | 'vertical' = 'inline') => (
     <Menu
-      mode="inline"
+      mode={mode}
       selectedKeys={[pathname]}
       items={items}
       onClick={({ key }) => handleMenuClick(key)}
-      style={{ height: '100%', borderRight: 0 }}
+      style={mode === 'inline' ? { height: '100%', borderRight: 0 } : {}}
     />
   );
+
+  if (isMobile) {
+    return renderMenu('vertical');
+  }
+
+  return renderMenu('inline');
 };

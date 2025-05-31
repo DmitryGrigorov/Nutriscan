@@ -8,11 +8,10 @@ import {
   ShoppingCartOutlined,
   UserOutlined,
 } from '@ant-design/icons';
-import { Databases, Query, Account } from 'appwrite';
+import { Databases } from 'appwrite';
 import { client } from '@/lib/appwrite';
 
 const databases = new Databases(client);
-const account = new Account(client);
 const PRODUCTS_COLLECTION_ID = process.env.NEXT_PUBLIC_APPWRITE_PRODUCTS_COLLECTION_ID || '';
 const USERS_COLLECTION_ID = process.env.NEXT_PUBLIC_APPWRITE_USERS_COLLECTION_ID || '';
 const DATABASE_ID = process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID || '';

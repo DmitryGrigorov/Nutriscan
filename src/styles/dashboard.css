@@ -1,0 +1,44 @@
+.dashboard-card {
+  height: 100%;
+  transition: all 0.3s ease;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-icon {
+  font-size: 24px;
+  color: #1677ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(22, 119, 255, 0.1);
+  border-radius: 8px;
+}
+
+.dashboard-title {
+  margin: 0;
+  font-size: 16px;
+}
+
+.dashboard-description {
+  font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  .dashboard-card {
+    margin-bottom: 16px;
+  }
+
+  .dashboard-title {
+    font-size: 15px;
+  }
+
+  .dashboard-description {
+    font-size: 13px;
+  }
+} 

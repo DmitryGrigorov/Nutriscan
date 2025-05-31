@@ -1,7 +1,8 @@
 'use client';
 
 import React from 'react';
-import { Card, Typography, Space } from 'antd';
+import { Typography, Space } from 'antd';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 const { Title } = Typography;
 
@@ -12,14 +13,24 @@ interface BasePageProps {
 }
 
 export const BasePage: React.FC<BasePageProps> = ({ title, children, extra }) => {
+  const isMobile = useMediaQuery('(max-width: 768px)');
+
   return (
     <Space direction="vertical" size="large" style={{ width: '100%' }}>
-      <Card>
-        <Space style={{ width: '100%', justifyContent: 'space-between' }}>
-          <Title level={2}>{title}</Title>
-          {extra}
-        </Space>
-      </Card>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          gap: '16px',
+        }}
+      >
+        <Title level={isMobile ? 4 : 3} style={{ margin: 0 }}>
+          {title}
+        </Title>
+        {extra}
+      </div>
       {children}
     </Space>
   );

@@ -18,6 +18,7 @@ import {
 } from '@ant-design/icons';
 import { useRouter } from 'next/navigation';
 import { BasePage } from '@/components/dashboard/BasePage';
+import '@/styles/dashboard.css';
 
 const { Title, Text } = Typography;
 
@@ -32,15 +33,24 @@ const DashboardCard: React.FC<DashboardCardProps> = ({ title, description, icon,
   const router = useRouter();
 
   return (
-    <Card hoverable onClick={() => router.push(path)} style={{ height: '100%' }}>
+    <Card
+      hoverable
+      onClick={() => router.push(path)}
+      className="dashboard-card"
+      bodyStyle={{
+        padding: '16px',
+      }}
+    >
       <Space direction="vertical" size="middle" style={{ width: '100%' }}>
         <Space>
-          {icon}
-          <Title level={4} style={{ margin: 0 }}>
+          <div className="dashboard-icon">{icon}</div>
+          <Title level={4} className="dashboard-title">
             {title}
           </Title>
         </Space>
-        <Text type="secondary">{description}</Text>
+        <Text type="secondary" className="dashboard-description">
+          {description}
+        </Text>
       </Space>
     </Card>
   );
@@ -50,74 +60,74 @@ export default function DashboardPage() {
   const cards: DashboardCardProps[] = [
     {
       title: 'Личный кабинет',
-      description: '',
-      icon: <UserOutlined style={{ fontSize: '24px' }} />,
+      description: 'Управление личными данными и настройками',
+      icon: <UserOutlined />,
       path: '/dashboard/account',
     },
     {
       title: 'Опросы',
       description: 'Пройдите необходимые опросы для получения персонализированных рекомендаций',
-      icon: <FileTextOutlined style={{ fontSize: '24px' }} />,
+      icon: <FileTextOutlined />,
       path: '/dashboard/surveys',
     },
     {
       title: 'Опросник информация о о себе',
       description: 'Заполните информацию о себе для персонализации рекомендаций',
-      icon: <DatabaseOutlined style={{ fontSize: '24px' }} />,
+      icon: <DatabaseOutlined />,
       path: '/dashboard/surveys/user-profile-survey',
     },
     {
       title: 'Опросник оценка здоровья',
       description: 'Оцените ваше текущее состояние здоровья и образ жизни',
-      icon: <HeartOutlined style={{ fontSize: '24px' }} />,
+      icon: <HeartOutlined />,
       path: '/dashboard/surveys/health-assessment',
     },
     {
       title: 'Опросник пищевые привычки',
       description: 'Расскажите о ваших пищевых привычках и предпочтениях',
-      icon: <AppleOutlined style={{ fontSize: '24px' }} />,
+      icon: <AppleOutlined />,
       path: '/dashboard/surveys/nutrition-habits',
     },
     {
       title: 'Анализы',
       description: 'Просмотр и загрузка результатов медицинских анализов',
-      icon: <ExperimentOutlined style={{ fontSize: '24px' }} />,
+      icon: <ExperimentOutlined />,
       path: '/dashboard/analyses',
     },
     {
       title: 'Динамика показателей здоровья',
       description: 'Отслеживание изменений в показателях здоровья и анализов',
-      icon: <LineChartOutlined style={{ fontSize: '24px' }} />,
+      icon: <LineChartOutlined />,
       path: '/dashboard/trends',
     },
     {
       title: 'История потребления БАДов',
       description: 'Управление приемом биологически активных добавок',
-      icon: <MedicineBoxOutlined style={{ fontSize: '24px' }} />,
+      icon: <MedicineBoxOutlined />,
       path: '/dashboard/supplements',
     },
     {
       title: 'Персональные рекомендации',
       description: 'Персонализированные рекомендации по здоровью и питанию',
-      icon: <BulbOutlined style={{ fontSize: '24px' }} />,
+      icon: <BulbOutlined />,
       path: '/dashboard/recommendations',
     },
     {
       title: 'Акции',
       description: 'Специальные предложения и скидки на БАДы и анализы',
-      icon: <GiftOutlined style={{ fontSize: '24px' }} />,
+      icon: <GiftOutlined />,
       path: '/dashboard/promotions',
     },
     {
       title: 'Напоминания о БАДах',
       description: 'Управление напоминаниями о приеме добавок',
-      icon: <BellOutlined style={{ fontSize: '24px' }} />,
+      icon: <BellOutlined />,
       path: '/dashboard/supplement-reminders',
     },
     {
       title: 'Напоминания об анализах',
       description: 'Управление напоминаниями о сдаче анализов',
-      icon: <CalendarOutlined style={{ fontSize: '24px' }} />,
+      icon: <CalendarOutlined />,
       path: '/dashboard/analysis-reminders',
     },
   ];
