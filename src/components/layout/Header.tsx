@@ -1,6 +1,7 @@
 'use client';
 
-import { Layout, Button, Space, Typography, Badge, Popover, List, Tag, Menu } from 'antd';
+import { Layout, Button, Space, Typography, Badge, Popover, List, Tag, Menu, Drawer } from 'antd';
+import type { MenuProps } from 'antd';
 import { useRouter, usePathname } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import { useReminders } from '@/contexts/ReminderContext';
@@ -20,8 +21,9 @@ import {
   FileTextOutlined,
   SettingOutlined,
   LineChartOutlined,
+  MenuOutlined,
 } from '@ant-design/icons';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useCart } from '@/contexts/CartContext';
 
 const { Header: AntHeader } = Layout;
@@ -91,13 +93,128 @@ export const Header = () => {
   const { cart } = useCart();
   const [reminderOpen, setReminderOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const handleLogout = async () => {
     await logout();
     router.push('/');
+    setDrawerOpen(false);
   };
 
-  const menuItems = [
+  const mobileMenuItems: MenuProps['items'] = [
+    {
+      key: '/',
+      icon: <HomeOutlined />,
+      label: <Link href="/">Главная</Link>,
+    },
+    {
+      type: 'divider' as const,
+    },
+    {
+      key: 'pharmacy-header',
+      label: <Text strong style={{ fontSize: '16px', color: '#1677ff' }}>Аптека</Text>,
+      disabled: true,
+    },
+    {
+      key: '/pharmacy',
+      icon: <MedicineBoxOutlined />,
+      label: <Link href="/pharmacy">Все продукты</Link>,
+    },
+    {
+      key: '/pharmacy/category',
+      icon: <ExperimentOutlined />,
+      label: <Link href="/pharmacy/category">Категории</Link>,
+    },
+    {
+      key: '/pharmacy/cart',
+      icon: <ShoppingCartOutlined />,
+      label: <Link href="/pharmacy/cart">Корзина</Link>,
+    },
+    {
+      type: 'divider' as const,
+    },
+    {
+      key: 'dashboard-header',
+      label: <Text strong style={{ fontSize: '16px', color: '#1677ff' }}>Личный кабинет</Text>,
+      disabled: true,
+    },
+    {
+      key: '/dashboard/account',
+      icon: <UserOutlined />,
+      label: <Link href="/dashboard/account">Аккаунт</Link>,
+    },
+    {
+      key: '/dashboard',
+      icon: <UserOutlined />,
+      label: <Link href="/dashboard">Обзор</Link>,
+    },
+    {
+      key: '/dashboard/supplements',
+      icon: <MedicineBoxOutlined />,
+      label: <Link href="/dashboard/supplements">Мои БАДы</Link>,
+    },
+    {
+      key: '/dashboard/analyses',
+      icon: <ExperimentOutlined />,
+      label: <Link href="/dashboard/analyses">Мои анализы</Link>,
+    },
+    {
+      key: '/dashboard/supplement-reminders',
+      icon: <BellOutlined />,
+      label: <Link href="/dashboard/supplement-reminders">Напоминания о БАДах</Link>,
+    },
+    {
+      key: '/dashboard/analysis-reminders',
+      icon: <BellOutlined />,
+      label: <Link href="/dashboard/analysis-reminders">Напоминания об анализах</Link>,
+    },
+    {
+      key: '/dashboard/recommendations',
+      icon: <BarChartOutlined />,
+      label: <Link href="/dashboard/recommendations">Рекомендации</Link>,
+    },
+    {
+      key: '/dashboard/promotions',
+      icon: <GiftOutlined />,
+      label: <Link href="/dashboard/promotions">Акции</Link>,
+    },
+    {
+      key: '/dashboard/surveys',
+      icon: <FileTextOutlined />,
+      label: <Link href="/dashboard/surveys">Опросы</Link>,
+    },
+    {
+      key: '/dashboard/trends',
+      icon: <LineChartOutlined />,
+      label: <Link href="/dashboard/trends">Тренды</Link>,
+    },
+    ...(user?.$id === '683409e1a4097e2da357' || user?.$id === '680658de4352f354f0a9'
+      ? [
+          {
+            type: 'divider' as const,
+          },
+          {
+            key: '/admin',
+            icon: <SettingOutlined />,
+            label: <Link href="/admin">Админ панель</Link>,
+          },
+        ]
+      : []),
+  ];
+
+  const menuItems: MenuProps['items'] = [
     {
       key: '/',
       icon: <HomeOutlined />,
@@ -192,6 +309,16 @@ export const Header = () => {
       ],
     },
   ];
+
+  const renderMenu = (mode: 'horizontal' | 'vertical' = 'horizontal') => (
+    <Menu
+      mode={mode}
+      selectedKeys={[pathname]}
+      items={isMobile ? mobileMenuItems : menuItems}
+      style={mode === 'horizontal' ? { lineHeight: '64px', borderBottom: 'none' } : {}}
+      onClick={() => setDrawerOpen(false)}
+    />
+  );
 
   const reminderContent = (
     <div style={{ width: 350 }}>
@@ -334,26 +461,39 @@ export const Header = () => {
     <AntHeader
       style={{
         background: '#fff',
-        padding: '0 50px',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
         boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+        padding: isMobile ? '0 16px' : '0 24px',
       }}
     >
-      <div style={{ display: 'flex', alignItems: 'center' }}>
-        <Link href="/" style={{ textDecoration: 'none', marginRight: 24 }}>
-          <Text strong style={{ fontSize: '18px', color: '#1677ff' }}>
-            NutriScan
-          </Text>
-        </Link>
-        <Menu
-          mode="horizontal"
-          selectedKeys={[pathname]}
-          items={menuItems}
-          style={{ lineHeight: '64px', borderBottom: 'none' }}
-        />
-      </div>
+      {isMobile ? (
+        <>
+          <Button
+            type="text"
+            icon={<MenuOutlined style={{ fontSize: '20px' }} />}
+            onClick={() => setDrawerOpen(true)}
+          />
+          <Drawer
+            title="Меню"
+            placement="left"
+            onClose={() => setDrawerOpen(false)}
+            open={drawerOpen}
+            bodyStyle={{ padding: 0 }}
+            width="100%"
+            style={{ position: 'absolute' }}
+          >
+            <div style={{ padding: '24px 0' }}>
+              {renderMenu('vertical')}
+            </div>
+          </Drawer>
+        </>
+      ) : (
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          {renderMenu()}
+        </div>
+      )}
 
       <Space size="large">
         {user ? (

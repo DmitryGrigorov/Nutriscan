@@ -746,7 +746,7 @@ export default function AntdHome() {
       <Content
         style={{
           background: '#fff',
-          maxWidth: 1720,
+          maxWidth: "100%",
           margin: '0 auto',
           padding: '0 32px',
           boxSizing: 'border-box',
