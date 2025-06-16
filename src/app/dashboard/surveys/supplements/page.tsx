@@ -1685,6 +1685,13 @@ export default function SupplementsSurveyPage() {
               />
             </Form.Item>
           )}
+
+          {/* Список пометок */}
+          {notes.length > 0 && (
+            <div style={{ marginTop: 24 }}>
+              <b>Пометки:</b> {notes.join(', ')}
+            </div>
+          )}
         </>
       ),
     },
