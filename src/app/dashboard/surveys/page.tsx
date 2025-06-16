@@ -33,6 +33,13 @@ export default function SurveysDashboardPage() {
       progress: 100,
       lastUpdated: '2024-03-10',
     },
+    {
+      id: 'supplements',
+      title: 'Подбор БАДов',
+      description: 'Опросник для персонального подбора биологически активных добавок',
+      status: 'not-started',
+      progress: 0,
+    },
   ];
   const router = useRouter();
 
