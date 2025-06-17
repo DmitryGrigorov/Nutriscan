@@ -388,7 +388,7 @@ function DashboardContent() {
                     )}
                     {gptResponses[entry.id] && (
                       <Alert
-                        message="Анализ данных"
+                        message="Анализ данных от ChatGPT"
                         description={
                           <div dangerouslySetInnerHTML={{ __html: simpleMarkdownToHtml(gptResponses[entry.id]) }} />
                         }
