@@ -318,7 +318,7 @@ function DashboardContent() {
                       onClick={() => askGPT(entry, index)}
                       loading={loadingGpt[entry.id]}
                     >
-                      Анализ данных
+                      Анализ данных от ChatGPT
                     </Button>
                   ) : null
                 }
