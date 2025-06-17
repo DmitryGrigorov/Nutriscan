@@ -144,6 +144,19 @@ const getReadableValue = (key: string, value: any): string => {
   return String(value);
 };
 
+// Функция для простого преобразования markdown в HTML
+function simpleMarkdownToHtml(md: string): string {
+  if (!md) return '';
+  return md
+    .replace(/^### (.*$)/gim, '<h3>$1</h3>')
+    .replace(/^## (.*$)/gim, '<h2>$1</h2>')
+    .replace(/^# (.*$)/gim, '<h1>$1</h1>')
+    .replace(/\*\*(.*?)\*\*/gim, '<b>$1</b>')
+    .replace(/\*(.*?)\*/gim, '<i>$1</i>')
+    .replace(/^\s*[-*] (.*)$/gim, '<li>$1</li>')
+    .replace(/\n/g, '<br />');
+}
+
 function DashboardContent() {
   const { user } = useAuth();
   const [profile, setProfile] = useState<UserProfile | null>(null);
@@ -362,9 +375,11 @@ function DashboardContent() {
                       <Alert
                         message="Пометки , которые были сделаны при прохождении опросника"
                         description={
-                          Array.isArray(notesEntry.notes)
-                            ? notesEntry.notes.join(', ')
-                            : notesEntry.notes
+                          <ul style={{ margin: 0, paddingLeft: 20 }}>
+                            {notesEntry.notes.map((note, i) => (
+                              <li key={i}>{note}</li>
+                            ))}
+                          </ul>
                         }
                         type="info"
                         showIcon
@@ -374,7 +389,9 @@ function DashboardContent() {
                     {gptResponses[entry.id] && (
                       <Alert
                         message="Анализ данных"
-                        description={gptResponses[entry.id]}
+                        description={
+                          <div dangerouslySetInnerHTML={{ __html: simpleMarkdownToHtml(gptResponses[entry.id]) }} />
+                        }
                         type="success"
                         showIcon
                       />
