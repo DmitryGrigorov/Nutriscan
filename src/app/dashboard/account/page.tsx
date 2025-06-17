@@ -1,11 +1,22 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Card, Typography, Descriptions, Space, Spin, Button, Modal, Timeline, Tag, Collapse, Alert, message } from 'antd';
+import {
+  Card,
+  Typography,
+  Descriptions,
+  Space,
+  Spin,
+  Button,
+  Modal,
+  Timeline,
+  Collapse,
+  Alert,
+  message,
+} from 'antd';
 import { useAuth } from '@/contexts/AuthContext';
 import { appwriteApi } from '@/lib/appwrite/api';
-import { SurveyData, UserProfile } from '@/types';
-import { ProfileForm } from '@/components/profile/ProfileForm';
+import { UserProfile } from '@/types';
 import {
   UserOutlined,
   MailOutlined,
@@ -18,18 +29,22 @@ import {
   FileTextOutlined,
   RobotOutlined,
 } from '@ant-design/icons';
+import { ProfileForm } from '@/components/profile/ProfileForm';
 
 interface SurveyEntry {
+  id: string;
   values: string[];
   createdAt: string;
 }
 
 interface NotesEntry {
+  id: string;
   notes: string[];
   createdAt: string;
 }
 
 interface GptResponse {
+  id: string;
   response: string;
   createdAt: string;
 }
@@ -58,7 +73,7 @@ const getReadableFieldName = (key: string): string => {
     smoking: 'Курение',
     stress: 'Уровень стресса',
     sleepHours: 'Часы сна',
-    sleepProblems: 'Проблемы со сном'
+    sleepProblems: 'Проблемы со сном',
   };
 
   return fieldNames[key] || key;
@@ -68,17 +83,17 @@ const getReadableFieldName = (key: string): string => {
 const getReadableValue = (key: string, value: any): string => {
   if (value === true) return 'Да';
   if (value === false) return 'Нет';
-  
+
   const valueMap: { [key: string]: { [key: string]: string } } = {
     gender: {
       male: 'Мужской',
-      female: 'Женский'
+      female: 'Женский',
     },
     physicalActivity: {
       low: 'Низкая',
       moderate: 'Умеренная',
       high: 'Высокая',
-      pro: 'Профессиональная'
+      pro: 'Профессиональная',
     },
     dietType: {
       regular: 'Обычное питание',
@@ -87,20 +102,20 @@ const getReadableValue = (key: string, value: any): string => {
       glutenfree: 'Безглютеновая диета',
       keto: 'Кетогенная диета',
       lowcarb: 'Низкоуглеводная диета',
-      if: 'Интервальное голодание'
+      if: 'Интервальное голодание',
     },
     fruitsVeggies: {
       daily: 'Ежедневно',
       regular: '3-5 раз в неделю',
       rare: '1-2 раза в неделю',
-      never: 'Редко или никогда'
+      never: 'Редко или никогда',
     },
     alcohol: {
       never: 'Не употребляет',
       rare: 'Редко',
       moderate: 'Умеренно',
       regular: 'Регулярно',
-      often: 'Часто'
+      often: 'Часто',
     },
     smoking: {
       yes: 'Да, регулярно',
@@ -108,14 +123,14 @@ const getReadableValue = (key: string, value: any): string => {
       vape: 'Электронные сигареты',
       quit_recent: 'Бросил менее года назад',
       quit_long: 'Бросил более года назад',
-      never: 'Никогда не курил'
+      never: 'Никогда не курил',
     },
     stress: {
       low: 'Низкий',
       moderate: 'Умеренный',
       high: 'Высокий',
-      chronic: 'Хронический'
-    }
+      chronic: 'Хронический',
+    },
   };
 
   if (typeof value === 'string' && valueMap[key]?.[value]) {
@@ -123,7 +138,7 @@ const getReadableValue = (key: string, value: any): string => {
   }
 
   if (Array.isArray(value)) {
-    return value.map(v => valueMap[key]?.[v] || v).join(', ');
+    return value.map((v) => valueMap[key]?.[v] || v).join(', ');
   }
 
   return String(value);
@@ -145,32 +160,31 @@ function DashboardContent() {
       const userProfile = await appwriteApi.profile.get(user.$id);
       setProfile(userProfile);
 
+      let parsedValues: SurveyEntry[] = [];
+      let parsedNotes: NotesEntry[] = [];
+
       // Parse survey history
       if (userProfile?.valuesJSON) {
-        try {
-          const entries = userProfile.valuesJSON.map(entry => {
-            const parsed = JSON.parse(entry);
-            return parsed as SurveyEntry;
-          });
-          setSurveyHistory(entries);
-        } catch (e) {
-          console.error('Error parsing survey history:', e);
-          setSurveyHistory([]);
-        }
+        parsedValues = userProfile.valuesJSON.map((entry) => JSON.parse(entry));
+        setSurveyHistory(parsedValues);
       }
 
       // Parse notes history
       if (userProfile?.notesJSON) {
-        try {
-          const entries = userProfile.notesJSON.map(entry => {
-            const parsed = JSON.parse(entry);
-            return parsed as NotesEntry;
-          });
-          setNotesHistory(entries);
-        } catch (e) {
-          console.error('Error parsing notes history:', e);
-          setNotesHistory([]);
-        }
+        parsedNotes = userProfile.notesJSON.map((entry) => JSON.parse(entry));
+        setNotesHistory(parsedNotes);
+      }
+
+      // Load existing GPT responses
+      if (userProfile?.gptJSON) {
+        const parsedGptResponses: GptResponse[] = userProfile.gptJSON.map((entry) =>
+          JSON.parse(entry)
+        );
+        const gptResponsesMap: { [key: string]: string } = {};
+        parsedGptResponses.forEach((gptResponse) => {
+          gptResponsesMap[gptResponse.id] = gptResponse.response;
+        });
+        setGptResponses(gptResponsesMap);
       }
     } catch (error) {
       console.error('Error loading data:', error);
@@ -199,12 +213,11 @@ function DashboardContent() {
     }
   };
 
-  const askGPT = async (entry: SurveyEntry, index: number) => {
+  const askGPT = async (entry: SurveyEntry) => {
     try {
-      setLoadingGpt(prev => ({ ...prev, [index]: true }));
-      
+      setLoadingGpt((prev) => ({ ...prev, [entry.id]: true }));
       const values = Array.isArray(entry.values) ? entry.values : [entry.values];
-      const notes = notesHistory[index]?.notes || [];
+      const notes = notesHistory.find((n) => n.id === entry.id)?.notes || [];
 
       const response = await fetch('/api/chatgpt', {
         method: 'POST',
@@ -213,7 +226,7 @@ function DashboardContent() {
         },
         body: JSON.stringify({
           notes,
-          values: values.map(v => {
+          values: values.map((v) => {
             try {
               return typeof v === 'string' ? JSON.parse(v) : v;
             } catch (e) {
@@ -228,59 +241,49 @@ function DashboardContent() {
       }
 
       const data = await response.json();
-      
+
       // Save GPT response to user profile
       if (user) {
         const userProfile = await appwriteApi.profile.get(user.$id);
         if (!userProfile) {
           throw new Error('User profile not found');
         }
-        
         const existingGptJSON = userProfile.gptJSON || [];
         const newGptResponse: GptResponse = {
+          id: entry.id,
           response: data.content,
-          createdAt: new Date().toISOString()
+          createdAt: new Date().toISOString(),
         };
-        
-        console.log('newGptResponse', newGptResponse);
-        console.log('data', data);
-
         await appwriteApi.profile.update(user.$id, {
-          gptJSON: [...existingGptJSON, JSON.stringify(newGptResponse)]
+          gptJSON: [...existingGptJSON, JSON.stringify(newGptResponse)],
         });
       }
 
-      setGptResponses(prev => ({ ...prev, [index]: data.content }));
+      setGptResponses((prev) => ({ ...prev, [entry.id]: data.response }));
       message.success('Анализ данных успешно получен');
     } catch (error) {
       console.error('Error getting GPT response:', error);
       message.error('Не удалось получить анализ данных');
     } finally {
-      setLoadingGpt(prev => ({ ...prev, [index]: false }));
+      setLoadingGpt((prev) => ({ ...prev, [entry.id]: false }));
     }
   };
 
   const renderSurveyTimeline = () => {
     if (!surveyHistory.length) {
-      return (
-        <Typography.Text type="secondary">
-          Нет пройденных опросников
-        </Typography.Text>
-      );
+      return <Typography.Text type="secondary">Нет пройденных опросников</Typography.Text>;
     }
 
     return (
       <Timeline>
         {surveyHistory.map((entry, index) => {
           const values = Array.isArray(entry.values) ? entry.values : [entry.values];
-          
+          const hasGptResponse = gptResponses[entry.id] !== undefined;
+          const notesEntry = notesHistory.find((n) => n.id === entry.id);
           return (
-            <Timeline.Item 
-              key={index} 
-              dot={<FormOutlined style={{ fontSize: '16px' }} />}
-            >
-              <Card 
-                size="small" 
+            <Timeline.Item key={entry.id} dot={<FormOutlined style={{ fontSize: '16px' }} />}>
+              <Card
+                size="small"
                 title={
                   <Space>
                     <CalendarOutlined />
@@ -289,38 +292,35 @@ function DashboardContent() {
                       month: 'long',
                       day: 'numeric',
                       hour: '2-digit',
-                      minute: '2-digit'
+                      minute: '2-digit',
                     })}
                   </Space>
                 }
                 style={{ marginBottom: 16 }}
                 extra={
-                  <Button
-                    type="primary"
-                    icon={<RobotOutlined />}
-                    onClick={() => askGPT(entry, index)}
-                    loading={loadingGpt[index]}
-                  >
-                    Анализ данных
-                  </Button>
+                  !hasGptResponse ? (
+                    <Button
+                      type="primary"
+                      icon={<RobotOutlined />}
+                      onClick={() => askGPT(entry, index)}
+                      loading={loadingGpt[entry.id]}
+                    >
+                      Анализ данных
+                    </Button>
+                  ) : null
                 }
               >
                 <Collapse>
-                  <Collapse.Panel 
+                  <Collapse.Panel
                     header={
                       <Space>
                         <FileTextOutlined />
                         Показать детали опросника
                       </Space>
-                    } 
+                    }
                     key="1"
                   >
-                    <Descriptions 
-                      column={1} 
-                      bordered 
-                      size="small"
-                      style={{ marginBottom: 16 }}
-                    >
+                    <Descriptions column={1} bordered size="small" style={{ marginBottom: 16 }}>
                       {values.map((value, vIndex) => {
                         try {
                           let parsed;
@@ -329,7 +329,6 @@ function DashboardContent() {
                           } else {
                             parsed = value;
                           }
-                          
                           let key, val;
                           if (typeof parsed === 'object' && parsed !== null) {
                             const entries = Object.entries(parsed);
@@ -341,11 +340,14 @@ function DashboardContent() {
                           } else {
                             return null;
                           }
-
                           return (
-                            <Descriptions.Item 
-                              key={vIndex} 
-                              label={<Typography.Text strong>{getReadableFieldName(key)}</Typography.Text>}
+                            <Descriptions.Item
+                              key={vIndex}
+                              label={
+                                <Typography.Text strong>
+                                  {getReadableFieldName(key)}
+                                </Typography.Text>
+                              }
                             >
                               {getReadableValue(key, val)}
                             </Descriptions.Item>
@@ -356,19 +358,23 @@ function DashboardContent() {
                         }
                       })}
                     </Descriptions>
-                    {notesHistory[index] && notesHistory[index].notes && notesHistory[index].notes.length > 0 && (
+                    {notesEntry && notesEntry.notes && notesEntry.notes.length > 0 && (
                       <Alert
-                        message="Заметки"
-                        description={Array.isArray(notesHistory[index].notes) ? notesHistory[index].notes.join(', ') : notesHistory[index].notes}
+                        message="Пометки , которые были сделаны при прохождении опросника"
+                        description={
+                          Array.isArray(notesEntry.notes)
+                            ? notesEntry.notes.join(', ')
+                            : notesEntry.notes
+                        }
                         type="info"
                         showIcon
                         style={{ marginBottom: 16 }}
                       />
                     )}
-                    {gptResponses[index] && (
+                    {gptResponses[entry.id] && (
                       <Alert
                         message="Анализ данных"
-                        description={gptResponses[index]}
+                        description={gptResponses[entry.id]}
                         type="success"
                         showIcon
                       />
@@ -468,9 +474,7 @@ function DashboardContent() {
           )}
         </Card>
 
-        <Card title="История опросников">
-          {renderSurveyTimeline()}
-        </Card>
+        <Card title="История опросников">{renderSurveyTimeline()}</Card>
       </Space>
 
       <Modal
