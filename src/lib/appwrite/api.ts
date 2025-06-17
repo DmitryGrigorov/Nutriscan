@@ -147,6 +147,8 @@ export const appwriteApi = {
         throw new Error('Profile not found');
       }
 
+      console.log('data sent to update', { data });
+
       return (await databases.updateDocument(DATABASE_ID, COLLECTION_USERS, profile.$id, {
         ...data,
         updatedAt: new Date().toISOString(),

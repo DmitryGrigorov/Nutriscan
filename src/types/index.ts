@@ -30,6 +30,8 @@ export interface UserProfile {
   age: number;
   weight: number;
   height: number;
+  valuesJSON?: string[];
+  notesJSON?: string[];
   createdAt: string;
   updatedAt: string;
 }

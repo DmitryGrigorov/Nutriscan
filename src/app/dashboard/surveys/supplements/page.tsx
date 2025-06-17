@@ -701,799 +701,799 @@ export default function SupplementsSurveyPage() {
         </>
       ),
     },
-    {
-      title: 'Общая информация',
-      content: (
-        <>
-          {/* Вопрос 3 */}
-          <Form.Item
-            name="age"
-            label="Укажите ваш возраст"
-            rules={[{ required: true, message: 'Пожалуйста, выберите ваш возраст' }]}
-          >
-            <Radio.Group onChange={(e) => handleAgeChange(e.target.value)} value={localState.age}>
-              <Radio value="under18">Младше 18 лет</Radio>
-              <Radio value="18-30">18-30 лет</Radio>
-              <Radio value="31-45">31-45 лет</Radio>
-              <Radio value="46-60">46-60 лет</Radio>
-              <Radio value="over60">Старше 60 лет</Radio>
-            </Radio.Group>
-          </Form.Item>
+    // {
+    //   title: 'Общая информация',
+    //   content: (
+    //     <>
+    //       {/* Вопрос 3 */}
+    //       <Form.Item
+    //         name="age"
+    //         label="Укажите ваш возраст"
+    //         rules={[{ required: true, message: 'Пожалуйста, выберите ваш возраст' }]}
+    //       >
+    //         <Radio.Group onChange={(e) => handleAgeChange(e.target.value)} value={localState.age}>
+    //           <Radio value="under18">Младше 18 лет</Radio>
+    //           <Radio value="18-30">18-30 лет</Radio>
+    //           <Radio value="31-45">31-45 лет</Radio>
+    //           <Radio value="46-60">46-60 лет</Radio>
+    //           <Radio value="over60">Старше 60 лет</Radio>
+    //         </Radio.Group>
+    //       </Form.Item>
 
-          {/* Вопрос 4 */}
-          <Form.Item
-            label="Укажите ваш рост (см)"
-            name="height"
-            rules={[{ required: true, message: 'Пожалуйста, введите рост' }]}
-          >
-            <Input
-              type="number"
-              min={100}
-              max={250}
-              onChange={handleHeightChange}
-              value={localState.height}
-              placeholder="Рост (см)"
-            />
-          </Form.Item>
-          <Form.Item
-            label="Укажите ваш вес (кг)"
-            name="weight"
-            rules={[{ required: true, message: 'Пожалуйста, введите вес' }]}
-          >
-            <Input
-              type="number"
-              min={30}
-              max={300}
-              onChange={handleWeightChange}
-              value={localState.weight}
-              placeholder="Вес (кг)"
-            />
-          </Form.Item>
-          {bmi && (
-            <div style={{ marginTop: 8 }}>
-              <b>Ваш ИМТ:</b> {bmi}
-            </div>
-          )}
-          {/* Список пометок */}
-          {notes.length > 0 && (
-            <div style={{ marginTop: 24 }}>
-              <b>Пометки:</b> {notes.join(', ')}
-            </div>
-          )}
-        </>
-      ),
-    },
-    {
-      title: 'Хронические заболевания',
-      content: (
-        <>
-          {/* Вопрос 5 */}
-          <Form.Item
-            name="cardio"
-            label="Имеются ли у вас хронические заболевания сердечно-сосудистой системы?"
-            rules={[{ required: true, message: 'Пожалуйста, выберите вариант' }]}
-          >
-            <Radio.Group onChange={(e) => handleSurveyChange('cardio', e.target.value)}>
-              <Radio value="hypertension">Да, гипертония (повышенное давление)</Radio>
-              <Radio value="ibs">Да, ишемическая болезнь сердца</Radio>
-              <Radio value="arrhythmia">Да, аритмия</Radio>
-              <Radio value="varicose">Да, варикозное расширение вен</Radio>
-              <Radio value="other">Да, другое (укажите)</Radio>
-              <Radio value="none">Нет</Radio>
-            </Radio.Group>
-          </Form.Item>
+    //       {/* Вопрос 4 */}
+    //       <Form.Item
+    //         label="Укажите ваш рост (см)"
+    //         name="height"
+    //         rules={[{ required: true, message: 'Пожалуйста, введите рост' }]}
+    //       >
+    //         <Input
+    //           type="number"
+    //           min={100}
+    //           max={250}
+    //           onChange={handleHeightChange}
+    //           value={localState.height}
+    //           placeholder="Рост (см)"
+    //         />
+    //       </Form.Item>
+    //       <Form.Item
+    //         label="Укажите ваш вес (кг)"
+    //         name="weight"
+    //         rules={[{ required: true, message: 'Пожалуйста, введите вес' }]}
+    //       >
+    //         <Input
+    //           type="number"
+    //           min={30}
+    //           max={300}
+    //           onChange={handleWeightChange}
+    //           value={localState.weight}
+    //           placeholder="Вес (кг)"
+    //         />
+    //       </Form.Item>
+    //       {bmi && (
+    //         <div style={{ marginTop: 8 }}>
+    //           <b>Ваш ИМТ:</b> {bmi}
+    //         </div>
+    //       )}
+    //       {/* Список пометок */}
+    //       {notes.length > 0 && (
+    //         <div style={{ marginTop: 24 }}>
+    //           <b>Пометки:</b> {notes.join(', ')}
+    //         </div>
+    //       )}
+    //     </>
+    //   ),
+    // },
+    // {
+    //   title: 'Хронические заболевания',
+    //   content: (
+    //     <>
+    //       {/* Вопрос 5 */}
+    //       <Form.Item
+    //         name="cardio"
+    //         label="Имеются ли у вас хронические заболевания сердечно-сосудистой системы?"
+    //         rules={[{ required: true, message: 'Пожалуйста, выберите вариант' }]}
+    //       >
+    //         <Radio.Group onChange={(e) => handleSurveyChange('cardio', e.target.value)}>
+    //           <Radio value="hypertension">Да, гипертония (повышенное давление)</Radio>
+    //           <Radio value="ibs">Да, ишемическая болезнь сердца</Radio>
+    //           <Radio value="arrhythmia">Да, аритмия</Radio>
+    //           <Radio value="varicose">Да, варикозное расширение вен</Radio>
+    //           <Radio value="other">Да, другое (укажите)</Radio>
+    //           <Radio value="none">Нет</Radio>
+    //         </Radio.Group>
+    //       </Form.Item>
 
-          {localState.cardio === 'other' && (
-            <Form.Item
-              name="cardioOther"
-              rules={[{ required: true, message: 'Пожалуйста, укажите заболевание' }]}
-            >
-              <Input
-                placeholder="Укажите заболевание"
-                onChange={(e) => {
-                  handleSurveyChange('cardioOther', e.target.value);
-                }}
-              />
-            </Form.Item>
-          )}
+    //       {localState.cardio === 'other' && (
+    //         <Form.Item
+    //           name="cardioOther"
+    //           rules={[{ required: true, message: 'Пожалуйста, укажите заболевание' }]}
+    //         >
+    //           <Input
+    //             placeholder="Укажите заболевание"
+    //             onChange={(e) => {
+    //               handleSurveyChange('cardioOther', e.target.value);
+    //             }}
+    //           />
+    //         </Form.Item>
+    //       )}
 
-          {localState.cardio && localState.cardio !== 'none' && (
-            <>
-              {/* Вопрос 5.1 */}
-              <Form.Item
-                name="cardioMeds"
-                label="Принимаете ли вы регулярно препараты для лечения сердечно-сосудистых заболеваний?"
-                rules={[{ required: true, message: 'Пожалуйста, выберите вариант' }]}
-              >
-                <Radio.Group onChange={(e) => handleSurveyChange('cardioMeds', e.target.value)}>
-                  <Radio value="yes">Да</Radio>
-                  <Radio value="no">Нет</Radio>
-                </Radio.Group>
-              </Form.Item>
+    //       {localState.cardio && localState.cardio !== 'none' && (
+    //         <>
+    //           {/* Вопрос 5.1 */}
+    //           <Form.Item
+    //             name="cardioMeds"
+    //             label="Принимаете ли вы регулярно препараты для лечения сердечно-сосудистых заболеваний?"
+    //             rules={[{ required: true, message: 'Пожалуйста, выберите вариант' }]}
+    //           >
+    //             <Radio.Group onChange={(e) => handleSurveyChange('cardioMeds', e.target.value)}>
+    //               <Radio value="yes">Да</Radio>
+    //               <Radio value="no">Нет</Radio>
+    //             </Radio.Group>
+    //           </Form.Item>
 
-              {localState.cardioMeds === 'yes' && (
-                <Form.Item
-                  name="cardioMedsDetails"
-                  rules={[{ required: true, message: 'Пожалуйста, укажите препараты' }]}
-                >
-                  <Input.TextArea
-                    placeholder="Укажите препараты"
-                    onChange={(e) => {
-                      handleSurveyChange('cardioMedsDetails', e.target.value);
-                    }}
-                  />
-                </Form.Item>
-              )}
-            </>
-          )}
+    //           {localState.cardioMeds === 'yes' && (
+    //             <Form.Item
+    //               name="cardioMedsDetails"
+    //               rules={[{ required: true, message: 'Пожалуйста, укажите препараты' }]}
+    //             >
+    //               <Input.TextArea
+    //                 placeholder="Укажите препараты"
+    //                 onChange={(e) => {
+    //                   handleSurveyChange('cardioMedsDetails', e.target.value);
+    //                 }}
+    //               />
+    //             </Form.Item>
+    //           )}
+    //         </>
+    //       )}
 
-          {/* Вопрос 6 */}
-          <Form.Item
-            name="gastro"
-            label="Имеются ли у вас заболевания желудочно-кишечного тракта?"
-            rules={[{ required: true, message: 'Пожалуйста, выберите вариант' }]}
-          >
-            <Radio.Group onChange={(e) => handleSurveyChange('gastro', e.target.value)}>
-              <Radio value="ulcer">Да, язвенная болезнь желудка/12-перстной кишки</Radio>
-              <Radio value="gastritis">Да, гастрит</Radio>
-              <Radio value="ibs">Да, синдром раздраженного кишечника</Radio>
-              <Radio value="gallstones">Да, желчнокаменная болезнь</Radio>
-              <Radio value="liver">Да, заболевания печени</Radio>
-              <Radio value="other">Да, другое (укажите)</Radio>
-              <Radio value="none">Нет</Radio>
-            </Radio.Group>
-          </Form.Item>
+    //       {/* Вопрос 6 */}
+    //       <Form.Item
+    //         name="gastro"
+    //         label="Имеются ли у вас заболевания желудочно-кишечного тракта?"
+    //         rules={[{ required: true, message: 'Пожалуйста, выберите вариант' }]}
+    //       >
+    //         <Radio.Group onChange={(e) => handleSurveyChange('gastro', e.target.value)}>
+    //           <Radio value="ulcer">Да, язвенная болезнь желудка/12-перстной кишки</Radio>
+    //           <Radio value="gastritis">Да, гастрит</Radio>
+    //           <Radio value="ibs">Да, синдром раздраженного кишечника</Radio>
+    //           <Radio value="gallstones">Да, желчнокаменная болезнь</Radio>
+    //           <Radio value="liver">Да, заболевания печени</Radio>
+    //           <Radio value="other">Да, другое (укажите)</Radio>
+    //           <Radio value="none">Нет</Radio>
+    //         </Radio.Group>
+    //       </Form.Item>
 
-          {localState.gastro === 'other' && (
-            <Form.Item
-              name="gastroOther"
-              rules={[{ required: true, message: 'Пожалуйста, укажите заболевание' }]}
-            >
-              <Input
-                placeholder="Укажите заболевание"
-                onChange={(e) => {
-                  handleSurveyChange('gastroOther', e.target.value);
-                }}
-              />
-            </Form.Item>
-          )}
+    //       {localState.gastro === 'other' && (
+    //         <Form.Item
+    //           name="gastroOther"
+    //           rules={[{ required: true, message: 'Пожалуйста, укажите заболевание' }]}
+    //         >
+    //           <Input
+    //             placeholder="Укажите заболевание"
+    //             onChange={(e) => {
+    //               handleSurveyChange('gastroOther', e.target.value);
+    //             }}
+    //           />
+    //         </Form.Item>
+    //       )}
 
-          {localState.gastro === 'liver' && (
-            <>
-              {/* Вопрос 6.1 */}
-              <Form.Item
-                name="liver"
-                label="Уточните заболевание печени:"
-                rules={[{ required: true, message: 'Пожалуйста, выберите вариант' }]}
-              >
-                <Radio.Group onChange={(e) => handleSurveyChange('liver', e.target.value)}>
-                  <Radio value="fatty">Жировой гепатоз</Radio>
-                  <Radio value="viral">Вирусный гепатит</Radio>
-                  <Radio value="cirrhosis">Цирроз</Radio>
-                  <Radio value="other">Другое (укажите)</Radio>
-                </Radio.Group>
-              </Form.Item>
+    //       {localState.gastro === 'liver' && (
+    //         <>
+    //           {/* Вопрос 6.1 */}
+    //           <Form.Item
+    //             name="liver"
+    //             label="Уточните заболевание печени:"
+    //             rules={[{ required: true, message: 'Пожалуйста, выберите вариант' }]}
+    //           >
+    //             <Radio.Group onChange={(e) => handleSurveyChange('liver', e.target.value)}>
+    //               <Radio value="fatty">Жировой гепатоз</Radio>
+    //               <Radio value="viral">Вирусный гепатит</Radio>
+    //               <Radio value="cirrhosis">Цирроз</Radio>
+    //               <Radio value="other">Другое (укажите)</Radio>
+    //             </Radio.Group>
+    //           </Form.Item>
 
-              {localState.liver === 'other' && (
-                <Form.Item
-                  name="liverOther"
-                  rules={[{ required: true, message: 'Пожалуйста, укажите заболевание' }]}
-                >
-                  <Input
-                    placeholder="Укажите заболевание"
-                    onChange={(e) => {
-                      handleSurveyChange('liverOther', e.target.value);
-                    }}
-                  />
-                </Form.Item>
-              )}
-            </>
-          )}
+    //           {localState.liver === 'other' && (
+    //             <Form.Item
+    //               name="liverOther"
+    //               rules={[{ required: true, message: 'Пожалуйста, укажите заболевание' }]}
+    //             >
+    //               <Input
+    //                 placeholder="Укажите заболевание"
+    //                 onChange={(e) => {
+    //                   handleSurveyChange('liverOther', e.target.value);
+    //                 }}
+    //               />
+    //             </Form.Item>
+    //           )}
+    //         </>
+    //       )}
 
-          {/* Вопрос 7 */}
-          <Form.Item
-            name="endocrine"
-            label="Имеются ли у вас эндокринные заболевания?"
-            rules={[{ required: true, message: 'Пожалуйста, выберите вариант' }]}
-          >
-            <Radio.Group onChange={(e) => handleSurveyChange('endocrine', e.target.value)}>
-              <Radio value="dm1">Да, сахарный диабет 1 типа</Radio>
-              <Radio value="dm2">Да, сахарный диабет 2 типа</Radio>
-              <Radio value="thyroid">Да, заболевания щитовидной железы</Radio>
-              <Radio value="other">Да, другое (укажите)</Radio>
-              <Radio value="none">Нет</Radio>
-            </Radio.Group>
-          </Form.Item>
+    //       {/* Вопрос 7 */}
+    //       <Form.Item
+    //         name="endocrine"
+    //         label="Имеются ли у вас эндокринные заболевания?"
+    //         rules={[{ required: true, message: 'Пожалуйста, выберите вариант' }]}
+    //       >
+    //         <Radio.Group onChange={(e) => handleSurveyChange('endocrine', e.target.value)}>
+    //           <Radio value="dm1">Да, сахарный диабет 1 типа</Radio>
+    //           <Radio value="dm2">Да, сахарный диабет 2 типа</Radio>
+    //           <Radio value="thyroid">Да, заболевания щитовидной железы</Radio>
+    //           <Radio value="other">Да, другое (укажите)</Radio>
+    //           <Radio value="none">Нет</Radio>
+    //         </Radio.Group>
+    //       </Form.Item>
 
-          {localState.endocrine === 'other' && (
-            <Form.Item
-              name="endocrineOther"
-              rules={[{ required: true, message: 'Пожалуйста, укажите заболевание' }]}
-            >
-              <Input
-                placeholder="Укажите заболевание"
-                onChange={(e) => {
-                  handleSurveyChange('endocrineOther', e.target.value);
-                }}
-              />
-            </Form.Item>
-          )}
+    //       {localState.endocrine === 'other' && (
+    //         <Form.Item
+    //           name="endocrineOther"
+    //           rules={[{ required: true, message: 'Пожалуйста, укажите заболевание' }]}
+    //         >
+    //           <Input
+    //             placeholder="Укажите заболевание"
+    //             onChange={(e) => {
+    //               handleSurveyChange('endocrineOther', e.target.value);
+    //             }}
+    //           />
+    //         </Form.Item>
+    //       )}
 
-          {(localState.endocrine === 'dm1' || localState.endocrine === 'dm2') && (
-            <>
-              {/* Вопрос 7.1 */}
-              <Form.Item
-                name="diabetesControl"
-                label="Как вы контролируете диабет?"
-                rules={[{ required: true, message: 'Пожалуйста, выберите вариант' }]}
-              >
-                <Radio.Group
-                  onChange={(e) => handleSurveyChange('diabetesControl', e.target.value)}
-                >
-                  <Radio value="insulin">Инсулинотерапия</Radio>
-                  <Radio value="oral">Таблетированные препараты</Radio>
-                  <Radio value="lifestyle">Диета и физическая активность</Radio>
-                  <Radio value="combo">Комбинация методов</Radio>
-                </Radio.Group>
-              </Form.Item>
-            </>
-          )}
+    //       {(localState.endocrine === 'dm1' || localState.endocrine === 'dm2') && (
+    //         <>
+    //           {/* Вопрос 7.1 */}
+    //           <Form.Item
+    //             name="diabetesControl"
+    //             label="Как вы контролируете диабет?"
+    //             rules={[{ required: true, message: 'Пожалуйста, выберите вариант' }]}
+    //           >
+    //             <Radio.Group
+    //               onChange={(e) => handleSurveyChange('diabetesControl', e.target.value)}
+    //             >
+    //               <Radio value="insulin">Инсулинотерапия</Radio>
+    //               <Radio value="oral">Таблетированные препараты</Radio>
+    //               <Radio value="lifestyle">Диета и физическая активность</Radio>
+    //               <Radio value="combo">Комбинация методов</Radio>
+    //             </Radio.Group>
+    //           </Form.Item>
+    //         </>
+    //       )}
 
-          {localState.endocrine === 'thyroid' && (
-            <>
-              {/* Вопрос 7.2 */}
-              <Form.Item
-                name="thyroid"
-                label="Уточните заболевание щитовидной железы:"
-                rules={[{ required: true, message: 'Пожалуйста, выберите вариант' }]}
-              >
-                <Radio.Group onChange={(e) => handleSurveyChange('thyroid', e.target.value)}>
-                  <Radio value="hypo">Гипотиреоз</Radio>
-                  <Radio value="hyper">Гипертиреоз</Radio>
-                  <Radio value="ait">Аутоиммунный тиреоидит</Radio>
-                  <Radio value="nodular">Узловой зоб</Radio>
-                  <Radio value="other">Другое (укажите)</Radio>
-                </Radio.Group>
-              </Form.Item>
+    //       {localState.endocrine === 'thyroid' && (
+    //         <>
+    //           {/* Вопрос 7.2 */}
+    //           <Form.Item
+    //             name="thyroid"
+    //             label="Уточните заболевание щитовидной железы:"
+    //             rules={[{ required: true, message: 'Пожалуйста, выберите вариант' }]}
+    //           >
+    //             <Radio.Group onChange={(e) => handleSurveyChange('thyroid', e.target.value)}>
+    //               <Radio value="hypo">Гипотиреоз</Radio>
+    //               <Radio value="hyper">Гипертиреоз</Radio>
+    //               <Radio value="ait">Аутоиммунный тиреоидит</Radio>
+    //               <Radio value="nodular">Узловой зоб</Radio>
+    //               <Radio value="other">Другое (укажите)</Radio>
+    //             </Radio.Group>
+    //           </Form.Item>
 
-              {localState.thyroid === 'other' && (
-                <Form.Item
-                  name="thyroidOther"
-                  rules={[{ required: true, message: 'Пожалуйста, укажите заболевание' }]}
-                >
-                  <Input
-                    placeholder="Укажите заболевание"
-                    onChange={(e) => {
-                      handleSurveyChange('thyroidOther', e.target.value);
-                    }}
-                  />
-                </Form.Item>
-              )}
-            </>
-          )}
+    //           {localState.thyroid === 'other' && (
+    //             <Form.Item
+    //               name="thyroidOther"
+    //               rules={[{ required: true, message: 'Пожалуйста, укажите заболевание' }]}
+    //             >
+    //               <Input
+    //                 placeholder="Укажите заболевание"
+    //                 onChange={(e) => {
+    //                   handleSurveyChange('thyroidOther', e.target.value);
+    //                 }}
+    //               />
+    //             </Form.Item>
+    //           )}
+    //         </>
+    //       )}
 
-          {/* Вопрос 8 */}
-          <Form.Item
-            name="musculoskeletal"
-            label="Имеются ли у вас заболевания опорно-двигательного аппарата?"
-            rules={[{ required: true, message: 'Пожалуйста, выберите вариант' }]}
-          >
-            <Radio.Group onChange={(e) => handleSurveyChange('musculoskeletal', e.target.value)}>
-              <Radio value="osteoarthritis">Да, остеоартрит</Radio>
-              <Radio value="ra">Да, ревматоидный артрит</Radio>
-              <Radio value="osteoporosis">Да, остеопороз</Radio>
-              <Radio value="other">Да, другое (укажите)</Radio>
-              <Radio value="none">Нет</Radio>
-            </Radio.Group>
-          </Form.Item>
+    //       {/* Вопрос 8 */}
+    //       <Form.Item
+    //         name="musculoskeletal"
+    //         label="Имеются ли у вас заболевания опорно-двигательного аппарата?"
+    //         rules={[{ required: true, message: 'Пожалуйста, выберите вариант' }]}
+    //       >
+    //         <Radio.Group onChange={(e) => handleSurveyChange('musculoskeletal', e.target.value)}>
+    //           <Radio value="osteoarthritis">Да, остеоартрит</Radio>
+    //           <Radio value="ra">Да, ревматоидный артрит</Radio>
+    //           <Radio value="osteoporosis">Да, остеопороз</Radio>
+    //           <Radio value="other">Да, другое (укажите)</Radio>
+    //           <Radio value="none">Нет</Radio>
+    //         </Radio.Group>
+    //       </Form.Item>
 
-          {localState.musculoskeletal === 'other' && (
-            <Form.Item
-              name="musculoskeletalOther"
-              rules={[{ required: true, message: 'Пожалуйста, укажите заболевание' }]}
-            >
-              <Input
-                placeholder="Укажите заболевание"
-                onChange={(e) => {
-                  handleSurveyChange('musculoskeletalOther', e.target.value);
-                }}
-              />
-            </Form.Item>
-          )}
+    //       {localState.musculoskeletal === 'other' && (
+    //         <Form.Item
+    //           name="musculoskeletalOther"
+    //           rules={[{ required: true, message: 'Пожалуйста, укажите заболевание' }]}
+    //         >
+    //           <Input
+    //             placeholder="Укажите заболевание"
+    //             onChange={(e) => {
+    //               handleSurveyChange('musculoskeletalOther', e.target.value);
+    //             }}
+    //           />
+    //         </Form.Item>
+    //       )}
 
-          {/* Вопрос 9 */}
-          <Form.Item
-            name="allergy"
-            label="Имеются ли у вас аллергические реакции?"
-            rules={[{ required: true, message: 'Пожалуйста, выберите вариант' }]}
-          >
-            <Radio.Group onChange={(e) => handleSurveyChange('allergy', e.target.value)}>
-              <Radio value="food">Да, пищевая аллергия</Radio>
-              <Radio value="drug">Да, лекарственная аллергия</Radio>
-              <Radio value="seasonal">Да, сезонная аллергия/поллиноз</Radio>
-              <Radio value="other">Да, другое (укажите)</Radio>
-              <Radio value="none">Нет</Radio>
-            </Radio.Group>
-          </Form.Item>
+    //       {/* Вопрос 9 */}
+    //       <Form.Item
+    //         name="allergy"
+    //         label="Имеются ли у вас аллергические реакции?"
+    //         rules={[{ required: true, message: 'Пожалуйста, выберите вариант' }]}
+    //       >
+    //         <Radio.Group onChange={(e) => handleSurveyChange('allergy', e.target.value)}>
+    //           <Radio value="food">Да, пищевая аллергия</Radio>
+    //           <Radio value="drug">Да, лекарственная аллергия</Radio>
+    //           <Radio value="seasonal">Да, сезонная аллергия/поллиноз</Radio>
+    //           <Radio value="other">Да, другое (укажите)</Radio>
+    //           <Radio value="none">Нет</Radio>
+    //         </Radio.Group>
+    //       </Form.Item>
 
-          {localState.allergy === 'other' && (
-            <Form.Item
-              name="allergyOther"
-              rules={[{ required: true, message: 'Пожалуйста, укажите тип аллергии' }]}
-            >
-              <Input
-                placeholder="Укажите тип аллергии"
-                onChange={(e) => {
-                  handleSurveyChange('allergyOther', e.target.value);
-                }}
-              />
-            </Form.Item>
-          )}
+    //       {localState.allergy === 'other' && (
+    //         <Form.Item
+    //           name="allergyOther"
+    //           rules={[{ required: true, message: 'Пожалуйста, укажите тип аллергии' }]}
+    //         >
+    //           <Input
+    //             placeholder="Укажите тип аллергии"
+    //             onChange={(e) => {
+    //               handleSurveyChange('allergyOther', e.target.value);
+    //             }}
+    //           />
+    //         </Form.Item>
+    //       )}
 
-          {localState.allergy === 'food' && (
-            <>
-              {/* Вопрос 9.1 */}
-              <Form.Item
-                name="foodAllergy"
-                label="На какие продукты у вас аллергия? (можно выбрать несколько)"
-                rules={[{ required: true, message: 'Пожалуйста, выберите варианты' }]}
-              >
-                <Checkbox.Group onChange={(values) => handleSurveyChange('foodAllergy', values)}>
-                  <Checkbox value="milk">Молочные продукты</Checkbox>
-                  <Checkbox value="eggs">Яйца</Checkbox>
-                  <Checkbox value="seafood">Морепродукты/рыба</Checkbox>
-                  <Checkbox value="nuts">Орехи</Checkbox>
-                  <Checkbox value="gluten">Глютен</Checkbox>
-                  <Checkbox value="soy">Соя</Checkbox>
-                  <Checkbox value="other">Другое</Checkbox>
-                </Checkbox.Group>
-              </Form.Item>
+    //       {localState.allergy === 'food' && (
+    //         <>
+    //           {/* Вопрос 9.1 */}
+    //           <Form.Item
+    //             name="foodAllergy"
+    //             label="На какие продукты у вас аллергия? (можно выбрать несколько)"
+    //             rules={[{ required: true, message: 'Пожалуйста, выберите варианты' }]}
+    //           >
+    //             <Checkbox.Group onChange={(values) => handleSurveyChange('foodAllergy', values)}>
+    //               <Checkbox value="milk">Молочные продукты</Checkbox>
+    //               <Checkbox value="eggs">Яйца</Checkbox>
+    //               <Checkbox value="seafood">Морепродукты/рыба</Checkbox>
+    //               <Checkbox value="nuts">Орехи</Checkbox>
+    //               <Checkbox value="gluten">Глютен</Checkbox>
+    //               <Checkbox value="soy">Соя</Checkbox>
+    //               <Checkbox value="other">Другое</Checkbox>
+    //             </Checkbox.Group>
+    //           </Form.Item>
 
-              {localState.foodAllergy?.includes('other') && (
-                <Form.Item
-                  name="foodAllergyOther"
-                  rules={[{ required: true, message: 'Пожалуйста, укажите продукты' }]}
-                >
-                  <Input
-                    placeholder="Укажите продукты"
-                    onChange={(e) => {
-                      handleSurveyChange('foodAllergyOther', e.target.value);
-                    }}
-                  />
-                </Form.Item>
-              )}
-            </>
-          )}
+    //           {localState.foodAllergy?.includes('other') && (
+    //             <Form.Item
+    //               name="foodAllergyOther"
+    //               rules={[{ required: true, message: 'Пожалуйста, укажите продукты' }]}
+    //             >
+    //               <Input
+    //                 placeholder="Укажите продукты"
+    //                 onChange={(e) => {
+    //                   handleSurveyChange('foodAllergyOther', e.target.value);
+    //                 }}
+    //               />
+    //             </Form.Item>
+    //           )}
+    //         </>
+    //       )}
 
-          {localState.allergy === 'drug' && (
-            <>
-              {/* Вопрос 9.2 */}
-              <Form.Item
-                name="drugAllergy"
-                label="На какие лекарства у вас аллергия? (можно выбрать несколько)"
-                rules={[{ required: true, message: 'Пожалуйста, выберите варианты' }]}
-              >
-                <Checkbox.Group onChange={(values) => handleSurveyChange('drugAllergy', values)}>
-                  <Checkbox value="antibiotics">Антибиотики</Checkbox>
-                  <Checkbox value="nsaids">НПВС (ибупрофен, аспирин и т.д.)</Checkbox>
-                  <Checkbox value="sulfa">Сульфаниламиды</Checkbox>
-                  <Checkbox value="other">Другое</Checkbox>
-                </Checkbox.Group>
-              </Form.Item>
+    //       {localState.allergy === 'drug' && (
+    //         <>
+    //           {/* Вопрос 9.2 */}
+    //           <Form.Item
+    //             name="drugAllergy"
+    //             label="На какие лекарства у вас аллергия? (можно выбрать несколько)"
+    //             rules={[{ required: true, message: 'Пожалуйста, выберите варианты' }]}
+    //           >
+    //             <Checkbox.Group onChange={(values) => handleSurveyChange('drugAllergy', values)}>
+    //               <Checkbox value="antibiotics">Антибиотики</Checkbox>
+    //               <Checkbox value="nsaids">НПВС (ибупрофен, аспирин и т.д.)</Checkbox>
+    //               <Checkbox value="sulfa">Сульфаниламиды</Checkbox>
+    //               <Checkbox value="other">Другое</Checkbox>
+    //             </Checkbox.Group>
+    //           </Form.Item>
 
-              {localState.drugAllergy?.includes('other') && (
-                <Form.Item
-                  name="drugAllergyOther"
-                  rules={[{ required: true, message: 'Пожалуйста, укажите лекарства' }]}
-                >
-                  <Input
-                    placeholder="Укажите лекарства"
-                    onChange={(e) => {
-                      handleSurveyChange('drugAllergyOther', e.target.value);
-                    }}
-                  />
-                </Form.Item>
-              )}
-            </>
-          )}
+    //           {localState.drugAllergy?.includes('other') && (
+    //             <Form.Item
+    //               name="drugAllergyOther"
+    //               rules={[{ required: true, message: 'Пожалуйста, укажите лекарства' }]}
+    //             >
+    //               <Input
+    //                 placeholder="Укажите лекарства"
+    //                 onChange={(e) => {
+    //                   handleSurveyChange('drugAllergyOther', e.target.value);
+    //                 }}
+    //               />
+    //             </Form.Item>
+    //           )}
+    //         </>
+    //       )}
 
-          {/* Вопрос 10 */}
-          <Form.Item
-            name="regularMeds"
-            label="Принимаете ли вы регулярно какие-либо лекарственные препараты?"
-            rules={[{ required: true, message: 'Пожалуйста, выберите вариант' }]}
-          >
-            <Radio.Group onChange={(e) => handleSurveyChange('regularMeds', e.target.value)}>
-              <Radio value="yes">Да</Radio>
-              <Radio value="no">Нет</Radio>
-            </Radio.Group>
-          </Form.Item>
+    //       {/* Вопрос 10 */}
+    //       <Form.Item
+    //         name="regularMeds"
+    //         label="Принимаете ли вы регулярно какие-либо лекарственные препараты?"
+    //         rules={[{ required: true, message: 'Пожалуйста, выберите вариант' }]}
+    //       >
+    //         <Radio.Group onChange={(e) => handleSurveyChange('regularMeds', e.target.value)}>
+    //           <Radio value="yes">Да</Radio>
+    //           <Radio value="no">Нет</Radio>
+    //         </Radio.Group>
+    //       </Form.Item>
 
-          {localState.regularMeds === 'yes' && (
-            <>
-              {/* Вопрос 10.1 */}
-              <Form.Item
-                name="regularMedsList"
-                label="Укажите, какие лекарственные препараты вы принимаете регулярно (можно выбрать несколько):"
-                rules={[{ required: true, message: 'Пожалуйста, выберите варианты' }]}
-              >
-                <Checkbox.Group
-                  onChange={(values) => handleSurveyChange('regularMedsList', values)}
-                >
-                  <Checkbox value="antihypertensives">Антигипертензивные (от давления)</Checkbox>
-                  <Checkbox value="anticoagulants">
-                    Антикоагулянты/антиагреганты (разжижающие кровь)
-                  </Checkbox>
-                  <Checkbox value="hormones">
-                    Гормональные препараты (в т.ч. контрацептивы)
-                  </Checkbox>
-                  <Checkbox value="psychotropics">Антидепрессанты/нейролептики</Checkbox>
-                  <Checkbox value="antiepileptics">Противоэпилептические</Checkbox>
-                  <Checkbox value="statins">Статины (от холестерина)</Checkbox>
-                  <Checkbox value="other">Другие</Checkbox>
-                </Checkbox.Group>
-              </Form.Item>
+    //       {localState.regularMeds === 'yes' && (
+    //         <>
+    //           {/* Вопрос 10.1 */}
+    //           <Form.Item
+    //             name="regularMedsList"
+    //             label="Укажите, какие лекарственные препараты вы принимаете регулярно (можно выбрать несколько):"
+    //             rules={[{ required: true, message: 'Пожалуйста, выберите варианты' }]}
+    //           >
+    //             <Checkbox.Group
+    //               onChange={(values) => handleSurveyChange('regularMedsList', values)}
+    //             >
+    //               <Checkbox value="antihypertensives">Антигипертензивные (от давления)</Checkbox>
+    //               <Checkbox value="anticoagulants">
+    //                 Антикоагулянты/антиагреганты (разжижающие кровь)
+    //               </Checkbox>
+    //               <Checkbox value="hormones">
+    //                 Гормональные препараты (в т.ч. контрацептивы)
+    //               </Checkbox>
+    //               <Checkbox value="psychotropics">Антидепрессанты/нейролептики</Checkbox>
+    //               <Checkbox value="antiepileptics">Противоэпилептические</Checkbox>
+    //               <Checkbox value="statins">Статины (от холестерина)</Checkbox>
+    //               <Checkbox value="other">Другие</Checkbox>
+    //             </Checkbox.Group>
+    //           </Form.Item>
 
-              {localState.regularMedsList?.includes('other') && (
-                <Form.Item
-                  name="regularMedsOther"
-                  rules={[{ required: true, message: 'Пожалуйста, укажите препараты' }]}
-                >
-                  <Input.TextArea
-                    placeholder="Укажите препараты"
-                    onChange={(e) => {
-                      handleSurveyChange('regularMedsOther', e.target.value);
-                    }}
-                  />
-                </Form.Item>
-              )}
-            </>
-          )}
+    //           {localState.regularMedsList?.includes('other') && (
+    //             <Form.Item
+    //               name="regularMedsOther"
+    //               rules={[{ required: true, message: 'Пожалуйста, укажите препараты' }]}
+    //             >
+    //               <Input.TextArea
+    //                 placeholder="Укажите препараты"
+    //                 onChange={(e) => {
+    //                   handleSurveyChange('regularMedsOther', e.target.value);
+    //                 }}
+    //               />
+    //             </Form.Item>
+    //           )}
+    //         </>
+    //       )}
 
-          {/* Список пометок */}
-          {notes.length > 0 && (
-            <div style={{ marginTop: 24 }}>
-              <b>Пометки:</b> {notes.join(', ')}
-            </div>
-          )}
-        </>
-      ),
-    },
-    {
-      title: 'Образ жизни',
-      content: (
-        <>
-          {/* Вопрос 11 */}
-          <Form.Item
-            name="physicalActivity"
-            label="Оцените вашу физическую активность:"
-            rules={[{ required: true, message: 'Пожалуйста, выберите вариант' }]}
-          >
-            <Radio.Group onChange={(e) => handleSurveyChange('physicalActivity', e.target.value)}>
-              <Radio value="low">Низкая (сидячая работа, минимальная активность)</Radio>
-              <Radio value="moderate">
-                Умеренная (регулярные прогулки, легкие тренировки 1-2 раза в неделю)
-              </Radio>
-              <Radio value="high">Высокая (интенсивные тренировки 3-5 раз в неделю)</Radio>
-              <Radio value="pro">
-                Очень высокая (ежедневные интенсивные тренировки/профессиональный спорт)
-              </Radio>
-            </Radio.Group>
-          </Form.Item>
+    //       {/* Список пометок */}
+    //       {notes.length > 0 && (
+    //         <div style={{ marginTop: 24 }}>
+    //           <b>Пометки:</b> {notes.join(', ')}
+    //         </div>
+    //       )}
+    //     </>
+    //   ),
+    // },
+    // {
+    //   title: 'Образ жизни',
+    //   content: (
+    //     <>
+    //       {/* Вопрос 11 */}
+    //       <Form.Item
+    //         name="physicalActivity"
+    //         label="Оцените вашу физическую активность:"
+    //         rules={[{ required: true, message: 'Пожалуйста, выберите вариант' }]}
+    //       >
+    //         <Radio.Group onChange={(e) => handleSurveyChange('physicalActivity', e.target.value)}>
+    //           <Radio value="low">Низкая (сидячая работа, минимальная активность)</Radio>
+    //           <Radio value="moderate">
+    //             Умеренная (регулярные прогулки, легкие тренировки 1-2 раза в неделю)
+    //           </Radio>
+    //           <Radio value="high">Высокая (интенсивные тренировки 3-5 раз в неделю)</Radio>
+    //           <Radio value="pro">
+    //             Очень высокая (ежедневные интенсивные тренировки/профессиональный спорт)
+    //           </Radio>
+    //         </Radio.Group>
+    //       </Form.Item>
 
-          {/* Вопрос 12 */}
-          <Form.Item
-            name="dietType"
-            label="Придерживаетесь ли вы определенного типа питания?"
-            rules={[{ required: true, message: 'Пожалуйста, выберите вариант' }]}
-          >
-            <Radio.Group onChange={(e) => handleSurveyChange('dietType', e.target.value)}>
-              <Radio value="regular">Обычное питание (без ограничений)</Radio>
-              <Radio value="vegetarian">Вегетарианство</Radio>
-              <Radio value="vegan">Веганство</Radio>
-              <Radio value="glutenfree">Безглютеновая диета</Radio>
-              <Radio value="keto">Кетогенная диета</Radio>
-              <Radio value="lowcarb">Низкоуглеводная диета</Radio>
-              <Radio value="if">Интервальное голодание</Radio>
-              <Radio value="other">Другое (укажите)</Radio>
-            </Radio.Group>
-          </Form.Item>
-          {localState.dietType === 'other' && (
-            <Form.Item
-              name="dietOther"
-              rules={[{ required: true, message: 'Пожалуйста, укажите тип питания' }]}
-            >
-              <Input
-                placeholder="Укажите тип питания"
-                onChange={(e) => handleSurveyChange('dietOther', e.target.value)}
-              />
-            </Form.Item>
-          )}
+    //       {/* Вопрос 12 */}
+    //       <Form.Item
+    //         name="dietType"
+    //         label="Придерживаетесь ли вы определенного типа питания?"
+    //         rules={[{ required: true, message: 'Пожалуйста, выберите вариант' }]}
+    //       >
+    //         <Radio.Group onChange={(e) => handleSurveyChange('dietType', e.target.value)}>
+    //           <Radio value="regular">Обычное питание (без ограничений)</Radio>
+    //           <Radio value="vegetarian">Вегетарианство</Radio>
+    //           <Radio value="vegan">Веганство</Radio>
+    //           <Radio value="glutenfree">Безглютеновая диета</Radio>
+    //           <Radio value="keto">Кетогенная диета</Radio>
+    //           <Radio value="lowcarb">Низкоуглеводная диета</Radio>
+    //           <Radio value="if">Интервальное голодание</Radio>
+    //           <Radio value="other">Другое (укажите)</Radio>
+    //         </Radio.Group>
+    //       </Form.Item>
+    //       {localState.dietType === 'other' && (
+    //         <Form.Item
+    //           name="dietOther"
+    //           rules={[{ required: true, message: 'Пожалуйста, укажите тип питания' }]}
+    //         >
+    //           <Input
+    //             placeholder="Укажите тип питания"
+    //             onChange={(e) => handleSurveyChange('dietOther', e.target.value)}
+    //           />
+    //         </Form.Item>
+    //       )}
 
-          {/* Вопрос 13.1 */}
-          <Form.Item
-            name="fruitsVeggies"
-            label="Как часто вы употребляете свежие фрукты и овощи?"
-            rules={[{ required: true, message: 'Пожалуйста, выберите вариант' }]}
-          >
-            <Radio.Group onChange={(e) => handleSurveyChange('fruitsVeggies', e.target.value)}>
-              <Radio value="daily">Ежедневно</Radio>
-              <Radio value="regular">3-5 раз в неделю</Radio>
-              <Radio value="rare">1-2 раза в неделю</Radio>
-              <Radio value="never">Редко или никогда</Radio>
-            </Radio.Group>
-          </Form.Item>
+    //       {/* Вопрос 13.1 */}
+    //       <Form.Item
+    //         name="fruitsVeggies"
+    //         label="Как часто вы употребляете свежие фрукты и овощи?"
+    //         rules={[{ required: true, message: 'Пожалуйста, выберите вариант' }]}
+    //       >
+    //         <Radio.Group onChange={(e) => handleSurveyChange('fruitsVeggies', e.target.value)}>
+    //           <Radio value="daily">Ежедневно</Radio>
+    //           <Radio value="regular">3-5 раз в неделю</Radio>
+    //           <Radio value="rare">1-2 раза в неделю</Radio>
+    //           <Radio value="never">Редко или никогда</Radio>
+    //         </Radio.Group>
+    //       </Form.Item>
 
-          {/* Вопрос 13.2 */}
-          <Form.Item
-            name="fishSeafood"
-            label="Как часто вы употребляете рыбу и морепродукты?"
-            rules={[{ required: true, message: 'Пожалуйста, выберите вариант' }]}
-          >
-            <Radio.Group onChange={(e) => handleSurveyChange('fishSeafood', e.target.value)}>
-              <Radio value="2plus">2 и более раз в неделю</Radio>
-              <Radio value="1w">1 раз в неделю</Radio>
-              <Radio value="1m">1-2 раза в месяц</Radio>
-              <Radio value="never">Редко или никогда</Radio>
-            </Radio.Group>
-          </Form.Item>
+    //       {/* Вопрос 13.2 */}
+    //       <Form.Item
+    //         name="fishSeafood"
+    //         label="Как часто вы употребляете рыбу и морепродукты?"
+    //         rules={[{ required: true, message: 'Пожалуйста, выберите вариант' }]}
+    //       >
+    //         <Radio.Group onChange={(e) => handleSurveyChange('fishSeafood', e.target.value)}>
+    //           <Radio value="2plus">2 и более раз в неделю</Radio>
+    //           <Radio value="1w">1 раз в неделю</Radio>
+    //           <Radio value="1m">1-2 раза в месяц</Radio>
+    //           <Radio value="never">Редко или никогда</Radio>
+    //         </Radio.Group>
+    //       </Form.Item>
 
-          {/* Вопрос 13.3 */}
-          <Form.Item
-            name="dairy"
-            label="Как часто вы употребляете молочные продукты?"
-            rules={[{ required: true, message: 'Пожалуйста, выберите вариант' }]}
-          >
-            <Radio.Group onChange={(e) => handleSurveyChange('dairy', e.target.value)}>
-              <Radio value="daily">Ежедневно</Radio>
-              <Radio value="regular">3-5 раз в неделю</Radio>
-              <Radio value="rare">1-2 раза в неделю</Radio>
-              <Radio value="never">Редко или никогда</Radio>
-            </Radio.Group>
-          </Form.Item>
+    //       {/* Вопрос 13.3 */}
+    //       <Form.Item
+    //         name="dairy"
+    //         label="Как часто вы употребляете молочные продукты?"
+    //         rules={[{ required: true, message: 'Пожалуйста, выберите вариант' }]}
+    //       >
+    //         <Radio.Group onChange={(e) => handleSurveyChange('dairy', e.target.value)}>
+    //           <Radio value="daily">Ежедневно</Radio>
+    //           <Radio value="regular">3-5 раз в неделю</Radio>
+    //           <Radio value="rare">1-2 раза в неделю</Radio>
+    //           <Radio value="never">Редко или никогда</Radio>
+    //         </Radio.Group>
+    //       </Form.Item>
 
-          {/* Вопрос 13.4 */}
-          <Form.Item
-            name="grains"
-            label="Как часто вы употребляете цельнозерновые продукты?"
-            rules={[{ required: true, message: 'Пожалуйста, выберите вариант' }]}
-          >
-            <Radio.Group onChange={(e) => handleSurveyChange('grains', e.target.value)}>
-              <Radio value="daily">Ежедневно</Radio>
-              <Radio value="regular">3-5 раз в неделю</Radio>
-              <Radio value="rare">1-2 раза в неделю</Radio>
-              <Radio value="never">Редко или никогда</Radio>
-            </Radio.Group>
-          </Form.Item>
+    //       {/* Вопрос 13.4 */}
+    //       <Form.Item
+    //         name="grains"
+    //         label="Как часто вы употребляете цельнозерновые продукты?"
+    //         rules={[{ required: true, message: 'Пожалуйста, выберите вариант' }]}
+    //       >
+    //         <Radio.Group onChange={(e) => handleSurveyChange('grains', e.target.value)}>
+    //           <Radio value="daily">Ежедневно</Radio>
+    //           <Radio value="regular">3-5 раз в неделю</Radio>
+    //           <Radio value="rare">1-2 раза в неделю</Radio>
+    //           <Radio value="never">Редко или никогда</Radio>
+    //         </Radio.Group>
+    //       </Form.Item>
 
-          {/* Вопрос 13.5 */}
-          <Form.Item
-            name="redMeat"
-            label="Как часто вы употребляете красное мясо?"
-            rules={[{ required: true, message: 'Пожалуйста, выберите вариант' }]}
-          >
-            <Radio.Group onChange={(e) => handleSurveyChange('redMeat', e.target.value)}>
-              <Radio value="daily">Ежедневно</Radio>
-              <Radio value="regular">3-5 раз в неделю</Radio>
-              <Radio value="rare">1-2 раза в неделю</Radio>
-              <Radio value="never">Редко или никогда</Radio>
-            </Radio.Group>
-          </Form.Item>
+    //       {/* Вопрос 13.5 */}
+    //       <Form.Item
+    //         name="redMeat"
+    //         label="Как часто вы употребляете красное мясо?"
+    //         rules={[{ required: true, message: 'Пожалуйста, выберите вариант' }]}
+    //       >
+    //         <Radio.Group onChange={(e) => handleSurveyChange('redMeat', e.target.value)}>
+    //           <Radio value="daily">Ежедневно</Radio>
+    //           <Radio value="regular">3-5 раз в неделю</Radio>
+    //           <Radio value="rare">1-2 раза в неделю</Radio>
+    //           <Radio value="never">Редко или никогда</Radio>
+    //         </Radio.Group>
+    //       </Form.Item>
 
-          {/* Вопрос 14 */}
-          <Form.Item
-            name="alcohol"
-            label="Как часто вы употребляете алкоголь?"
-            rules={[{ required: true, message: 'Пожалуйста, выберите вариант' }]}
-          >
-            <Radio.Group onChange={(e) => handleSurveyChange('alcohol', e.target.value)}>
-              <Radio value="never">Не употребляю</Radio>
-              <Radio value="rare">Редко (несколько раз в год)</Radio>
-              <Radio value="moderate">Умеренно (1-2 раза в месяц)</Radio>
-              <Radio value="regular">Регулярно (1-2 раза в неделю)</Radio>
-              <Radio value="often">Часто (3 и более раз в неделю)</Radio>
-            </Radio.Group>
-          </Form.Item>
+    //       {/* Вопрос 14 */}
+    //       <Form.Item
+    //         name="alcohol"
+    //         label="Как часто вы употребляете алкоголь?"
+    //         rules={[{ required: true, message: 'Пожалуйста, выберите вариант' }]}
+    //       >
+    //         <Radio.Group onChange={(e) => handleSurveyChange('alcohol', e.target.value)}>
+    //           <Radio value="never">Не употребляю</Radio>
+    //           <Radio value="rare">Редко (несколько раз в год)</Radio>
+    //           <Radio value="moderate">Умеренно (1-2 раза в месяц)</Radio>
+    //           <Radio value="regular">Регулярно (1-2 раза в неделю)</Radio>
+    //           <Radio value="often">Часто (3 и более раз в неделю)</Radio>
+    //         </Radio.Group>
+    //       </Form.Item>
 
-          {/* Вопрос 15 */}
-          <Form.Item
-            name="smoking"
-            label="Курите ли вы?"
-            rules={[{ required: true, message: 'Пожалуйста, выберите вариант' }]}
-          >
-            <Radio.Group onChange={(e) => handleSurveyChange('smoking', e.target.value)}>
-              <Radio value="yes">Да, регулярно</Radio>
-              <Radio value="episodic">Периодически (менее 5 сигарет в день)</Radio>
-              <Radio value="vape">Электронные сигареты/вейп</Radio>
-              <Radio value="quit_recent">Бросил(а) курить менее года назад</Radio>
-              <Radio value="quit_long">Бросил(а) курить более года назад</Radio>
-              <Radio value="never">Никогда не курил(а)</Radio>
-            </Radio.Group>
-          </Form.Item>
+    //       {/* Вопрос 15 */}
+    //       <Form.Item
+    //         name="smoking"
+    //         label="Курите ли вы?"
+    //         rules={[{ required: true, message: 'Пожалуйста, выберите вариант' }]}
+    //       >
+    //         <Radio.Group onChange={(e) => handleSurveyChange('smoking', e.target.value)}>
+    //           <Radio value="yes">Да, регулярно</Radio>
+    //           <Radio value="episodic">Периодически (менее 5 сигарет в день)</Radio>
+    //           <Radio value="vape">Электронные сигареты/вейп</Radio>
+    //           <Radio value="quit_recent">Бросил(а) курить менее года назад</Radio>
+    //           <Radio value="quit_long">Бросил(а) курить более года назад</Radio>
+    //           <Radio value="never">Никогда не курил(а)</Radio>
+    //         </Radio.Group>
+    //       </Form.Item>
 
-          {/* Вопрос 16 */}
-          <Form.Item
-            name="stress"
-            label="Как вы оцениваете уровень стресса в вашей жизни?"
-            rules={[{ required: true, message: 'Пожалуйста, выберите вариант' }]}
-          >
-            <Radio.Group onChange={(e) => handleSurveyChange('stress', e.target.value)}>
-              <Radio value="low">Низкий</Radio>
-              <Radio value="moderate">Умеренный</Radio>
-              <Radio value="high">Высокий</Radio>
-              <Radio value="chronic">Очень высокий (хронический стресс)</Radio>
-            </Radio.Group>
-          </Form.Item>
+    //       {/* Вопрос 16 */}
+    //       <Form.Item
+    //         name="stress"
+    //         label="Как вы оцениваете уровень стресса в вашей жизни?"
+    //         rules={[{ required: true, message: 'Пожалуйста, выберите вариант' }]}
+    //       >
+    //         <Radio.Group onChange={(e) => handleSurveyChange('stress', e.target.value)}>
+    //           <Radio value="low">Низкий</Radio>
+    //           <Radio value="moderate">Умеренный</Radio>
+    //           <Radio value="high">Высокий</Radio>
+    //           <Radio value="chronic">Очень высокий (хронический стресс)</Radio>
+    //         </Radio.Group>
+    //       </Form.Item>
 
-          {/* Вопрос 17 */}
-          <Form.Item
-            name="sleepHours"
-            label="Сколько часов в среднем вы спите ночью?"
-            rules={[{ required: true, message: 'Пожалуйста, выберите вариант' }]}
-          >
-            <Radio.Group onChange={(e) => handleSurveyChange('sleepHours', e.target.value)}>
-              <Radio value="lt5">Менее 5 часов</Radio>
-              <Radio value="5-6">5-6 часов</Radio>
-              <Radio value="7-8">7-8 часов</Radio>
-              <Radio value="gt8">Более 8 часов</Radio>
-            </Radio.Group>
-          </Form.Item>
+    //       {/* Вопрос 17 */}
+    //       <Form.Item
+    //         name="sleepHours"
+    //         label="Сколько часов в среднем вы спите ночью?"
+    //         rules={[{ required: true, message: 'Пожалуйста, выберите вариант' }]}
+    //       >
+    //         <Radio.Group onChange={(e) => handleSurveyChange('sleepHours', e.target.value)}>
+    //           <Radio value="lt5">Менее 5 часов</Radio>
+    //           <Radio value="5-6">5-6 часов</Radio>
+    //           <Radio value="7-8">7-8 часов</Radio>
+    //           <Radio value="gt8">Более 8 часов</Radio>
+    //         </Radio.Group>
+    //       </Form.Item>
 
-          {/* Вопрос 18 */}
-          <Form.Item
-            name="sleepProblems"
-            label="Испытываете ли вы проблемы со сном?"
-            rules={[{ required: true, message: 'Пожалуйста, выберите вариант' }]}
-          >
-            <Radio.Group onChange={(e) => handleSurveyChange('sleepProblems', e.target.value)}>
-              <Radio value="none">Нет проблем со сном</Radio>
-              <Radio value="init">Да, трудности с засыпанием</Radio>
-              <Radio value="maintain">Да, частые пробуждения ночью</Radio>
-              <Radio value="early">Да, раннее пробуждение</Radio>
-              <Radio value="unrefreshing">Да, беспокойный/неосвежающий сон</Radio>
-              <Radio value="apnea">Да, храп/апноэ сна</Radio>
-            </Radio.Group>
-          </Form.Item>
+    //       {/* Вопрос 18 */}
+    //       <Form.Item
+    //         name="sleepProblems"
+    //         label="Испытываете ли вы проблемы со сном?"
+    //         rules={[{ required: true, message: 'Пожалуйста, выберите вариант' }]}
+    //       >
+    //         <Radio.Group onChange={(e) => handleSurveyChange('sleepProblems', e.target.value)}>
+    //           <Radio value="none">Нет проблем со сном</Radio>
+    //           <Radio value="init">Да, трудности с засыпанием</Radio>
+    //           <Radio value="maintain">Да, частые пробуждения ночью</Radio>
+    //           <Radio value="early">Да, раннее пробуждение</Radio>
+    //           <Radio value="unrefreshing">Да, беспокойный/неосвежающий сон</Radio>
+    //           <Radio value="apnea">Да, храп/апноэ сна</Radio>
+    //         </Radio.Group>
+    //       </Form.Item>
 
-          {/* Список пометок */}
-          {notes.length > 0 && (
-            <div style={{ marginTop: 24 }}>
-              <b>Пометки:</b> {notes.join(', ')}
-            </div>
-          )}
-        </>
-      ),
-    },
-    {
-      title: 'Симптомы и жалобы',
-      content: (
-        <>
-          <Form.Item label="19.1 Энергия и работоспособность:" name="symptomsEnergy">
-            <Checkbox.Group onChange={(values) => handleSurveyChange('symptomsEnergy', values)}>
-              <Checkbox value="fatigue">Хроническая усталость (даже после отдыха)</Checkbox>
-              <Checkbox value="performance">Снижение работоспособности</Checkbox>
-              <Checkbox value="weakness">Слабость</Checkbox>
-              <Checkbox value="sleepy">Сонливость днем</Checkbox>
-            </Checkbox.Group>
-          </Form.Item>
+    //       {/* Список пометок */}
+    //       {notes.length > 0 && (
+    //         <div style={{ marginTop: 24 }}>
+    //           <b>Пометки:</b> {notes.join(', ')}
+    //         </div>
+    //       )}
+    //     </>
+    //   ),
+    // },
+    // {
+    //   title: 'Симптомы и жалобы',
+    //   content: (
+    //     <>
+    //       <Form.Item label="19.1 Энергия и работоспособность:" name="symptomsEnergy">
+    //         <Checkbox.Group onChange={(values) => handleSurveyChange('symptomsEnergy', values)}>
+    //           <Checkbox value="fatigue">Хроническая усталость (даже после отдыха)</Checkbox>
+    //           <Checkbox value="performance">Снижение работоспособности</Checkbox>
+    //           <Checkbox value="weakness">Слабость</Checkbox>
+    //           <Checkbox value="sleepy">Сонливость днем</Checkbox>
+    //         </Checkbox.Group>
+    //       </Form.Item>
 
-          <Form.Item label="19.2 Настроение и психический статус:" name="symptomsMood">
-            <Checkbox.Group onChange={(values) => handleSurveyChange('symptomsMood', values)}>
-              <Checkbox value="mood">Перепады настроения</Checkbox>
-              <Checkbox value="irritability">Раздражительность</Checkbox>
-              <Checkbox value="anxiety">Тревожность</Checkbox>
-              <Checkbox value="depression">Подавленное настроение</Checkbox>
-              <Checkbox value="concentration">Снижение концентрации внимания</Checkbox>
-              <Checkbox value="memory">Проблемы с памятью</Checkbox>
-            </Checkbox.Group>
-          </Form.Item>
+    //       <Form.Item label="19.2 Настроение и психический статус:" name="symptomsMood">
+    //         <Checkbox.Group onChange={(values) => handleSurveyChange('symptomsMood', values)}>
+    //           <Checkbox value="mood">Перепады настроения</Checkbox>
+    //           <Checkbox value="irritability">Раздражительность</Checkbox>
+    //           <Checkbox value="anxiety">Тревожность</Checkbox>
+    //           <Checkbox value="depression">Подавленное настроение</Checkbox>
+    //           <Checkbox value="concentration">Снижение концентрации внимания</Checkbox>
+    //           <Checkbox value="memory">Проблемы с памятью</Checkbox>
+    //         </Checkbox.Group>
+    //       </Form.Item>
 
-          <Form.Item label="19.3 Пищеварительная система:" name="symptomsDigestive">
-            <Checkbox.Group onChange={(values) => handleSurveyChange('symptomsDigestive', values)}>
-              <Checkbox value="heartburn">Изжога</Checkbox>
-              <Checkbox value="heaviness">Тяжесть в желудке</Checkbox>
-              <Checkbox value="bloating">Вздутие живота</Checkbox>
-              <Checkbox value="constipation">Запоры</Checkbox>
-              <Checkbox value="diarrhea">Диарея</Checkbox>
-              <Checkbox value="irregular">Чередование запоров и диареи</Checkbox>
-              <Checkbox value="nausea">Тошнота</Checkbox>
-            </Checkbox.Group>
-          </Form.Item>
+    //       <Form.Item label="19.3 Пищеварительная система:" name="symptomsDigestive">
+    //         <Checkbox.Group onChange={(values) => handleSurveyChange('symptomsDigestive', values)}>
+    //           <Checkbox value="heartburn">Изжога</Checkbox>
+    //           <Checkbox value="heaviness">Тяжесть в желудке</Checkbox>
+    //           <Checkbox value="bloating">Вздутие живота</Checkbox>
+    //           <Checkbox value="constipation">Запоры</Checkbox>
+    //           <Checkbox value="diarrhea">Диарея</Checkbox>
+    //           <Checkbox value="irregular">Чередование запоров и диареи</Checkbox>
+    //           <Checkbox value="nausea">Тошнота</Checkbox>
+    //         </Checkbox.Group>
+    //       </Form.Item>
 
-          <Form.Item label="19.4 Сердечно-сосудистая система:" name="symptomsCardio">
-            <Checkbox.Group onChange={(values) => handleSurveyChange('symptomsCardio', values)}>
-              <Checkbox value="tachycardia">Учащенное сердцебиение</Checkbox>
-              <Checkbox value="arrhythmia">Ощущение перебоев в работе сердца</Checkbox>
-              <Checkbox value="dyspnea">Одышка при нагрузке</Checkbox>
-              <Checkbox value="edema">Отеки ног к вечеру</Checkbox>
-            </Checkbox.Group>
-          </Form.Item>
+    //       <Form.Item label="19.4 Сердечно-сосудистая система:" name="symptomsCardio">
+    //         <Checkbox.Group onChange={(values) => handleSurveyChange('symptomsCardio', values)}>
+    //           <Checkbox value="tachycardia">Учащенное сердцебиение</Checkbox>
+    //           <Checkbox value="arrhythmia">Ощущение перебоев в работе сердца</Checkbox>
+    //           <Checkbox value="dyspnea">Одышка при нагрузке</Checkbox>
+    //           <Checkbox value="edema">Отеки ног к вечеру</Checkbox>
+    //         </Checkbox.Group>
+    //       </Form.Item>
 
-          <Form.Item label="19.5 Опорно-двигательный аппарат:" name="symptomsMusculoskeletal">
-            <Checkbox.Group
-              onChange={(values) => handleSurveyChange('symptomsMusculoskeletal', values)}
-            >
-              <Checkbox value="arthralgia">Боли в суставах</Checkbox>
-              <Checkbox value="dorsalgia">Боли в спине</Checkbox>
-              <Checkbox value="myalgia">Мышечные боли</Checkbox>
-              <Checkbox value="cramps">Судороги в ногах</Checkbox>
-            </Checkbox.Group>
-          </Form.Item>
+    //       <Form.Item label="19.5 Опорно-двигательный аппарат:" name="symptomsMusculoskeletal">
+    //         <Checkbox.Group
+    //           onChange={(values) => handleSurveyChange('symptomsMusculoskeletal', values)}
+    //         >
+    //           <Checkbox value="arthralgia">Боли в суставах</Checkbox>
+    //           <Checkbox value="dorsalgia">Боли в спине</Checkbox>
+    //           <Checkbox value="myalgia">Мышечные боли</Checkbox>
+    //           <Checkbox value="cramps">Судороги в ногах</Checkbox>
+    //         </Checkbox.Group>
+    //       </Form.Item>
 
-          <Form.Item label="19.6 Кожа, волосы, ногти:" name="symptomsSkin">
-            <Checkbox.Group onChange={(values) => handleSurveyChange('symptomsSkin', values)}>
-              <Checkbox value="dry">Сухость кожи</Checkbox>
-              <Checkbox value="rash">Высыпания на коже</Checkbox>
-              <Checkbox value="hairloss">Выпадение волос</Checkbox>
-              <Checkbox value="nails">Ломкость ногтей</Checkbox>
-            </Checkbox.Group>
-          </Form.Item>
+    //       <Form.Item label="19.6 Кожа, волосы, ногти:" name="symptomsSkin">
+    //         <Checkbox.Group onChange={(values) => handleSurveyChange('symptomsSkin', values)}>
+    //           <Checkbox value="dry">Сухость кожи</Checkbox>
+    //           <Checkbox value="rash">Высыпания на коже</Checkbox>
+    //           <Checkbox value="hairloss">Выпадение волос</Checkbox>
+    //           <Checkbox value="nails">Ломкость ногтей</Checkbox>
+    //         </Checkbox.Group>
+    //       </Form.Item>
 
-          <Form.Item label="19.7 Иммунная система:" name="symptomsImmune">
-            <Checkbox.Group onChange={(values) => handleSurveyChange('symptomsImmune', values)}>
-              <Checkbox value="cold">Частые простудные заболевания (более 4 раз в год)</Checkbox>
-              <Checkbox value="recovery">Долгое восстановление после болезней</Checkbox>
-              <Checkbox value="herpes">Рецидивирующий герпес</Checkbox>
-              <Checkbox value="allergy">Сезонные аллергии</Checkbox>
-            </Checkbox.Group>
-          </Form.Item>
+    //       <Form.Item label="19.7 Иммунная система:" name="symptomsImmune">
+    //         <Checkbox.Group onChange={(values) => handleSurveyChange('symptomsImmune', values)}>
+    //           <Checkbox value="cold">Частые простудные заболевания (более 4 раз в год)</Checkbox>
+    //           <Checkbox value="recovery">Долгое восстановление после болезней</Checkbox>
+    //           <Checkbox value="herpes">Рецидивирующий герпес</Checkbox>
+    //           <Checkbox value="allergy">Сезонные аллергии</Checkbox>
+    //         </Checkbox.Group>
+    //       </Form.Item>
 
-          <Form.Item label="19.8 Другие симптомы:" name="symptomsOther">
-            <Checkbox.Group onChange={(values) => handleSurveyChange('symptomsOther', values)}>
-              <Checkbox value="headache">Головные боли</Checkbox>
-              <Checkbox value="dizzy">Головокружения</Checkbox>
-              <Checkbox value="noappetite">Отсутствие аппетита</Checkbox>
-              <Checkbox value="hyperappetite">Повышенный аппетит</Checkbox>
-              <Checkbox value="nightsweat">Ночная потливость</Checkbox>
-              <Checkbox value="other">Другое (укажите)</Checkbox>
-            </Checkbox.Group>
-          </Form.Item>
-          {localState.symptomsOther?.includes('other') && (
-            <Form.Item
-              name="symptomsOtherText"
-              rules={[{ required: true, message: 'Пожалуйста, укажите другие симптомы' }]}
-            >
-              <Input
-                placeholder="Укажите другие симптомы"
-                onChange={(e) => handleSurveyChange('symptomsOtherText', e.target.value)}
-              />
-            </Form.Item>
-          )}
+    //       <Form.Item label="19.8 Другие симптомы:" name="symptomsOther">
+    //         <Checkbox.Group onChange={(values) => handleSurveyChange('symptomsOther', values)}>
+    //           <Checkbox value="headache">Головные боли</Checkbox>
+    //           <Checkbox value="dizzy">Головокружения</Checkbox>
+    //           <Checkbox value="noappetite">Отсутствие аппетита</Checkbox>
+    //           <Checkbox value="hyperappetite">Повышенный аппетит</Checkbox>
+    //           <Checkbox value="nightsweat">Ночная потливость</Checkbox>
+    //           <Checkbox value="other">Другое (укажите)</Checkbox>
+    //         </Checkbox.Group>
+    //       </Form.Item>
+    //       {localState.symptomsOther?.includes('other') && (
+    //         <Form.Item
+    //           name="symptomsOtherText"
+    //           rules={[{ required: true, message: 'Пожалуйста, укажите другие симптомы' }]}
+    //         >
+    //           <Input
+    //             placeholder="Укажите другие симптомы"
+    //             onChange={(e) => handleSurveyChange('symptomsOtherText', e.target.value)}
+    //           />
+    //         </Form.Item>
+    //       )}
 
-          <Form.Item
-            label="20. Как давно вы испытываете указанные симптомы?"
-            name="symptomsDuration"
-          >
-            <Radio.Group onChange={(e) => handleSurveyChange('symptomsDuration', e.target.value)}>
-              <Radio value="acute">Менее 1 месяца</Radio>
-              <Radio value="subacute">1-3 месяца</Radio>
-              <Radio value="long">3-12 месяцев</Radio>
-              <Radio value="chronic">Более 1 года</Radio>
-              <Radio value="unknown">Не помню/затрудняюсь ответить</Radio>
-            </Radio.Group>
-          </Form.Item>
+    //       <Form.Item
+    //         label="20. Как давно вы испытываете указанные симптомы?"
+    //         name="symptomsDuration"
+    //       >
+    //         <Radio.Group onChange={(e) => handleSurveyChange('symptomsDuration', e.target.value)}>
+    //           <Radio value="acute">Менее 1 месяца</Radio>
+    //           <Radio value="subacute">1-3 месяца</Radio>
+    //           <Radio value="long">3-12 месяцев</Radio>
+    //           <Radio value="chronic">Более 1 года</Radio>
+    //           <Radio value="unknown">Не помню/затрудняюсь ответить</Radio>
+    //         </Radio.Group>
+    //       </Form.Item>
 
-          <Form.Item
-            label="21. Обращались ли вы к врачу с указанными симптомами?"
-            name="symptomsDoctor"
-          >
-            <Radio.Group onChange={(e) => handleSurveyChange('symptomsDoctor', e.target.value)}>
-              <Radio value="regular">Да, регулярно наблюдаюсь</Radio>
-              <Radio value="once">Да, однократно</Radio>
-              <Radio value="plan">Нет, но планирую</Radio>
-              <Radio value="self">Нет, считаю, что справлюсь самостоятельно</Radio>
-            </Radio.Group>
-          </Form.Item>
+    //       <Form.Item
+    //         label="21. Обращались ли вы к врачу с указанными симптомами?"
+    //         name="symptomsDoctor"
+    //       >
+    //         <Radio.Group onChange={(e) => handleSurveyChange('symptomsDoctor', e.target.value)}>
+    //           <Radio value="regular">Да, регулярно наблюдаюсь</Radio>
+    //           <Radio value="once">Да, однократно</Radio>
+    //           <Radio value="plan">Нет, но планирую</Radio>
+    //           <Radio value="self">Нет, считаю, что справлюсь самостоятельно</Radio>
+    //         </Radio.Group>
+    //       </Form.Item>
 
-          {/* Список пометок */}
-          {notes.length > 0 && (
-            <div style={{ marginTop: 24 }}>
-              <b>Пометки:</b> {notes.join(', ')}
-            </div>
-          )}
-        </>
-      ),
-    },
+    //       {/* Список пометок */}
+    //       {notes.length > 0 && (
+    //         <div style={{ marginTop: 24 }}>
+    //           <b>Пометки:</b> {notes.join(', ')}
+    //         </div>
+    //       )}
+    //     </>
+    //   ),
+    // },
     {
       title: 'Прием добавок и цели',
       content: (
@@ -1700,10 +1700,40 @@ export default function SupplementsSurveyPage() {
   const handleSubmit = async (values: SupplementsSurveyFormData) => {
     try {
       console.log({ values });
-      // TODO: Implement API call to save supplements survey
-      // await appwriteApi.surveys.saveSupplementsSurvey(values);
+      const currentUser = await appwriteApi.auth.getCurrentUser();
+      if (!currentUser) {
+        throw new Error('User not authenticated');
+      }
+
+      // Get the current user's profile
+      const userProfile = await appwriteApi.profile.get(currentUser.$id);
+      if (!userProfile) {
+        throw new Error('User profile not found');
+      }
+      
+      // Get existing valuesJSON and notesJSON arrays or initialize empty arrays
+      const existingValuesJSON = userProfile.valuesJSON || [];
+      const existingNotesJSON = userProfile.notesJSON || [];
+
+      // Create new entries with timestamps
+      const newValuesEntry = {
+        values: values,
+        createdAt: new Date().toISOString()
+      };
+
+      const newNotesEntry = {
+        notes: notes,
+        createdAt: new Date().toISOString()
+      };
+
+      // Update user profile with new entries
+      await appwriteApi.profile.update(currentUser.$id, {
+        valuesJSON: [...existingValuesJSON, JSON.stringify(newValuesEntry)],
+        notesJSON: [...existingNotesJSON, JSON.stringify(newNotesEntry)]
+      });
+
       message.success('Спасибо за заполнение анкеты!');
-      router.push('/dashboard/surveys');
+      router.push('/dashboard/account');
     } catch (error) {
       message.error('Произошла ошибка при сохранении данных');
       console.error('Error saving survey:', error);
