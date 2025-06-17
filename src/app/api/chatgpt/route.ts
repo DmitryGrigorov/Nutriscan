@@ -27,7 +27,7 @@ export async function POST(request: Request) {
           content: `Проанализируйте следующие данные из анкеты:\n\nПометки: ${notes.join(', ')}\n\nДанные формы: ${JSON.stringify(values, null, 2)}`,
         },
       ],
-      model: 'o3-mini',
+      model: 'gpt-4.1-nano',
     });
 
     return NextResponse.json({
