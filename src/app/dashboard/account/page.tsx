@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Card, Typography, Descriptions, Space, Spin, Button, Modal, Timeline, Tag, Collapse } from 'antd';
+import { Card, Typography, Descriptions, Space, Spin, Button, Modal, Timeline, Tag, Collapse, Alert, message } from 'antd';
 import { useAuth } from '@/contexts/AuthContext';
 import { appwriteApi } from '@/lib/appwrite/api';
 import { SurveyData, UserProfile } from '@/types';
@@ -16,6 +16,7 @@ import {
   EditOutlined,
   FormOutlined,
   FileTextOutlined,
+  RobotOutlined,
 } from '@ant-design/icons';
 
 interface SurveyEntry {
@@ -28,14 +29,115 @@ interface NotesEntry {
   createdAt: string;
 }
 
+interface GptResponse {
+  response: string;
+  createdAt: string;
+}
+
+// Функция для перевода ключей в читаемый вид
+const getReadableFieldName = (key: string): string => {
+  const fieldNames: { [key: string]: string } = {
+    gender: 'Пол',
+    age: 'Возраст',
+    height: 'Рост',
+    weight: 'Вес',
+    takesSupplements: 'Принимает добавки',
+    currentSupplements: 'Текущие добавки',
+    supplementDuration: 'Длительность приема',
+    supplementEffectiveness: 'Эффективность добавок',
+    supplementGoals: 'Цели приема',
+    supplementConcerns: 'Опасения',
+    physicalActivity: 'Физическая активность',
+    dietType: 'Тип питания',
+    fruitsVeggies: 'Употребление фруктов и овощей',
+    fishSeafood: 'Употребление рыбы и морепродуктов',
+    dairy: 'Употребление молочных продуктов',
+    grains: 'Употребление цельнозерновых продуктов',
+    redMeat: 'Употребление красного мяса',
+    alcohol: 'Употребление алкоголя',
+    smoking: 'Курение',
+    stress: 'Уровень стресса',
+    sleepHours: 'Часы сна',
+    sleepProblems: 'Проблемы со сном'
+  };
+
+  return fieldNames[key] || key;
+};
+
+// Функция для перевода значений в читаемый вид
+const getReadableValue = (key: string, value: any): string => {
+  if (value === true) return 'Да';
+  if (value === false) return 'Нет';
+  
+  const valueMap: { [key: string]: { [key: string]: string } } = {
+    gender: {
+      male: 'Мужской',
+      female: 'Женский'
+    },
+    physicalActivity: {
+      low: 'Низкая',
+      moderate: 'Умеренная',
+      high: 'Высокая',
+      pro: 'Профессиональная'
+    },
+    dietType: {
+      regular: 'Обычное питание',
+      vegetarian: 'Вегетарианство',
+      vegan: 'Веганство',
+      glutenfree: 'Безглютеновая диета',
+      keto: 'Кетогенная диета',
+      lowcarb: 'Низкоуглеводная диета',
+      if: 'Интервальное голодание'
+    },
+    fruitsVeggies: {
+      daily: 'Ежедневно',
+      regular: '3-5 раз в неделю',
+      rare: '1-2 раза в неделю',
+      never: 'Редко или никогда'
+    },
+    alcohol: {
+      never: 'Не употребляет',
+      rare: 'Редко',
+      moderate: 'Умеренно',
+      regular: 'Регулярно',
+      often: 'Часто'
+    },
+    smoking: {
+      yes: 'Да, регулярно',
+      episodic: 'Периодически',
+      vape: 'Электронные сигареты',
+      quit_recent: 'Бросил менее года назад',
+      quit_long: 'Бросил более года назад',
+      never: 'Никогда не курил'
+    },
+    stress: {
+      low: 'Низкий',
+      moderate: 'Умеренный',
+      high: 'Высокий',
+      chronic: 'Хронический'
+    }
+  };
+
+  if (typeof value === 'string' && valueMap[key]?.[value]) {
+    return valueMap[key][value];
+  }
+
+  if (Array.isArray(value)) {
+    return value.map(v => valueMap[key]?.[v] || v).join(', ');
+  }
+
+  return String(value);
+};
+
 function DashboardContent() {
   const { user } = useAuth();
-  const [surveyData, setSurveyData] = useState<SurveyData | null>(null);
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
-  const [surveyHistory, setSurveyHistory] = useState<string[]>([]);
-  const [notesHistory, setNotesHistory] = useState<string[]>([]);
+  const [surveyHistory, setSurveyHistory] = useState<SurveyEntry[]>([]);
+  const [notesHistory, setNotesHistory] = useState<NotesEntry[]>([]);
+  const [loadingGpt, setLoadingGpt] = useState<{ [key: string]: boolean }>({});
+  const [gptResponses, setGptResponses] = useState<{ [key: string]: string }>({});
 
   const loadData = async () => {
     if (!user) return;
@@ -43,9 +145,33 @@ function DashboardContent() {
       const userProfile = await appwriteApi.profile.get(user.$id);
       setProfile(userProfile);
 
-      // Get raw values
-      setSurveyHistory(userProfile?.valuesJSON || []);
-      setNotesHistory(userProfile?.notesJSON || []);
+      // Parse survey history
+      if (userProfile?.valuesJSON) {
+        try {
+          const entries = userProfile.valuesJSON.map(entry => {
+            const parsed = JSON.parse(entry);
+            return parsed as SurveyEntry;
+          });
+          setSurveyHistory(entries);
+        } catch (e) {
+          console.error('Error parsing survey history:', e);
+          setSurveyHistory([]);
+        }
+      }
+
+      // Parse notes history
+      if (userProfile?.notesJSON) {
+        try {
+          const entries = userProfile.notesJSON.map(entry => {
+            const parsed = JSON.parse(entry);
+            return parsed as NotesEntry;
+          });
+          setNotesHistory(entries);
+        } catch (e) {
+          console.error('Error parsing notes history:', e);
+          setNotesHistory([]);
+        }
+      }
     } catch (error) {
       console.error('Error loading data:', error);
     } finally {
@@ -73,6 +199,67 @@ function DashboardContent() {
     }
   };
 
+  const askGPT = async (entry: SurveyEntry, index: number) => {
+    try {
+      setLoadingGpt(prev => ({ ...prev, [index]: true }));
+      
+      const values = Array.isArray(entry.values) ? entry.values : [entry.values];
+      const notes = notesHistory[index]?.notes || [];
+
+      const response = await fetch('/api/chatgpt', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          notes,
+          values: values.map(v => {
+            try {
+              return typeof v === 'string' ? JSON.parse(v) : v;
+            } catch (e) {
+              return v;
+            }
+          }),
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to get GPT response');
+      }
+
+      const data = await response.json();
+      
+      // Save GPT response to user profile
+      if (user) {
+        const userProfile = await appwriteApi.profile.get(user.$id);
+        if (!userProfile) {
+          throw new Error('User profile not found');
+        }
+        
+        const existingGptJSON = userProfile.gptJSON || [];
+        const newGptResponse: GptResponse = {
+          response: data.content,
+          createdAt: new Date().toISOString()
+        };
+        
+        console.log('newGptResponse', newGptResponse);
+        console.log('data', data);
+
+        await appwriteApi.profile.update(user.$id, {
+          gptJSON: [...existingGptJSON, JSON.stringify(newGptResponse)]
+        });
+      }
+
+      setGptResponses(prev => ({ ...prev, [index]: data.content }));
+      message.success('Анализ данных успешно получен');
+    } catch (error) {
+      console.error('Error getting GPT response:', error);
+      message.error('Не удалось получить анализ данных');
+    } finally {
+      setLoadingGpt(prev => ({ ...prev, [index]: false }));
+    }
+  };
+
   const renderSurveyTimeline = () => {
     if (!surveyHistory.length) {
       return (
@@ -84,24 +271,114 @@ function DashboardContent() {
 
     return (
       <Timeline>
-        {surveyHistory.map((entry, index) => (
-          <Timeline.Item key={index} dot={<FormOutlined />}>
-            <Collapse>
-              <Collapse.Panel header={`Опросник #${index + 1}`} key="1">
-                <pre style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}>
-                  {entry}
-                </pre>
-                {notesHistory[index] && (
-                  <div style={{ marginTop: '8px' }}>
-                    <Tag icon={<FileTextOutlined />} color="blue">
-                      Заметки: {notesHistory[index]}
-                    </Tag>
-                  </div>
-                )}
-              </Collapse.Panel>
-            </Collapse>
-          </Timeline.Item>
-        ))}
+        {surveyHistory.map((entry, index) => {
+          const values = Array.isArray(entry.values) ? entry.values : [entry.values];
+          
+          return (
+            <Timeline.Item 
+              key={index} 
+              dot={<FormOutlined style={{ fontSize: '16px' }} />}
+            >
+              <Card 
+                size="small" 
+                title={
+                  <Space>
+                    <CalendarOutlined />
+                    {new Date(entry.createdAt).toLocaleDateString('ru-RU', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric',
+                      hour: '2-digit',
+                      minute: '2-digit'
+                    })}
+                  </Space>
+                }
+                style={{ marginBottom: 16 }}
+                extra={
+                  <Button
+                    type="primary"
+                    icon={<RobotOutlined />}
+                    onClick={() => askGPT(entry, index)}
+                    loading={loadingGpt[index]}
+                  >
+                    Анализ данных
+                  </Button>
+                }
+              >
+                <Collapse>
+                  <Collapse.Panel 
+                    header={
+                      <Space>
+                        <FileTextOutlined />
+                        Показать детали опросника
+                      </Space>
+                    } 
+                    key="1"
+                  >
+                    <Descriptions 
+                      column={1} 
+                      bordered 
+                      size="small"
+                      style={{ marginBottom: 16 }}
+                    >
+                      {values.map((value, vIndex) => {
+                        try {
+                          let parsed;
+                          if (typeof value === 'string') {
+                            parsed = JSON.parse(value);
+                          } else {
+                            parsed = value;
+                          }
+                          
+                          let key, val;
+                          if (typeof parsed === 'object' && parsed !== null) {
+                            const entries = Object.entries(parsed);
+                            if (entries.length > 0) {
+                              [key, val] = entries[0];
+                            } else {
+                              return null;
+                            }
+                          } else {
+                            return null;
+                          }
+
+                          return (
+                            <Descriptions.Item 
+                              key={vIndex} 
+                              label={<Typography.Text strong>{getReadableFieldName(key)}</Typography.Text>}
+                            >
+                              {getReadableValue(key, val)}
+                            </Descriptions.Item>
+                          );
+                        } catch (e) {
+                          console.error('Error parsing value:', e, value);
+                          return null;
+                        }
+                      })}
+                    </Descriptions>
+                    {notesHistory[index] && notesHistory[index].notes && notesHistory[index].notes.length > 0 && (
+                      <Alert
+                        message="Заметки"
+                        description={Array.isArray(notesHistory[index].notes) ? notesHistory[index].notes.join(', ') : notesHistory[index].notes}
+                        type="info"
+                        showIcon
+                        style={{ marginBottom: 16 }}
+                      />
+                    )}
+                    {gptResponses[index] && (
+                      <Alert
+                        message="Анализ данных"
+                        description={gptResponses[index]}
+                        type="success"
+                        showIcon
+                      />
+                    )}
+                  </Collapse.Panel>
+                </Collapse>
+              </Card>
+            </Timeline.Item>
+          );
+        })}
       </Timeline>
     );
   };

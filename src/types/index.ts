@@ -32,6 +32,7 @@ export interface UserProfile {
   height: number;
   valuesJSON?: string[];
   notesJSON?: string[];
+  gptJSON?: string[];
   createdAt: string;
   updatedAt: string;
 }
