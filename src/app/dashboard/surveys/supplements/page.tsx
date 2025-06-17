@@ -1746,7 +1746,7 @@ export default function SupplementsSurveyPage() {
       });
 
       message.success('Спасибо за заполнение анкеты!');
-      router.push('/dashboard/surveys');
+      router.push('/dashboard/account');
     } catch (error) {
       message.error('Произошла ошибка при сохранении данных');
       console.error('Error saving survey:', error);

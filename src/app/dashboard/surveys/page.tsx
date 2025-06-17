@@ -11,10 +11,17 @@ const { Text, Title } = Typography;
 export default function SurveysDashboardPage() {
   const surveys = [
     {
+      id: 'supplements',
+      title: 'Основной опросник',
+      description: 'Опросник для персонального подбора биологически активных добавок. Сюда входят все опросники, которые были пройдены пользователем.',
+      status: 'not-started',
+      progress: 0,
+    },
+    {
       id: 'user-profile-survey',
       title: 'Профиль пользователя',
       description: 'Анкета для определения ваших целей, образа жизни и предпочтений',
-      status: 'not-started',
+      status: 'completed',
       progress: 0,
     },
     {
@@ -32,13 +39,6 @@ export default function SurveysDashboardPage() {
       status: 'completed',
       progress: 100,
       lastUpdated: '2024-03-10',
-    },
-    {
-      id: 'supplements',
-      title: 'Подбор БАДов',
-      description: 'Опросник для персонального подбора биологически активных добавок',
-      status: 'not-started',
-      progress: 0,
     },
   ];
   const router = useRouter();
