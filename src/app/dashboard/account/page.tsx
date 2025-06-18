@@ -507,21 +507,25 @@ function DashboardContent() {
 
       // Parse survey history
       if (userProfile?.valuesJSON) {
-        parsedValues = userProfile.valuesJSON.map((entry) => JSON.parse(entry));
+        parsedValues = userProfile.valuesJSON
+          .map((entry) => JSON.parse(entry))
+          .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
         setSurveyHistory(parsedValues);
       }
 
       // Parse notes history
       if (userProfile?.notesJSON) {
-        parsedNotes = userProfile.notesJSON.map((entry) => JSON.parse(entry));
+        parsedNotes = userProfile.notesJSON
+          .map((entry) => JSON.parse(entry))
+          .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
         setNotesHistory(parsedNotes);
       }
 
       // Load existing GPT responses
       if (userProfile?.gptJSON) {
-        const parsedGptResponses: GptResponse[] = userProfile.gptJSON.map((entry) =>
-          JSON.parse(entry)
-        );
+        const parsedGptResponses: GptResponse[] = userProfile.gptJSON
+          .map((entry) => JSON.parse(entry))
+          .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
         const gptResponsesMap: { [key: string]: string } = {};
         parsedGptResponses.forEach((gptResponse) => {
           gptResponsesMap[gptResponse.id] = gptResponse.response;
