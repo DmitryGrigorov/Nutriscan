@@ -1766,7 +1766,12 @@ export default function SupplementsSurveyPage() {
   return (
     <BasePage title="Опросник по подбору БАДов">
       <Card>
-        <Steps direction='vertical' size='small' current={currentStep} items={steps.map((step) => ({ title: step.title }))} />
+        <Steps
+          direction="vertical"
+          size="small"
+          current={currentStep}
+          items={steps.map((step) => ({ title: step.title }))}
+        />
         <div style={{ marginTop: 24 }}>
           <Form form={form} layout="vertical" onFinish={handleSubmit} initialValues={{}}>
             {steps[currentStep].content}
