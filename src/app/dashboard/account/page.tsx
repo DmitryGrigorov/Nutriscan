@@ -28,6 +28,7 @@ import {
   FormOutlined,
   FileTextOutlined,
   RobotOutlined,
+  ThunderboltOutlined,
 } from '@ant-design/icons';
 import { ProfileForm } from '@/components/profile/ProfileForm';
 
@@ -44,6 +45,12 @@ interface NotesEntry {
 }
 
 interface GptResponse {
+  id: string;
+  response: string;
+  createdAt: string;
+}
+
+interface GigaChatResponse {
   id: string;
   response: string;
   createdAt: string;
@@ -495,6 +502,8 @@ function DashboardContent() {
   const [notesHistory, setNotesHistory] = useState<NotesEntry[]>([]);
   const [loadingGpt, setLoadingGpt] = useState<{ [key: string]: boolean }>({});
   const [gptResponses, setGptResponses] = useState<{ [key: string]: string }>({});
+  const [loadingGigaChat, setLoadingGigaChat] = useState<{ [key: string]: boolean }>({});
+  const [gigaChatResponses, setGigaChatResponses] = useState<{ [key: string]: string }>({});
 
   const loadData = async () => {
     if (!user) return;
@@ -531,6 +540,18 @@ function DashboardContent() {
           gptResponsesMap[gptResponse.id] = gptResponse.response;
         });
         setGptResponses(gptResponsesMap);
+      }
+
+      // Load existing GigaChat responses
+      if (userProfile?.gigaChatJSON) {
+        const parsedGigaChatResponses: GigaChatResponse[] = userProfile.gigaChatJSON
+          .map((entry) => JSON.parse(entry))
+          .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+        const gigaChatResponsesMap: { [key: string]: string } = {};
+        parsedGigaChatResponses.forEach((gigaChatResponse) => {
+          gigaChatResponsesMap[gigaChatResponse.id] = gigaChatResponse.response;
+        });
+        setGigaChatResponses(gigaChatResponsesMap);
       }
     } catch (error) {
       console.error('Error loading data:', error);
@@ -605,13 +626,69 @@ function DashboardContent() {
         });
       }
 
-      setGptResponses((prev) => ({ ...prev, [entry.id]: data.response }));
+      setGptResponses((prev) => ({ ...prev, [entry.id]: data.content }));
       message.success('Анализ данных успешно получен');
     } catch (error) {
       console.error('Error getting GPT response:', error);
       message.error('Не удалось получить анализ данных');
     } finally {
       setLoadingGpt((prev) => ({ ...prev, [entry.id]: false }));
+    }
+  };
+
+  const askGigaChat = async (entry: SurveyEntry) => {
+    try {
+      setLoadingGigaChat((prev) => ({ ...prev, [entry.id]: true }));
+      const values = Array.isArray(entry.values) ? entry.values : [entry.values];
+      const notes = notesHistory.find((n) => n.id === entry.id)?.notes || [];
+
+      const response = await fetch('/api/gigachat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          notes,
+          values: values.map((v) => {
+            try {
+              return typeof v === 'string' ? JSON.parse(v) : v;
+            } catch (e) {
+              return v;
+            }
+          }),
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to get GigaChat response');
+      }
+
+      const data = await response.json();
+
+      // Save GigaChat response to user profile
+      if (user) {
+        const userProfile = await appwriteApi.profile.get(user.$id);
+        if (!userProfile) {
+          throw new Error('User profile not found');
+        }
+        const existingGigaChatJSON = userProfile.gigaChatJSON || [];
+        const newGigaChatResponse: GigaChatResponse = {
+          id: entry.id,
+          response: data.content,
+          createdAt: new Date().toISOString(),
+        };
+        await appwriteApi.profile.update(user.$id, {
+          gigaChatJSON: [...existingGigaChatJSON, JSON.stringify(newGigaChatResponse)],
+        });
+      }
+
+      setGigaChatResponses((prev) => ({ ...prev, [entry.id]: data.content }));
+      message.success('Анализ данных от GigaChat успешно получен');
+    } catch (error) {
+      console.error('Error getting GigaChat response:', error);
+      message.error('Не удалось получить анализ данных от GigaChat');
+    } finally {
+      setLoadingGigaChat((prev) => ({ ...prev, [entry.id]: false }));
     }
   };
 
@@ -622,9 +699,10 @@ function DashboardContent() {
 
     return (
       <Timeline>
-        {surveyHistory.map((entry, index) => {
+        {surveyHistory.map((entry) => {
           const values = Array.isArray(entry.values) ? entry.values : [entry.values];
           const hasGptResponse = gptResponses[entry.id] !== undefined;
+          const hasGigaChatResponse = gigaChatResponses[entry.id] !== undefined;
           const notesEntry = notesHistory.find((n) => n.id === entry.id);
           return (
             <Timeline.Item key={entry.id} dot={<FormOutlined style={{ fontSize: '16px' }} />}>
@@ -644,16 +722,29 @@ function DashboardContent() {
                 }
                 style={{ marginBottom: 16 }}
                 extra={
-                  !hasGptResponse ? (
-                    <Button
-                      type="primary"
-                      icon={<RobotOutlined />}
-                      onClick={() => askGPT(entry, index)}
-                      loading={loadingGpt[entry.id]}
-                    >
-                      Анализ данных от ChatGPT
-                    </Button>
-                  ) : null
+                  <Space>
+                    {!hasGptResponse && (
+                      <Button
+                        type="primary"
+                        icon={<RobotOutlined />}
+                        onClick={() => askGPT(entry)}
+                        loading={loadingGpt[entry.id]}
+                      >
+                        Анализ от ChatGPT
+                      </Button>
+                    )}
+                    {!hasGigaChatResponse && (
+                      <Button
+                        type="primary"
+                        icon={<ThunderboltOutlined />}
+                        onClick={() => askGigaChat(entry)}
+                        loading={loadingGigaChat[entry.id]}
+                        style={{ backgroundColor: '#722ed1', borderColor: '#722ed1' }}
+                      >
+                        Анализ от GigaChat
+                      </Button>
+                    )}
+                  </Space>
                 }
               >
                 <Collapse>
@@ -731,6 +822,22 @@ function DashboardContent() {
                         }
                         type="success"
                         showIcon
+                        style={{ marginBottom: 16 }}
+                      />
+                    )}
+                    {gigaChatResponses[entry.id] && (
+                      <Alert
+                        message="Анализ данных от GigaChat"
+                        description={
+                          <div
+                            dangerouslySetInnerHTML={{
+                              __html: simpleMarkdownToHtml(gigaChatResponses[entry.id]),
+                            }}
+                          />
+                        }
+                        type="success"
+                        showIcon
+                        style={{ backgroundColor: '#f6ffed', borderColor: '#722ed1' }}
                       />
                     )}
                   </Collapse.Panel>

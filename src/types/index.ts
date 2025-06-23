@@ -33,6 +33,7 @@ export interface UserProfile {
   valuesJSON?: string[];
   notesJSON?: string[];
   gptJSON?: string[];
+  gigaChatJSON?: string[];
   createdAt: string;
   updatedAt: string;
 }

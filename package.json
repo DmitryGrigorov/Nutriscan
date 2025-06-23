@@ -32,6 +32,7 @@
     "framer-motion": "^12.15.0",
     "gigachat": "^0.0.14",
     "js-cookie": "^3.0.5",
+    "langchain-gigachat": "^0.0.13",
     "next": "14.1.0",
     "openai": "^5.3.0",
     "react": "^18.2.0",
