@@ -126,7 +126,7 @@ export const Header = () => {
       key: 'pharmacy-header',
       label: (
         <Text strong style={{ fontSize: '16px', color: '#1677ff' }}>
-          Аптека
+          Каталог продукции
         </Text>
       ),
       disabled: true,
@@ -236,7 +236,7 @@ export const Header = () => {
         {
           key: '/pharmacy',
           icon: <MedicineBoxOutlined />,
-          label: <Link href="/pharmacy">Все продукты</Link>,
+          label: <Link href="/pharmacy">Каталог продукции</Link>,
         },
         {
           key: '/pharmacy/category',
