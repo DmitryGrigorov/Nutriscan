@@ -22,6 +22,7 @@ import {
   SettingOutlined,
   LineChartOutlined,
   MenuOutlined,
+  TeamOutlined,
 } from '@ant-design/icons';
 import { useState, useEffect } from 'react';
 import { useCart } from '@/contexts/CartContext';
@@ -123,6 +124,11 @@ export const Header = () => {
       key: '/',
       icon: <HomeOutlined />,
       label: <Link href="/">Главная</Link>,
+    },
+    {
+      key: '/about',
+      icon: <TeamOutlined />,
+      label: <Link href="/about">О нас</Link>,
     },
     {
       type: 'divider' as const,
@@ -232,6 +238,11 @@ export const Header = () => {
       key: '/',
       icon: <HomeOutlined />,
       label: <Link href="/">Главная</Link>,
+    },
+    {
+      key: '/about',
+      icon: <TeamOutlined />,
+      label: <Link href="/about">О нас</Link>,
     },
     {
       key: 'pharmacy',
