@@ -3,6 +3,7 @@
 import React from 'react';
 import { Typography, Space } from 'antd';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
+import { getFontStyle } from '@/lib/fontUtils';
 
 const { Title } = Typography;
 
@@ -26,7 +27,13 @@ export const BasePage: React.FC<BasePageProps> = ({ title, children, extra }) =>
           gap: '16px',
         }}
       >
-        <Title level={isMobile ? 4 : 3} style={{ margin: 0 }}>
+        <Title 
+          level={isMobile ? 4 : 3} 
+          style={{ 
+            margin: 0,
+            ...getFontStyle('bold')
+          }}
+        >
           {title}
         </Title>
         {extra}

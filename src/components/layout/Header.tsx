@@ -58,9 +58,9 @@ const ReminderItem = ({
     <List.Item>
       <Space align="start">
         {type === 'supplement' ? (
-          <MedicineBoxOutlined style={{ fontSize: '20px', color: '#1677ff' }} />
+          <MedicineBoxOutlined style={{ fontSize: '20px', color: '#00979F' }} />
         ) : (
-          <ExperimentOutlined style={{ fontSize: '20px', color: '#1677ff' }} />
+          <ExperimentOutlined style={{ fontSize: '20px', color: '#00979F' }} />
         )}
         <Space direction="vertical" size={0}>
           <Text strong>{title}</Text>
@@ -98,7 +98,12 @@ export const Header = () => {
 
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
+      // Более разумный breakpoint - оставляем место для:
+      // - Логотип/меню (~400px)
+      // - Правые иконки и кнопки (~300px)
+      // - Запас (~100px)
+      // Итого минимум ~800px для десктопного режима
+      setIsMobile(window.innerWidth <= 992);
     };
 
     checkMobile();
@@ -125,7 +130,7 @@ export const Header = () => {
     {
       key: 'pharmacy-header',
       label: (
-        <Text strong style={{ fontSize: '16px', color: '#1677ff' }}>
+        <Text strong style={{ fontSize: '16px', color: '#00979F' }}>
           Каталог продукции
         </Text>
       ),
@@ -152,7 +157,7 @@ export const Header = () => {
     {
       key: 'dashboard-header',
       label: (
-        <Text strong style={{ fontSize: '16px', color: '#1677ff' }}>
+        <Text strong style={{ fontSize: '16px', color: '#00979F' }}>
           Личный кабинет
         </Text>
       ),
@@ -323,7 +328,16 @@ export const Header = () => {
       mode={mode}
       selectedKeys={[pathname]}
       items={isMobile ? mobileMenuItems : menuItems}
-      style={mode === 'horizontal' ? { lineHeight: '64px', borderBottom: 'none' } : {}}
+      style={
+        mode === 'horizontal' 
+          ? { 
+              lineHeight: '64px', 
+              borderBottom: 'none',
+              flex: 1,
+              maxWidth: 'calc(100vw - 400px)', // Оставляем место для правых иконок
+            } 
+          : {}
+      }
       onClick={() => setDrawerOpen(false)}
     />
   );
@@ -496,7 +510,14 @@ export const Header = () => {
           </Drawer>
         </>
       ) : (
-        <div style={{ display: 'flex', alignItems: 'center' }}>{renderMenu()}</div>
+        <div style={{ 
+          display: 'flex', 
+          alignItems: 'center', 
+          flex: 1, 
+          overflow: 'hidden' 
+        }}>
+          {renderMenu()}
+        </div>
       )}
 
       <Space size="large">

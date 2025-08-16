@@ -1,13 +1,11 @@
-import { Inter } from 'next/font/google';
 import StyledComponentsRegistry from '@/lib/AntdRegistry';
 import { Providers } from '@/components/providers/Providers';
 import { AppLayout } from '@/components/layout/AppLayout';
 import { ConfigProvider } from 'antd';
 import ruRU from 'antd/locale/ru_RU';
 import { CartProvider } from '@/contexts/CartContext';
+import { lato } from '@/lib/fonts';
 import './globals.css';
-
-const inter = Inter({ subsets: ['latin', 'cyrillic'] });
 
 export const metadata = {
   title: 'NutriScan',
@@ -20,7 +18,7 @@ export const metadata = {
 };
 
 export const viewport = {
-  themeColor: '#1890ff',
+  themeColor: '#00979F',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -28,10 +26,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="ru">
       <head>
         <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#1890ff" />
+        <meta name="theme-color" content="#00979F" />
       </head>
-      <body className={inter.className}>
-        <ConfigProvider locale={ruRU}>
+      <body className={lato.className}>
+        <ConfigProvider 
+          locale={ruRU}
+          theme={{
+            token: {
+              fontFamily: 'var(--font-lato), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+            },
+          }}
+        >
           <CartProvider>
             <StyledComponentsRegistry>
               <Providers>

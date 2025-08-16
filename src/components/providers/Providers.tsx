@@ -12,7 +12,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
       locale={ruRU}
       theme={{
         token: {
-          colorPrimary: '#1677ff',
+          colorPrimary: '#00979F',
         },
         algorithm: theme.defaultAlgorithm,
         components: {
