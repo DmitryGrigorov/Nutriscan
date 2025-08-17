@@ -25,6 +25,7 @@ import {
   DownOutlined,
 } from '@ant-design/icons';
 import { useState, useEffect } from 'react';
+import styles from './Navigation.module.css';
 
 const { Header: AntHeader } = Layout;
 const { Title, Text } = Typography;
@@ -168,7 +169,7 @@ export const Navigation = () => {
     },
     {
       key: 'pharmacy',
-      label: 'Аптека',
+      label: 'Каталог продукции',
       children: [
         {
           key: '/pharmacy',
@@ -259,6 +260,16 @@ export const Navigation = () => {
       mode={mode}
       selectedKeys={[pathname]}
       items={isMobile ? mobileMenuItems : menuItems}
+      expandIcon={({ isOpen }) => (
+        <DownOutlined
+          className={styles.menuExpandIcon}
+          style={{
+            transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+            transition: 'transform 0.3s ease',
+          }}
+        />
+      )}
+      className={styles.menuWithArrows}
       style={
         mode === 'horizontal'
           ? {
@@ -316,6 +327,16 @@ export const Navigation = () => {
             mode="vertical"
             selectedKeys={[pathname]}
             items={mobileMenuItems}
+            expandIcon={({ isOpen }) => (
+              <DownOutlined
+                className={styles.menuExpandIcon}
+                style={{
+                  transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                  transition: 'transform 0.3s ease',
+                }}
+              />
+            )}
+            className={styles.menuWithArrows}
             style={{
               position: 'fixed',
               top: 0,

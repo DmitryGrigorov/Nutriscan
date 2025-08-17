@@ -1,0 +1,27 @@
+/* Принудительное отображение стрелочек в меню */
+.menuExpandIcon {
+  display: block !important;
+  color: #000 !important;
+  font-size: 12px !important;
+  margin-left: 4px !important;
+  opacity: 1 !important;
+}
+
+.menuWithArrows {
+  /* Контейнер для меню со стрелочками */
+}
+
+/* Стили для стрелочек в меню */
+.menuWithArrows :global(.ant-menu-submenu-arrow) {
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  right: -16px !important;
+  transform: rotate(90deg) !important;
+}
+
+.menuWithArrows :global(.ant-menu-submenu-title .ant-menu-submenu-arrow) {
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}

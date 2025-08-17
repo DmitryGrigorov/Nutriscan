@@ -6,10 +6,7 @@ import styles from './TitleHero.module.css';
 export const TitleHero = () => {
   return (
     <div className={styles.container}>
-      <div
-        className={styles.heroContent}
-        style={getFontStyle('black')}
-      >
+      <div className={styles.heroContent} style={getFontStyle('black')}>
         {/* Левый блок */}
         <div className={styles.leftBlock}>
           <div className={styles.titleContainer}>
@@ -24,9 +21,7 @@ export const TitleHero = () => {
           <div className={styles.description}>
             <span className={styles.descriptionMedium}>
               специально для вас на основе <br />
-              <span className={styles.highlightedText}>
-                индивидуального смарт-анализа
-              </span>
+              <span className={styles.highlightedText}>индивидуального смарт-анализа</span>
             </span>
             <br />
             параметров вашего организма и образа жизни
@@ -49,14 +44,9 @@ export const TitleHero = () => {
             <div>
               <div className={styles.aiStats}>
                 100+
-                <span className={styles.aiStatsText}>
-                  параметров профилирования
-                </span>
+                <span className={styles.aiStatsText}>параметров профилирования</span>
               </div>
-              <a
-                href="/quiz"
-                className={styles.ctaButton}
-              >
+              <a href="/quiz" className={styles.ctaButton}>
                 Получить рекомендации
               </a>
             </div>
