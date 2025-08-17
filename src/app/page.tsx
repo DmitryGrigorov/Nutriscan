@@ -66,7 +66,7 @@ function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1 }}
           >
-            Найдите идеальные <span style={{ color: '#00979F' }}>БАДы</span> за 2 минуты
+            Найдите идеальные <span style={{ color: '#16B6BE' }}>БАДы</span> за 2 минуты
           </motion.h1>
           <motion.p
             style={{ fontSize: 18, color: '#555', marginBottom: 28 }}
@@ -132,7 +132,7 @@ function HeroSection() {
             margin: '0 auto',
           }}
         >
-          <MedicineBoxOutlined style={{ fontSize: 'min(18vw, 96px)', color: '#00979F' }} />
+          <MedicineBoxOutlined style={{ fontSize: 'min(18vw, 96px)', color: '#16B6BE' }} />
         </motion.div>
       </Col>
     </Row>
@@ -143,22 +143,22 @@ function HeroSection() {
 function HowItWorks() {
   const steps = [
     {
-      icon: <ProfileOutlined style={{ fontSize: 32, color: '#00979F' }} />,
+      icon: <ProfileOutlined style={{ fontSize: 32, color: '#16B6BE' }} />,
       title: 'Заполните анкету',
       description: 'Ответьте на вопросы о вашем здоровье, образе жизни и целях',
     },
     {
-      icon: <SolutionOutlined style={{ fontSize: 32, color: '#00979F' }} />,
+      icon: <SolutionOutlined style={{ fontSize: 32, color: '#16B6BE' }} />,
       title: 'Получите рекомендации',
       description: 'Наш алгоритм подберет персональные БАДы на основе ваших ответов',
     },
     {
-      icon: <GiftOutlined style={{ fontSize: 32, color: '#00979F' }} />,
+      icon: <GiftOutlined style={{ fontSize: 32, color: '#16B6BE' }} />,
       title: 'Оформите заказ',
       description: 'Выберите подходящие добавки и получите их с доставкой',
     },
     {
-      icon: <ReloadOutlined style={{ fontSize: 32, color: '#00979F' }} />,
+      icon: <ReloadOutlined style={{ fontSize: 32, color: '#16B6BE' }} />,
       title: 'Отслеживайте прогресс',
       description: 'Корректируйте программу приема по мере изменения потребностей',
     },
@@ -267,18 +267,18 @@ function Testimonials() {
           background: #fff !important;
           border-radius: 50%;
           box-shadow: 0 2px 8px rgba(22, 119, 255, 0.62);
-          color: #00979F !important;
+          color: #16B6BE !important;
           border: 1.5px solid #e6f4ff;
           z-index: 2;
           transition: box-shadow 0.2s;
         }
         .ant-carousel .slick-arrow:hover {
-          box-shadow: 0 4px 16px rgba(0, 151, 159, 0.18);
+          box-shadow: 0 4px 16px rgba(22, 182, 190, 0.18);
           color: #fff !important;
           background: rgba(66, 86, 114, 0.47) !important;
         }
         .ant-carousel .slick-arrow:before {
-          color: #00979F !important;
+          color: #16B6BE !important;
           font-size: 28px !important;
         }
         .ant-carousel .slick-dots li button {
@@ -286,7 +286,7 @@ function Testimonials() {
           opacity: 1;
         }
         .ant-carousel .slick-dots li.slick-active button {
-          background: #00979F !important;
+          background: #16B6BE !important;
         }
         .ant-carousel .slick-dots-bottom {
           bottom: -32px;
@@ -295,7 +295,7 @@ function Testimonials() {
         :where(.css-dev-only-do-not-override-1a4icq8).ant-carousel
           .slick-dots
           li.slick-active::after {
-          background: #00979F !important;
+          background: #16B6BE !important;
         }
       `}</style>
       <motion.div
@@ -330,7 +330,7 @@ function Testimonials() {
                 }}
               >
                 <div style={{ marginBottom: 12 }}>
-                  <LikeOutlined style={{ fontSize: 28, color: '#00979F' }} />
+                  <LikeOutlined style={{ fontSize: 28, color: '#16B6BE' }} />
                 </div>
                 <Paragraph style={{ fontSize: 17, fontStyle: 'italic', marginBottom: 18 }}>
                   "{t.quote}"
@@ -417,7 +417,7 @@ function ScientificBasis() {
               bordered={false}
               style={{
                 minHeight: 180,
-                background: '#00979F',
+                background: '#16B6BE',
                 color: '#fff',
                 boxShadow: '0 2px 12px #e6f4ff',
                 borderRadius: 18,
@@ -470,7 +470,7 @@ function ScientificBasis() {
                 borderRadius: 18,
               }}
             >
-                              <ExperimentOutlined style={{ fontSize: 28, color: '#00979F' }} />
+                              <ExperimentOutlined style={{ fontSize: 28, color: '#16B6BE' }} />
               <Title level={4} style={{ fontSize: 18 }}>
                 Клинические исследования
               </Title>
@@ -496,7 +496,7 @@ function ScientificBasis() {
                 borderRadius: 18,
               }}
             >
-                              <TeamOutlined style={{ fontSize: 28, color: '#00979F' }} />
+                              <TeamOutlined style={{ fontSize: 28, color: '#16B6BE' }} />
               <Title level={4} style={{ fontSize: 18 }}>
                 Сертифицированные лаборатории
               </Title>
@@ -522,7 +522,7 @@ function ScientificBasis() {
                 borderRadius: 18,
               }}
             >
-                              <ShieldCheckIcon style={{ fontSize: 28, color: '#00979F' }} />
+                              <ShieldCheckIcon style={{ fontSize: 28, color: '#16B6BE' }} />
               <Title level={4} style={{ fontSize: 18 }}>
                 Независимая экспертиза
               </Title>
@@ -714,7 +714,7 @@ function MainFooter() {
         </Col>
         <Col xs={24} md={6}>
           <Title level={5}>Навигация</Title>
-                          <ul style={{ color: '#00979F', paddingLeft: 0, listStyle: 'none' }}>
+                          <ul style={{ color: '#16B6BE', paddingLeft: 0, listStyle: 'none' }}>
             <li>Главная</li>
             <li>Как это работает</li>
             <li>Отзывы</li>
@@ -768,12 +768,12 @@ function ShieldCheckIcon(props: any) {
   return (
     <svg width="32" height="32" fill="none" viewBox="0 0 24 24" {...props}>
       <path
-        stroke="#00979F"
+        stroke="#16B6BE"
         strokeWidth="2"
         d="M12 3l7 4v5c0 5.25-3.5 9.25-7 10-3.5-.75-7-4.75-7-10V7l7-4z"
       />
       <path
-        stroke="#00979F"
+        stroke="#16B6BE"
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"

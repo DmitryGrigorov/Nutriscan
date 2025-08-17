@@ -54,7 +54,7 @@ function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1 }}
           >
-            О <span style={{ color: '#00979F' }}>NutriScan</span>
+            О <span style={{ color: '#16B6BE' }}>NutriScan</span>
           </motion.h1>
           <motion.p
             style={{ fontSize: 18, color: '#555', marginBottom: 28 }}
@@ -85,7 +85,7 @@ function HeroSection() {
             margin: '0 auto',
           }}
         >
-          <TeamOutlined style={{ fontSize: 'min(18vw, 96px)', color: '#00979F' }} />
+          <TeamOutlined style={{ fontSize: 'min(18vw, 96px)', color: '#16B6BE' }} />
         </motion.div>
       </Col>
     </Row>
@@ -135,7 +135,7 @@ function MissionSection() {
             <Card style={{ height: '100%', borderRadius: 16 }}>
               <Space direction="vertical" size={24} style={{ width: '100%' }}>
                 <div>
-                                     <Title level={4} style={{ color: '#00979F', marginBottom: 12 }}>
+                                     <Title level={4} style={{ color: '#16B6BE', marginBottom: 12 }}>
                      <CheckCircleOutlined style={{ marginRight: 8 }} />
                      Научный подход
                    </Title>
@@ -144,7 +144,7 @@ function MissionSection() {
                   </Text>
                 </div>
                 <div>
-                                     <Title level={4} style={{ color: '#00979F', marginBottom: 12 }}>
+                                     <Title level={4} style={{ color: '#16B6BE', marginBottom: 12 }}>
                      <SafetyOutlined style={{ marginRight: 8 }} />
                      Безопасность
                    </Title>
@@ -153,7 +153,7 @@ function MissionSection() {
                   </Text>
                 </div>
                 <div>
-                                     <Title level={4} style={{ color: '#00979F', marginBottom: 12 }}>
+                                     <Title level={4} style={{ color: '#16B6BE', marginBottom: 12 }}>
                      <HeartOutlined style={{ marginRight: 8 }} />
                      Персонализация
                    </Title>
@@ -204,14 +204,14 @@ function StatisticsSection() {
                 value={stat.value}
                 suffix={stat.label}
                                  valueStyle={{ 
-                   color: '#00979F', 
+                   color: '#16B6BE', 
                    fontSize: '28px', 
                    fontWeight: 'bold' 
                  }}
                                  prefix={
                    <div style={{ 
                      fontSize: '32px', 
-                     color: '#00979F', 
+                     color: '#16B6BE', 
                      marginBottom: '8px' 
                    }}>
                      {stat.icon}
@@ -325,32 +325,32 @@ function TeamSection() {
 function ValuesSection() {
   const values = [
     {
-             icon: <SafetyOutlined style={{ fontSize: 32, color: '#00979F' }} />,
+             icon: <SafetyOutlined style={{ fontSize: 32, color: '#16B6BE' }} />,
       title: 'Безопасность',
       description: 'Мы гарантируем безопасность всех продуктов в нашем каталоге, работая только с проверенными производителями.',
     },
     {
-             icon: <ExperimentOutlined style={{ fontSize: 32, color: '#00979F' }} />,
+             icon: <ExperimentOutlined style={{ fontSize: 32, color: '#16B6BE' }} />,
       title: 'Научность',
       description: 'Все наши рекомендации основаны на актуальных научных исследованиях и клинических данных.',
     },
     {
-             icon: <HeartOutlined style={{ fontSize: 32, color: '#00979F' }} />,
+             icon: <HeartOutlined style={{ fontSize: 32, color: '#16B6BE' }} />,
       title: 'Забота',
       description: 'Мы заботимся о здоровье каждого клиента, предоставляя персонализированные рекомендации.',
     },
     {
-             icon: <GlobalOutlined style={{ fontSize: 32, color: '#00979F' }} />,
+             icon: <GlobalOutlined style={{ fontSize: 32, color: '#16B6BE' }} />,
       title: 'Доступность',
       description: 'Делаем качественные БАДы доступными для всех, независимо от места проживания.',
     },
     {
-             icon: <ClockCircleOutlined style={{ fontSize: 32, color: '#00979F' }} />,
+             icon: <ClockCircleOutlined style={{ fontSize: 32, color: '#16B6BE' }} />,
       title: 'Поддержка',
       description: 'Обеспечиваем постоянную поддержку и сопровождение на всех этапах использования.',
     },
     {
-             icon: <TrophyOutlined style={{ fontSize: 32, color: '#00979F' }} />,
+             icon: <TrophyOutlined style={{ fontSize: 32, color: '#16B6BE' }} />,
       title: 'Качество',
       description: 'Непрерывно улучшаем качество наших услуг и расширяем ассортимент продукции.',
     },
@@ -439,14 +439,14 @@ function ContactSection() {
             <Card style={{ borderRadius: 12 }}>
               <Space direction="vertical" size={8} style={{ width: '100%' }}>
                 <Text strong style={{ fontSize: 16 }}>Email</Text>
-                                 <Text style={{ color: '#00979F' }}>support@nutriscan.ru</Text>
+                                 <Text style={{ color: '#16B6BE' }}>support@nutriscan.ru</Text>
               </Space>
             </Card>
             
             <Card style={{ borderRadius: 12 }}>
               <Space direction="vertical" size={8} style={{ width: '100%' }}>
                 <Text strong style={{ fontSize: 16 }}>Телефон</Text>
-                                 <Text style={{ color: '#00979F' }}>8-800-555-0123</Text>
+                                 <Text style={{ color: '#16B6BE' }}>8-800-555-0123</Text>
               </Space>
             </Card>
             

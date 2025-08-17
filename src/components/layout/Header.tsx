@@ -59,9 +59,9 @@ const ReminderItem = ({
     <List.Item>
       <Space align="start">
         {type === 'supplement' ? (
-          <MedicineBoxOutlined style={{ fontSize: '20px', color: '#00979F' }} />
+          <MedicineBoxOutlined style={{ fontSize: '20px', color: '#16B6BE' }} />
         ) : (
-          <ExperimentOutlined style={{ fontSize: '20px', color: '#00979F' }} />
+          <ExperimentOutlined style={{ fontSize: '20px', color: '#16B6BE' }} />
         )}
         <Space direction="vertical" size={0}>
           <Text strong>{title}</Text>
@@ -136,7 +136,7 @@ export const Header = () => {
     {
       key: 'pharmacy-header',
       label: (
-        <Text strong style={{ fontSize: '16px', color: '#00979F' }}>
+        <Text strong style={{ fontSize: '16px', color: '#16B6BE' }}>
           Каталог продукции
         </Text>
       ),
@@ -163,7 +163,7 @@ export const Header = () => {
     {
       key: 'dashboard-header',
       label: (
-        <Text strong style={{ fontSize: '16px', color: '#00979F' }}>
+        <Text strong style={{ fontSize: '16px', color: '#16B6BE' }}>
           Личный кабинет
         </Text>
       ),
