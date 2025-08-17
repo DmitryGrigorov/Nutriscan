@@ -2,6 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import { getFontStyle } from '@/lib/fontUtils';
 import styles from './TitleHero.module.css';
+import { HowItWorksSection } from './HowItWorksSection';
 
 export const TitleHero = () => {
   return (
@@ -59,13 +60,17 @@ export const TitleHero = () => {
               <div className={styles.statsBlock}>
                 <span className={styles.statsNumber}>100+</span>
                 <span className={styles.statsText}>
-                  параметров<br />персонализации
+                  параметров
+                  <br />
+                  персонализации
                 </span>
               </div>
               {/* Второй блок: Получить рекомендации */}
               <a href="#" className={styles.recommendationsButton}>
                 <span className={styles.recommendationsText}>
-                  Получить<br />рекомендации
+                  Получить
+                  <br />
+                  рекомендации
                 </span>
                 <span className={styles.recommendationsArrow}>&gt;</span>
               </a>
@@ -79,6 +84,8 @@ export const TitleHero = () => {
           <div className={styles.circleImage} />
         </div>
       </div>
+
+      <HowItWorksSection />
     </div>
   );
 };

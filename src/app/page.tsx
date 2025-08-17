@@ -26,6 +26,8 @@ import {
 } from '@ant-design/icons';
 import { motion } from 'framer-motion';
 import { TitleHero } from '@/components/home/TitleHero';
+import { HowItWorksSection } from '@/components/home/HowItWorksSection';
+import { WhyQuestionnaireSection } from '@/components/home/WhyQuestionnaireSection';
 
 const { Title, Paragraph, Text } = Typography;
 const { Footer, Content } = Layout;
@@ -651,6 +653,8 @@ export default function AntdHome() {
     <Layout style={{ background: '#fff' }}>
       <Content style={{}}>
         <HeroSection />
+        <HowItWorksSection />
+        <WhyQuestionnaireSection />
         <HowItWorks />
         <Testimonials />
         <ScientificBasis />
