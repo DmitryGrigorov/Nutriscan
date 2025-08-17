@@ -343,7 +343,7 @@ export const Navigation = () => {
       <Space size="large">
         <Dropdown
           menu={{
-            items: [
+            items: user ? [
               {
                 key: '/dashboard/account',
                 icon: <UserOutlined />,
@@ -403,6 +403,17 @@ export const Navigation = () => {
                     },
                   ]
                 : []),
+            ] : [
+              {
+                key: '/auth/login',
+                icon: <UserOutlined />,
+                label: <Link href="/auth/login">Войти</Link>,
+              },
+              {
+                key: '/auth/register',
+                icon: <UserOutlined />,
+                label: <Link href="/auth/register">Зарегистрироваться</Link>,
+              },
             ],
             onClick: ({ key }) => router.push(key),
           }}
