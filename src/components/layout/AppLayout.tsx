@@ -3,6 +3,7 @@
 import React from 'react';
 import { Layout } from 'antd';
 import Navigation from './Navigation';
+// import { FontDemo } from '../FontDemo';
 
 const { Content } = Layout;
 
@@ -13,6 +14,7 @@ interface AppLayoutProps {
 export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   return (
     <Layout style={{ minHeight: '100vh', maxWidth: '100%' }}>
+      {/* <FontDemo /> */}
       {/* <Header />  Старый компонент навигации*/}
       <Navigation />
       <Content style={{ maxWidth: '100%' }}>{children}</Content>
