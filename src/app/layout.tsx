@@ -28,7 +28,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#16B6BE" />
       </head>
-      <body className={lato.className}>
+      <body className={`${lato.className} ${lato.variable}`}>
         <ConfigProvider
           locale={ruRU}
           theme={{

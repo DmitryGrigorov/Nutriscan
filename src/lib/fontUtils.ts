@@ -20,7 +20,7 @@ export const getFontStyle = (
   weight: FontWeight = 'regular',
   style: FontStyle = 'normal'
 ): CSSProperties => ({
-  fontFamily: 'var(--font-lato)',
+  fontFamily: 'var(--font-lato), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
   fontWeight: fontWeights[weight],
   fontStyle: fontStyles[style],
 });

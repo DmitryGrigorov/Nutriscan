@@ -12,6 +12,17 @@
   --color-primary: #00979F;
 }
 
+/* Apply font variable to body */
+body {
+  font-family: var(--font-lato), -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+}
+
+/* Debug: show which font is being used */
+.font-debug {
+  font-family: var(--font-lato), sans-serif;
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
@@ -28,7 +39,6 @@ body {
 body {
   min-height: 100vh;
   background-color: #f5f5f5;
-  font-family: var(--font-family);
   font-weight: 400;
   line-height: 1.5;
 }

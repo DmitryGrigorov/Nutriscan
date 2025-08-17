@@ -55,4 +55,5 @@ export const lato = localFont({
   ],
   display: 'swap',
   variable: '--font-lato',
+  preload: true,
 });

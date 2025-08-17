@@ -32,7 +32,7 @@
 }
 
 .titleBold {
-  font-weight: bolder;
+  font-weight: 900;
 }
 
 .titleNutriScan {
@@ -43,7 +43,7 @@
   font-size: 24px;
   color: #3A6B8E;
   margin-bottom: 22px;
-  
+  font-weight: 300;
 }
 
 .descriptionMedium {
@@ -62,14 +62,23 @@
   align-items: center;
   border-radius: 14px;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.06) 100%);
-  padding: 18px 22px;
+  padding: 11px;
   margin-bottom: 24px;
-  max-width: 370px;
+  max-width: 264px;
   gap: 18px;
 }
 
+.aiCardContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  width: 100%;
+}
+
 .aiCardLeft {
-  grid-column: 1 / 2;
+ display: grid;
+ grid-template-columns: 52px 1fr;
+ gap: 4px;
 }
 
 .aiTitle {
@@ -80,7 +89,10 @@
 }
 
 .aiTitleHighlight {
-  color: #16B6BE;
+    font-weight: 900;
+    font-size: 28px;
+    line-height: 100%;
+    letter-spacing: 0px;
 }
 
 .aiStats {
