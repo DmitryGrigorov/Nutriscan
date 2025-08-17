@@ -33,4 +33,3 @@ export const fontClasses = {
   black: 'font-black',
   italic: 'font-italic',
 } as const;
-

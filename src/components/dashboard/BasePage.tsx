@@ -27,11 +27,11 @@ export const BasePage: React.FC<BasePageProps> = ({ title, children, extra }) =>
           gap: '16px',
         }}
       >
-        <Title 
-          level={isMobile ? 4 : 3} 
-          style={{ 
+        <Title
+          level={isMobile ? 4 : 3}
+          style={{
             margin: 0,
-            ...getFontStyle('bold')
+            ...getFontStyle('bold'),
           }}
         >
           {title}

@@ -340,13 +340,13 @@ export const Header = () => {
       selectedKeys={[pathname]}
       items={isMobile ? mobileMenuItems : menuItems}
       style={
-        mode === 'horizontal' 
-          ? { 
-              lineHeight: '64px', 
+        mode === 'horizontal'
+          ? {
+              lineHeight: '64px',
               borderBottom: 'none',
               flex: 1,
               maxWidth: 'calc(100vw - 400px)', // Оставляем место для правых иконок
-            } 
+            }
           : {}
       }
       onClick={() => setDrawerOpen(false)}
@@ -521,12 +521,14 @@ export const Header = () => {
           </Drawer>
         </>
       ) : (
-        <div style={{ 
-          display: 'flex', 
-          alignItems: 'center', 
-          flex: 1, 
-          overflow: 'hidden' 
-        }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            flex: 1,
+            overflow: 'hidden',
+          }}
+        >
           {renderMenu()}
         </div>
       )}

@@ -29,11 +29,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="theme-color" content="#16B6BE" />
       </head>
       <body className={lato.className}>
-        <ConfigProvider 
+        <ConfigProvider
           locale={ruRU}
           theme={{
             token: {
-              fontFamily: 'var(--font-lato), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+              fontFamily:
+                'var(--font-lato), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
             },
           }}
         >

@@ -22,7 +22,7 @@ import {
   BarChartOutlined,
   ShoppingCartOutlined,
   HomeOutlined,
-  DownOutlined
+  DownOutlined,
 } from '@ant-design/icons';
 import { useState, useEffect } from 'react';
 
@@ -260,13 +260,13 @@ export const Navigation = () => {
       selectedKeys={[pathname]}
       items={isMobile ? mobileMenuItems : menuItems}
       style={
-        mode === 'horizontal' 
-          ? { 
-              lineHeight: '64px', 
+        mode === 'horizontal'
+          ? {
+              lineHeight: '64px',
               borderBottom: 'none',
               flex: 1,
               maxWidth: 'calc(100vw - 400px)', // Оставляем место для правых элементов
-            } 
+            }
           : {}
       }
       onClick={() => setDrawerOpen(false)}
@@ -284,23 +284,25 @@ export const Navigation = () => {
         padding: isMobile ? '0 16px' : '0 24px',
       }}
     >
-             {/* Logo Section */}
-       <div style={{ 
-         display: 'flex', 
-         alignItems: 'center', 
-         minWidth: isMobile ? '150px' : '200px',
-         marginRight: '24px'
-       }}>
-         <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
-           <Image 
-             src={isMobile ? "/assets/icons/logo_small.svg" : "/assets/icons/logo.svg"} 
-             alt="Nutriscan Logo" 
-             width={isMobile ? 32 : 200} 
-             height={isMobile ? 32 : 40}
-             style={{ marginRight: isMobile ? '8px' : '12px' }}
-           />
-         </Link>
-       </div>
+      {/* Logo Section */}
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          minWidth: isMobile ? '150px' : '200px',
+          marginRight: '24px',
+        }}
+      >
+        <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
+          <Image
+            src={isMobile ? '/assets/icons/logo_small.svg' : '/assets/icons/logo.svg'}
+            alt="Nutriscan Logo"
+            width={isMobile ? 32 : 200}
+            height={isMobile ? 32 : 40}
+            style={{ marginRight: isMobile ? '8px' : '12px' }}
+          />
+        </Link>
+      </div>
 
       {/* Navigation Menu */}
       {isMobile ? (
@@ -329,12 +331,14 @@ export const Navigation = () => {
           />
         </>
       ) : (
-        <div style={{ 
-          display: 'flex', 
-          alignItems: 'center', 
-          flex: 1, 
-          overflow: 'hidden' 
-        }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            flex: 1,
+            overflow: 'hidden',
+          }}
+        >
           {renderMenu()}
         </div>
       )}
@@ -343,78 +347,82 @@ export const Navigation = () => {
       <Space size="large">
         <Dropdown
           menu={{
-            items: user ? [
-              {
-                key: '/dashboard/account',
-                icon: <UserOutlined />,
-                label: <Link href="/dashboard/account">Аккаунт</Link>,
-              },
-              {
-                key: '/dashboard',
-                icon: <UserOutlined />,
-                label: <Link href="/dashboard">Обзор</Link>,
-              },
-              {
-                key: '/dashboard/supplements',
-                icon: <MedicineBoxOutlined />,
-                label: <Link href="/dashboard/supplements">Мои БАДы</Link>,
-              },
-              {
-                key: '/dashboard/analyses',
-                icon: <ExperimentOutlined />,
-                label: <Link href="/dashboard/analyses">Мои анализы</Link>,
-              },
-              {
-                key: '/dashboard/supplement-reminders',
-                icon: <BellOutlined />,
-                label: <Link href="/dashboard/supplement-reminders">Напоминания о БАДах</Link>,
-              },
-              {
-                key: '/dashboard/analysis-reminders',
-                icon: <BellOutlined />,
-                label: <Link href="/dashboard/analysis-reminders">Напоминания об анализах</Link>,
-              },
-              {
-                key: '/dashboard/recommendations',
-                icon: <BarChartOutlined />,
-                label: <Link href="/dashboard/recommendations">Рекомендации</Link>,
-              },
-              {
-                key: '/dashboard/promotions',
-                icon: <GiftOutlined />,
-                label: <Link href="/dashboard/promotions">Акции</Link>,
-              },
-              {
-                key: '/dashboard/surveys',
-                icon: <FileTextOutlined />,
-                label: <Link href="/dashboard/surveys">Опросы</Link>,
-              },
-              {
-                key: '/dashboard/trends',
-                icon: <LineChartOutlined />,
-                label: <Link href="/dashboard/trends">Тренды</Link>,
-              },
-              ...(user?.$id === '683409e1a4097e2da357' || user?.$id === '680658de4352f354f0a9'
-                ? [
-                    {
-                      key: '/admin',
-                      icon: <SettingOutlined />,
-                      label: <Link href="/admin">Админ панель</Link>,
-                    },
-                  ]
-                : []),
-            ] : [
-              {
-                key: '/auth/login',
-                icon: <UserOutlined />,
-                label: <Link href="/auth/login">Войти</Link>,
-              },
-              {
-                key: '/auth/register',
-                icon: <UserOutlined />,
-                label: <Link href="/auth/register">Зарегистрироваться</Link>,
-              },
-            ],
+            items: user
+              ? [
+                  {
+                    key: '/dashboard/account',
+                    icon: <UserOutlined />,
+                    label: <Link href="/dashboard/account">Аккаунт</Link>,
+                  },
+                  {
+                    key: '/dashboard',
+                    icon: <UserOutlined />,
+                    label: <Link href="/dashboard">Обзор</Link>,
+                  },
+                  {
+                    key: '/dashboard/supplements',
+                    icon: <MedicineBoxOutlined />,
+                    label: <Link href="/dashboard/supplements">Мои БАДы</Link>,
+                  },
+                  {
+                    key: '/dashboard/analyses',
+                    icon: <ExperimentOutlined />,
+                    label: <Link href="/dashboard/analyses">Мои анализы</Link>,
+                  },
+                  {
+                    key: '/dashboard/supplement-reminders',
+                    icon: <BellOutlined />,
+                    label: <Link href="/dashboard/supplement-reminders">Напоминания о БАДах</Link>,
+                  },
+                  {
+                    key: '/dashboard/analysis-reminders',
+                    icon: <BellOutlined />,
+                    label: (
+                      <Link href="/dashboard/analysis-reminders">Напоминания об анализах</Link>
+                    ),
+                  },
+                  {
+                    key: '/dashboard/recommendations',
+                    icon: <BarChartOutlined />,
+                    label: <Link href="/dashboard/recommendations">Рекомендации</Link>,
+                  },
+                  {
+                    key: '/dashboard/promotions',
+                    icon: <GiftOutlined />,
+                    label: <Link href="/dashboard/promotions">Акции</Link>,
+                  },
+                  {
+                    key: '/dashboard/surveys',
+                    icon: <FileTextOutlined />,
+                    label: <Link href="/dashboard/surveys">Опросы</Link>,
+                  },
+                  {
+                    key: '/dashboard/trends',
+                    icon: <LineChartOutlined />,
+                    label: <Link href="/dashboard/trends">Тренды</Link>,
+                  },
+                  ...(user?.$id === '683409e1a4097e2da357' || user?.$id === '680658de4352f354f0a9'
+                    ? [
+                        {
+                          key: '/admin',
+                          icon: <SettingOutlined />,
+                          label: <Link href="/admin">Админ панель</Link>,
+                        },
+                      ]
+                    : []),
+                ]
+              : [
+                  {
+                    key: '/auth/login',
+                    icon: <UserOutlined />,
+                    label: <Link href="/auth/login">Войти</Link>,
+                  },
+                  {
+                    key: '/auth/register',
+                    icon: <UserOutlined />,
+                    label: <Link href="/auth/register">Зарегистрироваться</Link>,
+                  },
+                ],
             onClick: ({ key }) => router.push(key),
           }}
           placement="bottomRight"
@@ -426,11 +434,11 @@ export const Navigation = () => {
               display: 'inline-block',
             }}
           >
-            <Button 
-              type="default" 
+            <Button
+              type="default"
               size="large"
-              style={{ 
-                background: '#fff', 
+              style={{
+                background: '#fff',
                 border: '1px solid #16B6BE',
                 height: '40px',
                 padding: '0 16px',
@@ -441,7 +449,7 @@ export const Navigation = () => {
                 boxShadow: 'none',
                 position: 'relative',
                 zIndex: 2,
-                transition: 'all 0.2s ease'
+                transition: 'all 0.2s ease',
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.background = '#f0f9ff';
@@ -452,16 +460,10 @@ export const Navigation = () => {
                 e.currentTarget.style.borderColor = '#16B6BE';
               }}
             >
-              <Image 
-                src="/assets/icons/logo_small.svg" 
-                alt="Pill Icon" 
-                width={20} 
-                height={20}
-              />
+              <Image src="/assets/icons/logo_small.svg" alt="Pill Icon" width={20} height={20} />
               <span style={{ color: '#15456E', fontWeight: '500' }}>Личный кабинет</span>
               <DownOutlined style={{ fontSize: '12px', color: '#15456E' }} />
             </Button>
-            
           </div>
         </Dropdown>
       </Space>

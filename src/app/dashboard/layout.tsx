@@ -88,8 +88,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               level={4}
               style={{
                 margin: 0,
-                        color: '#16B6BE',
-        background: 'linear-gradient(45deg, #16B6BE, #18C8D0)',
+                color: '#16B6BE',
+                background: 'linear-gradient(45deg, #16B6BE, #18C8D0)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
                 fontWeight: 600,

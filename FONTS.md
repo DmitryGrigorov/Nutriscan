@@ -7,21 +7,23 @@
 ## Конфигурация
 
 ### Файлы конфигурации:
+
 - `src/lib/fonts.ts` - основная конфигурация шрифта
 - `src/lib/fontUtils.ts` - утилиты для работы с шрифтом
 - `src/app/globals.css` - глобальные стили и CSS классы
 
 ### Доступные варианты начертания:
 
-| Вес | Название | CSS класс | Использование |
-|-----|----------|-----------|---------------|
-| 100 | Thin | `.font-thin` | Тонкие заголовки |
-| 300 | Light | `.font-light` | Подзаголовки, описания |
-| 400 | Regular | `.font-regular` | Основной текст |
-| 700 | Bold | `.font-bold` | Важные заголовки |
-| 900 | Black | `.font-black` | Главные заголовки |
+| Вес | Название | CSS класс       | Использование          |
+| --- | -------- | --------------- | ---------------------- |
+| 100 | Thin     | `.font-thin`    | Тонкие заголовки       |
+| 300 | Light    | `.font-light`   | Подзаголовки, описания |
+| 400 | Regular  | `.font-regular` | Основной текст         |
+| 700 | Bold     | `.font-bold`    | Важные заголовки       |
+| 900 | Black    | `.font-black`   | Главные заголовки      |
 
 ### Курсивные варианты:
+
 - Regular Italic (400)
 - Bold Italic (700)
 - Light Italic (300)
@@ -62,8 +64,8 @@ import { getFontStyle } from '@/lib/fontUtils';
 
 const { Title, Paragraph } = Typography;
 
-<Title 
-  level={2} 
+<Title
+  level={2}
   style={getFontStyle('bold')}
 >
   Заголовок
@@ -96,12 +98,14 @@ const StyledText = styled.p`
 ## CSS переменные
 
 Доступные CSS переменные:
+
 - `--font-lato` - основная переменная шрифта
 - `--font-family` - полный стек шрифтов с fallback
 
 ## Размеры текста
 
 Доступные CSS классы для размеров:
+
 - `.text-xs` - 0.75rem (12px)
 - `.text-sm` - 0.875rem (14px)
 - `.text-base` - 1rem (16px)
@@ -114,17 +118,20 @@ const StyledText = styled.p`
 ## Рекомендации по использованию
 
 ### Заголовки:
+
 - H1: `font-black` + `text-4xl`
 - H2: `font-bold` + `text-3xl`
 - H3: `font-bold` + `text-2xl`
 - H4: `font-bold` + `text-xl`
 
 ### Основной текст:
+
 - Параграфы: `font-regular` + `text-base`
 - Описания: `font-light` + `text-sm`
 - Мелкий текст: `font-regular` + `text-xs`
 
 ### Специальные случаи:
+
 - Цитаты: `font-italic` + `text-base`
 - Важные элементы: `font-bold` + `text-base`
 - Подписи: `font-light` + `text-sm`
@@ -137,6 +144,5 @@ const StyledText = styled.p`
 import { FontDemo } from '@/components/FontDemo';
 
 // В вашем компоненте
-<FontDemo />
+<FontDemo />;
 ```
-

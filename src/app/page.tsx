@@ -10,7 +10,6 @@ import {
   Typography,
   Carousel,
   Modal,
-  Space,
   Divider,
   List,
 } from 'antd';
@@ -18,16 +17,15 @@ import {
   ExperimentOutlined,
   TeamOutlined,
   CheckCircleOutlined,
-  ArrowRightOutlined,
   TrophyOutlined,
   ReloadOutlined,
   GiftOutlined,
-  MedicineBoxOutlined,
   SolutionOutlined,
   ProfileOutlined,
   LikeOutlined,
 } from '@ant-design/icons';
 import { motion } from 'framer-motion';
+import { TitleHero } from '@/components/home/TitleHero';
 
 const { Title, Paragraph, Text } = Typography;
 const { Footer, Content } = Layout;
@@ -44,99 +42,7 @@ interface Expert {
 
 // --- Hero Section ---
 function HeroSection() {
-  return (
-    <Row
-      gutter={[0, 48]}
-      align="middle"
-      style={{
-        minHeight: 420,
-        padding: '32px 0 24px 0',
-        flexDirection: 'row',
-      }}
-    >
-      <Col xs={24} md={12} style={{ textAlign: 'left', padding: '0 8vw' }}>
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: 'easeOut' }}
-        >
-          <motion.h1
-            style={{ fontSize: 32, fontWeight: 800, marginBottom: 12, lineHeight: 1.1 }}
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.1 }}
-          >
-            Найдите идеальные <span style={{ color: '#16B6BE' }}>БАДы</span> за 2 минуты
-          </motion.h1>
-          <motion.p
-            style={{ fontSize: 18, color: '#555', marginBottom: 28 }}
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-          >
-            Персонализированный подбор биологически активных добавок на основе ваших индивидуальных
-            потребностей, образа жизни и целей здоровья.
-          </motion.p>
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.3 }}
-          >
-            <Space direction="vertical" size={16} style={{ width: '100%' }}>
-              <Button
-                type="primary"
-                size="large"
-                icon={<ProfileOutlined />}
-                style={{
-                  width: '100%',
-                  maxWidth: 260,
-                  fontWeight: 600,
-                  fontSize: 18,
-                  borderRadius: 12,
-                }}
-              >
-                Пройти опрос
-              </Button>
-              <Button
-                size="large"
-                icon={<ArrowRightOutlined />}
-                style={{
-                  width: '100%',
-                  maxWidth: 260,
-                  fontWeight: 600,
-                  fontSize: 18,
-                  borderRadius: 12,
-                }}
-              >
-                Узнать больше
-              </Button>
-            </Space>
-          </motion.div>
-        </motion.div>
-      </Col>
-      <Col xs={24} md={12} style={{ textAlign: 'center', marginTop: 32 }}>
-        <motion.div
-          initial={{ opacity: 0, scale: 0.7 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.4, type: 'spring', stiffness: 80 }}
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: 'min(70vw, 260px)',
-            height: 'min(70vw, 260px)',
-            borderRadius: '50%',
-            background: 'radial-gradient(circle, #e6f4ff 60%, #fff 100%)',
-            boxShadow: '0 0 64px #e6f4ff',
-            position: 'relative',
-            margin: '0 auto',
-          }}
-        >
-          <MedicineBoxOutlined style={{ fontSize: 'min(18vw, 96px)', color: '#16B6BE' }} />
-        </motion.div>
-      </Col>
-    </Row>
-  );
+  return <TitleHero />;
 }
 
 // --- How It Works ---
@@ -267,7 +173,7 @@ function Testimonials() {
           background: #fff !important;
           border-radius: 50%;
           box-shadow: 0 2px 8px rgba(22, 119, 255, 0.62);
-          color: #16B6BE !important;
+          color: #16b6be !important;
           border: 1.5px solid #e6f4ff;
           z-index: 2;
           transition: box-shadow 0.2s;
@@ -278,7 +184,7 @@ function Testimonials() {
           background: rgba(66, 86, 114, 0.47) !important;
         }
         .ant-carousel .slick-arrow:before {
-          color: #16B6BE !important;
+          color: #16b6be !important;
           font-size: 28px !important;
         }
         .ant-carousel .slick-dots li button {
@@ -286,7 +192,7 @@ function Testimonials() {
           opacity: 1;
         }
         .ant-carousel .slick-dots li.slick-active button {
-          background: #16B6BE !important;
+          background: #16b6be !important;
         }
         .ant-carousel .slick-dots-bottom {
           bottom: -32px;
@@ -295,7 +201,7 @@ function Testimonials() {
         :where(.css-dev-only-do-not-override-1a4icq8).ant-carousel
           .slick-dots
           li.slick-active::after {
-          background: #16B6BE !important;
+          background: #16b6be !important;
         }
       `}</style>
       <motion.div
@@ -470,7 +376,7 @@ function ScientificBasis() {
                 borderRadius: 18,
               }}
             >
-                              <ExperimentOutlined style={{ fontSize: 28, color: '#16B6BE' }} />
+              <ExperimentOutlined style={{ fontSize: 28, color: '#16B6BE' }} />
               <Title level={4} style={{ fontSize: 18 }}>
                 Клинические исследования
               </Title>
@@ -496,7 +402,7 @@ function ScientificBasis() {
                 borderRadius: 18,
               }}
             >
-                              <TeamOutlined style={{ fontSize: 28, color: '#16B6BE' }} />
+              <TeamOutlined style={{ fontSize: 28, color: '#16B6BE' }} />
               <Title level={4} style={{ fontSize: 18 }}>
                 Сертифицированные лаборатории
               </Title>
@@ -522,7 +428,7 @@ function ScientificBasis() {
                 borderRadius: 18,
               }}
             >
-                              <ShieldCheckIcon style={{ fontSize: 28, color: '#16B6BE' }} />
+              <ShieldCheckIcon style={{ fontSize: 28, color: '#16B6BE' }} />
               <Title level={4} style={{ fontSize: 18 }}>
                 Независимая экспертиза
               </Title>
@@ -714,7 +620,7 @@ function MainFooter() {
         </Col>
         <Col xs={24} md={6}>
           <Title level={5}>Навигация</Title>
-                          <ul style={{ color: '#16B6BE', paddingLeft: 0, listStyle: 'none' }}>
+          <ul style={{ color: '#16B6BE', paddingLeft: 0, listStyle: 'none' }}>
             <li>Главная</li>
             <li>Как это работает</li>
             <li>Отзывы</li>
@@ -743,15 +649,7 @@ function MainFooter() {
 export default function AntdHome() {
   return (
     <Layout style={{ background: '#fff' }}>
-      <Content
-        style={{
-          background: '#fff',
-          maxWidth: '100%',
-          margin: '0 auto',
-          padding: '0 32px',
-          boxSizing: 'border-box',
-        }}
-      >
+      <Content style={{}}>
         <HeroSection />
         <HowItWorks />
         <Testimonials />

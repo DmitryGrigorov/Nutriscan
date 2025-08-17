@@ -62,8 +62,8 @@ function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
           >
-            Мы создаем будущее персонализированного питания, используя передовые технологии 
-            и научные исследования для подбора оптимальных биологически активных добавок.
+            Мы создаем будущее персонализированного питания, используя передовые технологии и
+            научные исследования для подбора оптимальных биологически активных добавок.
           </motion.p>
         </motion.div>
       </Col>
@@ -101,7 +101,11 @@ function MissionSection() {
       viewport={{ once: true, amount: 0.2 }}
       style={{ background: '#f6faff', padding: '40px 0' }}
     >
-      <Row gutter={[32, 32]} justify="center" style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px' }}>
+      <Row
+        gutter={[32, 32]}
+        justify="center"
+        style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px' }}
+      >
         <Col xs={24} md={12}>
           <motion.div
             variants={{
@@ -113,15 +117,15 @@ function MissionSection() {
               Наша миссия
             </Title>
             <Paragraph style={{ fontSize: 16, lineHeight: 1.6, color: '#555' }}>
-              Мы стремимся сделать персонализированное питание доступным для каждого. 
-              Наша платформа объединяет современные технологии искусственного интеллекта 
-              с научными исследованиями в области нутрициологии, чтобы помочь людям 
-              принимать обоснованные решения о своем здоровье.
+              Мы стремимся сделать персонализированное питание доступным для каждого. Наша платформа
+              объединяет современные технологии искусственного интеллекта с научными исследованиями
+              в области нутрициологии, чтобы помочь людям принимать обоснованные решения о своем
+              здоровье.
             </Paragraph>
             <Paragraph style={{ fontSize: 16, lineHeight: 1.6, color: '#555' }}>
-              Каждый человек уникален, и мы верим, что подход к здоровью должен быть 
-              таким же индивидуальным. Наша цель — предоставить точные, научно обоснованные 
-              рекомендации по приему БАДов, учитывающие ваши индивидуальные особенности.
+              Каждый человек уникален, и мы верим, что подход к здоровью должен быть таким же
+              индивидуальным. Наша цель — предоставить точные, научно обоснованные рекомендации по
+              приему БАДов, учитывающие ваши индивидуальные особенности.
             </Paragraph>
           </motion.div>
         </Col>
@@ -135,28 +139,30 @@ function MissionSection() {
             <Card style={{ height: '100%', borderRadius: 16 }}>
               <Space direction="vertical" size={24} style={{ width: '100%' }}>
                 <div>
-                                     <Title level={4} style={{ color: '#16B6BE', marginBottom: 12 }}>
-                     <CheckCircleOutlined style={{ marginRight: 8 }} />
-                     Научный подход
-                   </Title>
+                  <Title level={4} style={{ color: '#16B6BE', marginBottom: 12 }}>
+                    <CheckCircleOutlined style={{ marginRight: 8 }} />
+                    Научный подход
+                  </Title>
                   <Text style={{ color: '#666' }}>
-                    Все рекомендации основаны на актуальных научных исследованиях и клинических данных
+                    Все рекомендации основаны на актуальных научных исследованиях и клинических
+                    данных
                   </Text>
                 </div>
                 <div>
-                                     <Title level={4} style={{ color: '#16B6BE', marginBottom: 12 }}>
-                     <SafetyOutlined style={{ marginRight: 8 }} />
-                     Безопасность
-                   </Title>
+                  <Title level={4} style={{ color: '#16B6BE', marginBottom: 12 }}>
+                    <SafetyOutlined style={{ marginRight: 8 }} />
+                    Безопасность
+                  </Title>
                   <Text style={{ color: '#666' }}>
-                    Мы работаем только с проверенными производителями и сертифицированными продуктами
+                    Мы работаем только с проверенными производителями и сертифицированными
+                    продуктами
                   </Text>
                 </div>
                 <div>
-                                     <Title level={4} style={{ color: '#16B6BE', marginBottom: 12 }}>
-                     <HeartOutlined style={{ marginRight: 8 }} />
-                     Персонализация
-                   </Title>
+                  <Title level={4} style={{ color: '#16B6BE', marginBottom: 12 }}>
+                    <HeartOutlined style={{ marginRight: 8 }} />
+                    Персонализация
+                  </Title>
                   <Text style={{ color: '#666' }}>
                     Индивидуальный подход к каждому пользователю с учетом его потребностей и целей
                   </Text>
@@ -186,16 +192,20 @@ function StatisticsSection() {
       viewport={{ once: true, amount: 0.2 }}
       style={{ padding: '60px 0', background: '#fff' }}
     >
-      <Row gutter={[32, 32]} justify="center" style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px' }}>
+      <Row
+        gutter={[32, 32]}
+        justify="center"
+        style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px' }}
+      >
         {stats.map((stat, index) => (
           <Col xs={12} md={6} key={index}>
             <motion.div
               variants={{
                 hidden: { opacity: 0, y: 30 },
-                visible: { 
-                  opacity: 1, 
-                  y: 0, 
-                  transition: { duration: 0.7, delay: index * 0.1 } 
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  transition: { duration: 0.7, delay: index * 0.1 },
                 },
               }}
               style={{ textAlign: 'center' }}
@@ -203,20 +213,22 @@ function StatisticsSection() {
               <Statistic
                 value={stat.value}
                 suffix={stat.label}
-                                 valueStyle={{ 
-                   color: '#16B6BE', 
-                   fontSize: '28px', 
-                   fontWeight: 'bold' 
-                 }}
-                                 prefix={
-                   <div style={{ 
-                     fontSize: '32px', 
-                     color: '#16B6BE', 
-                     marginBottom: '8px' 
-                   }}>
-                     {stat.icon}
-                   </div>
-                 }
+                valueStyle={{
+                  color: '#16B6BE',
+                  fontSize: '28px',
+                  fontWeight: 'bold',
+                }}
+                prefix={
+                  <div
+                    style={{
+                      fontSize: '32px',
+                      color: '#16B6BE',
+                      marginBottom: '8px',
+                    }}
+                  >
+                    {stat.icon}
+                  </div>
+                }
               />
             </motion.div>
           </Col>
@@ -232,21 +244,24 @@ function TeamSection() {
     {
       name: 'Доктор Анна Петрова',
       role: 'Главный нутрициолог',
-      avatar: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=150&h=150&fit=crop&crop=face',
+      avatar:
+        'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=150&h=150&fit=crop&crop=face',
       bio: 'Специалист с 15-летним опытом в области клинической нутрициологии. Автор более 50 научных публикаций.',
       specialization: ['Клиническая нутрициология', 'Спортивное питание', 'Детоксикация'],
     },
     {
       name: 'Михаил Соколов',
       role: 'Технический директор',
-      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face',
+      avatar:
+        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face',
       bio: 'Эксперт в области машинного обучения и разработки медицинских технологий. Создатель алгоритмов персонализации.',
       specialization: ['Искусственный интеллект', 'Медицинские технологии', 'Анализ данных'],
     },
     {
       name: 'Елена Козлова',
       role: 'Руководитель отдела качества',
-      avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face',
+      avatar:
+        'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face',
       bio: 'Специалист по контролю качества и сертификации. Обеспечивает безопасность всех продуктов в каталоге.',
       specialization: ['Контроль качества', 'Сертификация', 'Безопасность продуктов'],
     },
@@ -271,7 +286,7 @@ function TeamSection() {
             Наша команда
           </Title>
           <Paragraph style={{ fontSize: 16, color: '#666', maxWidth: 600, margin: '0 auto' }}>
-            Эксперты в области нутрициологии, технологий и качества, объединенные общей целью 
+            Эксперты в области нутрициологии, технологий и качества, объединенные общей целью
             сделать персонализированное питание доступным для каждого.
           </Paragraph>
         </motion.div>
@@ -282,28 +297,25 @@ function TeamSection() {
               <motion.div
                 variants={{
                   hidden: { opacity: 0, y: 50 },
-                  visible: { 
-                    opacity: 1, 
-                    y: 0, 
-                    transition: { duration: 0.7, delay: index * 0.2 } 
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                    transition: { duration: 0.7, delay: index * 0.2 },
                   },
                 }}
               >
                 <Card style={{ textAlign: 'center', borderRadius: 16, height: '100%' }}>
-                  <Avatar 
-                    size={120} 
-                    src={member.avatar}
-                    style={{ marginBottom: 16 }}
-                  />
+                  <Avatar size={120} src={member.avatar} style={{ marginBottom: 16 }} />
                   <Title level={4} style={{ marginBottom: 8 }}>
                     {member.name}
                   </Title>
-                  <Text type="secondary" style={{ fontSize: 16, marginBottom: 16, display: 'block' }}>
+                  <Text
+                    type="secondary"
+                    style={{ fontSize: 16, marginBottom: 16, display: 'block' }}
+                  >
                     {member.role}
                   </Text>
-                  <Paragraph style={{ color: '#666', marginBottom: 16 }}>
-                    {member.bio}
-                  </Paragraph>
+                  <Paragraph style={{ color: '#666', marginBottom: 16 }}>{member.bio}</Paragraph>
                   <Space wrap style={{ justifyContent: 'center' }}>
                     {member.specialization.map((spec, idx) => (
                       <Tag key={idx} color="blue" style={{ margin: 2 }}>
@@ -325,32 +337,36 @@ function TeamSection() {
 function ValuesSection() {
   const values = [
     {
-             icon: <SafetyOutlined style={{ fontSize: 32, color: '#16B6BE' }} />,
+      icon: <SafetyOutlined style={{ fontSize: 32, color: '#16B6BE' }} />,
       title: 'Безопасность',
-      description: 'Мы гарантируем безопасность всех продуктов в нашем каталоге, работая только с проверенными производителями.',
+      description:
+        'Мы гарантируем безопасность всех продуктов в нашем каталоге, работая только с проверенными производителями.',
     },
     {
-             icon: <ExperimentOutlined style={{ fontSize: 32, color: '#16B6BE' }} />,
+      icon: <ExperimentOutlined style={{ fontSize: 32, color: '#16B6BE' }} />,
       title: 'Научность',
-      description: 'Все наши рекомендации основаны на актуальных научных исследованиях и клинических данных.',
+      description:
+        'Все наши рекомендации основаны на актуальных научных исследованиях и клинических данных.',
     },
     {
-             icon: <HeartOutlined style={{ fontSize: 32, color: '#16B6BE' }} />,
+      icon: <HeartOutlined style={{ fontSize: 32, color: '#16B6BE' }} />,
       title: 'Забота',
-      description: 'Мы заботимся о здоровье каждого клиента, предоставляя персонализированные рекомендации.',
+      description:
+        'Мы заботимся о здоровье каждого клиента, предоставляя персонализированные рекомендации.',
     },
     {
-             icon: <GlobalOutlined style={{ fontSize: 32, color: '#16B6BE' }} />,
+      icon: <GlobalOutlined style={{ fontSize: 32, color: '#16B6BE' }} />,
       title: 'Доступность',
       description: 'Делаем качественные БАДы доступными для всех, независимо от места проживания.',
     },
     {
-             icon: <ClockCircleOutlined style={{ fontSize: 32, color: '#16B6BE' }} />,
+      icon: <ClockCircleOutlined style={{ fontSize: 32, color: '#16B6BE' }} />,
       title: 'Поддержка',
-      description: 'Обеспечиваем постоянную поддержку и сопровождение на всех этапах использования.',
+      description:
+        'Обеспечиваем постоянную поддержку и сопровождение на всех этапах использования.',
     },
     {
-             icon: <TrophyOutlined style={{ fontSize: 32, color: '#16B6BE' }} />,
+      icon: <TrophyOutlined style={{ fontSize: 32, color: '#16B6BE' }} />,
       title: 'Качество',
       description: 'Непрерывно улучшаем качество наших услуг и расширяем ассортимент продукции.',
     },
@@ -375,7 +391,8 @@ function ValuesSection() {
             Наши ценности
           </Title>
           <Paragraph style={{ fontSize: 16, color: '#666', maxWidth: 600, margin: '0 auto' }}>
-            Принципы, которые лежат в основе нашей работы и определяют подход к обслуживанию клиентов.
+            Принципы, которые лежат в основе нашей работы и определяют подход к обслуживанию
+            клиентов.
           </Paragraph>
         </motion.div>
 
@@ -385,23 +402,19 @@ function ValuesSection() {
               <motion.div
                 variants={{
                   hidden: { opacity: 0, y: 30 },
-                  visible: { 
-                    opacity: 1, 
-                    y: 0, 
-                    transition: { duration: 0.7, delay: index * 0.1 } 
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                    transition: { duration: 0.7, delay: index * 0.1 },
                   },
                 }}
               >
                 <Card style={{ textAlign: 'center', borderRadius: 16, height: '100%' }}>
-                  <div style={{ marginBottom: 16 }}>
-                    {value.icon}
-                  </div>
+                  <div style={{ marginBottom: 16 }}>{value.icon}</div>
                   <Title level={4} style={{ marginBottom: 12 }}>
                     {value.title}
                   </Title>
-                  <Paragraph style={{ color: '#666', margin: 0 }}>
-                    {value.description}
-                  </Paragraph>
+                  <Paragraph style={{ color: '#666', margin: 0 }}>{value.description}</Paragraph>
                 </Card>
               </motion.div>
             </Col>
@@ -432,27 +445,38 @@ function ContactSection() {
             Свяжитесь с нами
           </Title>
           <Paragraph style={{ fontSize: 16, color: '#666', marginBottom: 32 }}>
-            У вас есть вопросы или предложения? Мы всегда готовы помочь и ответить на все ваши вопросы.
+            У вас есть вопросы или предложения? Мы всегда готовы помочь и ответить на все ваши
+            вопросы.
           </Paragraph>
-          
-          <Space direction="vertical" size={16} style={{ width: '100%', maxWidth: 400, margin: '0 auto' }}>
+
+          <Space
+            direction="vertical"
+            size={16}
+            style={{ width: '100%', maxWidth: 400, margin: '0 auto' }}
+          >
             <Card style={{ borderRadius: 12 }}>
               <Space direction="vertical" size={8} style={{ width: '100%' }}>
-                <Text strong style={{ fontSize: 16 }}>Email</Text>
-                                 <Text style={{ color: '#16B6BE' }}>support@nutriscan.ru</Text>
+                <Text strong style={{ fontSize: 16 }}>
+                  Email
+                </Text>
+                <Text style={{ color: '#16B6BE' }}>support@nutriscan.ru</Text>
               </Space>
             </Card>
-            
+
             <Card style={{ borderRadius: 12 }}>
               <Space direction="vertical" size={8} style={{ width: '100%' }}>
-                <Text strong style={{ fontSize: 16 }}>Телефон</Text>
-                                 <Text style={{ color: '#16B6BE' }}>8-800-555-0123</Text>
+                <Text strong style={{ fontSize: 16 }}>
+                  Телефон
+                </Text>
+                <Text style={{ color: '#16B6BE' }}>8-800-555-0123</Text>
               </Space>
             </Card>
-            
+
             <Card style={{ borderRadius: 12 }}>
               <Space direction="vertical" size={8} style={{ width: '100%' }}>
-                <Text strong style={{ fontSize: 16 }}>Время работы</Text>
+                <Text strong style={{ fontSize: 16 }}>
+                  Время работы
+                </Text>
                 <Text>Пн-Пт: 9:00 - 18:00</Text>
                 <Text>Сб-Вс: 10:00 - 16:00</Text>
               </Space>
@@ -475,7 +499,7 @@ export default function AboutPage() {
         <ValuesSection />
         <ContactSection />
       </Content>
-      
+
       <style jsx global>{`
         @media (max-width: 768px) {
           .ant-layout-content {
