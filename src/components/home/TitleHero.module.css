@@ -32,7 +32,7 @@
 }
 
 .titleBold {
-  font-weight: 900;
+  font-weight: bolder;
 }
 
 .titleNutriScan {
@@ -43,7 +43,6 @@
   font-size: 24px;
   color: #3A6B8E;
   margin-bottom: 22px;
-  font-weight: 300;
 }
 
 .descriptionMedium {
@@ -57,6 +56,13 @@
   font-weight: bolder;
 }
 
+.aiCardContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  width: 100%;
+}
+
 .aiCard {
   display: grid;
   align-items: center;
@@ -68,17 +74,10 @@
   gap: 18px;
 }
 
-.aiCardContainer {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 18px;
-  width: 100%;
-}
-
 .aiCardLeft {
- display: grid;
- grid-template-columns: 52px 1fr;
- gap: 4px;
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  gap: 4px;
 }
 
 .aiTitle {
@@ -89,10 +88,11 @@
 }
 
 .aiTitleHighlight {
-    font-weight: 900;
-    font-size: 28px;
-    line-height: 100%;
-    letter-spacing: 0px;
+  font-weight: 900;
+  font-size: 28px;
+  line-height: 100%;
+  letter-spacing: 0px;
+  color: #16B6BE;
 }
 
 .aiStats {
@@ -162,4 +162,85 @@
   border-bottom: none;
   bottom: 0;
   left: 54px;
+}
+
+/* Новые стили для блоков - merge с существующими */
+.statsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.statsBlock {
+  border-radius: 16px;
+  border: 1.5px solid #B6E6F2;
+  background: linear-gradient(180deg, #E6F8FA 0%, #D6F2F7 100%);
+  padding: 20px 28px 18px 28px;
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+  min-width: 260px;
+  min-height: 100px;
+  box-shadow: 0 1px 4px #e6f4ff33;
+}
+
+.statsNumber {
+  font-weight: 900;
+  font-size: 38px;
+  color: #15456E;
+  margin-right: 12px;
+  line-height: 1;
+}
+
+.statsText {
+  color: #15456E;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.recommendationsButton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 16px;
+  background: #fff;
+  color: #15456E;
+  font-weight: 800;
+  font-size: 22px;
+  padding: 22px 28px 20px 28px;
+  min-height: 100px;
+  min-width: 260px;
+  box-shadow: 0 1px 4px #e6f4ff33;
+  text-decoration: none;
+  border: none;
+  margin-top: 0;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+.recommendationsButton:hover {
+  background: #f8f9fa;
+  box-shadow: 0 2px 8px #e6f4ff33;
+}
+
+.recommendationsText {
+  color: #15456E;
+  font-weight: 800;
+  font-size: 22px;
+  line-height: 1;
+}
+
+.recommendationsArrow {
+  margin-left: 18px;
+  font-size: 28px;
+  color: #15456E;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.aiImageContainer {
+  border-radius: 12px;
+  overflow: hidden;
+  width: 242px;
+  height: 126px;
 }
