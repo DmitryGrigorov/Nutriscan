@@ -1,0 +1,529 @@
+.container {
+  max-width: 1228px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.mainTitle {
+  color: #1a365d !important;
+  font-size: 32px !important;
+  font-weight: 700 !important;
+  margin: 0 !important;
+  line-height: 1.2 !important;
+}
+
+.navigation {
+  display: flex;
+  gap: 12px;
+}
+
+.navButton {
+  width: 48px !important;
+  height: 48px !important;
+  border-radius: 12px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border: 1px solid #e2e8f0 !important;
+  background: #f8fafc !important;
+  color: #64748b !important;
+  transition: all 0.3s ease !important;
+}
+
+.navButton:hover {
+  background: #16B6BE !important;
+  color: white !important;
+  border-color: #16B6BE !important;
+}
+
+.navButton:first-child {
+  background: #e6f7ff !important;
+  color: #16B6BE !important;
+}
+
+.navButton:last-child {
+  background: #16B6BE !important;
+  color: white !important;
+}
+
+.cardsContainer {
+  overflow: hidden;
+  position: relative;
+  height: 400px;
+}
+
+.scrollContainer {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.cardsRow {
+  display: flex;
+  gap: 24px;
+  padding: 20px 0;
+  width: fit-content;
+}
+
+.card {
+  flex-shrink: 0;
+  border-radius: 24px;
+  padding: 40px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  min-height: 300px;
+  width: 400px;
+  max-width: 90vw;
+  display: flex;
+  align-items: center;
+}
+
+.indicators {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 30px;
+}
+
+.indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: none;
+  background: #e2e8f0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.indicator:hover {
+  background: #cbd5e1;
+}
+
+.activeIndicator {
+  background: #16B6BE;
+  transform: scale(1.2);
+}
+
+.cardContent {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+.textContent {
+  flex: 1;
+  z-index: 3;
+}
+
+.cardTitle {
+  color: #1a365d !important;
+  font-size: 24px !important;
+  font-weight: 700 !important;
+  margin-bottom: 16px !important;
+  line-height: 1.3 !important;
+}
+
+.cardDescription {
+  color: #4a5568 !important;
+  font-size: 16px !important;
+  line-height: 1.5 !important;
+  margin-bottom: 24px !important;
+}
+
+.joinButton {
+  background: #ffffff !important;
+  border: none !important;
+  color: #1a365d !important;
+  font-weight: 600 !important;
+  padding: 12px 24px !important;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+  transition: all 0.3s ease !important;
+}
+
+.joinButton:hover {
+  background: #f8fafc !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15) !important;
+}
+
+.imageContainer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 200px;
+  height: 200px;
+  z-index: 1;
+}
+
+/* CSS рисунки для карточек */
+
+/* Бегун */
+.runnerImage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.runner {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 80px;
+  height: 120px;
+  background: #1a365d;
+  border-radius: 40px;
+  transform: rotate(-15deg);
+}
+
+.runner::before {
+  content: '';
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 40px;
+  background: #fbbf24;
+  border-radius: 50%;
+}
+
+.headphones {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 60px;
+  height: 20px;
+  background: #ffffff;
+  border-radius: 10px;
+  border: 2px solid #1a365d;
+}
+
+.headphones::before,
+.headphones::after {
+  content: '';
+  position: absolute;
+  top: -5px;
+  width: 15px;
+  height: 15px;
+  background: #1a365d;
+  border-radius: 50%;
+}
+
+.headphones::before {
+  left: -8px;
+}
+
+.headphones::after {
+  right: -8px;
+}
+
+/* Волосы и ногти */
+.hairImage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.hair {
+  position: absolute;
+  bottom: 40px;
+  right: 20px;
+  width: 100px;
+  height: 120px;
+  background: linear-gradient(135deg, #8b4513 0%, #a0522d 100%);
+  border-radius: 50px 50px 0 0;
+  transform: rotate(15deg);
+}
+
+.hair::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 100px;
+  background: linear-gradient(135deg, #8b4513 0%, #a0522d 100%);
+  border-radius: 40px 40px 0 0;
+}
+
+.hand {
+  position: absolute;
+  bottom: 20px;
+  right: 60px;
+  width: 30px;
+  height: 50px;
+  background: #fbbf24;
+  border-radius: 15px;
+  transform: rotate(-30deg);
+}
+
+/* Иммунитет */
+.immunityImage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.shield {
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  width: 80px;
+  height: 100px;
+  background: #10b981;
+  border-radius: 40px 40px 0 0;
+  position: relative;
+}
+
+.shield::before {
+  content: '';
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 40px;
+  background: #ffffff;
+  border-radius: 50%;
+}
+
+.virus {
+  position: absolute;
+  bottom: 20px;
+  right: 80px;
+  width: 20px;
+  height: 20px;
+  background: #ef4444;
+  border-radius: 50%;
+}
+
+.virus::before,
+.virus::after {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: #ef4444;
+  border-radius: 50%;
+}
+
+.virus::before {
+  top: -10px;
+  left: 6px;
+}
+
+.virus::after {
+  bottom: -10px;
+  left: 6px;
+}
+
+/* Сон */
+.sleepImage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.moon {
+  position: absolute;
+  bottom: 40px;
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  background: #fbbf24;
+  border-radius: 50%;
+  box-shadow: 0 0 20px rgba(251, 191, 36, 0.3);
+}
+
+.stars {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 60px;
+  height: 40px;
+}
+
+.stars::before,
+.stars::after {
+  content: '★';
+  position: absolute;
+  color: #fbbf24;
+  font-size: 12px;
+}
+
+.stars::before {
+  top: 0;
+  left: 10px;
+}
+
+.stars::after {
+  top: 15px;
+  right: 10px;
+}
+
+/* Адаптивность для планшетов */
+@media (max-width: 1024px) {
+  .container {
+    margin: 30px auto;
+  }
+  
+  .mainTitle {
+    font-size: 28px !important;
+  }
+  
+  .cardsContainer {
+    height: 350px;
+  }
+  
+  .card {
+    padding: 30px;
+    min-height: 280px;
+    width: 350px;
+  }
+  
+  .cardsRow {
+    gap: 20px;
+  }
+  
+  .cardTitle {
+    font-size: 22px !important;
+  }
+  
+  .imageContainer {
+    width: 160px;
+    height: 160px;
+  }
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+  .container {
+    margin: 20px auto;
+    padding: 0 16px;
+  }
+  
+  .header {
+    flex-direction: column;
+    gap: 20px;
+    align-items: flex-start;
+    margin-bottom: 30px;
+  }
+  
+  .mainTitle {
+    font-size: 24px !important;
+  }
+  
+  .navigation {
+    align-self: flex-end;
+  }
+  
+  .cardsContainer {
+    height: 300px;
+  }
+  
+  .cardsRow {
+    gap: 16px;
+  }
+  
+  .card {
+    padding: 25px;
+    min-height: 250px;
+    width: 300px;
+  }
+  
+  .cardTitle {
+    font-size: 20px !important;
+  }
+  
+  .cardDescription {
+    font-size: 15px !important;
+  }
+  
+  .imageContainer {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .runner {
+    width: 60px;
+    height: 90px;
+  }
+  
+  .runner::before {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .hair {
+    width: 80px;
+    height: 100px;
+  }
+  
+  .shield {
+    width: 60px;
+    height: 80px;
+  }
+  
+  .moon {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    margin: 15px auto;
+  }
+  
+  .mainTitle {
+    font-size: 22px !important;
+  }
+  
+  .cardsContainer {
+    height: 280px;
+  }
+  
+  .cardsRow {
+    gap: 12px;
+  }
+  
+  .card {
+    padding: 20px;
+    min-height: 220px;
+    width: 280px;
+  }
+  
+  .cardTitle {
+    font-size: 18px !important;
+  }
+  
+  .cardDescription {
+    font-size: 14px !important;
+  }
+  
+  .joinButton {
+    padding: 10px 20px !important;
+    font-size: 14px !important;
+  }
+  
+  .imageContainer {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .navButton {
+    width: 40px !important;
+    height: 40px !important;
+  }
+}

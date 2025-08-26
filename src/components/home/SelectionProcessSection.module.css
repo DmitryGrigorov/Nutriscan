@@ -1,0 +1,318 @@
+.container {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 60px 40px;
+  margin: 40px auto;
+  max-width: 1228px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.content {
+  display: flex;
+  gap: 60px;
+  align-items: center;
+}
+
+.textSection {
+  flex: 1;
+  max-width: 500px;
+}
+
+.mainTitle {
+  color: #1a365d !important;
+  font-size: 32px !important;
+  font-weight: 700 !important;
+  margin-bottom: 30px !important;
+  line-height: 1.2 !important;
+}
+
+.tabContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 30px;
+}
+
+.tab {
+  background: transparent;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #4a5568;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+  width: fit-content;
+}
+
+.tab:hover {
+  background: #e6f7ff;
+  color: #1a365d;
+}
+
+.activeTab {
+  background: #e6f7ff !important;
+  color: #1a365d !important;
+  font-weight: 600 !important;
+}
+
+.stepContent {
+  margin-bottom: 30px;
+}
+
+.subtitle {
+  color: #1a365d !important;
+  font-size: 24px !important;
+  font-weight: 600 !important;
+  margin-bottom: 16px !important;
+  line-height: 1.3 !important;
+}
+
+.description {
+  color: #4a5568 !important;
+  font-size: 16px !important;
+  line-height: 1.6 !important;
+  margin-bottom: 0 !important;
+}
+
+.navigation {
+  display: flex;
+  gap: 12px;
+}
+
+.navButton {
+  width: 48px !important;
+  height: 48px !important;
+  border-radius: 12px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border: 1px solid #e2e8f0 !important;
+  background: #f8fafc !important;
+  color: #64748b !important;
+  transition: all 0.3s ease !important;
+}
+
+.navButton:hover {
+  background: #16B6BE !important;
+  color: white !important;
+  border-color: #16B6BE !important;
+}
+
+.navButton:first-child {
+  background: #f1f5f9 !important;
+}
+
+.navButton:last-child {
+  background: #e6f7ff !important;
+  color: #16B6BE !important;
+}
+
+.imageSection {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.imageContainer {
+  width: 100%;
+  max-width: 400px;
+}
+
+.imagePlaceholder {
+  width: 100%;
+  height: 400px;
+  border-radius: 20px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  position: relative;
+}
+
+.labImage {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.imageContent {
+  position: relative;
+  width: 80%;
+  height: 80%;
+}
+
+.scientist {
+  position: absolute;
+  bottom: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 160px;
+  background: #ffffff;
+  border-radius: 60px 60px 0 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.scientist::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 60px;
+  background: #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.labEquipment {
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 40px;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.labEquipment::before {
+  content: '';
+  position: absolute;
+  top: -30px;
+  left: 20px;
+  width: 40px;
+  height: 30px;
+  background: #e6f7ff;
+  border-radius: 4px;
+}
+
+.labEquipment::after {
+  content: '';
+  position: absolute;
+  top: -30px;
+  right: 20px;
+  width: 40px;
+  height: 30px;
+  background: #e6f7ff;
+  border-radius: 4px;
+}
+
+/* Адаптивность для планшетов */
+@media (max-width: 1024px) {
+  .container {
+    padding: 40px 30px;
+    margin: 30px auto;
+  }
+  
+  .content {
+    gap: 40px;
+  }
+  
+  .mainTitle {
+    font-size: 28px !important;
+  }
+  
+  .subtitle {
+    font-size: 22px !important;
+  }
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+  .container {
+    padding: 30px 20px;
+    margin: 20px auto;
+    border-radius: 16px;
+  }
+  
+  .content {
+    flex-direction: column;
+    gap: 30px;
+  }
+  
+  .textSection {
+    max-width: 100%;
+  }
+  
+  .mainTitle {
+    font-size: 24px !important;
+    margin-bottom: 20px !important;
+  }
+  
+  .tabContainer {
+    margin-bottom: 20px;
+  }
+  
+  .tab {
+    font-size: 14px;
+    padding: 10px 16px;
+  }
+  
+  .subtitle {
+    font-size: 20px !important;
+  }
+  
+  .description {
+    font-size: 15px !important;
+  }
+  
+  .imageContainer {
+    max-width: 300px;
+  }
+  
+  .imagePlaceholder {
+    height: 300px;
+  }
+  
+  .scientist {
+    width: 100px;
+    height: 130px;
+  }
+  
+  .scientist::before {
+    width: 50px;
+    height: 50px;
+    top: -15px;
+  }
+  
+  .labEquipment {
+    width: 160px;
+    height: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 20px 16px;
+    margin: 15px auto;
+  }
+  
+  .mainTitle {
+    font-size: 22px !important;
+  }
+  
+  .subtitle {
+    font-size: 18px !important;
+  }
+  
+  .description {
+    font-size: 14px !important;
+  }
+  
+  .navButton {
+    width: 40px !important;
+    height: 40px !important;
+  }
+  
+  .imagePlaceholder {
+    height: 250px;
+  }
+}

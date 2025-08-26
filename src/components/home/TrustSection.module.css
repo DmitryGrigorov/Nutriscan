@@ -1,0 +1,452 @@
+.container {
+  max-width: 1228px;
+  margin: 40px auto;
+  border: 1px solid #e6f7ff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.content {
+  display: flex;
+  min-height: 400px;
+}
+
+/* Левая колонка */
+.leftColumn {
+  flex: 2;
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.mainTitle {
+  color: #1a365d !important;
+  font-size: 32px !important;
+  font-weight: 700 !important;
+  margin-bottom: 30px !important;
+  line-height: 1.2 !important;
+}
+
+.chatBubble {
+  width: 120px;
+  height: 120px;
+  background: #ffffff;
+  border: 4px solid #16B6BE;
+  border-radius: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+  box-shadow: 0 8px 24px rgba(22, 182, 190, 0.2);
+  position: relative;
+}
+
+.chatBubble::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-top: 15px solid #16B6BE;
+}
+
+.starIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reviewsStats {
+  text-align: center;
+}
+
+.reviewsNumber {
+  font-size: 36px;
+  font-weight: 700;
+  color: #1a365d;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.reviewsLabel {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a365d;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.reviewsSubtext {
+  font-size: 14px;
+  color: #4a5568;
+  font-weight: 400;
+}
+
+/* Правая колонка */
+.rightColumn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Верхняя секция */
+.topSection {
+  flex: 1;
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+  padding: 30px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.usersStats {
+  flex: 1;
+}
+
+.usersNumber {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a365d;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.usersLabel {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a365d;
+  margin-bottom: 12px;
+}
+
+.usersDescription {
+  font-size: 14px;
+  color: #1a365d;
+  line-height: 1.4;
+}
+
+.clipboardIllustration {
+  position: relative;
+  width: 120px;
+  height: 120px;
+}
+
+.clipboard {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 80px;
+  height: 100px;
+  background: #a78bfa;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.paper {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+  background: #ffffff;
+  border-radius: 4px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.checkboxItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.checkbox {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.checkbox.checked {
+  background: #10b981;
+  border: 1px solid #10b981;
+}
+
+.checkbox.unchecked {
+  background: #e5e7eb;
+  border: 1px solid #d1d5db;
+}
+
+.checkboxText {
+  font-size: 8px;
+  color: #374151;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.hand {
+  position: absolute;
+  top: 20px;
+  right: 0;
+  width: 40px;
+  height: 60px;
+  background: #fbbf24;
+  border-radius: 20px;
+  transform: rotate(15deg);
+}
+
+.pencil {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  width: 4px;
+  height: 30px;
+  background: #a78bfa;
+  border-radius: 2px;
+  transform: rotate(-45deg);
+}
+
+/* Нижняя секция */
+.bottomSection {
+  flex: 1;
+  background: #ffffff;
+  padding: 30px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.progressChart {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  flex-shrink: 0;
+}
+
+.progressText {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 24px;
+  font-weight: 700;
+  color: #1a365d;
+}
+
+.progressStats {
+  flex: 1;
+}
+
+.progressNumber {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a365d;
+  margin-bottom: 8px;
+}
+
+.progressDescription {
+  font-size: 14px;
+  color: #1a365d;
+  line-height: 1.4;
+  margin-bottom: 8px;
+}
+
+.progressNote {
+  font-size: 12px;
+  color: #9ca3af;
+  font-style: italic;
+}
+
+/* Адаптивность для планшетов */
+@media (max-width: 1024px) {
+  .container {
+    margin: 30px auto;
+  }
+  
+  .content {
+    min-height: 350px;
+  }
+  
+  .leftColumn {
+    padding: 30px 20px;
+  }
+  
+  .mainTitle {
+    font-size: 28px !important;
+  }
+  
+  .reviewsNumber {
+    font-size: 32px;
+  }
+  
+  .topSection,
+  .bottomSection {
+    padding: 25px 20px;
+  }
+  
+  .usersNumber {
+    font-size: 24px;
+  }
+  
+  .progressNumber {
+    font-size: 18px;
+  }
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+  .container {
+    margin: 20px auto;
+    border-radius: 12px;
+  }
+  
+  .content {
+    flex-direction: column;
+    min-height: auto;
+  }
+  
+  .leftColumn {
+    padding: 30px 20px;
+    order: 1;
+  }
+  
+  .rightColumn {
+    order: 2;
+  }
+  
+  .mainTitle {
+    font-size: 24px !important;
+    margin-bottom: 20px !important;
+  }
+  
+  .chatBubble {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 20px;
+  }
+  
+  .reviewsNumber {
+    font-size: 28px;
+  }
+  
+  .reviewsLabel {
+    font-size: 16px;
+  }
+  
+  .topSection {
+    flex-direction: column;
+    text-align: center;
+    gap: 15px;
+    padding: 25px 20px;
+  }
+  
+  .clipboardIllustration {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .clipboard {
+    width: 70px;
+    height: 85px;
+  }
+  
+  .paper {
+    padding: 10px;
+    gap: 6px;
+  }
+  
+  .checkboxText {
+    font-size: 7px;
+  }
+  
+  .hand {
+    width: 35px;
+    height: 50px;
+  }
+  
+  .bottomSection {
+    flex-direction: column;
+    text-align: center;
+    gap: 15px;
+    padding: 25px 20px;
+  }
+  
+  .progressChart {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .progressText {
+    font-size: 20px;
+  }
+  
+  .progressNumber {
+    font-size: 16px;
+  }
+  
+  .progressDescription {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    margin: 15px auto;
+  }
+  
+  .leftColumn {
+    padding: 25px 16px;
+  }
+  
+  .mainTitle {
+    font-size: 22px !important;
+  }
+  
+  .chatBubble {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .reviewsNumber {
+    font-size: 24px;
+  }
+  
+  .topSection,
+  .bottomSection {
+    padding: 20px 16px;
+  }
+  
+  .usersNumber {
+    font-size: 20px;
+  }
+  
+  .clipboardIllustration {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .clipboard {
+    width: 60px;
+    height: 70px;
+  }
+  
+  .progressChart {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .progressText {
+    font-size: 18px;
+  }
+}

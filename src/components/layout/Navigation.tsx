@@ -1,6 +1,6 @@
 'use client';
 
-import { Layout, Button, Space, Typography, Menu, Dropdown } from 'antd';
+import { Layout, Button, Space, Typography, Menu, Dropdown, Drawer } from 'antd';
 import type { MenuProps } from 'antd';
 import { useRouter, usePathname } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
@@ -51,12 +51,10 @@ export const Navigation = () => {
   const mobileMenuItems: MenuProps['items'] = [
     {
       key: '/',
-      icon: <HomeOutlined />,
       label: <Link href="/">Главная</Link>,
     },
     {
       key: '/about',
-      icon: <TeamOutlined />,
       label: <Link href="/about">О нас</Link>,
     },
     {
@@ -73,17 +71,14 @@ export const Navigation = () => {
     },
     {
       key: '/pharmacy',
-      icon: <MedicineBoxOutlined />,
       label: <Link href="/pharmacy">Все продукты</Link>,
     },
     {
       key: '/pharmacy/category',
-      icon: <ExperimentOutlined />,
       label: <Link href="/pharmacy/category">Категории</Link>,
     },
     {
       key: '/pharmacy/cart',
-      icon: <ShoppingCartOutlined />,
       label: <Link href="/pharmacy/cart">Корзина</Link>,
     },
     {
@@ -100,52 +95,42 @@ export const Navigation = () => {
     },
     {
       key: '/dashboard/account',
-      icon: <UserOutlined />,
       label: <Link href="/dashboard/account">Аккаунт</Link>,
     },
     {
       key: '/dashboard',
-      icon: <UserOutlined />,
       label: <Link href="/dashboard">Обзор</Link>,
     },
     {
       key: '/dashboard/supplements',
-      icon: <MedicineBoxOutlined />,
       label: <Link href="/dashboard/supplements">Мои БАДы</Link>,
     },
     {
       key: '/dashboard/analyses',
-      icon: <ExperimentOutlined />,
       label: <Link href="/dashboard/analyses">Мои анализы</Link>,
     },
     {
       key: '/dashboard/supplement-reminders',
-      icon: <BellOutlined />,
       label: <Link href="/dashboard/supplement-reminders">Напоминания о БАДах</Link>,
     },
     {
       key: '/dashboard/analysis-reminders',
-      icon: <BellOutlined />,
       label: <Link href="/dashboard/analysis-reminders">Напоминания об анализах</Link>,
     },
     {
       key: '/dashboard/recommendations',
-      icon: <BarChartOutlined />,
       label: <Link href="/dashboard/recommendations">Рекомендации</Link>,
     },
     {
       key: '/dashboard/promotions',
-      icon: <GiftOutlined />,
       label: <Link href="/dashboard/promotions">Акции</Link>,
     },
     {
       key: '/dashboard/surveys',
-      icon: <FileTextOutlined />,
       label: <Link href="/dashboard/surveys">Опросы</Link>,
     },
     {
       key: '/dashboard/trends',
-      icon: <LineChartOutlined />,
       label: <Link href="/dashboard/trends">Тренды</Link>,
     },
     ...(user?.$id === '683409e1a4097e2da357' || user?.$id === '680658de4352f354f0a9'
@@ -155,7 +140,6 @@ export const Navigation = () => {
           },
           {
             key: '/admin',
-            icon: <SettingOutlined />,
             label: <Link href="/admin">Админ панель</Link>,
           },
         ]
@@ -323,34 +307,102 @@ export const Navigation = () => {
             type="text"
             icon={<MenuOutlined style={{ fontSize: '20px' }} />}
             onClick={() => setDrawerOpen(true)}
+            className={styles.mobileMenuButton}
           />
-          <Menu
-            mode="vertical"
-            selectedKeys={[pathname]}
-            items={mobileMenuItems}
-            expandIcon={({ isOpen }) => (
-              <DownOutlined
-                className={styles.menuExpandIcon}
-                style={{
-                  transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
-                  transition: 'transform 0.3s ease',
-                }}
+{/* Fullscreen Mobile Menu */}
+          <div 
+            className={`${styles.fullscreenMenu} ${drawerOpen ? styles.fullscreenMenuOpen : ''}`}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Header с логотипом и кнопкой закрытия */}
+            <div className={styles.fullscreenHeader}>
+              <Image
+                src="/assets/icons/logo.svg"
+                alt="NutriScan"
+                width={120}
+                height={30}
               />
-            )}
-            className={styles.menuWithArrows}
-            style={{
-              position: 'fixed',
-              top: 0,
-              left: 0,
-              width: '100%',
-              height: '100vh',
-              zIndex: 1000,
-              background: '#fff',
-              transform: drawerOpen ? 'translateX(0)' : 'translateX(-100%)',
-              transition: 'transform 0.3s ease-in-out',
-            }}
-            onClick={() => setDrawerOpen(false)}
-          />
+              <Button
+                type="text"
+                icon={<span className={styles.closeIcon}>✕</span>}
+                onClick={() => setDrawerOpen(false)}
+                className={styles.closeButton}
+              />
+            </div>
+            
+            <div className={styles.fullscreenContent}>
+              <Menu
+                mode="vertical"
+                selectedKeys={[pathname]}
+                items={mobileMenuItems}
+                expandIcon={({ isOpen }) => (
+                  <DownOutlined
+                    className={styles.menuExpandIcon}
+                    style={{
+                      transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                      transition: 'transform 0.3s ease',
+                    }}
+                  />
+                )}
+                className={styles.fullscreenMobileMenu}
+                onClick={() => setDrawerOpen(false)}
+                style={{ border: 'none', background: 'transparent' }}
+              />
+              
+              {/* Кнопка входа/личный кабинет в мобильном меню */}
+              <div className={styles.fullscreenAuthSection}>
+                {user ? (
+                  <Button
+                    type="primary"
+                    size="large"
+                    block
+                    onClick={() => {
+                      router.push('/dashboard');
+                      setDrawerOpen(false);
+                    }}
+                    className={styles.mobileAuthButton}
+                  >
+                    Личный кабинет
+                  </Button>
+                ) : (
+                  <Space direction="vertical" size="small" style={{ width: '100%' }}>
+                    <Button
+                      type="primary"
+                      size="large"
+                      block
+                      onClick={() => {
+                        router.push('/auth/login');
+                        setDrawerOpen(false);
+                      }}
+                      className={styles.mobileAuthButton}
+                    >
+                      Войти
+                    </Button>
+                    <Button
+                      type="default"
+                      size="large"
+                      block
+                      onClick={() => {
+                        router.push('/auth/register');
+                        setDrawerOpen(false);
+                      }}
+                      className={styles.mobileRegisterButton}
+                    >
+                      Зарегистрироваться
+                    </Button>
+                  </Space>
+                )}
+              </div>
+            </div>
+          </div>
+          
+          {/* Overlay */}
+          {drawerOpen && (
+            <div 
+              className={styles.fullscreenOverlay}
+              onClick={() => setDrawerOpen(false)}
+            />
+          )}
         </>
       ) : (
         <div
@@ -365,130 +417,135 @@ export const Navigation = () => {
         </div>
       )}
 
-      {/* Right Section - CTA Button */}
-      <Space size="large">
-        <Dropdown
-          menu={{
-            items: user
-              ? [
-                  {
-                    key: '/dashboard/account',
-                    icon: <UserOutlined />,
-                    label: <Link href="/dashboard/account">Аккаунт</Link>,
-                  },
-                  {
-                    key: '/dashboard',
-                    icon: <UserOutlined />,
-                    label: <Link href="/dashboard">Обзор</Link>,
-                  },
-                  {
-                    key: '/dashboard/supplements',
-                    icon: <MedicineBoxOutlined />,
-                    label: <Link href="/dashboard/supplements">Мои БАДы</Link>,
-                  },
-                  {
-                    key: '/dashboard/analyses',
-                    icon: <ExperimentOutlined />,
-                    label: <Link href="/dashboard/analyses">Мои анализы</Link>,
-                  },
-                  {
-                    key: '/dashboard/supplement-reminders',
-                    icon: <BellOutlined />,
-                    label: <Link href="/dashboard/supplement-reminders">Напоминания о БАДах</Link>,
-                  },
-                  {
-                    key: '/dashboard/analysis-reminders',
-                    icon: <BellOutlined />,
-                    label: (
-                      <Link href="/dashboard/analysis-reminders">Напоминания об анализах</Link>
-                    ),
-                  },
-                  {
-                    key: '/dashboard/recommendations',
-                    icon: <BarChartOutlined />,
-                    label: <Link href="/dashboard/recommendations">Рекомендации</Link>,
-                  },
-                  {
-                    key: '/dashboard/promotions',
-                    icon: <GiftOutlined />,
-                    label: <Link href="/dashboard/promotions">Акции</Link>,
-                  },
-                  {
-                    key: '/dashboard/surveys',
-                    icon: <FileTextOutlined />,
-                    label: <Link href="/dashboard/surveys">Опросы</Link>,
-                  },
-                  {
-                    key: '/dashboard/trends',
-                    icon: <LineChartOutlined />,
-                    label: <Link href="/dashboard/trends">Тренды</Link>,
-                  },
-                  ...(user?.$id === '683409e1a4097e2da357' || user?.$id === '680658de4352f354f0a9'
-                    ? [
-                        {
-                          key: '/admin',
-                          icon: <SettingOutlined />,
-                          label: <Link href="/admin">Админ панель</Link>,
-                        },
-                      ]
-                    : []),
-                ]
-              : [
-                  {
-                    key: '/auth/login',
-                    icon: <UserOutlined />,
-                    label: <Link href="/auth/login">Войти</Link>,
-                  },
-                  {
-                    key: '/auth/register',
-                    icon: <UserOutlined />,
-                    label: <Link href="/auth/register">Зарегистрироваться</Link>,
-                  },
-                ],
-            onClick: ({ key }) => router.push(key),
-          }}
-          placement="bottomRight"
-          trigger={['click']}
-        >
-          <div
-            style={{
-              position: 'relative',
-              display: 'inline-block',
+      {/* Right Section - CTA Button (только для десктопа) */}
+      {!isMobile && (
+        <Space size="large">
+          <Dropdown
+            menu={{
+              items: user
+                ? [
+                    {
+                      key: '/dashboard/account',
+                      icon: <UserOutlined />,
+                      label: <Link href="/dashboard/account">Аккаунт</Link>,
+                    },
+                    {
+                      key: '/dashboard',
+                      icon: <UserOutlined />,
+                      label: <Link href="/dashboard">Обзор</Link>,
+                    },
+                    {
+                      key: '/dashboard/supplements',
+                      icon: <MedicineBoxOutlined />,
+                      label: <Link href="/dashboard/supplements">Мои БАДы</Link>,
+                    },
+                    {
+                      key: '/dashboard/analyses',
+                      icon: <ExperimentOutlined />,
+                      label: <Link href="/dashboard/analyses">Мои анализы</Link>,
+                    },
+                    {
+                      key: '/dashboard/supplement-reminders',
+                      icon: <BellOutlined />,
+                      label: <Link href="/dashboard/supplement-reminders">Напоминания о БАДах</Link>,
+                    },
+                    {
+                      key: '/dashboard/analysis-reminders',
+                      icon: <BellOutlined />,
+                      label: (
+                        <Link href="/dashboard/analysis-reminders">Напоминания об анализах</Link>
+                      ),
+                    },
+                    {
+                      key: '/dashboard/recommendations',
+                      icon: <BarChartOutlined />,
+                      label: <Link href="/dashboard/recommendations">Рекомендации</Link>,
+                    },
+                    {
+                      key: '/dashboard/promotions',
+                      icon: <GiftOutlined />,
+                      label: <Link href="/dashboard/promotions">Акции</Link>,
+                    },
+                    {
+                      key: '/dashboard/surveys',
+                      icon: <FileTextOutlined />,
+                      label: <Link href="/dashboard/surveys">Опросы</Link>,
+                    },
+                    {
+                      key: '/dashboard/trends',
+                      icon: <LineChartOutlined />,
+                      label: <Link href="/dashboard/trends">Тренды</Link>,
+                    },
+                    ...(user?.$id === '683409e1a4097e2da357' || user?.$id === '680658de4352f354f0a9'
+                      ? [
+                          {
+                            key: '/admin',
+                            icon: <SettingOutlined />,
+                            label: <Link href="/admin">Админ панель</Link>,
+                          },
+                        ]
+                      : []),
+                  ]
+                : [
+                    {
+                      key: '/auth/login',
+                      icon: <UserOutlined />,
+                      label: <Link href="/auth/login">Войти</Link>,
+                    },
+                    {
+                      key: '/auth/register',
+                      icon: <UserOutlined />,
+                      label: <Link href="/auth/register">Зарегистрироваться</Link>,
+                    },
+                  ],
+              onClick: ({ key }) => router.push(key),
             }}
+            placement="bottomRight"
+            trigger={['click']}
           >
-            <Button
-              type="default"
-              size="large"
+            <div
               style={{
-                background: '#fff',
-                border: '1px solid #16B6BE',
-                height: '40px',
-                padding: '0 16px',
-                borderRadius: '8px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px',
-                boxShadow: 'none',
                 position: 'relative',
-                zIndex: 2,
-                transition: 'all 0.2s ease',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = '#f0f9ff';
-                e.currentTarget.style.borderColor = '#0ea5e9';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = '#fff';
-                e.currentTarget.style.borderColor = '#16B6BE';
+                display: 'inline-block',
               }}
             >
-              <Image src="/assets/icons/logo_small.svg" alt="Pill Icon" width={20} height={20} />
-              <span style={{ color: '#15456E', fontWeight: '500' }}>Личный кабинет</span>
-              <DownOutlined style={{ fontSize: '12px', color: '#15456E' }} />
-            </Button>
-          </div>
-        </Dropdown>
-      </Space>
+              <Button
+                type="default"
+                size="large"
+                style={{
+                  background: '#fff',
+                  border: '1px solid #16B6BE',
+                  height: '40px',
+                  padding: '0 16px',
+                  borderRadius: '8px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  boxShadow: 'none',
+                  position: 'relative',
+                  zIndex: 2,
+                  transition: 'all 0.2s ease',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = '#f0f9ff';
+                  e.currentTarget.style.borderColor = '#0ea5e9';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = '#fff';
+                  e.currentTarget.style.borderColor = '#16B6BE';
+                }}
+                className={styles.desktopAuthButton}
+              >
+                <Image src="/assets/icons/logo_small.svg" alt="Pill Icon" width={20} height={20} />
+                <span style={{ color: '#15456E', fontWeight: '500' }}>
+                  {user ? 'Личный кабинет' : 'Войти'}
+                </span>
+                <DownOutlined style={{ fontSize: '12px', color: '#15456E' }} />
+              </Button>
+            </div>
+          </Dropdown>
+        </Space>
+      )}
     </AntHeader>
   );
 };
