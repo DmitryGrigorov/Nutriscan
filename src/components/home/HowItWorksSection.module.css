@@ -105,18 +105,9 @@
   padding: 10px 0;
   border-radius: 16px;
   text-decoration: none;
-  transition: all 0.3s ease;
   box-shadow: 0 4px 20px rgba(22, 182, 190, 0.3);
   border: none;
   cursor: pointer;
-}
-
-.ctaButton:hover {
-  background: linear-gradient(135deg, #14a5b5 0%, #0d94d8 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 25px rgba(22, 182, 190, 0.4);
-  color: #fff;
-  text-decoration: none;
 }
 
 /* Адаптивность для мобильных устройств */

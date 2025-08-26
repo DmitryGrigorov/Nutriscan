@@ -51,9 +51,9 @@ export const HowItWorksSection = () => {
         </div>
 
         <div className={styles.ctaContainer}>
-          <button onClick={handleButtonClick} className={styles.ctaButton}>
+          <div onClick={handleButtonClick} className={styles.ctaButton}>
             Перейти к заполнению анкеты
-          </button>
+          </div>
         </div>
       </div>
     </div>
