@@ -8,6 +8,8 @@ export const TitleHero = () => {
   return (
     <div className={styles.container}>
       <div className={styles.heroContent} style={getFontStyle('black')}>
+        <div className={styles.heroContentBackground}/>
+
         {/* Левый блок */}
         <div className={styles.leftBlock}>
           <div className={styles.titleContainer}>
