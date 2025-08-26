@@ -618,69 +618,69 @@ function MainFooter() {
   const scrollToTop = () => {
     try {
       console.log('scrollToTop - Smooth scrolling');
-      
+
       // Получаем все возможные элементы для скролла
       const html = document.documentElement;
       const body = document.body;
       const layoutContent = document.querySelector('.ant-layout-content');
-      
+
       console.log('Scroll positions:', {
         window: window.pageYOffset,
         html: html.scrollTop,
         body: body.scrollTop,
-        layoutContent: layoutContent?.scrollTop
+        layoutContent: layoutContent?.scrollTop,
       });
-      
+
       // Функция для smooth скролла с fallback
       const smoothScrollToTop = (element: Element, name: string) => {
         try {
           if (element.scrollTop > 0) {
             console.log(`Smooth скролл ${name} с позиции ${element.scrollTop}`);
-            
+
             // Пробуем smooth scrolling
             element.scrollTo({
               top: 0,
               left: 0,
-              behavior: 'smooth'
+              behavior: 'smooth',
             });
-            
+
             return true;
           }
         } catch (e) {
           console.log(`Smooth скролл не поддерживается для ${name}, используем fallback`);
-          
+
           // Fallback: анимированный скролл
           const startPosition = element.scrollTop;
           const startTime = performance.now();
           const duration = 800; // 800ms для smooth анимации
-          
+
           const animateScroll = (currentTime: number) => {
             const elapsed = currentTime - startTime;
             const progress = Math.min(elapsed / duration, 1);
-            
+
             // Easing функция для smooth анимации
             const easeOutCubic = 1 - Math.pow(1 - progress, 3);
-            
+
             element.scrollTop = startPosition * (1 - easeOutCubic);
-            
+
             if (progress < 1) {
               requestAnimationFrame(animateScroll);
             }
           };
-          
+
           requestAnimationFrame(animateScroll);
           return true;
         }
         return false;
       };
-      
+
       // Пробуем скроллить все возможные элементы
       const scrollElements = [
         { element: html, name: 'html' },
         { element: body, name: 'body' },
-        { element: layoutContent, name: 'layoutContent' }
-      ].filter(item => item.element);
-      
+        { element: layoutContent, name: 'layoutContent' },
+      ].filter((item) => item.element);
+
       let scrollSuccess = false;
       for (const { element, name } of scrollElements) {
         if (element && smoothScrollToTop(element, name)) {
@@ -688,17 +688,16 @@ function MainFooter() {
           break;
         }
       }
-      
+
       // Если ничего не сработало, используем window.scrollTo
       if (!scrollSuccess) {
         console.log('Используем window.scrollTo как fallback');
         window.scrollTo({
           top: 0,
           left: 0,
-          behavior: 'smooth'
+          behavior: 'smooth',
         });
       }
-      
     } catch (error) {
       console.log('Scroll error:', error);
       // Последний fallback без анимации
@@ -712,7 +711,9 @@ function MainFooter() {
   };
 
   return (
-    <Footer style={{ background: '#f6faff', padding: '40px 0', marginTop: 64, position: 'relative' }}>
+    <Footer
+      style={{ background: '#f6faff', padding: '40px 0', marginTop: 64, position: 'relative' }}
+    >
       {/* Кнопка "Наверх" */}
       <Button
         onClick={scrollToTop}
@@ -731,7 +732,7 @@ function MainFooter() {
           gap: '6px',
           zIndex: 10,
           boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
-          cursor: 'pointer'
+          cursor: 'pointer',
         }}
         icon={<ArrowUpOutlined />}
       >
@@ -747,18 +748,19 @@ function MainFooter() {
           <Paragraph style={{ color: '#1a365d', marginBottom: 8 }}>
             105203, город Москва, Первомайская ул, д. 116а, помещ. 1/1
           </Paragraph>
-          <Paragraph style={{ color: '#1a365d', marginBottom: 8 }}>
-            9:00–19:00, Пн–Пт
-          </Paragraph>
+          <Paragraph style={{ color: '#1a365d', marginBottom: 8 }}>9:00–19:00, Пн–Пт</Paragraph>
           <Paragraph style={{ color: '#1a365d', marginBottom: 16 }}>
             email: <strong>info@nutriscan.ru</strong>
           </Paragraph>
           <Paragraph style={{ color: '#64748b', fontSize: '14px', lineHeight: '1.5' }}>
-            Все рекомендации не носят предписательного характера. Пожалуйста, ознакомьтесь с Пользовательским соглашением перед использованием
+            Все рекомендации не носят предписательного характера. Пожалуйста, ознакомьтесь с
+            Пользовательским соглашением перед использованием
           </Paragraph>
         </Col>
         <Col xs={24} md={6}>
-          <Title level={5} style={{ color: '#1a365d' }}>Nutriscan</Title>
+          <Title level={5} style={{ color: '#1a365d' }}>
+            Nutriscan
+          </Title>
           <ul style={{ color: '#1a365d', paddingLeft: 0, listStyle: 'none' }}>
             <li style={{ marginBottom: '8px' }}>Исследования</li>
             <li style={{ marginBottom: '8px' }}>Отзывы</li>
@@ -766,7 +768,9 @@ function MainFooter() {
           </ul>
         </Col>
         <Col xs={24} md={6}>
-          <Title level={5} style={{ color: '#1a365d' }}>Документы</Title>
+          <Title level={5} style={{ color: '#1a365d' }}>
+            Документы
+          </Title>
           <ul style={{ color: '#1a365d', paddingLeft: 0, listStyle: 'none' }}>
             <li style={{ marginBottom: '8px' }}>Пользовательское соглашение</li>
             <li style={{ marginBottom: '8px' }}>Отзывы</li>
@@ -775,8 +779,18 @@ function MainFooter() {
         </Col>
       </Row>
       <Divider />
-      <div style={{ textAlign: 'center', color: '#64748b', fontSize: '14px', lineHeight: '1.5', padding: '0 20px' }}>
-        Размещённые на сайте продукты не являются лекарственными средствами. Nutriscan не осуществляет медицинскую деятельность и не оказывает Пользователям Сайта медицинские услуги, в том числе направленные на профилактику, диагностику и лечение заболеваний.
+      <div
+        style={{
+          textAlign: 'center',
+          color: '#64748b',
+          fontSize: '14px',
+          lineHeight: '1.5',
+          padding: '0 20px',
+        }}
+      >
+        Размещённые на сайте продукты не являются лекарственными средствами. Nutriscan не
+        осуществляет медицинскую деятельность и не оказывает Пользователям Сайта медицинские услуги,
+        в том числе направленные на профилактику, диагностику и лечение заболеваний.
       </div>
     </Footer>
   );

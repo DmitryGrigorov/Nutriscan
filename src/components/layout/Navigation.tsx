@@ -277,7 +277,7 @@ export const Navigation = () => {
         alignItems: 'center',
         boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
         padding: isMobile ? '0 16px' : '0 24px',
-        userSelect: 'none'
+        userSelect: 'none',
       }}
     >
       {/* Logo Section */}
@@ -309,19 +309,14 @@ export const Navigation = () => {
             onClick={() => setDrawerOpen(true)}
             className={styles.mobileMenuButton}
           />
-{/* Fullscreen Mobile Menu */}
-          <div 
+          {/* Fullscreen Mobile Menu */}
+          <div
             className={`${styles.fullscreenMenu} ${drawerOpen ? styles.fullscreenMenuOpen : ''}`}
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header с логотипом и кнопкой закрытия */}
             <div className={styles.fullscreenHeader}>
-              <Image
-                src="/assets/icons/logo.svg"
-                alt="NutriScan"
-                width={120}
-                height={30}
-              />
+              <Image src="/assets/icons/logo.svg" alt="NutriScan" width={120} height={30} />
               <Button
                 type="text"
                 icon={<span className={styles.closeIcon}>✕</span>}
@@ -329,7 +324,7 @@ export const Navigation = () => {
                 className={styles.closeButton}
               />
             </div>
-            
+
             <div className={styles.fullscreenContent}>
               <Menu
                 mode="vertical"
@@ -348,7 +343,7 @@ export const Navigation = () => {
                 onClick={() => setDrawerOpen(false)}
                 style={{ border: 'none', background: 'transparent' }}
               />
-              
+
               {/* Кнопка входа/личный кабинет в мобильном меню */}
               <div className={styles.fullscreenAuthSection}>
                 {user ? (
@@ -395,13 +390,10 @@ export const Navigation = () => {
               </div>
             </div>
           </div>
-          
+
           {/* Overlay */}
           {drawerOpen && (
-            <div 
-              className={styles.fullscreenOverlay}
-              onClick={() => setDrawerOpen(false)}
-            />
+            <div className={styles.fullscreenOverlay} onClick={() => setDrawerOpen(false)} />
           )}
         </>
       ) : (
@@ -447,7 +439,9 @@ export const Navigation = () => {
                     {
                       key: '/dashboard/supplement-reminders',
                       icon: <BellOutlined />,
-                      label: <Link href="/dashboard/supplement-reminders">Напоминания о БАДах</Link>,
+                      label: (
+                        <Link href="/dashboard/supplement-reminders">Напоминания о БАДах</Link>
+                      ),
                     },
                     {
                       key: '/dashboard/analysis-reminders',

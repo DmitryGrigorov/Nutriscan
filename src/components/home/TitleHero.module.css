@@ -47,6 +47,7 @@
 
 .descriptionMedium {
   font-weight: 500;
+  color: #002E55;
 }
 
 .highlightedText {
@@ -68,6 +69,7 @@
   align-items: center;
   border-radius: 14px;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.06) 100%);
+  border: 1px solid rgba(255, 255, 255);
   padding: 11px;
   margin-bottom: 24px;
   max-width: 264px;
@@ -92,7 +94,7 @@
   font-size: 28px;
   line-height: 100%;
   letter-spacing: 0px;
-  color: #16B6BE;
+  color: #002E55;
 }
 
 .aiStats {
@@ -173,8 +175,7 @@
 
 .statsBlock {
   border-radius: 16px;
-  border: 1.5px solid #B6E6F2;
-  background: linear-gradient(180deg, #E6F8FA 0%, #D6F2F7 100%);
+  border: 1px solid #fff;
   padding: 20px 28px 18px 28px;
   margin-bottom: 0;
   display: flex;
@@ -277,7 +278,8 @@
   .description {
     font-size: 18px;
     margin-bottom: 30px;
-    line-height: 1.4;
+    font-weight: 400;
+    line-height: 1.2;
   }
 
   .descriptionMedium {

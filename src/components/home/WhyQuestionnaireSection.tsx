@@ -6,7 +6,10 @@ import styles from './WhyQuestionnaireSection.module.css';
 export const WhyQuestionnaireSection = () => {
   return (
     <div className={styles.container}>
-      <div className={styles.headerContent} style={{ backgroundImage: 'url(/assets/images/doctor_img.jpg)' }}>
+      <div
+        className={styles.headerContent}
+        style={{ backgroundImage: 'url(/assets/images/doctor_img.jpg)' }}
+      >
         <div className={styles.headerText}>
           <h2 className={styles.mainTitle}>Почему важно заполнить анкету</h2>
           <p className={styles.quote}>
@@ -15,8 +18,7 @@ export const WhyQuestionnaireSection = () => {
           </p>
           <p className={styles.author}>Майкл Грегер, Московская медицинская конференция, 2024</p>
         </div>
-        <div className={styles.doctorImageContainer}>
-        </div>
+        <div className={styles.doctorImageContainer}></div>
       </div>
 
       <div className={styles.cardsContainer}>

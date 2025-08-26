@@ -14,7 +14,7 @@ export function TrustSection() {
       viewport={{ once: true, amount: 0.2 }}
       variants={{
         hidden: { opacity: 0, y: 50 },
-        visible: { opacity: 1, y: 0 }
+        visible: { opacity: 1, y: 0 },
       }}
       transition={{ duration: 0.8 }}
       className={styles.container}
@@ -25,7 +25,7 @@ export function TrustSection() {
           <Title level={2} className={styles.mainTitle}>
             Мы ценим ваше доверие
           </Title>
-          
+
           <div className={styles.chatBubble}>
             <div className={styles.starIcon}>
               <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
@@ -38,7 +38,7 @@ export function TrustSection() {
               </svg>
             </div>
           </div>
-          
+
           <div className={styles.reviewsStats}>
             <div className={styles.reviewsNumber}>Более 1000</div>
             <div className={styles.reviewsLabel}>ОТЗЫВОВ</div>
@@ -57,7 +57,7 @@ export function TrustSection() {
                 получили анализ и назначения от системы AI NutriScan бесплатно
               </div>
             </div>
-            
+
             <div className={styles.clipboardIllustration}>
               <div className={styles.clipboard}>
                 <div className={styles.paper}>
@@ -89,14 +89,7 @@ export function TrustSection() {
           <div className={styles.bottomSection}>
             <div className={styles.progressChart}>
               <svg width="120" height="120" viewBox="0 0 120 120">
-                <circle
-                  cx="60"
-                  cy="60"
-                  r="50"
-                  fill="none"
-                  stroke="#e2e8f0"
-                  strokeWidth="8"
-                />
+                <circle cx="60" cy="60" r="50" fill="none" stroke="#e2e8f0" strokeWidth="8" />
                 <circle
                   cx="60"
                   cy="60"
@@ -112,15 +105,13 @@ export function TrustSection() {
               </svg>
               <div className={styles.progressText}>77%</div>
             </div>
-            
+
             <div className={styles.progressStats}>
               <div className={styles.progressNumber}>77% клиентов</div>
               <div className={styles.progressDescription}>
                 отмечают позитивные изменения самочувствия и настроения *
               </div>
-              <div className={styles.progressNote}>
-                *по результатам опроса клиентов NutriScan
-              </div>
+              <div className={styles.progressNote}>*по результатам опроса клиентов NutriScan</div>
             </div>
           </div>
         </div>

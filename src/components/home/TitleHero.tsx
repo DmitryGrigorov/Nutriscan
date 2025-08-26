@@ -22,10 +22,11 @@ export const TitleHero = () => {
           <div className={styles.description}>
             <span className={styles.descriptionMedium}>
               специально для вас на основе <br />
-              <span className={styles.highlightedText}>индивидуального смарт-анализа</span>
+              <span className={styles.highlightedText}>индивидуального смарт-анализа</span><br />
+              параметров вашего организма и образа жизни
             </span>
-            <br />
-            параметров вашего организма и образа жизни
+            
+            
           </div>
           <div className={styles.aiCardContainer}>
             {/* Карточка AI NutriScan */}
@@ -72,7 +73,7 @@ export const TitleHero = () => {
                   <br />
                   рекомендации
                 </span>
-                <span className={styles.recommendationsArrow}>&gt;</span>
+                <span className={styles.recommendationsArrow}><Image src="/assets/icons/arrow-right-icon.svg" alt="Arrow" width={32} height={32} /></span>
               </a>
             </div>
           </div>

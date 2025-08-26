@@ -20,23 +20,24 @@ const processSteps: ProcessStep[] = [
     id: 'analysis',
     title: 'Анализируем состояние',
     subtitle: 'Комплексный подход',
-    description: 'Учитываем не только анализы, но и ваш образ жизни. Уточняем наличие хронических заболеваний, аллергий или непереносимости веществ.',
-    image: '/images/selection-process-1.jpg'
+    description:
+      'Учитываем не только анализы, но и ваш образ жизни. Уточняем наличие хронических заболеваний, аллергий или непереносимости веществ.',
+    image: '/images/selection-process-1.jpg',
   },
   {
     id: 'personalization',
     title: 'Персонализируем',
     subtitle: 'Индивидуальный подход',
     description: 'Создаем персональную программу на основе ваших уникальных потребностей и целей.',
-    image: '/images/selection-process-2.jpg'
+    image: '/images/selection-process-2.jpg',
   },
   {
     id: 'recommendation',
     title: 'Рекомендуем',
     subtitle: 'Научный подход',
     description: 'Подбираем БАДы на основе научных исследований и клинических данных.',
-    image: '/images/selection-process-3.jpg'
-  }
+    image: '/images/selection-process-3.jpg',
+  },
 ];
 
 export function SelectionProcessSection() {
@@ -59,7 +60,7 @@ export function SelectionProcessSection() {
       viewport={{ once: true, amount: 0.2 }}
       variants={{
         hidden: { opacity: 0, y: 50 },
-        visible: { opacity: 1, y: 0 }
+        visible: { opacity: 1, y: 0 },
       }}
       transition={{ duration: 0.8 }}
       className={styles.container}
@@ -69,7 +70,7 @@ export function SelectionProcessSection() {
           <Title level={2} className={styles.mainTitle}>
             Как происходит подбор NutriScan™
           </Title>
-          
+
           <div className={styles.tabContainer}>
             {processSteps.map((step, index) => (
               <button
@@ -94,9 +95,7 @@ export function SelectionProcessSection() {
               <Title level={3} className={styles.subtitle}>
                 {currentProcessStep.subtitle}
               </Title>
-              <Paragraph className={styles.description}>
-                {currentProcessStep.description}
-              </Paragraph>
+              <Paragraph className={styles.description}>{currentProcessStep.description}</Paragraph>
             </motion.div>
           </AnimatePresence>
 

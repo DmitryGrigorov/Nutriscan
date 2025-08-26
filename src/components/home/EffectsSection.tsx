@@ -21,29 +21,29 @@ const effectCards: EffectCard[] = [
     title: '+100% к запасу сил и энергии',
     description: 'успевайте больше, чем планировали на день',
     image: '/images/energy-runner.jpg',
-    gradient: 'linear-gradient(135deg, #e6f7ff 0%, #b3e5fc 100%)'
+    gradient: 'linear-gradient(135deg, #e6f7ff 0%, #b3e5fc 100%)',
   },
   {
     id: 'hair-nails',
     title: 'Крепкие волосы и ногти',
     description: 'приятное дополнение к общему улучшению самочувствия',
     image: '/images/hair-nails.jpg',
-    gradient: 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)'
+    gradient: 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)',
   },
   {
     id: 'immunity',
     title: 'Укрепление иммунитета',
     description: 'защита от сезонных простуд и вирусов',
     image: '/images/immunity.jpg',
-    gradient: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)'
+    gradient: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
   },
   {
     id: 'sleep',
     title: 'Качественный сон',
     description: 'глубокий и восстанавливающий отдых',
     image: '/images/sleep.jpg',
-    gradient: 'linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%)'
-  }
+    gradient: 'linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%)',
+  },
 ];
 
 export function EffectsSection() {
@@ -84,7 +84,7 @@ export function EffectsSection() {
       viewport={{ once: true, amount: 0.2 }}
       variants={{
         hidden: { opacity: 0, y: 50 },
-        visible: { opacity: 1, y: 0 }
+        visible: { opacity: 1, y: 0 },
       }}
       transition={{ duration: 0.8 }}
       className={styles.container}
@@ -93,7 +93,7 @@ export function EffectsSection() {
         <Title level={2} className={styles.mainTitle}>
           Почувствуйте эффект через 2 недели
         </Title>
-        
+
         <div className={styles.navigation}>
           <Button
             type="text"
@@ -115,11 +115,11 @@ export function EffectsSection() {
           <motion.div
             className={styles.cardsRow}
             animate={{
-              x: -getScrollOffset()
+              x: -getScrollOffset(),
             }}
             transition={{
               duration: 0.5,
-              ease: "easeInOut"
+              ease: 'easeInOut',
             }}
           >
             {effectCards.map((card, index) => (
@@ -127,9 +127,9 @@ export function EffectsSection() {
                 key={card.id}
                 className={styles.card}
                 style={{ background: card.gradient }}
-                whileHover={{ 
+                whileHover={{
                   scale: 1.02,
-                  transition: { duration: 0.2 }
+                  transition: { duration: 0.2 },
                 }}
               >
                 <div className={styles.cardContent}>
@@ -137,14 +137,10 @@ export function EffectsSection() {
                     <Title level={3} className={styles.cardTitle}>
                       {card.title}
                     </Title>
-                    <Paragraph className={styles.cardDescription}>
-                      {card.description}
-                    </Paragraph>
-                    <Button className={styles.joinButton}>
-                      Присоединиться
-                    </Button>
+                    <Paragraph className={styles.cardDescription}>{card.description}</Paragraph>
+                    <Button className={styles.joinButton}>Присоединиться</Button>
                   </div>
-                  
+
                   <div className={styles.imageContainer}>
                     {card.id === 'energy' && (
                       <div className={styles.runnerImage}>
@@ -152,21 +148,21 @@ export function EffectsSection() {
                         <div className={styles.headphones}></div>
                       </div>
                     )}
-                    
+
                     {card.id === 'hair-nails' && (
                       <div className={styles.hairImage}>
                         <div className={styles.hair}></div>
                         <div className={styles.hand}></div>
                       </div>
                     )}
-                    
+
                     {card.id === 'immunity' && (
                       <div className={styles.immunityImage}>
                         <div className={styles.shield}></div>
                         <div className={styles.virus}></div>
                       </div>
                     )}
-                    
+
                     {card.id === 'sleep' && (
                       <div className={styles.sleepImage}>
                         <div className={styles.moon}></div>
@@ -179,7 +175,7 @@ export function EffectsSection() {
             ))}
           </motion.div>
         </div>
-        
+
         {/* Индикаторы */}
         <div className={styles.indicators}>
           {[0, 1, 2].map((index) => (
