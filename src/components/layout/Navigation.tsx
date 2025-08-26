@@ -293,6 +293,7 @@ export const Navigation = () => {
         alignItems: 'center',
         boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
         padding: isMobile ? '0 16px' : '0 24px',
+        userSelect: 'none'
       }}
     >
       {/* Logo Section */}

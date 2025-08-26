@@ -6,35 +6,47 @@
 
 .headerContent {
   max-width: 1200px;
+  height: 674px;
   margin: 0 auto 60px auto;
   display: grid;
   grid-template-columns: 1fr auto;
   gap: 40px;
   align-items: center;
-  padding: 0 24px;
+  padding: 104px;
 }
 
 .headerText {
   text-align: left;
+  width: 604px;
 }
 
 .mainTitle {
-  font-size: 48px;
-  font-weight: 800;
+  font-family: var(--font-lato), sans-serif;
+  font-weight: 700;
+  font-size: 58px;
+  line-height: 110%;
+  letter-spacing: 0%;
   color: #15456E;
-  line-height: 1.2;
   margin-bottom: 20px;
 }
 
 .quote {
-  font-size: 18px;
-  line-height: 1.5;
+  font-family: var(--font-lato), sans-serif;
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 120%;
+  letter-spacing: 0%;
   color: #333;
   margin-bottom: 10px;
 }
 
 .author {
-  font-size: 14px;
+  font-family: var(--font-lato), sans-serif;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 140%;
+  letter-spacing: 0%;
+  font-variant-numeric: lining-nums proportional-nums;
   color: #666;
 }
 
@@ -50,8 +62,8 @@
 .cardsContainer {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 32px;
-  max-width: 1000px;
+  gap: 20px;
+  max-width: 1228px;
   margin: 0 auto 60px auto;
   padding: 0 24px;
 }
@@ -66,6 +78,18 @@
   flex-direction: column;
   text-align: left;
   position: relative;
+}
+
+.cardWoman {
+  display: block;
+  border-radius: 20px;
+  padding: 32px 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(182, 230, 242, 0.3);
+  display: flex;
+  flex-direction: column;
+  background: url(/assets/images/analises.jpg) no-repeat center center;
+  background-size: cover;
 }
 
 .cardContent {

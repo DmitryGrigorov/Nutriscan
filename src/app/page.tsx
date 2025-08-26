@@ -653,7 +653,6 @@ export default function AntdHome() {
     <Layout style={{ background: '#fff' }}>
       <Content style={{}}>
         <HeroSection />
-        <HowItWorksSection />
         <WhyQuestionnaireSection />
         <HowItWorks />
         <Testimonials />

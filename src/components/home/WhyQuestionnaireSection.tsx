@@ -6,7 +6,7 @@ import styles from './WhyQuestionnaireSection.module.css';
 export const WhyQuestionnaireSection = () => {
   return (
     <div className={styles.container}>
-      <div className={styles.headerContent}>
+      <div className={styles.headerContent} style={{ backgroundImage: 'url(/assets/images/doctor_img.jpg)' }}>
         <div className={styles.headerText}>
           <h2 className={styles.mainTitle}>Почему важно заполнить анкету</h2>
           <p className={styles.quote}>
@@ -16,18 +16,11 @@ export const WhyQuestionnaireSection = () => {
           <p className={styles.author}>Майкл Грегер, Московская медицинская конференция, 2024</p>
         </div>
         <div className={styles.doctorImageContainer}>
-          <Image
-            src="/assets/images/doctor.png"
-            alt="Doctor"
-            width={400}
-            height={500}
-            className={styles.doctorImage}
-          />
         </div>
       </div>
 
       <div className={styles.cardsContainer}>
-        <div className={styles.card}>
+        <div className={styles.cardWoman}>
           <div className={styles.cardContent}>
             <div className={styles.cardTextContent}>
               <h3 className={styles.cardTitle}>Анализы не всегда отражают реальный дефицит</h3>
@@ -35,15 +28,6 @@ export const WhyQuestionnaireSection = () => {
                 Уровень магния в крови может быть в норме, но при хроническом стрессе он быстро
                 «расходуется» клетками — и вы все равно чувствуете усталость.
               </p>
-            </div>
-            <div className={styles.cardImageContainer}>
-              <Image
-                src="/assets/images/tired_woman.png"
-                alt="Tired woman"
-                width={150}
-                height={100}
-                className={styles.cardImage}
-              />
             </div>
           </div>
           <div className={styles.cardBenefit}>

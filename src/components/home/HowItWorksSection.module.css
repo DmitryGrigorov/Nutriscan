@@ -1,15 +1,13 @@
 .container {
   background: linear-gradient(180deg, rgba(230, 248, 250, 0.5) 0%, rgba(255, 255, 255, 0.8) 100%);
-  padding: 80px 0;
   min-height: 600px;
   display: flex;
   align-items: center;
 }
 
 .content {
-  max-width: 1200px;
+  max-width: 1228px;
   margin: 0 auto;
-  padding: 0 24px;
   text-align: center;
 }
 
@@ -25,17 +23,19 @@
 .stepsContainer {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 32px;
+  gap: 54px;
   margin-bottom: 60px;
-  max-width: 1000px;
   margin-left: auto;
   margin-right: auto;
 }
 
 .stepCard {
+  position: relative;
   background: #fff;
-  border-radius: 20px;
+  border-radius: 16px;
   padding: 32px 24px;
+  padding-left: 70px;
+  padding-right: 0;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   border: 1px solid rgba(182, 230, 242, 0.3);
   display: flex;
@@ -51,15 +51,17 @@
 }
 
 .stepNumber {
-  width: 60px;
-  height: 60px;
-  background: linear-gradient(135deg, #16B6BE 0%, #0ea5e9 100%);
-  border-radius: 50%;
+  position: absolute;
+  left: -28px;
+  width: 84px;
+  height: 56px;
+  background: #00979F;
+  border-radius: 26px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #fff;
-  font-size: 24px;
+  font-size: 32px;
   font-weight: 800;
   margin-bottom: 20px;
   box-shadow: 0 4px 12px rgba(22, 182, 190, 0.3);
@@ -70,7 +72,8 @@
 }
 
 .stepTitle {
-  font-size: 24px;
+  font-family: var(--font-lato), sans-serif;
+  font-size: 28px;
   font-weight: 700;
   color: #15456E;
   margin-bottom: 12px;
@@ -91,13 +94,13 @@
 }
 
 .ctaButton {
-  display: inline-block;
-  background: linear-gradient(135deg, #16B6BE 0%, #0ea5e9 100%);
+  display: block;
+  background: #4DAFB4;
   color: #fff;
   font-size: 20px;
   font-weight: 700;
   padding: 18px 40px;
-  border-radius: 50px;
+  border-radius: 16px;
   text-decoration: none;
   transition: all 0.3s ease;
   box-shadow: 0 4px 20px rgba(22, 182, 190, 0.3);
@@ -139,6 +142,7 @@
   }
 
   .stepNumber {
+    position: static;
     width: 50px;
     height: 50px;
     font-size: 20px;
