@@ -235,6 +235,7 @@
 }
 
 .recommendationsButton:hover {
+  cursor: pointer;
   background: #f8f9fa;
   box-shadow: 0 2px 8px #e6f4ff33;
 }

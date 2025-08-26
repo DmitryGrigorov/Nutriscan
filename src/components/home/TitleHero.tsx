@@ -1,10 +1,23 @@
 import React from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { useAuth } from '@/contexts/AuthContext';
 import { getFontStyle } from '@/lib/fontUtils';
 import styles from './TitleHero.module.css';
 import { HowItWorksSection } from './HowItWorksSection';
 
 export const TitleHero = () => {
+  const { user } = useAuth();
+  const router = useRouter();
+
+  const handleRecommendationsClick = () => {
+    if (user) {
+      router.push('/dashboard/surveys/supplements');
+    } else {
+      router.push('/auth/register');
+    }
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.heroContent} style={getFontStyle('black')}>
@@ -69,14 +82,14 @@ export const TitleHero = () => {
                 </span>
               </div>
               {/* Второй блок: Получить рекомендации */}
-              <a href="#" className={styles.recommendationsButton}>
+              <div onClick={handleRecommendationsClick} className={styles.recommendationsButton}>
                 <span className={styles.recommendationsText}>
                   Получить
                   <br />
                   рекомендации
                 </span>
                 <span className={styles.recommendationsArrow}><Image src="/assets/icons/arrow-right-icon.svg" alt="Arrow" width={32} height={32} /></span>
-              </a>
+              </div>
             </div>
           </div>
         </div>

@@ -1,22 +1,35 @@
 import React from 'react';
+import { useRouter } from 'next/navigation';
+import { useAuth } from '@/contexts/AuthContext';
 import styles from './HowItWorksSection.module.css';
 
 export const HowItWorksSection = () => {
+  const { user } = useAuth();
+  const router = useRouter();
+
+  const handleButtonClick = () => {
+    if (user) {
+      router.push('/dashboard/surveys/supplements');
+    } else {
+      router.push('/auth/register');
+    }
+  };
+
   const steps = [
     {
       number: '1',
       title: 'Пройти опрос',
-      description: 'Заполните анкету о состоянии здоровья, привычках и образе жизни.',
+      description: <>Заполните анкету <br /> о состоянии здоровья,<br /> привычках и образе жизни.</>,
     },
     {
       number: '2',
       title: 'Загрузить анализы',
-      description: 'Загрузите медицинские анализы для точной индивидуальной рекомендации',
+      description: <>Загрузите медицинские<br /> анализы для точной<br /> индивидуальной рекомендации</>,
     },
     {
       number: '3',
       title: 'Получить результат',
-      description: 'Получите персональные рекомендации по приему витаминов и минералов',
+      description: <>Получите персональные<br /> рекомендации по приему<br /> витаминов и минералов</>,
     },
   ];
 
@@ -38,9 +51,9 @@ export const HowItWorksSection = () => {
         </div>
 
         <div className={styles.ctaContainer}>
-          <a href="/quiz" className={styles.ctaButton}>
+          <button onClick={handleButtonClick} className={styles.ctaButton}>
             Перейти к заполнению анкеты
-          </a>
+          </button>
         </div>
       </div>
     </div>

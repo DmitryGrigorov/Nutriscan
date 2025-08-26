@@ -7,6 +7,7 @@
 
 .content {
   max-width: 1228px;
+  width: 100%;
   margin: 0 auto;
   text-align: center;
 }
@@ -90,16 +91,18 @@
 
 .ctaContainer {
   text-align: center;
-  margin-top: 40px;
+  margin-top: 45px;
 }
 
 .ctaButton {
   display: block;
+  width: 100%;
   background: #4DAFB4;
   color: #fff;
-  font-size: 20px;
-  font-weight: 700;
-  padding: 18px 40px;
+  font-family: var(--font-lato), sans-serif;
+  font-size: 24px;
+  font-weight: 400;
+  padding: 10px 0;
   border-radius: 16px;
   text-decoration: none;
   transition: all 0.3s ease;

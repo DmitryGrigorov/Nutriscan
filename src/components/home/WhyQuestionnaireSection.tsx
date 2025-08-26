@@ -13,10 +13,10 @@ export const WhyQuestionnaireSection = () => {
         <div className={styles.headerText}>
           <h2 className={styles.mainTitle}>Почему важно заполнить анкету</h2>
           <p className={styles.quote}>
-            «Анализы крови показывают лишь часть картины. Ваши привычки, образ жизни и даже стресс
-            могут влиять на усвоение витаминов сильнее, чем кажется»
+            «Анализы крови показывают лишь часть<br /> картины. Ваши привычки, образ жизни и даже<br /> стресс
+            могут влиять на усвоение витаминов<br /> сильнее, чем кажется»
           </p>
-          <p className={styles.author}>Майкл Грегер, Московская медицинская конференция, 2024</p>
+          <p className={styles.author}>Майкл Грегер,<br /> Московская медицинская конференция, 2024</p>
         </div>
         <div className={styles.doctorImageContainer}></div>
       </div>

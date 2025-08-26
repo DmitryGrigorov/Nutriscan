@@ -1,5 +1,5 @@
 .container {
-  padding: 80px 0;
+  padding: 0;
   background: linear-gradient(179.05deg, rgba(255, 255, 255, 0.5) -0.26%, rgba(187, 252, 255, 0.5) 62.5%, rgba(212, 218, 255, 0.5) 78.41%, rgba(219, 224, 255, 0.425) 86.76%, rgba(255, 255, 255, 0.5) 92.03%);
   text-align: center;
 }
@@ -12,7 +12,8 @@
   grid-template-columns: 1fr auto;
   gap: 40px;
   align-items: center;
-  padding: 104px;
+  padding: 0 104px;
+  border-radius: 40px;
 }
 
 .headerText {
@@ -27,7 +28,7 @@
   line-height: 110%;
   letter-spacing: 0%;
   color: #15456E;
-  margin-bottom: 20px;
+  margin-bottom: 56px;
 }
 
 .quote {
@@ -36,8 +37,9 @@
   font-size: 28px;
   line-height: 120%;
   letter-spacing: 0%;
-  color: #333;
+  color: #002E55;
   margin-bottom: 10px;
+  margin-bottom: 56px;
 }
 
 .author {
@@ -47,7 +49,7 @@
   line-height: 140%;
   letter-spacing: 0%;
   font-variant-numeric: lining-nums proportional-nums;
-  color: #666;
+  color: #002E55;
 }
 
 .doctorImageContainer {
