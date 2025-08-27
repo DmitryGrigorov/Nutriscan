@@ -379,66 +379,253 @@
 
 @media (max-width: 768px) {
   .container {
-    padding: 40px 0;
+    padding: 20px 0;
+  }
+
+  .headerContent {
+    height: auto;
+    padding: 40px 20px;
+    margin-bottom: 40px;
+  }
+
+  .headerText {
+    width: 100%;
   }
 
   .mainTitle {
-    font-size: 32px;
+    font-size: 28px;
+    line-height: 120%;
+    margin-bottom: 24px;
   }
 
   .quote {
+    font-size: 18px;
+    line-height: 130%;
+    margin-bottom: 20px;
+  }
+
+  .author {
     font-size: 16px;
   }
 
-  .card {
-    padding: 24px 18px;
+  .cardsContainer {
+    padding: 0 16px;
+    gap: 16px;
+  }
+
+  .card, .cardViolet, .cardWoman {
+    padding: 24px 20px;
+    border-radius: 20px;
+  }
+
+  .card::before, .cardViolet::before, .cardWoman::before {
+    width: 4px;
+    height: 60px;
+    top: 80px;
+    left: 12px;
   }
 
   .cardContent {
     flex-direction: column;
-    gap: 15px;
+    gap: 12px;
+    margin-bottom: 16px;
   }
 
   .cardImageContainer {
     width: 100%;
-    height: 120px;
+    height: 180px;
+    order: -1;
   }
 
   .cardTitle {
     font-size: 20px;
+    line-height: 125%;
+    margin-bottom: 12px;
   }
 
-  .cardText, .cardList li, .benefitText {
-    font-size: 14px;
+  .cardText {
+    font-size: 16px;
+    line-height: 140%;
+  }
+
+  .cardList {
+    font-size: 16px;
+    line-height: 135%;
+  }
+
+  .cardList li {
+    margin-bottom: 10px;
+    padding-left: 16px;
+  }
+
+  .cardBenefit {
+    margin-top: 16px;
+  }
+
+  .checkIcon {
+    width: 40px !important;
+    height: 36px !important;
+    margin-right: 12px;
+  }
+
+  .benefitText {
+    font-size: 16px;
+    line-height: 125%;
   }
 
   .bottomSection {
-    padding: 40px 20px;
-    border-radius: 0 100px 0 100px;
+    padding: 30px 16px;
+    border-radius: 0 60px 0 60px;
+  }
+
+  .bottomCardsContainer {
+    gap: 20px;
   }
 
   .bottomCard {
-    padding: 24px 18px;
+    padding: 32px 24px;
+    border-radius: 20px;
+  }
+
+  .bottomCard::before {
+    width: 4px;
+    height: 60px;
+    top: 80px;
+    left: 12px;
   }
 
   .bottomCardTitle {
     font-size: 20px;
+    line-height: 125%;
+    margin-bottom: 16px;
+  }
+
+  .bottomCardList {
+    font-size: 16px;
+    line-height: 135%;
+    margin-bottom: 16px;
   }
 
   .bottomCardList li {
-    font-size: 14px;
+    margin-bottom: 10px;
+    padding-left: 16px;
+  }
+
+  .bottomCardBenefit {
+    margin-top: 16px;
+  }
+
+  .bottomCta {
+    padding: 40px 24px;
+    border-radius: 20px;
   }
 
   .bottomCtaTitle {
     font-size: 24px;
+    line-height: 120%;
+    margin-bottom: 16px;
   }
 
   .bottomCtaDescription {
     font-size: 16px;
+    line-height: 140%;
+    margin-bottom: 24px;
   }
 
   .bottomCtaButton {
-    padding: 12px 30px;
+    height: 48px;
+    font-size: 18px;
+    border-radius: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 16px 0;
+  }
+
+  .headerContent {
+    padding: 32px 16px;
+    margin-bottom: 32px;
+  }
+
+  .mainTitle {
+    font-size: 24px;
+    line-height: 125%;
+    margin-bottom: 20px;
+  }
+
+  .quote {
+    font-size: 16px;
+    line-height: 135%;
+    margin-bottom: 16px;
+  }
+
+  .author {
+    font-size: 14px;
+  }
+
+  .cardsContainer {
+    padding: 0 12px;
+    gap: 12px;
+  }
+
+  .card, .cardViolet, .cardWoman {
+    padding: 20px 16px;
+    border-radius: 16px;
+  }
+
+  .cardTitle {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  .cardText, .cardList {
+    font-size: 14px;
+  }
+
+  .benefitText {
+    font-size: 14px;
+  }
+
+  .checkIcon {
+    width: 36px !important;
+    height: 32px !important;
+    margin-right: 10px;
+  }
+
+  .bottomSection {
+    padding: 24px 12px;
+    border-radius: 0 40px 0 40px;
+  }
+
+  .bottomCard, .bottomCta {
+    padding: 24px 16px;
+    border-radius: 16px;
+  }
+
+  .bottomCardTitle {
+    font-size: 18px;
+    margin-bottom: 12px;
+  }
+
+  .bottomCardList {
+    font-size: 14px;
+    margin-bottom: 12px;
+  }
+
+  .bottomCtaTitle {
+    font-size: 20px;
+    margin-bottom: 12px;
+  }
+
+  .bottomCtaDescription {
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+
+  .bottomCtaButton {
+    height: 44px;
     font-size: 16px;
   }
 }

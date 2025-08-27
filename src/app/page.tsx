@@ -18,16 +18,11 @@ import {
   TeamOutlined,
   CheckCircleOutlined,
   TrophyOutlined,
-  ReloadOutlined,
-  GiftOutlined,
-  SolutionOutlined,
-  ProfileOutlined,
   LikeOutlined,
   ArrowUpOutlined,
 } from '@ant-design/icons';
 import { motion } from 'framer-motion';
 import { TitleHero } from '@/components/home/TitleHero';
-import { HowItWorksSection } from '@/components/home/HowItWorksSection';
 import { WhyQuestionnaireSection } from '@/components/home/WhyQuestionnaireSection';
 import { SelectionProcessSection } from '@/components/home/SelectionProcessSection';
 import { TrustSection } from '@/components/home/TrustSection';
@@ -50,93 +45,6 @@ interface Expert {
 // --- Hero Section ---
 function HeroSection() {
   return <TitleHero />;
-}
-
-// --- How It Works ---
-function HowItWorks() {
-  const steps = [
-    {
-      icon: <ProfileOutlined style={{ fontSize: 32, color: '#16B6BE' }} />,
-      title: 'Заполните анкету',
-      description: 'Ответьте на вопросы о вашем здоровье, образе жизни и целях',
-    },
-    {
-      icon: <SolutionOutlined style={{ fontSize: 32, color: '#16B6BE' }} />,
-      title: 'Получите рекомендации',
-      description: 'Наш алгоритм подберет персональные БАДы на основе ваших ответов',
-    },
-    {
-      icon: <GiftOutlined style={{ fontSize: 32, color: '#16B6BE' }} />,
-      title: 'Оформите заказ',
-      description: 'Выберите подходящие добавки и получите их с доставкой',
-    },
-    {
-      icon: <ReloadOutlined style={{ fontSize: 32, color: '#16B6BE' }} />,
-      title: 'Отслеживайте прогресс',
-      description: 'Корректируйте программу приема по мере изменения потребностей',
-    },
-  ];
-  return (
-    <motion.div
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
-      variants={{
-        hidden: {},
-        visible: {
-          transition: { staggerChildren: 0.18, delayChildren: 0.1 },
-        },
-      }}
-      style={{ background: '#f6faff', padding: '40px 0' }}
-    >
-      <motion.h2
-        style={{ textAlign: 'center', marginBottom: 12, fontSize: 28 }}
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, ease: 'easeOut' }}
-      >
-        Как это работает
-      </motion.h2>
-      <motion.p
-        style={{ textAlign: 'center', color: '#888', marginBottom: 32, fontSize: 16 }}
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, delay: 0.15, ease: 'easeOut' }}
-      >
-        Простой процесс подбора биологически активных добавок, адаптированных под ваши
-        индивидуальные потребности
-      </motion.p>
-      <Row gutter={[16, 16]} justify="center">
-        {steps.map((step, idx) => (
-          <Col xs={24} sm={12} md={6} key={idx}>
-            <motion.div
-              variants={{
-                hidden: { opacity: 0, y: 40 },
-                visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: 'easeOut' } },
-              }}
-            >
-              <Card
-                bordered={false}
-                style={{
-                  minHeight: 180,
-                  textAlign: 'center',
-                  boxShadow: '0 2px 12px #e6f4ff',
-                  borderRadius: 18,
-                  margin: '0 0.5vw',
-                }}
-              >
-                <div style={{ marginBottom: 12 }}>{step.icon}</div>
-                <Title level={4} style={{ fontSize: 20, marginBottom: 8 }}>
-                  {step.title}
-                </Title>
-                <Paragraph style={{ color: '#666', fontSize: 15 }}>{step.description}</Paragraph>
-              </Card>
-            </motion.div>
-          </Col>
-        ))}
-      </Row>
-    </motion.div>
-  );
 }
 
 // --- Testimonials ---
@@ -803,7 +711,6 @@ export default function AntdHome() {
       <Content style={{}}>
         <HeroSection />
         <WhyQuestionnaireSection />
-        <HowItWorks />
         <SelectionProcessSection />
         <TrustSection />
         <EffectsSection />
