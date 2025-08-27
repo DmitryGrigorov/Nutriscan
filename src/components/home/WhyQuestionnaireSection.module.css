@@ -1,7 +1,5 @@
 .container {
   padding: 0;
-  background: linear-gradient(179.05deg, rgba(255, 255, 255, 0.5) -0.26%, rgba(187, 252, 255, 0.5) 62.5%, rgba(212, 218, 255, 0.5) 78.41%, rgba(219, 224, 255, 0.425) 86.76%, rgba(255, 255, 255, 0.5) 92.03%);
-  text-align: center;
 }
 
 .headerContent {

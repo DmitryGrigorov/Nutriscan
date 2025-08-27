@@ -1,0 +1,38 @@
+# Зависимости
+node_modules/
+vendor/
+venv/
+.env
+
+# Файлы сборки
+dist/
+build/
+*.pyc
+*.class
+*.o
+
+# IDE файлы
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# Логи
+*.log
+logs/
+
+# Большие файлы данных
+*.csv
+*.sql
+data/
+
+# Приватные/секретные файлы
+.env
+secrets/
+*.key
+*.pem
+
+# Временные файлы
+tmp/
+temp/
+*.tmp
