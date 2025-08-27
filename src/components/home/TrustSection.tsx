@@ -1,10 +1,7 @@
 'use client';
 import React from 'react';
-import { Typography } from 'antd';
 import { motion } from 'framer-motion';
 import styles from './TrustSection.module.css';
-
-const { Title, Paragraph, Text } = Typography;
 
 export function TrustSection() {
   return (
@@ -22,26 +19,10 @@ export function TrustSection() {
       <div className={styles.content}>
         {/* Левая колонка - Отзывы */}
         <div className={styles.leftColumn}>
-          <Title level={2} className={styles.mainTitle}>
-            Мы ценим ваше доверие
-          </Title>
-
-          <div className={styles.chatBubble}>
-            <div className={styles.starIcon}>
-              <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
-                <path
-                  d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"
-                  fill="#16B6BE"
-                  stroke="#16B6BE"
-                  strokeWidth="1"
-                />
-              </svg>
-            </div>
-          </div>
-
+          <div className={styles.mainTitle}>Мы ценим ваше доверие</div>
           <div className={styles.reviewsStats}>
             <div className={styles.reviewsNumber}>Более 1000</div>
-            <div className={styles.reviewsLabel}>ОТЗЫВОВ</div>
+            <div className={styles.reviewsLabel}>отзывов</div>
             <div className={styles.reviewsSubtext}>от реальных покупателей</div>
           </div>
         </div>
@@ -54,53 +35,29 @@ export function TrustSection() {
               <div className={styles.usersNumber}>&gt; 1,5 млн</div>
               <div className={styles.usersLabel}>пользователей</div>
               <div className={styles.usersDescription}>
-                получили анализ и назначения от системы AI NutriScan бесплатно
+                получили анализ и назначения<br /> от системы AI NutriScan бесплатно
               </div>
             </div>
 
-            <div className={styles.clipboardIllustration}>
-              <div className={styles.clipboard}>
-                <div className={styles.paper}>
-                  <div className={styles.checkboxItem}>
-                    <div className={`${styles.checkbox} ${styles.checked}`}></div>
-                    <div className={styles.checkboxText}>Анализ состояния</div>
-                  </div>
-                  <div className={styles.checkboxItem}>
-                    <div className={`${styles.checkbox} ${styles.checked}`}></div>
-                    <div className={styles.checkboxText}>Персональные рекомендации</div>
-                  </div>
-                  <div className={styles.checkboxItem}>
-                    <div className={`${styles.checkbox} ${styles.checked}`}></div>
-                    <div className={styles.checkboxText}>Подбор БАДов</div>
-                  </div>
-                  <div className={styles.checkboxItem}>
-                    <div className={`${styles.checkbox} ${styles.unchecked}`}></div>
-                    <div className={styles.checkboxText}>Доставка</div>
-                  </div>
-                </div>
-              </div>
-              <div className={styles.hand}>
-                <div className={styles.pencil}></div>
-              </div>
-            </div>
+            <div className={styles.taskImageContainer} />
           </div>
 
           {/* Нижняя секция - Прогресс */}
           <div className={styles.bottomSection}>
             <div className={styles.progressChart}>
-              <svg width="120" height="120" viewBox="0 0 120 120">
-                <circle cx="60" cy="60" r="50" fill="none" stroke="#e2e8f0" strokeWidth="8" />
+              <svg width="265" height="265" viewBox="0 0 265 265">
+                <circle cx="132.5" cy="132.5" r="110.5" fill="none" stroke="#e2e8f0" strokeWidth="18" />
                 <circle
-                  cx="60"
-                  cy="60"
-                  r="50"
+                  cx="132.5"
+                  cy="132.5"
+                  r="110.5"
                   fill="none"
                   stroke="#8b5cf6"
-                  strokeWidth="8"
-                  strokeDasharray={`${2 * Math.PI * 50}`}
-                  strokeDashoffset={`${2 * Math.PI * 50 * (1 - 0.77)}`}
+                  strokeWidth="18"
+                  strokeDasharray={`${2 * Math.PI * 110.5}`}
+                  strokeDashoffset={`${2 * Math.PI * 110.5 * (1 - 0.77)}`}
                   strokeLinecap="round"
-                  transform="rotate(-90 60 60)"
+                  transform="rotate(-90 132.5 132.5)"
                 />
               </svg>
               <div className={styles.progressText}>77%</div>

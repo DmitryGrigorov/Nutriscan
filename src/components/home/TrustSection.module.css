@@ -1,137 +1,114 @@
 .container {
   max-width: 1228px;
   margin: 40px auto;
-  border: 1px solid #e6f7ff;
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
 .content {
   display: flex;
-  min-height: 400px;
+  gap: 20px;
 }
 
 /* Левая колонка */
 .leftColumn {
-  flex: 2;
-  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
-  padding: 40px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
 }
 
 .mainTitle {
-  color: #1a365d !important;
-  font-size: 32px !important;
-  font-weight: 700 !important;
-  margin-bottom: 30px !important;
-  line-height: 1.2 !important;
-}
-
-.chatBubble {
-  width: 120px;
-  height: 120px;
-  background: #ffffff;
-  border: 4px solid #16B6BE;
-  border-radius: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 30px;
-  box-shadow: 0 8px 24px rgba(22, 182, 190, 0.2);
-  position: relative;
-}
-
-.chatBubble::after {
-  content: '';
-  position: absolute;
-  bottom: -15px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0;
-  height: 0;
-  border-left: 15px solid transparent;
-  border-right: 15px solid transparent;
-  border-top: 15px solid #16B6BE;
-}
-
-.starIcon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  color: #1a365d;
+  font-size: 56px;
+  font-weight: 500;
+  margin-bottom: 96px;
+  line-height: 1;
 }
 
 .reviewsStats {
-  text-align: center;
+  background: url('/assets/images/bg_block_1.jpg') no-repeat center;
+  background-size: cover;
+  width: 500px;
+  height: 507px;
+  border-radius: 16px;
+  position: relative;
+    display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 51px;
 }
 
 .reviewsNumber {
-  font-size: 36px;
+  font-size: 56px;
   font-weight: 700;
-  color: #1a365d;
+  color: #002E55;
   line-height: 1;
-  margin-bottom: 8px;
 }
 
 .reviewsLabel {
-  font-size: 18px;
+  font-size: 56px;
   font-weight: 700;
-  color: #1a365d;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 8px;
+  color: #002E55;
+  line-height: 1;
 }
 
 .reviewsSubtext {
-  font-size: 14px;
-  color: #4a5568;
+  font-size: 20px;
+  color: #002E55;
   font-weight: 400;
+  line-height: 1;
+  margin-top: 16px;
 }
 
 /* Правая колонка */
 .rightColumn {
-  flex: 1;
   display: flex;
   flex-direction: column;
+  gap: 20px;
+  flex: 1;
 }
 
 /* Верхняя секция */
 .topSection {
-  flex: 1;
+  display: block;
+  width: 707px;
+  height: 341px;
   background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
   padding: 30px;
   display: flex;
   align-items: center;
   gap: 20px;
+  border-radius: 40px;
+  position: relative;
 }
 
 .usersStats {
-  flex: 1;
 }
 
 .usersNumber {
-  font-size: 28px;
+  font-size: 56px;
   font-weight: 700;
-  color: #1a365d;
-  line-height: 1;
-  margin-bottom: 8px;
+  color: #002E55;
+  line-height: 0.8;
 }
 
 .usersLabel {
-  font-size: 16px;
+  font-size: 56px;
   font-weight: 700;
   color: #1a365d;
-  margin-bottom: 12px;
+  line-height: 0.8;
 }
 
 .usersDescription {
-  font-size: 14px;
-  color: #1a365d;
-  line-height: 1.4;
+  font-family: var(--font-lato);
+  margin-top: 20px;
+  font-size: 20px;
+  color: #002E55;
+  line-height: 1.2;
+}
+
+.taskImageContainer{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-image: url('/assets/images/tasklist.png'); ;
 }
 
 .clipboardIllustration {
@@ -220,17 +197,19 @@
 /* Нижняя секция */
 .bottomSection {
   flex: 1;
-  background: #ffffff;
-  padding: 30px;
+  background: #f2f5ff;
+  padding: 27px;
   display: flex;
   align-items: center;
   gap: 20px;
+  border-radius: 40px;
+  height: 340px;
 }
 
 .progressChart {
   position: relative;
-  width: 120px;
-  height: 120px;
+  width: 265px;
+  height: 265px;
   flex-shrink: 0;
 }
 
@@ -239,8 +218,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 24px;
-  font-weight: 700;
+  font-size: 64px;
+  font-weight: 900;
   color: #1a365d;
 }
 

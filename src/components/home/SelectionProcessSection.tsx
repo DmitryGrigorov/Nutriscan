@@ -29,14 +29,16 @@ const processSteps: ProcessStep[] = [
     id: 'personalization',
     title: 'Точечные решения',
     subtitle: 'Индивидуальный подход',
-    description: 'Рекомендации именно для ваших целей.Свойства, состав и потенциальная польза каждого продукта.',
+    description:
+      'Рекомендации именно для ваших целей.Свойства, состав и потенциальная польза каждого продукта.',
     image: '/assets/images/lab2.jpg',
   },
   {
     id: 'recommendation',
     title: 'AI NutriScan + эксперты',
     subtitle: 'Стандарты качества',
-    description: 'Чтобы исключить риски конфликта БАДов c лекарствами все алгоритмы проверяет нутрициолог',
+    description:
+      'Чтобы исключить риски конфликта БАДов c лекарствами все алгоритмы проверяет нутрициолог',
     image: '/assets/images/lab3.jpg',
   },
 ];
@@ -66,9 +68,7 @@ export function SelectionProcessSection() {
       transition={{ duration: 0.8 }}
       className={styles.container}
     >
-      <div className={styles.mainTitle}>
-        Как происходит подбор NutriScan™
-      </div>
+      <div className={styles.mainTitle}>Как происходит подбор NutriScan™</div>
       <div className={styles.content}>
         <div className={styles.textSection}>
           <AnimatePresence mode="wait">
@@ -80,12 +80,8 @@ export function SelectionProcessSection() {
               transition={{ duration: 0.3 }}
               className={styles.stepContent}
             >
-              <div className={styles.subtitle}>
-                {currentProcessStep.subtitle}
-              </div>
-              <div className={styles.title}>
-                {currentProcessStep.title}
-              </div>
+              <div className={styles.subtitle}>{currentProcessStep.subtitle}</div>
+              <div className={styles.title}>{currentProcessStep.title}</div>
               <div className={styles.description}>{currentProcessStep.description}</div>
             </motion.div>
           </AnimatePresence>
@@ -113,7 +109,12 @@ export function SelectionProcessSection() {
               <div className={styles.imagePlaceholder}>
                 <div className={styles.labImage}>
                   {/* Здесь будет изображение лаборатории */}
-                  <Image src={currentProcessStep.image} alt={currentProcessStep.title} layout="fill" objectFit="cover" />
+                  <Image
+                    src={currentProcessStep.image}
+                    alt={currentProcessStep.title}
+                    layout="fill"
+                    objectFit="cover"
+                  />
                 </div>
               </div>
             </motion.div>
