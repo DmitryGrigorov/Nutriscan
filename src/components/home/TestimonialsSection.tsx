@@ -54,6 +54,7 @@ export function TestimonialsSection() {
     <div className={styles.container}>
       <section className={styles.testimonialsSection}>
         <div className={styles.header}>
+          <div>
           <h2 className={styles.title}>
             Убедитесь<br />
             в эффективности<br />
@@ -62,6 +63,14 @@ export function TestimonialsSection() {
           <p className={styles.subtitle}>
             Наши клиенты делятся своим опытом использования
           </p>
+          </div>
+                <Image
+        src="/assets/images/avatars.png"
+        alt="Avatars"
+        width={498}
+        height={348}
+        className={styles.avatarsImage}
+      />
         </div>
 
         <div className={styles.carouselContainer}>
@@ -119,6 +128,7 @@ export function TestimonialsSection() {
           </div>
         </div>
       </section>
+
     </div>
   );
 }

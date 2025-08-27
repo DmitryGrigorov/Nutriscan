@@ -1,6 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import Image from 'next/image';
+import { motion } from 'framer-motion';
 import styles from './BenefitsCarousel.module.css';
 
 const benefits = [
@@ -98,18 +99,40 @@ export function BenefitsCarousel() {
               }`}
               style={{ transform: `translateX(-${currentBenefit * 100}%)` }}
             >
-              <div className={styles.leftColumn}>
+              <motion.div
+                className={styles.leftColumn}
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6 }}
+                viewport={{ once: true }}
+              >
                   <div className={styles.imageLeftColumn}/>
                   <div className={styles.leftColumnText}>
-                    <div className={styles.leftColumnTextTitle}>
+                    <motion.div
+                      className={styles.leftColumnTextTitle}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, delay: 0.2 }}
+                      viewport={{ once: true }}
+                    >
                       +100% к запасу<br />сил и энергии
-                    </div>
-                    <div className={styles.leftColumnTextSubtitle}>
+                    </motion.div>
+                    <motion.div
+                      className={styles.leftColumnTextSubtitle}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, delay: 0.3 }}
+                      viewport={{ once: true }}
+                    >
                       успевайте больше, <br />чем планировали на день
+                    </motion.div>
+                    <div
+                      className={styles.button}
+                    >
+                      Присоединиться
                     </div>
-                    <div className={styles.button}>Присоединиться</div>
                   </div>
-              </div>
+              </motion.div>
               <div className={styles.rightColumn}>
                 <div className={styles.imageRightColumn}/>
                 <div className={styles.leftColumnText}>

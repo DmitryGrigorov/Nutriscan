@@ -10,6 +10,9 @@
 
 .header {
   margin-bottom: 60px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .title {
@@ -19,6 +22,7 @@
   line-height: 110%;
   color: #15456E;
   margin: 0 0 24px 0;
+  padding-top: 20px;
 }
 
 .subtitle {

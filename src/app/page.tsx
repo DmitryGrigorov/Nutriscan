@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Layout,
   Row,
@@ -30,6 +30,7 @@ import { TrustSection } from '@/components/home/TrustSection';
  import { TestimonialsSection } from '@/components/home/TestimonialsSection';
  import { FAQSection } from '@/components/home/FAQSection';
  import { MainFooter } from '@/components/home/MainFooter';
+import { PageLoader } from '@/components/ui/PageLoader';
 
 const { Title, Paragraph, Text } = Typography;
 const { Footer, Content } = Layout;
@@ -526,16 +527,84 @@ function ExpertTeam() {
 
 // --- Main Page ---
 export default function AntdHome() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) {
+    return <PageLoader text="Загрузка главной страницы..." />;
+  }
+
   return (
     <Layout style={{ background: '#fff' }}>
       <Content style={{}}>
-        <HeroSection />
-        <WhyQuestionnaireSection />
-        <SelectionProcessSection />
-        <TrustSection />
-        <BenefitsCarousel />
-        <TestimonialsSection />
-        <FAQSection />
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <HeroSection />
+        </motion.div>
+        
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          viewport={{ once: true, amount: 0.3 }}
+        >
+          <WhyQuestionnaireSection />
+        </motion.div>
+        
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          viewport={{ once: true, amount: 0.3 }}
+        >
+          <SelectionProcessSection />
+        </motion.div>
+        
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          viewport={{ once: true, amount: 0.3 }}
+        >
+          <TrustSection />
+        </motion.div>
+        
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          viewport={{ once: true, amount: 0.3 }}
+        >
+          <BenefitsCarousel />
+        </motion.div>
+        
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          viewport={{ once: true, amount: 0.3 }}
+        >
+          <TestimonialsSection />
+        </motion.div>
+        
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          viewport={{ once: true, amount: 0.3 }}
+        >
+          <FAQSection />
+        </motion.div>
       </Content>
       <MainFooter />
     </Layout>
