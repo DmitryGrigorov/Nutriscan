@@ -2,6 +2,7 @@
   max-width: 1228px;
   margin: 0 auto;
   position: relative;
+  z-index: 3;
 }
 
 .faqSection {
@@ -23,7 +24,7 @@
   height: 300px;
   background: url('/assets/images/img_molecula.png') no-repeat center center;
   background-size: contain;
-  z-index: 2;
+  
 }
 
 .title {
@@ -37,7 +38,6 @@
 }
 
 .faqList {
-  background: #FFFFFF;
   border-radius: 32px;
   padding: 0;
   overflow: hidden;
