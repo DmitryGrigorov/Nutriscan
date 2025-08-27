@@ -27,7 +27,6 @@ import {
   EditOutlined,
   FormOutlined,
   FileTextOutlined,
-  RobotOutlined,
   ThunderboltOutlined,
 } from '@ant-design/icons';
 import { ProfileForm } from '@/components/profile/ProfileForm';
@@ -500,7 +499,7 @@ function DashboardContent() {
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
   const [surveyHistory, setSurveyHistory] = useState<SurveyEntry[]>([]);
   const [notesHistory, setNotesHistory] = useState<NotesEntry[]>([]);
-  const [loadingGpt, setLoadingGpt] = useState<{ [key: string]: boolean }>({});
+  // const [loadingGpt, setLoadingGpt] = useState<{ [key: string]: boolean }>({});
   const [gptResponses, setGptResponses] = useState<{ [key: string]: string }>({});
   const [loadingGigaChat, setLoadingGigaChat] = useState<{ [key: string]: boolean }>({});
   const [gigaChatResponses, setGigaChatResponses] = useState<{ [key: string]: string }>({});
@@ -580,61 +579,61 @@ function DashboardContent() {
     }
   };
 
-  const askGPT = async (entry: SurveyEntry) => {
-    try {
-      setLoadingGpt((prev) => ({ ...prev, [entry.id]: true }));
-      const values = Array.isArray(entry.values) ? entry.values : [entry.values];
-      const notes = notesHistory.find((n) => n.id === entry.id)?.notes || [];
+  // const askGPT = async (entry: SurveyEntry) => {
+  //   try {
+  //     // setLoadingGpt((prev) => ({ ...prev, [entry.id]: true }));
+  //     const values = Array.isArray(entry.values) ? entry.values : [entry.values];
+  //     const notes = notesHistory.find((n) => n.id === entry.id)?.notes || [];
 
-      const response = await fetch('/api/chatgpt', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          notes,
-          values: values.map((v) => {
-            try {
-              return typeof v === 'string' ? JSON.parse(v) : v;
-            } catch (e) {
-              return v;
-            }
-          }),
-        }),
-      });
+  //     const response = await fetch('/api/chatgpt', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({
+  //         notes,
+  //         values: values.map((v) => {
+  //           try {
+  //             return typeof v === 'string' ? JSON.parse(v) : v;
+  //           } catch (e) {
+  //             return v;
+  //           }
+  //         }),
+  //       }),
+  //     });
 
-      if (!response.ok) {
-        throw new Error('Failed to get GPT response');
-      }
+  //     if (!response.ok) {
+  //       throw new Error('Failed to get GPT response');
+  //     }
 
-      const data = await response.json();
+  //     const data = await response.json();
 
-      // Save GPT response to user profile
-      if (user) {
-        const userProfile = await appwriteApi.profile.get(user.$id);
-        if (!userProfile) {
-          throw new Error('User profile not found');
-        }
-        const existingGptJSON = userProfile.gptJSON || [];
-        const newGptResponse: GptResponse = {
-          id: entry.id,
-          response: data.content,
-          createdAt: new Date().toISOString(),
-        };
-        await appwriteApi.profile.update(user.$id, {
-          gptJSON: [...existingGptJSON, JSON.stringify(newGptResponse)],
-        });
-      }
+  //     // Save GPT response to user profile
+  //     if (user) {
+  //       const userProfile = await appwriteApi.profile.get(user.$id);
+  //       if (!userProfile) {
+  //         throw new Error('User profile not found');
+  //       }
+  //       const existingGptJSON = userProfile.gptJSON || [];
+  //       const newGptResponse: GptResponse = {
+  //         id: entry.id,
+  //         response: data.content,
+  //         createdAt: new Date().toISOString(),
+  //       };
+  //       await appwriteApi.profile.update(user.$id, {
+  //         gptJSON: [...existingGptJSON, JSON.stringify(newGptResponse)],
+  //       });
+  //     }
 
-      setGptResponses((prev) => ({ ...prev, [entry.id]: data.content }));
-      message.success('Анализ данных успешно получен');
-    } catch (error) {
-      console.error('Error getting GPT response:', error);
-      message.error('Не удалось получить анализ данных');
-    } finally {
-      setLoadingGpt((prev) => ({ ...prev, [entry.id]: false }));
-    }
-  };
+  //     setGptResponses((prev) => ({ ...prev, [entry.id]: data.content }));
+  //     message.success('Анализ данных успешно получен');
+  //   } catch (error) {
+  //     console.error('Error getting GPT response:', error);
+  //     message.error('Не удалось получить анализ данных');
+  //   } finally {
+  //     // setLoadingGpt((prev) => ({ ...prev, [entry.id]: false }));
+  //   }
+  // };
 
   const askGigaChat = async (entry: SurveyEntry) => {
     try {
@@ -701,7 +700,7 @@ function DashboardContent() {
       <Timeline>
         {surveyHistory.map((entry) => {
           const values = Array.isArray(entry.values) ? entry.values : [entry.values];
-          const hasGptResponse = gptResponses[entry.id] !== undefined;
+          // const hasGptResponse = gptResponses[entry.id] !== undefined;
           const hasGigaChatResponse = gigaChatResponses[entry.id] !== undefined;
           const notesEntry = notesHistory.find((n) => n.id === entry.id);
           return (

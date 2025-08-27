@@ -1,12 +1,8 @@
 'use client';
 import React, { useState } from 'react';
-import { Button, Typography } from 'antd';
-import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import { motion, AnimatePresence } from 'framer-motion';
 import styles from './SelectionProcessSection.module.css';
 import Image from 'next/image';
-
-const { Title, Paragraph } = Typography;
 
 interface ProcessStep {
   id: string;
@@ -91,8 +87,17 @@ export function SelectionProcessSection() {
               <Image src={'/assets/icons/arrow-left-icon.svg'} alt="" width={32} height={32} />
             </div>
             <div className={styles.arrowRight} onClick={nextStep}>
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M10.4413 5.43934C11.0271 4.85355 11.9766 4.85355 12.5624 5.43934L22.1083 14.9852C22.6941 15.571 22.6941 16.5205 22.1083 17.1063L12.5624 26.6522C11.9766 27.238 11.0271 27.238 10.4413 26.6522C9.85551 26.0664 9.85551 25.1169 10.4413 24.5311L18.9266 16.0458L10.4413 7.56043C9.85551 6.97465 9.85551 6.02513 10.4413 5.43934Z" fill="white"/>
+              <svg
+                width="32"
+                height="32"
+                viewBox="0 0 32 32"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M10.4413 5.43934C11.0271 4.85355 11.9766 4.85355 12.5624 5.43934L22.1083 14.9852C22.6941 15.571 22.6941 16.5205 22.1083 17.1063L12.5624 26.6522C11.9766 27.238 11.0271 27.238 10.4413 26.6522C9.85551 26.0664 9.85551 25.1169 10.4413 24.5311L18.9266 16.0458L10.4413 7.56043C9.85551 6.97465 9.85551 6.02513 10.4413 5.43934Z"
+                  fill="white"
+                />
               </svg>
             </div>
           </div>

@@ -35,7 +35,8 @@ export function TrustSection() {
               <div className={styles.usersNumber}>&gt; 1,5 млн</div>
               <div className={styles.usersLabel}>пользователей</div>
               <div className={styles.usersDescription}>
-                получили анализ и назначения<br /> от системы AI NutriScan бесплатно
+                получили анализ и назначения
+                <br /> от системы AI NutriScan бесплатно
               </div>
             </div>
 
@@ -46,7 +47,14 @@ export function TrustSection() {
           <div className={styles.bottomSection}>
             <div className={styles.progressChart}>
               <svg width="265" height="265" viewBox="0 0 265 265">
-                <circle cx="132.5" cy="132.5" r="110.5" fill="none" stroke="#e2e8f0" strokeWidth="18" />
+                <circle
+                  cx="132.5"
+                  cy="132.5"
+                  r="110.5"
+                  fill="none"
+                  stroke="#e2e8f0"
+                  strokeWidth="18"
+                />
                 <circle
                   cx="132.5"
                   cy="132.5"

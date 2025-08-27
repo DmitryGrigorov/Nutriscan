@@ -28,9 +28,7 @@ export const CustomSteps: React.FC<CustomStepsProps> = ({
   };
 
   return (
-    <div 
-      className={`${styles.steps} ${styles[direction]} ${styles[size]} ${className || ''}`}
-    >
+    <div className={`${styles.steps} ${styles[direction]} ${styles[size]} ${className || ''}`}>
       {items.map((item, index) => {
         const status = getStepStatus(index);
         return (

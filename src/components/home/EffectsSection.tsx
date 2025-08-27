@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Button, Typography } from 'antd';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import styles from './EffectsSection.module.css';
 
 const { Title, Paragraph } = Typography;
@@ -122,7 +122,7 @@ export function EffectsSection() {
               ease: 'easeInOut',
             }}
           >
-            {effectCards.map((card, index) => (
+            {effectCards.map((card) => (
               <motion.div
                 key={card.id}
                 className={styles.card}

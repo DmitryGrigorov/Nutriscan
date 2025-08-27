@@ -1,41 +1,37 @@
 'use client';
 
-import { Layout, Button, Space, Typography, Menu, Dropdown, Drawer } from 'antd';
+import { Layout, Button, Space, Typography, Menu, Dropdown } from 'antd';
 import type { MenuProps } from 'antd';
 import { useRouter, usePathname } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import Link from 'next/link';
 import Image from 'next/image';
 import {
-  TeamOutlined,
-  ShoppingOutlined,
   MedicineBoxOutlined,
   ExperimentOutlined,
   UserOutlined,
   SettingOutlined,
   MenuOutlined,
-  PhoneOutlined,
   BellOutlined,
   GiftOutlined,
   FileTextOutlined,
   LineChartOutlined,
   BarChartOutlined,
   ShoppingCartOutlined,
-  HomeOutlined,
   DownOutlined,
 } from '@ant-design/icons';
 import { useState, useEffect } from 'react';
 import styles from './Navigation.module.css';
 
 const { Header: AntHeader } = Layout;
-const { Title, Text } = Typography;
+const { Text } = Typography;
 
 export const Navigation = () => {
   const router = useRouter();
   const pathname = usePathname();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const { user, logout } = useAuth();
+  const { user } = useAuth();
 
   useEffect(() => {
     const checkMobile = () => {

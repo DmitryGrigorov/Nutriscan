@@ -1,6 +1,5 @@
 import React from 'react';
 import Image from 'next/image';
-import { CheckCircleFilled } from '@ant-design/icons';
 import styles from './WhyQuestionnaireSection.module.css';
 
 export const WhyQuestionnaireSection = () => {

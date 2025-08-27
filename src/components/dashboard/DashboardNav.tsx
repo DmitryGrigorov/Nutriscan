@@ -103,9 +103,7 @@ export const DashboardNav: React.FC<DashboardNavProps> = ({ isMobile, onMenuClic
         {menuItems.map((item) => (
           <div key={item.key}>
             <div
-              className={`${styles.navItem} ${
-                isActive(item.key) ? styles.active : ''
-              }`}
+              className={`${styles.navItem} ${isActive(item.key) ? styles.active : ''}`}
               onClick={() => handleMenuClick(item.key)}
             >
               <div className={styles.navItemContent}>
@@ -124,9 +122,7 @@ export const DashboardNav: React.FC<DashboardNavProps> = ({ isMobile, onMenuClic
       {menuItems.map((item) => (
         <div key={item.key}>
           <div
-            className={`${styles.mobileNavItem} ${
-              isActive(item.key) ? styles.active : ''
-            }`}
+            className={`${styles.mobileNavItem} ${isActive(item.key) ? styles.active : ''}`}
             onClick={() => handleMenuClick(item.key)}
           >
             {item.icon && <span className={styles.navItemIcon}>{item.icon}</span>}

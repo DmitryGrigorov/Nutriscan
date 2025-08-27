@@ -104,7 +104,7 @@ export default function SupplementsSurveyPage() {
   const router = useRouter();
   const [notes, setNotes] = useState<string[]>([]);
   const [localState, setLocalState] = useState<LocalState>({});
-  const [bmi, setBmi] = useState<number | null>(null);
+  // const [bmi, setBmi] = useState<number | null>(null);
 
   // Универсальный обработчик для добавления пометок
   // const addNote = (note: string) => {
@@ -170,7 +170,7 @@ export default function SupplementsSurveyPage() {
     const weight = Number(state.weight);
     if (height && weight) {
       const bmiValue = +(weight / (height / 100) ** 2).toFixed(1);
-      setBmi(bmiValue);
+      // setBmi(bmiValue);
       if (bmiValue < 18.5) newNotes.push('Недостаточный вес');
       else if (bmiValue < 25) newNotes.push('Нормальный вес');
       else if (bmiValue < 30) newNotes.push('Избыточный вес');
@@ -1773,9 +1773,14 @@ export default function SupplementsSurveyPage() {
       const bmi = weightKg / (heightM * heightM);
       return {
         value: bmi.toFixed(0),
-        status: bmi < 18.5 ? 'Недостаток веса' : 
-                bmi < 25 ? 'Вы в хорошей форме!' :
-                bmi < 30 ? 'Избыточный вес' : 'Ожирение'
+        status:
+          bmi < 18.5
+            ? 'Недостаток веса'
+            : bmi < 25
+              ? 'Вы в хорошей форме!'
+              : bmi < 30
+                ? 'Избыточный вес'
+                : 'Ожирение',
       };
     }
     return null;
@@ -1788,9 +1793,7 @@ export default function SupplementsSurveyPage() {
       <div className={styles.surveyContainer}>
         <Card className={styles.surveyCard}>
           <div className={styles.surveyHeader}>
-            <h1 className={styles.surveyTitle}>
-              Основной опросник для подбора БАДов
-            </h1>
+            <h1 className={styles.surveyTitle}>Основной опросник для подбора БАДов</h1>
           </div>
 
           <div className={styles.surveyContent}>
@@ -1808,7 +1811,7 @@ export default function SupplementsSurveyPage() {
               <Form form={form} layout="vertical" onFinish={handleSubmit} initialValues={{}}>
                 <div className={styles.questionSection}>
                   {steps[currentStep].content}
-                  
+
                   {/* BMI Result Display */}
                   {currentStep === 0 && bmiResult && (
                     <div className={styles.bmiResult}>
@@ -1821,29 +1824,18 @@ export default function SupplementsSurveyPage() {
 
                 <div className={styles.navigationButtons}>
                   {currentStep > 0 && (
-                    <Button 
-                      onClick={prev}
-                      className={styles.backButton}
-                    >
+                    <Button onClick={prev} className={styles.backButton}>
                       Назад
                     </Button>
                   )}
                   <div style={{ flex: 1 }}></div>
                   {currentStep < steps.length - 1 && (
-                    <Button 
-                      type="primary" 
-                      onClick={next}
-                      className={styles.nextButton}
-                    >
+                    <Button type="primary" onClick={next} className={styles.nextButton}>
                       Продолжить
                     </Button>
                   )}
                   {currentStep === steps.length - 1 && (
-                    <Button 
-                      type="primary" 
-                      htmlType="submit"
-                      className={styles.nextButton}
-                    >
+                    <Button type="primary" htmlType="submit" className={styles.nextButton}>
                       Завершить
                     </Button>
                   )}

@@ -120,7 +120,13 @@ export const TitleHero = () => {
                   рекомендации
                 </span>
                 <span className={styles.recommendationsArrow}>
-                  <svg width="32" height="32" viewBox="0 0 32 32" fill="#000" xmlns="http://www.w3.org/2000/svg">
+                  <svg
+                    width="32"
+                    height="32"
+                    viewBox="0 0 32 32"
+                    fill="#000"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
                     <path d="M10.4413 5.43934C11.0271 4.85355 11.9766 4.85355 12.5624 5.43934L22.1083 14.9852C22.6941 15.571 22.6941 16.5205 22.1083 17.1063L12.5624 26.6522C11.9766 27.238 11.0271 27.238 10.4413 26.6522C9.85551 26.0664 9.85551 25.1169 10.4413 24.5311L18.9266 16.0458L10.4413 7.56043C9.85551 6.97465 9.85551 6.02513 10.4413 5.43934Z" />
                   </svg>
                 </span>
@@ -140,13 +146,13 @@ export const TitleHero = () => {
             className={styles.mainImage}
             initial={{ scale: 1 }}
             animate={{ scale: 1 }}
-            transition={{ duration: 1.2, delay: 0.7, ease: "easeOut" }}
+            transition={{ duration: 1.2, delay: 0.7, ease: 'easeOut' }}
           />
           <motion.div
             className={styles.circleImage}
             initial={{ scale: 1, rotate: 0 }}
             animate={{ scale: 1, rotate: 0 }}
-            transition={{ duration: 1.5, delay: 0.9, ease: "easeOut" }}
+            transition={{ duration: 1.5, delay: 0.9, ease: 'easeOut' }}
           />
         </motion.div>
       </div>

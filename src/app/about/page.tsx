@@ -1,18 +1,6 @@
 'use client';
 import React from 'react';
-import {
-  Layout,
-  Row,
-  Col,
-  Card,
-  Typography,
-  Space,
-  Divider,
-  List,
-  Avatar,
-  Tag,
-  Statistic,
-} from 'antd';
+import { Layout, Row, Col, Card, Typography, Space, Avatar, Tag, Statistic } from 'antd';
 import {
   TeamOutlined,
   TrophyOutlined,

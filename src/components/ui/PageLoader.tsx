@@ -12,12 +12,12 @@ interface PageLoaderProps {
 
 export function PageLoader({ size = 'large', text = 'Загрузка...' }: PageLoaderProps) {
   const antIcon = (
-    <LoadingOutlined 
-      style={{ 
+    <LoadingOutlined
+      style={{
         fontSize: size === 'large' ? 48 : size === 'default' ? 32 : 24,
-        color: '#16B6BE' 
-      }} 
-      spin 
+        color: '#16B6BE',
+      }}
+      spin
     />
   );
 
@@ -53,16 +53,18 @@ export function PageLoader({ size = 'large', text = 'Загрузка...' }: Pag
           gap: '24px',
         }}
       >
-        <div style={{
-          background: '#fff',
-          borderRadius: '50%',
-          padding: '24px',
-          boxShadow: '0 8px 32px rgba(22, 182, 190, 0.15)',
-          border: '1px solid rgba(22, 182, 190, 0.1)',
-        }}>
+        <div
+          style={{
+            background: '#fff',
+            borderRadius: '50%',
+            padding: '24px',
+            boxShadow: '0 8px 32px rgba(22, 182, 190, 0.15)',
+            border: '1px solid rgba(22, 182, 190, 0.1)',
+          }}
+        >
           <Spin indicator={antIcon} />
         </div>
-        
+
         <motion.div
           initial={{ y: 10, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -76,7 +78,7 @@ export function PageLoader({ size = 'large', text = 'Загрузка...' }: Pag
         >
           {text}
         </motion.div>
-        
+
         <motion.div
           initial={{ width: 0 }}
           animate={{ width: '120px' }}
