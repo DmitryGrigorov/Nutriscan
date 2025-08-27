@@ -247,17 +247,10 @@
     font-size: 15px !important;
   }
   
-  .imageContainer {
-    max-width: 300px;
-  }
-  
-  .imagePlaceholder {
-    height: 300px;
-  }
-  
+  .imageContainer,
+  .imagePlaceholder,
   .labEquipment {
-    width: 160px;
-    height: 30px;
+    display: none;
   }
 }
 

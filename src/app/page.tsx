@@ -26,8 +26,9 @@ import { TitleHero } from '@/components/home/TitleHero';
 import { WhyQuestionnaireSection } from '@/components/home/WhyQuestionnaireSection';
 import { SelectionProcessSection } from '@/components/home/SelectionProcessSection';
 import { TrustSection } from '@/components/home/TrustSection';
-import { EffectsSection } from '@/components/home/EffectsSection';
-import { FAQSection } from '@/components/home/FAQSection';
+ import { BenefitsCarousel } from '@/components/home/BenefitsCarousel';
+ import { TestimonialsSection } from '@/components/home/TestimonialsSection';
+ import { FAQSection } from '@/components/home/FAQSection';
 
 const { Title, Paragraph, Text } = Typography;
 const { Footer, Content } = Layout;
@@ -713,11 +714,9 @@ export default function AntdHome() {
         <WhyQuestionnaireSection />
         <SelectionProcessSection />
         <TrustSection />
-        <EffectsSection />
+        <BenefitsCarousel />
+        <TestimonialsSection />
         <FAQSection />
-        <Testimonials />
-        <ScientificBasis />
-        <ExpertTeam />
       </Content>
       <MainFooter />
     </Layout>

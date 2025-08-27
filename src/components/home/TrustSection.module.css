@@ -310,9 +310,15 @@
   }
   
   .chatBubble {
-    width: 100px;
-    height: 100px;
-    margin-bottom: 20px;
+    display: none;
+  }
+
+  .progressChart {
+    display: none;
+  }
+
+  .taskImageContainer {
+    display: none;
   }
   
   .reviewsNumber {
