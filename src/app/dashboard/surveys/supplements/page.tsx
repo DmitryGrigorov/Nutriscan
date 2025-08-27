@@ -1,11 +1,13 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { Card, Form, Input, Button, Steps, message, Radio, Checkbox } from 'antd';
+import { Card, Form, Input, Button, message, Radio, Checkbox } from 'antd';
 import { useRouter } from 'next/navigation';
 import { appwriteApi } from '@/lib/appwrite/api';
 import { BasePage } from '@/components/dashboard/BasePage';
+import { CustomSteps } from '@/components/ui/CustomSteps';
 import { v4 as uuidv4 } from 'uuid';
+import styles from './page.module.css';
 
 interface SupplementsSurveyFormData {
   // TODO: Define the fields for the supplements survey
@@ -522,6 +524,7 @@ export default function SupplementsSurveyPage() {
             name="gender"
             label="Укажите ваш пол"
             rules={[{ required: true, message: 'Пожалуйста, выберите ваш пол' }]}
+            className={styles.formItem}
           >
             <Radio.Group
               onChange={(e) => {
@@ -529,9 +532,10 @@ export default function SupplementsSurveyPage() {
                 form.setFieldsValue({ gender: e.target.value });
               }}
               value={localState.gender}
+              className={styles.radioGroup}
             >
-              <Radio value="male">Мужской</Radio>
               <Radio value="female">Женский</Radio>
+              <Radio value="male">Мужской</Radio>
             </Radio.Group>
           </Form.Item>
 
@@ -723,40 +727,39 @@ export default function SupplementsSurveyPage() {
             </Radio.Group>
           </Form.Item>
 
-          {/* Вопрос 4 */}
-          <Form.Item
-            label="Укажите ваш рост (см)"
-            name="height"
-            rules={[{ required: true, message: 'Пожалуйста, введите рост' }]}
-          >
-            <Input
-              type="number"
-              min={100}
-              max={250}
-              onChange={handleHeightChange}
-              value={localState.height}
-              placeholder="Рост (см)"
-            />
-          </Form.Item>
-          <Form.Item
-            label="Укажите ваш вес (кг)"
-            name="weight"
-            rules={[{ required: true, message: 'Пожалуйста, введите вес' }]}
-          >
-            <Input
-              type="number"
-              min={30}
-              max={300}
-              onChange={handleWeightChange}
-              value={localState.weight}
-              placeholder="Вес (кг)"
-            />
-          </Form.Item>
-          {bmi && (
-            <div style={{ marginTop: 8 }}>
-              <b>Ваш ИМТ:</b> {bmi}
-            </div>
-          )}
+          {/* Вопрос 4 и 5 - Рост и вес в одной строке */}
+          <div className={styles.inputGroup}>
+            <Form.Item
+              label="Укажите ваш рост"
+              name="height"
+              rules={[{ required: true, message: 'Пожалуйста, введите рост' }]}
+              className={styles.formItem}
+            >
+              <Input
+                type="number"
+                min={100}
+                max={250}
+                onChange={handleHeightChange}
+                value={localState.height}
+                placeholder="165см"
+              />
+            </Form.Item>
+            <Form.Item
+              label="Укажите ваш вес"
+              name="weight"
+              rules={[{ required: true, message: 'Пожалуйста, введите вес' }]}
+              className={styles.formItem}
+            >
+              <Input
+                type="number"
+                min={30}
+                max={300}
+                onChange={handleWeightChange}
+                value={localState.weight}
+                placeholder="60кг"
+              />
+            </Form.Item>
+          </div>
           {/* Список пометок */}
           {notes.length > 0 && (
             <div style={{ marginTop: 24 }}>
@@ -1763,34 +1766,93 @@ export default function SupplementsSurveyPage() {
     setCurrentStep(currentStep - 1);
   };
 
+  const calculateBMI = () => {
+    if (localState.height && localState.weight) {
+      const heightM = parseFloat(localState.height) / 100;
+      const weightKg = parseFloat(localState.weight);
+      const bmi = weightKg / (heightM * heightM);
+      return {
+        value: bmi.toFixed(0),
+        status: bmi < 18.5 ? 'Недостаток веса' : 
+                bmi < 25 ? 'Вы в хорошей форме!' :
+                bmi < 30 ? 'Избыточный вес' : 'Ожирение'
+      };
+    }
+    return null;
+  };
+
+  const bmiResult = calculateBMI();
+
   return (
-    <BasePage title="Опросник по подбору БАДов">
-      <Card>
-        <Steps
-          direction="vertical"
-          size="small"
-          current={currentStep}
-          items={steps.map((step) => ({ title: step.title }))}
-        />
-        <div style={{ marginTop: 24 }}>
-          <Form form={form} layout="vertical" onFinish={handleSubmit} initialValues={{}}>
-            {steps[currentStep].content}
-            <div style={{ marginTop: 24, display: 'flex', justifyContent: 'space-between' }}>
-              {currentStep > 0 && <Button onClick={prev}>Назад</Button>}
-              {currentStep < steps.length - 1 && (
-                <Button type="primary" onClick={next}>
-                  Далее
-                </Button>
-              )}
-              {currentStep === steps.length - 1 && (
-                <Button type="primary" htmlType="submit">
-                  Завершить
-                </Button>
-              )}
+    <BasePage title="">
+      <div className={styles.surveyContainer}>
+        <Card className={styles.surveyCard}>
+          <div className={styles.surveyHeader}>
+            <h1 className={styles.surveyTitle}>
+              Основной опросник для подбора БАДов
+            </h1>
+          </div>
+
+          <div className={styles.surveyContent}>
+            <div className={styles.stepsNavigation}>
+              <CustomSteps
+                direction="vertical"
+                size="small"
+                current={currentStep}
+                className={styles.customSteps}
+                items={steps.map((step) => ({ title: step.title }))}
+              />
             </div>
-          </Form>
-        </div>
-      </Card>
+
+            <div className={styles.stepsForm}>
+              <Form form={form} layout="vertical" onFinish={handleSubmit} initialValues={{}}>
+                <div className={styles.questionSection}>
+                  {steps[currentStep].content}
+                  
+                  {/* BMI Result Display */}
+                  {currentStep === 0 && bmiResult && (
+                    <div className={styles.bmiResult}>
+                      <div className={styles.bmiIcon}>AI</div>
+                      <div className={styles.bmiValue}>Ваш ИМТ = {bmiResult.value}</div>
+                      <div className={styles.bmiStatus}>{bmiResult.status}</div>
+                    </div>
+                  )}
+                </div>
+
+                <div className={styles.navigationButtons}>
+                  {currentStep > 0 && (
+                    <Button 
+                      onClick={prev}
+                      className={styles.backButton}
+                    >
+                      Назад
+                    </Button>
+                  )}
+                  <div style={{ flex: 1 }}></div>
+                  {currentStep < steps.length - 1 && (
+                    <Button 
+                      type="primary" 
+                      onClick={next}
+                      className={styles.nextButton}
+                    >
+                      Продолжить
+                    </Button>
+                  )}
+                  {currentStep === steps.length - 1 && (
+                    <Button 
+                      type="primary" 
+                      htmlType="submit"
+                      className={styles.nextButton}
+                    >
+                      Завершить
+                    </Button>
+                  )}
+                </div>
+              </Form>
+            </div>
+          </div>
+        </Card>
+      </div>
     </BasePage>
   );
 }

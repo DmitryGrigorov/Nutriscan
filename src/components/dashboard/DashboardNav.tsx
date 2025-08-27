@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import { Menu } from 'antd';
 import { useRouter, usePathname } from 'next/navigation';
 import {
   BarChartOutlined,
@@ -14,58 +13,64 @@ import {
   ShoppingCartOutlined,
   UserOutlined,
 } from '@ant-design/icons';
-import type { MenuProps } from 'antd';
+import styles from './DashboardNav.module.css';
 
-const items: MenuProps['items'] = [
+interface MenuItem {
+  key: string;
+  label: string;
+  icon?: React.ReactNode;
+}
+
+const menuItems: MenuItem[] = [
   {
     key: '/dashboard/account',
-    icon: <UserOutlined />,
     label: 'Личный кабинет',
+    icon: <UserOutlined />,
   },
   {
     key: '/dashboard',
-    icon: <BarChartOutlined />,
     label: 'Обзор',
+    icon: <BarChartOutlined />,
   },
   {
     key: '/dashboard/surveys',
-    icon: <FileTextOutlined />,
     label: 'Опросы',
+    icon: <FileTextOutlined />,
   },
   {
     key: '/dashboard/analyses',
-    icon: <FileTextOutlined />,
     label: 'Загруженные анализы',
+    icon: <FileTextOutlined />,
   },
   {
     key: '/dashboard/trends',
-    icon: <LineChartOutlined />,
     label: 'Динамика показателей',
+    icon: <LineChartOutlined />,
   },
   {
     key: '/dashboard/supplements',
-    icon: <HistoryOutlined />,
     label: 'История потребления БАДов',
+    icon: <HistoryOutlined />,
   },
   {
     key: '/dashboard/recommendations',
-    icon: <BulbOutlined />,
     label: 'Персональные рекомендации',
+    icon: <BulbOutlined />,
   },
   {
     key: '/dashboard/promotions',
-    icon: <GiftOutlined />,
     label: 'Акции и предложения',
+    icon: <GiftOutlined />,
   },
   {
     key: '/dashboard/analysis-reminders',
-    icon: <BellOutlined />,
     label: 'Напоминания об анализах',
+    icon: <BellOutlined />,
   },
   {
     key: '/dashboard/supplement-reminders',
-    icon: <ShoppingCartOutlined />,
     label: 'Напоминания о БАДах',
+    icon: <ShoppingCartOutlined />,
   },
 ];
 
@@ -85,19 +90,56 @@ export const DashboardNav: React.FC<DashboardNavProps> = ({ isMobile, onMenuClic
     }
   };
 
-  const renderMenu = (mode: 'inline' | 'vertical' = 'inline') => (
-    <Menu
-      mode={mode}
-      selectedKeys={[pathname]}
-      items={items}
-      onClick={({ key }) => handleMenuClick(key)}
-      style={mode === 'inline' ? { height: '100%', borderRight: 0 } : {}}
-    />
+  const isActive = (key: string) => {
+    return key === pathname;
+  };
+
+  const renderDesktopMenu = () => (
+    <div className={styles.sidebar}>
+      <div className={styles.sidebarHeader}>
+        <h3 className={styles.sidebarTitle}>Личный профиль</h3>
+      </div>
+      <nav className={styles.nav}>
+        {menuItems.map((item) => (
+          <div key={item.key}>
+            <div
+              className={`${styles.navItem} ${
+                isActive(item.key) ? styles.active : ''
+              }`}
+              onClick={() => handleMenuClick(item.key)}
+            >
+              <div className={styles.navItemContent}>
+                {item.icon && <span className={styles.navItemIcon}>{item.icon}</span>}
+                <span className={styles.navItemLabel}>{item.label}</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </nav>
+    </div>
+  );
+
+  const renderMobileMenu = () => (
+    <div className={styles.mobileNav}>
+      {menuItems.map((item) => (
+        <div key={item.key}>
+          <div
+            className={`${styles.mobileNavItem} ${
+              isActive(item.key) ? styles.active : ''
+            }`}
+            onClick={() => handleMenuClick(item.key)}
+          >
+            {item.icon && <span className={styles.navItemIcon}>{item.icon}</span>}
+            <span>{item.label}</span>
+          </div>
+        </div>
+      ))}
+    </div>
   );
 
   if (isMobile) {
-    return renderMenu('vertical');
+    return renderMobileMenu();
   }
 
-  return renderMenu('inline');
+  return renderDesktopMenu();
 };

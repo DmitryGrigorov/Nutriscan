@@ -1,0 +1,293 @@
+.surveyContainer {
+  padding: 0;
+  margin: 0;
+}
+
+.surveyCard {
+  background: white;
+  border-radius: 16px;
+  padding: 0;
+  border: 2px solid #13c2c2;
+  box-shadow: 0 4px 16px rgba(19, 194, 194, 0.1);
+  margin: 0;
+}
+
+.surveyHeader {
+  padding: 24px 32px;
+  border-bottom: 1px solid #f0f0f0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.surveyTitle {
+  font-size: 24px;
+  font-weight: 600;
+  color: #262626;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.surveyLogo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #13c2c2, #52c41a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.statusBadge {
+  background: #1890ff;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  font-size: 16px;
+  color: #8c8c8c;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.closeButton:hover {
+  background: #f5f5f5;
+  color: #595959;
+}
+
+.aiAssistantInfo {
+  background: rgba(19, 194, 194, 0.05);
+  border-radius: 12px;
+  padding: 20px;
+  margin: 24px 32px 0 32px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.aiIcon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #13c2c2, #52c41a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.aiInfo {
+  flex: 1;
+}
+
+.aiTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: #262626;
+  margin: 0 0 8px 0;
+}
+
+.aiDescription {
+  color: #595959;
+  line-height: 1.5;
+  margin: 0;
+  font-size: 14px;
+}
+
+.surveyContent {
+  padding: 32px;
+  display: flex;
+  gap: 40px;
+}
+
+.stepsNavigation {
+  width: 280px;
+  flex-shrink: 0;
+}
+
+.stepsForm {
+  flex: 1;
+  max-width: 600px;
+}
+
+/* Custom Steps styling */
+.customSteps {
+  background: none;
+  border: none;
+}
+
+/* Form styling */
+.questionSection {
+  margin-bottom: 32px;
+}
+
+.formItem {
+  margin-bottom: 24px;
+}
+
+.formItem :global(.ant-form-item-label > label) {
+  color: #262626;
+  font-weight: 500;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+/* Radio buttons styling */
+.radioGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.radioGroup :global(.ant-radio-wrapper) {
+  padding: 12px 16px;
+  border: 1px solid #d9d9d9;
+  border-radius: 8px;
+  margin: 0;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+}
+
+.radioGroup :global(.ant-radio-wrapper:hover) {
+  border-color: #13c2c2;
+  background: rgba(19, 194, 194, 0.02);
+}
+
+.radioGroup :global(.ant-radio-wrapper-checked) {
+  border-color: #13c2c2;
+  background: rgba(19, 194, 194, 0.05);
+}
+
+.radioGroup :global(.ant-radio-wrapper-checked .ant-radio-inner) {
+  border-color: #13c2c2;
+  background-color: #13c2c2;
+}
+
+/* Input fields in same row */
+.inputGroup {
+  display: flex;
+  gap: 16px;
+  align-items: flex-end;
+}
+
+.inputGroup .formItem {
+  margin-bottom: 0;
+  flex: 1;
+}
+
+.inputGroup :global(.ant-input) {
+  border-radius: 8px;
+  border: 1px solid #d9d9d9;
+  height: 40px;
+  font-size: 14px;
+}
+
+.inputGroup :global(.ant-input:focus) {
+  border-color: #13c2c2;
+  box-shadow: 0 0 0 2px rgba(19, 194, 194, 0.1);
+}
+
+/* BMI Result Display */
+.bmiResult {
+  background: rgba(19, 194, 194, 0.05);
+  border: 1px solid rgba(19, 194, 194, 0.2);
+  border-radius: 12px;
+  padding: 16px;
+  margin-top: 16px;
+  text-align: center;
+}
+
+.bmiIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #13c2c2, #52c41a);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  margin-bottom: 8px;
+  font-size: 16px;
+}
+
+.bmiValue {
+  font-size: 18px;
+  font-weight: 600;
+  color: #262626;
+  margin: 0 0 4px 0;
+}
+
+.bmiStatus {
+  color: #52c41a;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+/* Navigation buttons */
+.navigationButtons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.backButton {
+  background: white;
+  border: 1px solid #d9d9d9;
+  color: #595959;
+  font-weight: 500;
+  height: 40px;
+  padding: 0 24px;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.backButton:hover {
+  border-color: #13c2c2;
+  color: #13c2c2;
+}
+
+.nextButton {
+  background: #13c2c2;
+  border: none;
+  color: white;
+  font-weight: 500;
+  height: 40px;
+  padding: 0 24px;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.nextButton:hover {
+  background: #0fb5b5;
+}
+
+/* Hide default card styling when using custom container */
+.surveyContainer :global(.ant-card) {
+  border: none;
+  box-shadow: none;
+}
+
+.surveyContainer :global(.ant-card-body) {
+  padding: 0;
+}

@@ -1,0 +1,189 @@
+.steps {
+  display: flex;
+  font-family: inherit;
+}
+
+.steps.vertical {
+  flex-direction: column;
+}
+
+.steps.horizontal {
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+/* Step Item */
+.step {
+  display: flex;
+  position: relative;
+  min-height: 56px;
+}
+
+.steps.vertical .step {
+  flex-direction: row;
+}
+
+.steps.horizontal .step {
+  flex-direction: column;
+  flex: 1;
+  text-align: center;
+}
+
+/* Step Head */
+.stepHead {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  margin-right: 16px;
+}
+
+.steps.horizontal .stepHead {
+  margin-right: 0;
+  margin-bottom: 8px;
+  justify-content: center;
+}
+
+.stepIcon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f0f0f0;
+  border: 1px solid #d9d9d9;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.stepNumber {
+  font-size: 14px;
+  font-weight: 600;
+  color: #8c8c8c;
+  transition: all 0.3s ease;
+}
+
+/* Step states */
+.step.wait .stepIcon {
+  background: #f0f0f0;
+  border-color: #d9d9d9;
+}
+
+.step.wait .stepNumber {
+  color: #8c8c8c;
+}
+
+.step.process .stepIcon {
+  background: #13c2c2;
+  border-color: #13c2c2;
+}
+
+.step.process .stepNumber {
+  color: white;
+}
+
+.step.finish .stepIcon {
+  background: #52c41a;
+  border-color: #52c41a;
+}
+
+.step.finish .stepNumber {
+  color: white;
+}
+
+/* Step Tail (connecting line) */
+.stepTail {
+  position: absolute;
+  top: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: calc(100% + 24px);
+  background: #f0f0f0;
+}
+
+.step.finish .stepTail {
+  background: #52c41a;
+}
+
+.step.process .stepTail {
+  background: linear-gradient(to bottom, #13c2c2 0%, #f0f0f0 50%, #f0f0f0 100%);
+}
+
+/* For horizontal layout */
+.steps.horizontal .stepTail {
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  transform: translateY(-50%);
+  width: calc(100% - 32px);
+  height: 1px;
+  background: #f0f0f0;
+}
+
+.steps.horizontal .step.finish .stepTail {
+  background: #52c41a;
+}
+
+.steps.horizontal .step.process .stepTail {
+  background: linear-gradient(to right, #13c2c2 0%, #f0f0f0 50%, #f0f0f0 100%);
+}
+
+/* Hide tail for last item */
+.steps .step:last-child .stepTail {
+  display: none;
+}
+
+/* Step Content */
+.stepContent {
+  flex: 1;
+  padding-top: 4px;
+  min-height: 32px;
+}
+
+.steps.horizontal .stepContent {
+  padding-top: 0;
+  text-align: center;
+}
+
+.stepTitle {
+  font-size: 14px;
+  line-height: 1.5;
+  font-weight: 500;
+  color: #8c8c8c;
+  margin: 0;
+  transition: all 0.3s ease;
+}
+
+.step.process .stepTitle {
+  color: #13c2c2;
+  font-weight: 600;
+}
+
+.step.finish .stepTitle {
+  color: #52c41a;
+  font-weight: 600;
+}
+
+/* Small size variant */
+.steps.small .stepIcon {
+  width: 24px;
+  height: 24px;
+}
+
+.steps.small .stepNumber {
+  font-size: 12px;
+}
+
+.steps.small .stepTitle {
+  font-size: 12px;
+}
+
+.steps.small.vertical .stepTail {
+  top: 24px;
+  height: calc(100% + 32px);
+}
+
+.steps.small .step {
+  min-height: 48px;
+}

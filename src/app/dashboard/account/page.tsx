@@ -723,7 +723,7 @@ function DashboardContent() {
                 style={{ marginBottom: 16 }}
                 extra={
                   <Space>
-                    {!hasGptResponse && (
+                    {/* {!hasGptResponse && (
                       <Button
                         type="primary"
                         icon={<RobotOutlined />}
@@ -732,7 +732,7 @@ function DashboardContent() {
                       >
                         Анализ от ChatGPT
                       </Button>
-                    )}
+                    )} */}
                     {!hasGigaChatResponse && (
                       <Button
                         type="primary"
