@@ -21,7 +21,7 @@ export const TitleHero = () => {
   return (
     <div className={styles.container}>
       <div className={styles.heroContent} style={getFontStyle('black')}>
-        <div className={styles.heroContentBackground}/>
+        <div className={styles.heroContentBackground} />
 
         {/* Левый блок */}
         <div className={styles.leftBlock}>
@@ -37,11 +37,10 @@ export const TitleHero = () => {
           <div className={styles.description}>
             <span className={styles.descriptionMedium}>
               специально для вас на основе <br />
-              <span className={styles.highlightedText}>индивидуального смарт-анализа</span><br />
+              <span className={styles.highlightedText}>индивидуального смарт-анализа</span>
+              <br />
               параметров вашего организма и образа жизни
             </span>
-            
-            
           </div>
           <div className={styles.aiCardContainer}>
             {/* Карточка AI NutriScan */}
@@ -88,7 +87,14 @@ export const TitleHero = () => {
                   <br />
                   рекомендации
                 </span>
-                <span className={styles.recommendationsArrow}><Image src="/assets/icons/arrow-right-icon.svg" alt="Arrow" width={32} height={32} /></span>
+                <span className={styles.recommendationsArrow}>
+                  <Image
+                    src="/assets/icons/arrow-right-icon.svg"
+                    alt="Arrow"
+                    width={32}
+                    height={32}
+                  />
+                </span>
               </div>
             </div>
           </div>

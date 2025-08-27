@@ -4,6 +4,7 @@ import { Button, Typography } from 'antd';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import { motion, AnimatePresence } from 'framer-motion';
 import styles from './SelectionProcessSection.module.css';
+import Image from 'next/image';
 
 const { Title, Paragraph } = Typography;
 
@@ -18,25 +19,25 @@ interface ProcessStep {
 const processSteps: ProcessStep[] = [
   {
     id: 'analysis',
-    title: 'Анализируем состояние',
-    subtitle: 'Комплексный подход',
+    title: 'Комплексный подход',
+    subtitle: 'Анализируем состояние',
     description:
       'Учитываем не только анализы, но и ваш образ жизни. Уточняем наличие хронических заболеваний, аллергий или непереносимости веществ.',
-    image: '/images/selection-process-1.jpg',
+    image: '/assets/images/lab1.jpg',
   },
   {
     id: 'personalization',
-    title: 'Персонализируем',
+    title: 'Точечные решения',
     subtitle: 'Индивидуальный подход',
-    description: 'Создаем персональную программу на основе ваших уникальных потребностей и целей.',
-    image: '/images/selection-process-2.jpg',
+    description: 'Рекомендации именно для ваших целей.Свойства, состав и потенциальная польза каждого продукта.',
+    image: '/assets/images/lab2.jpg',
   },
   {
     id: 'recommendation',
-    title: 'Рекомендуем',
-    subtitle: 'Научный подход',
-    description: 'Подбираем БАДы на основе научных исследований и клинических данных.',
-    image: '/images/selection-process-3.jpg',
+    title: 'AI NutriScan + эксперты',
+    subtitle: 'Стандарты качества',
+    description: 'Чтобы исключить риски конфликта БАДов c лекарствами все алгоритмы проверяет нутрициолог',
+    image: '/assets/images/lab3.jpg',
   },
 ];
 
@@ -65,24 +66,11 @@ export function SelectionProcessSection() {
       transition={{ duration: 0.8 }}
       className={styles.container}
     >
+      <div className={styles.mainTitle}>
+        Как происходит подбор NutriScan™
+      </div>
       <div className={styles.content}>
         <div className={styles.textSection}>
-          <Title level={2} className={styles.mainTitle}>
-            Как происходит подбор NutriScan™
-          </Title>
-
-          <div className={styles.tabContainer}>
-            {processSteps.map((step, index) => (
-              <button
-                key={step.id}
-                className={`${styles.tab} ${index === currentStep ? styles.activeTab : ''}`}
-                onClick={() => setCurrentStep(index)}
-              >
-                {step.title}
-              </button>
-            ))}
-          </div>
-
           <AnimatePresence mode="wait">
             <motion.div
               key={currentStep}
@@ -92,26 +80,23 @@ export function SelectionProcessSection() {
               transition={{ duration: 0.3 }}
               className={styles.stepContent}
             >
-              <Title level={3} className={styles.subtitle}>
+              <div className={styles.subtitle}>
                 {currentProcessStep.subtitle}
-              </Title>
-              <Paragraph className={styles.description}>{currentProcessStep.description}</Paragraph>
+              </div>
+              <div className={styles.title}>
+                {currentProcessStep.title}
+              </div>
+              <div className={styles.description}>{currentProcessStep.description}</div>
             </motion.div>
           </AnimatePresence>
 
           <div className={styles.navigation}>
-            <Button
-              type="text"
-              icon={<LeftOutlined />}
-              onClick={prevStep}
-              className={styles.navButton}
-            />
-            <Button
-              type="text"
-              icon={<RightOutlined />}
-              onClick={nextStep}
-              className={styles.navButton}
-            />
+            <div className={styles.arrowLeft} onClick={prevStep}>
+              <Image src={'/assets/icons/arrow-left-icon.svg'} alt="" width={32} height={32} />
+            </div>
+            <div className={styles.arrowRight} onClick={nextStep}>
+              <Image src={'/assets/icons/arrow-right-icon.svg'} alt="" width={32} height={32} />
+            </div>
           </div>
         </div>
 
@@ -128,10 +113,7 @@ export function SelectionProcessSection() {
               <div className={styles.imagePlaceholder}>
                 <div className={styles.labImage}>
                   {/* Здесь будет изображение лаборатории */}
-                  <div className={styles.imageContent}>
-                    <div className={styles.scientist}></div>
-                    <div className={styles.labEquipment}></div>
-                  </div>
+                  <Image src={currentProcessStep.image} alt={currentProcessStep.title} layout="fill" objectFit="cover" />
                 </div>
               </div>
             </motion.div>
