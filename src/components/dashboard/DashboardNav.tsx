@@ -45,10 +45,6 @@ const menuItems: MenuItem[] = [
     icon: <FileTextOutlined />,
     children: [
       {
-        key: '/dashboard/surveys',
-        label: 'Показать все анкеты',
-      },
-      {
         key: '/dashboard/surveys/supplements',
         label: 'Основной опросник',
       },

@@ -163,6 +163,10 @@ export const Navigation = () => {
         },
       ],
     },
+    {
+      key: '/contacts',
+      label: <Link href="/about">Контакты</Link>,
+    },
   ];
 
   const renderMenu = (mode: 'horizontal' | 'vertical' = 'horizontal') => (

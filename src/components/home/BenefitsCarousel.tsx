@@ -1,6 +1,8 @@
 'use client';
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
+import { useAuth } from '@/contexts/AuthContext';
 import styles from './BenefitsCarousel.module.css';
 
 const benefits = [
@@ -25,6 +27,16 @@ const benefits = [
 export function BenefitsCarousel() {
   const [currentBenefit, setCurrentBenefit] = useState(0);
   // const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const { user } = useAuth();
+  const router = useRouter();
+
+  const handleButtonClick = () => {
+    if (user) {
+      router.push('/dashboard/surveys/supplements');
+    } else {
+      router.push('/auth/register');
+    }
+  };
 
   const nextBenefit = () => {
     setCurrentBenefit((prev) => (prev + 1) % benefits.length);
@@ -113,7 +125,9 @@ export function BenefitsCarousel() {
                     успевайте больше, <br />
                     чем планировали на день
                   </motion.div>
-                  <div className={styles.button}>Присоединиться</div>
+                  <div onClick={handleButtonClick} className={styles.button}>
+                    Присоединиться
+                  </div>
                 </div>
               </motion.div>
               <div className={styles.rightColumn}>
@@ -127,7 +141,9 @@ export function BenefitsCarousel() {
                     приятное дополнение к общему
                     <br /> улучшению самочувствия
                   </div>
-                  <div className={styles.button}>Присоединиться</div>
+                  <div onClick={handleButtonClick} className={styles.button}>
+                    Присоединиться
+                  </div>
                 </div>
               </div>
             </div>

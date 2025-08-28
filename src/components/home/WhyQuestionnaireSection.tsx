@@ -1,8 +1,20 @@
 import React from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { useAuth } from '@/contexts/AuthContext';
 import styles from './WhyQuestionnaireSection.module.css';
 
 export const WhyQuestionnaireSection = () => {
+  const { user } = useAuth();
+  const router = useRouter();
+
+  const handleButtonClick = () => {
+    if (user) {
+      router.push('/dashboard/surveys/supplements');
+    } else {
+      router.push('/auth/register');
+    }
+  };
   return (
     <div className={styles.container}>
       <div
@@ -119,7 +131,9 @@ export const WhyQuestionnaireSection = () => {
               <br /> для вас
             </h3>
             <p className={styles.bottomCtaDescription}>Бесплатно. Онлайн. За 5 минут.</p>
-            <div className={styles.bottomCtaButton}>Заполнить анкету</div>
+            <div onClick={handleButtonClick} className={styles.bottomCtaButton}>
+              Заполнить анкету
+            </div>
           </div>
         </div>
       </div>

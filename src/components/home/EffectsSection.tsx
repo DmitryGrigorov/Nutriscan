@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import { Button, Typography } from 'antd';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
+import { useAuth } from '@/contexts/AuthContext';
 import styles from './EffectsSection.module.css';
 
 const { Title, Paragraph } = Typography;
@@ -49,6 +51,16 @@ const effectCards: EffectCard[] = [
 export function EffectsSection() {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
+  const { user } = useAuth();
+  const router = useRouter();
+
+  const handleButtonClick = () => {
+    if (user) {
+      router.push('/dashboard/surveys/supplements');
+    } else {
+      router.push('/auth/register');
+    }
+  };
 
   // Функция для расчета позиции прокрутки
   const getScrollOffset = () => {
@@ -138,7 +150,9 @@ export function EffectsSection() {
                       {card.title}
                     </Title>
                     <Paragraph className={styles.cardDescription}>{card.description}</Paragraph>
-                    <Button className={styles.joinButton}>Присоединиться</Button>
+                    <Button onClick={handleButtonClick} className={styles.joinButton}>
+                      Присоединиться
+                    </Button>
                   </div>
 
                   <div className={styles.imageContainer}>
