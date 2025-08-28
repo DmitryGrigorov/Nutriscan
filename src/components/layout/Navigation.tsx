@@ -283,7 +283,7 @@ export const Navigation = () => {
                     }}
                     className={styles.mobileAuthButton}
                   >
-                    Личный кабинет
+                    {user.name}
                   </Button>
                 ) : (
                   <Space direction="vertical" size="small" style={{ width: '100%' }}>
@@ -469,7 +469,7 @@ export const Navigation = () => {
               >
                 <Image src="/assets/icons/logo_small.svg" alt="Pill Icon" width={20} height={20} />
                 <span style={{ color: '#15456E', fontWeight: '500' }}>
-                  {user ? 'Личный кабинет' : 'Войти'}
+                  {user ? user.name : 'Войти'}
                 </span>
                 <DownOutlined style={{ fontSize: '12px', color: '#15456E' }} />
               </Button>
