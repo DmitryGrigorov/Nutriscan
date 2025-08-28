@@ -108,7 +108,7 @@ export function MainFooter() {
           x: 0,
           y: 0,
           rotate: 0,
-          scale: 0.8,
+          scale: 1,
           opacity: 0,
         }}
         whileInView={{

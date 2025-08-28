@@ -34,8 +34,8 @@
 .ball {
   content: '';
   position: absolute;
-bottom: 123px;
-    left: -146px;
+  bottom: 125px;
+  left: -132px;
   width: 228px;
   height: 228px;
   background: url('/assets/images/sphere.png') no-repeat center center;
