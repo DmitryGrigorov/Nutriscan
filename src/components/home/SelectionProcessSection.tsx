@@ -64,6 +64,12 @@ export function SelectionProcessSection() {
       transition={{ duration: 0.8 }}
       className={styles.container}
     >
+      {/* Пререндер изображений */}
+      <div style={{ position: 'absolute', left: '-9999px', top: '-9999px' }}>
+        {processSteps.map((step) => (
+          <Image key={step.id} src={step.image} alt="" width={1} height={1} priority />
+        ))}
+      </div>
       <div className={styles.mainTitle}>Как происходит подбор NutriScan™</div>
       <div className={styles.content}>
         <div className={styles.textSection}>
