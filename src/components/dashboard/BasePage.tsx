@@ -19,7 +19,7 @@ export const BasePage: React.FC<BasePageProps> = ({ title, children, extra }) =>
   useEffect(() => {
     // Добавляем data-page атрибут к body для dashboard страниц
     document.body.setAttribute('data-page', 'dashboard');
-    
+
     return () => {
       // Убираем атрибут при размонтировании
       document.body.removeAttribute('data-page');

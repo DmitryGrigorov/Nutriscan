@@ -17,26 +17,14 @@ const DashboardCard: React.FC<DashboardCardProps> = ({ title, description, image
   const router = useRouter();
 
   return (
-    <div
-      className={styles.dashboardCard}
-      onClick={() => router.push(path)}
-    >
+    <div className={styles.dashboardCard} onClick={() => router.push(path)}>
       <div className={styles.cardHeader}>
         <div className={styles.iconWrapper}>
-          <Image
-            src={`/assets/images/dashboard/${image}`}
-            alt={title}
-            width={49}
-            height={49}
-          />
+          <Image src={`/assets/images/dashboard/${image}`} alt={title} width={49} height={49} />
         </div>
       </div>
-      <h3 className={styles.cardTitle}>
-        {title}
-      </h3>
-      <p className={styles.cardDescription}>
-        {description}
-      </p>
+      <h3 className={styles.cardTitle}>{title}</h3>
+      <p className={styles.cardDescription}>{description}</p>
     </div>
   );
 };

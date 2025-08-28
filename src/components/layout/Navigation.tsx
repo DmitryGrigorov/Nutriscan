@@ -12,11 +12,6 @@ import {
   UserOutlined,
   SettingOutlined,
   MenuOutlined,
-  BellOutlined,
-  GiftOutlined,
-  FileTextOutlined,
-  LineChartOutlined,
-  BarChartOutlined,
   ShoppingCartOutlined,
   DownOutlined,
 } from '@ant-design/icons';

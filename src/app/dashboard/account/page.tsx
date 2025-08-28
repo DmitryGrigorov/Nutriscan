@@ -173,7 +173,7 @@ function DashboardContent() {
       foodAllergy: 'Пищевые аллергии',
       drugAllergy: 'Лекарственные аллергии',
       regularMeds: 'Регулярные лекарства',
-      regularMedsList: 'Список принимаемых лекарств'
+      regularMedsList: 'Список принимаемых лекарств',
     };
     return fieldNames[key] || key;
   };
@@ -241,7 +241,7 @@ function DashboardContent() {
         moderate: 'Умеренно (1-2 раза в месяц)',
         regular: 'Регулярно (1-2 раза в неделю)',
         often: 'Часто (3 и более раз в неделю)',
-      }
+      },
     };
 
     if (typeof value === 'string' && valueMap[key]?.[value]) {
@@ -258,7 +258,7 @@ function DashboardContent() {
   // Функция для извлечения основных данных из опросника
   const extractMainData = (values: string[]) => {
     const mainData: { age?: string; height?: number; weight?: number } = {};
-    
+
     values.forEach((value) => {
       try {
         let parsed;
@@ -267,7 +267,7 @@ function DashboardContent() {
         } else {
           parsed = value;
         }
-        
+
         if (typeof parsed === 'object' && parsed !== null) {
           const entries = Object.entries(parsed);
           entries.forEach(([key, val]) => {
@@ -284,7 +284,7 @@ function DashboardContent() {
         // Игнорируем ошибки парсинга
       }
     });
-    
+
     return mainData;
   };
 
@@ -358,9 +358,9 @@ function DashboardContent() {
   };
 
   const toggleSurveyExpansion = (surveyId: string) => {
-    setExpandedSurveys(prev => ({
+    setExpandedSurveys((prev) => ({
       ...prev,
-      [surveyId]: !prev[surveyId]
+      [surveyId]: !prev[surveyId],
     }));
   };
 
@@ -381,15 +381,21 @@ function DashboardContent() {
         </div>
         <div className={styles.infoField}>
           <p className={styles.fieldLabel}>Дата рождения</p>
-          <p className={styles.fieldValue}>{profile?.age ? formatBirthDate(profile.age) : 'Не указано'}</p>
+          <p className={styles.fieldValue}>
+            {profile?.age ? formatBirthDate(profile.age) : 'Не указано'}
+          </p>
         </div>
         <div className={styles.infoField}>
           <p className={styles.fieldLabel}>Вес</p>
-          <p className={styles.fieldValue}>{profile?.weight ? `${profile.weight}кг` : 'Не указано'}</p>
+          <p className={styles.fieldValue}>
+            {profile?.weight ? `${profile.weight}кг` : 'Не указано'}
+          </p>
         </div>
         <div className={styles.infoField}>
           <p className={styles.fieldLabel}>Рост</p>
-          <p className={styles.fieldValue}>{profile?.height ? `${profile.height}см` : 'Не указано'}</p>
+          <p className={styles.fieldValue}>
+            {profile?.height ? `${profile.height}см` : 'Не указано'}
+          </p>
         </div>
       </div>
       <button className={styles.editButton} onClick={() => setIsEditModalVisible(true)}>
@@ -407,12 +413,12 @@ function DashboardContent() {
             const hasGigaChatResponse = gigaChatResponses[entry.id] !== undefined;
             const notesEntry = notesHistory.find((n) => n.id === entry.id);
             const mainData = extractMainData(values);
-            
+
             const isExpanded = expandedSurveys[entry.id] || false;
-            
+
             return (
               <div key={entry.id} className={styles.surveyCard}>
-                <div 
+                <div
                   className={styles.surveyHeader}
                   onClick={(e) => {
                     // Предотвращаем сворачивание при клике на кнопки
@@ -424,9 +430,10 @@ function DashboardContent() {
                   <div>
                     <h3 className={styles.surveyTitle}>Опросник #{index + 1}</h3>
                     <p className={styles.surveyDate}>
-                      Пройден: {new Date(entry.createdAt).toLocaleDateString('ru-RU', {
+                      Пройден:{' '}
+                      {new Date(entry.createdAt).toLocaleDateString('ru-RU', {
                         year: 'numeric',
-                        month: 'long', 
+                        month: 'long',
                         day: 'numeric',
                         hour: '2-digit',
                         minute: '2-digit',
@@ -497,12 +504,8 @@ function DashboardContent() {
                         }
                         return (
                           <div key={vIndex} className={styles.detailField}>
-                            <div className={styles.detailLabel}>
-                              {getReadableFieldName(key)}
-                            </div>
-                            <div className={styles.detailValue}>
-                              {getReadableValue(key, val)}
-                            </div>
+                            <div className={styles.detailLabel}>{getReadableFieldName(key)}</div>
+                            <div className={styles.detailValue}>{getReadableValue(key, val)}</div>
                           </div>
                         );
                       } catch (e) {
@@ -568,7 +571,7 @@ function DashboardContent() {
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Персональная информация</h1>
-      
+
       <div className={styles.tabs}>
         <ul className={styles.tabsList}>
           <li>

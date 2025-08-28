@@ -177,15 +177,11 @@ export function MainFooter() {
             <div className={styles.title}>
               <Image src="/assets/icons/logo.svg" alt="" width={270} height={60} />
             </div>
-            <p className={styles.companyInfo}>
-              ООО «Нутрискан», ©2025
-            </p>
+            <p className={styles.companyInfo}>ООО «Нутрискан», ©2025</p>
             <p className={styles.companyInfo}>
               105203, город Москва, Первомайская ул, д. 116а, помещ. 1/1
             </p>
-            <p className={styles.companyInfo}>
-              9:00–19:00, Пн–Пт
-            </p>
+            <p className={styles.companyInfo}>9:00–19:00, Пн–Пт</p>
             <p className={styles.companyInfoLast}>
               email: <strong>info@nutriscan.ru</strong>
             </p>
@@ -197,44 +193,27 @@ export function MainFooter() {
 
           <div className={styles.columnLists}>
             <div className={styles.column}>
-              <h5 className={styles.sectionTitle}>
-                Nutriscan
-              </h5>
+              <h5 className={styles.sectionTitle}>Nutriscan</h5>
               <ul className={styles.navigationList}>
-                <li className={styles.navigationItem}>
-                  Исследования
-                </li>
-                <li className={styles.navigationItem}>
-                  Отзывы
-                </li>
-                <li className={styles.navigationItem}>
-                  Эксперты
-                </li>
+                <li className={styles.navigationItem}>Исследования</li>
+                <li className={styles.navigationItem}>Отзывы</li>
+                <li className={styles.navigationItem}>Эксперты</li>
               </ul>
             </div>
 
             <div className={styles.column}>
-              <h5 className={styles.sectionTitle}>
-                Документы
-              </h5>
+              <h5 className={styles.sectionTitle}>Документы</h5>
               <ul className={styles.navigationList}>
-                <li className={styles.navigationItem}>
-                  Пользовательское соглашение
-                </li>
-                <li className={styles.navigationItem}>
-                  Отзывы
-                </li>
-                <li className={styles.navigationItem}>
-                  Эксперты
-                </li>
+                <li className={styles.navigationItem}>Пользовательское соглашение</li>
+                <li className={styles.navigationItem}>Отзывы</li>
+                <li className={styles.navigationItem}>Эксперты</li>
               </ul>
             </div>
 
             <div className={styles.descriptionText}>
-              Размещённые на сайте продукты не являются лекарственными средствами Nutriscan
-              не осуществляет медицинскую деятельность и не оказывает Пользователям Сайта
-              медицинские услуги, в том числе направленные на профилактику, диагностику и лечение
-              заболеваний.
+              Размещённые на сайте продукты не являются лекарственными средствами Nutriscan не
+              осуществляет медицинскую деятельность и не оказывает Пользователям Сайта медицинские
+              услуги, в том числе направленные на профилактику, диагностику и лечение заболеваний.
             </div>
           </div>
         </div>

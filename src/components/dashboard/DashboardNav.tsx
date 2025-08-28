@@ -121,22 +121,13 @@ export const DashboardNav: React.FC<DashboardNavProps> = ({ isMobile, onMenuClic
   };
 
   const handleToggleExpand = (key: string) => {
-    setExpandedItems(prev => 
-      prev.includes(key) 
-        ? prev.filter(item => item !== key)
-        : [...prev, key]
+    setExpandedItems((prev) =>
+      prev.includes(key) ? prev.filter((item) => item !== key) : [...prev, key]
     );
   };
 
   const isActive = (key: string) => {
     return key === pathname;
-  };
-
-  const isParentActive = (item: MenuItem) => {
-    if (item.children) {
-      return item.children.some(child => child.key === pathname);
-    }
-    return false;
   };
 
   const isExpanded = (key: string) => {
@@ -152,9 +143,7 @@ export const DashboardNav: React.FC<DashboardNavProps> = ({ isMobile, onMenuClic
         {menuItems.map((item) => (
           <div key={item.key}>
             <div
-              className={`${styles.navItem} ${
-                isActive(item.key) ? styles.active : ''
-              }`}
+              className={`${styles.navItem} ${isActive(item.key) ? styles.active : ''}`}
               onClick={() => {
                 if (item.children) {
                   handleToggleExpand(item.key);
@@ -168,7 +157,9 @@ export const DashboardNav: React.FC<DashboardNavProps> = ({ isMobile, onMenuClic
                 <span className={styles.navItemLabel}>{item.label}</span>
               </div>
               {item.children && (
-                <span className={`${styles.expandIcon} ${isExpanded(item.key) ? styles.expanded : ''}`}>
+                <span
+                  className={`${styles.expandIcon} ${isExpanded(item.key) ? styles.expanded : ''}`}
+                >
                   <DownOutlined />
                 </span>
               )}
@@ -197,9 +188,7 @@ export const DashboardNav: React.FC<DashboardNavProps> = ({ isMobile, onMenuClic
       {menuItems.map((item) => (
         <div key={item.key}>
           <div
-            className={`${styles.mobileNavItem} ${
-              isActive(item.key) ? styles.active : ''
-            }`}
+            className={`${styles.mobileNavItem} ${isActive(item.key) ? styles.active : ''}`}
             onClick={() => {
               if (item.children) {
                 handleToggleExpand(item.key);
@@ -211,7 +200,9 @@ export const DashboardNav: React.FC<DashboardNavProps> = ({ isMobile, onMenuClic
             {item.icon && <span className={styles.navItemIcon}>{item.icon}</span>}
             <span>{item.label}</span>
             {item.children && (
-              <span className={`${styles.expandIcon} ${isExpanded(item.key) ? styles.expanded : ''}`}>
+              <span
+                className={`${styles.expandIcon} ${isExpanded(item.key) ? styles.expanded : ''}`}
+              >
                 <DownOutlined />
               </span>
             )}
