@@ -145,69 +145,13 @@ export function MainFooter() {
           style={{ width: '100%', height: '100%' }}
         />
       </motion.div>
-      <motion.div
-        className={styles.imgFooter}
-        initial={{
-          x: 0,
-          y: 0,
-          opacity: 0,
-          scale: 0.9,
-        }}
-        whileInView={{
-          x: 0,
-          y: 0,
-          opacity: 1,
-          scale: 1,
-        }}
-        transition={{
-          duration: 1.5,
-          ease: 'easeOut',
-          delay: 0.5,
-        }}
-        viewport={{ once: true, amount: 0.1 }}
-      >
-        <motion.div
-          animate={{
-            x: [0, 5, 0],
-            y: [0, -8, 0],
-          }}
-          transition={{
-            x: {
-              duration: 4,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            },
-            y: {
-              duration: 5,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            },
-          }}
-          style={{ width: '100%', height: '100%' }}
-        />
-      </motion.div>
+      <div className={styles.imgFooter} />
 
       {/* Кнопка "Наверх" */}
-      <motion.div
+      <div
         onClick={scrollToTop}
         onMouseDown={(e) => e.preventDefault()}
         className={styles.scrollToTopButton}
-        initial={{ opacity: 0, y: -20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{
-          duration: 0.6,
-          ease: 'easeOut',
-          delay: 1.2,
-        }}
-        viewport={{ once: true, amount: 0.3 }}
-        whileHover={{
-          scale: 1.05,
-          transition: { duration: 0.2 },
-        }}
-        whileTap={{
-          scale: 0.95,
-          transition: { duration: 0.1 },
-        }}
       >
         Наверх
         <svg
@@ -225,296 +169,76 @@ export function MainFooter() {
             strokeLinejoin="round"
           />
         </svg>
-      </motion.div>
+      </div>
 
-      <motion.div
-        className={styles.container}
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{
-          duration: 0.8,
-          ease: 'easeOut',
-          delay: 0.8,
-        }}
-        viewport={{ once: true, amount: 0.2 }}
-      >
+      <div className={styles.container}>
         <div className={styles.row}>
-          <motion.div
-            className={styles.column}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.7,
-              ease: 'easeOut',
-              delay: 1.0,
-            }}
-            viewport={{ once: true, amount: 0.2 }}
-          >
-            <motion.div
-              className={styles.title}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{
-                duration: 0.6,
-                ease: 'easeOut',
-                delay: 1.2,
-              }}
-              viewport={{ once: true, amount: 0.2 }}
-            >
+          <div className={styles.column}>
+            <div className={styles.title}>
               <Image src="/assets/icons/logo.svg" alt="" width={270} height={60} />
-            </motion.div>
-            <motion.p
-              className={styles.companyInfo}
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{
-                duration: 0.5,
-                ease: 'easeOut',
-                delay: 1.2,
-              }}
-              viewport={{ once: true, amount: 0.2 }}
-            >
+            </div>
+            <p className={styles.companyInfo}>
               ООО «Нутрискан», ©2025
-            </motion.p>
-            <motion.p
-              className={styles.companyInfo}
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{
-                duration: 0.5,
-                ease: 'easeOut',
-                delay: 1.3,
-              }}
-              viewport={{ once: true, amount: 0.2 }}
-            >
+            </p>
+            <p className={styles.companyInfo}>
               105203, город Москва, Первомайская ул, д. 116а, помещ. 1/1
-            </motion.p>
-            <motion.p
-              className={styles.companyInfo}
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{
-                duration: 0.5,
-                ease: 'easeOut',
-                delay: 1.4,
-              }}
-              viewport={{ once: true, amount: 0.2 }}
-            >
+            </p>
+            <p className={styles.companyInfo}>
               9:00–19:00, Пн–Пт
-            </motion.p>
-            <motion.p
-              className={styles.companyInfoLast}
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{
-                duration: 0.5,
-                ease: 'easeOut',
-                delay: 1.5,
-              }}
-              viewport={{ once: true, amount: 0.2 }}
-            >
+            </p>
+            <p className={styles.companyInfoLast}>
               email: <strong>info@nutriscan.ru</strong>
-            </motion.p>
-            <motion.p
-              className={styles.disclaimer}
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.6,
-                ease: 'easeOut',
-                delay: 1.6,
-              }}
-              viewport={{ once: true, amount: 0.2 }}
-            >
+            </p>
+            <p className={styles.disclaimer}>
               Все рекомендации не носят предписательного характера. Пожалуйста, ознакомьтесь с
               Пользовательским соглашением перед использованием
-            </motion.p>
-          </motion.div>
+            </p>
+          </div>
 
-          <motion.div
-            className={styles.columnLists}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.7,
-              ease: 'easeOut',
-              delay: 1.2,
-            }}
-            viewport={{ once: true, amount: 0.2 }}
-          >
-            <motion.div
-              className={styles.column}
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{
-                duration: 0.6,
-                ease: 'easeOut',
-                delay: 1.3,
-              }}
-              viewport={{ once: true, amount: 0.2 }}
-            >
-              <motion.h5
-                className={styles.sectionTitle}
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: 0.5,
-                  ease: 'easeOut',
-                  delay: 1.4,
-                }}
-                viewport={{ once: true, amount: 0.2 }}
-              >
+          <div className={styles.columnLists}>
+            <div className={styles.column}>
+              <h5 className={styles.sectionTitle}>
                 Nutriscan
-              </motion.h5>
-              <motion.ul
-                className={styles.navigationList}
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{
-                  duration: 0.6,
-                  ease: 'easeOut',
-                  delay: 1.5,
-                }}
-                viewport={{ once: true, amount: 0.2 }}
-              >
-                <motion.li
-                  className={styles.navigationItem}
-                  initial={{ opacity: 0, x: -10 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{
-                    duration: 0.4,
-                    ease: 'easeOut',
-                    delay: 1.6,
-                  }}
-                  viewport={{ once: true, amount: 0.2 }}
-                >
+              </h5>
+              <ul className={styles.navigationList}>
+                <li className={styles.navigationItem}>
                   Исследования
-                </motion.li>
-                <motion.li
-                  className={styles.navigationItem}
-                  initial={{ opacity: 0, x: -10 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{
-                    duration: 0.4,
-                    ease: 'easeOut',
-                    delay: 1.7,
-                  }}
-                  viewport={{ once: true, amount: 0.2 }}
-                >
+                </li>
+                <li className={styles.navigationItem}>
                   Отзывы
-                </motion.li>
-                <motion.li
-                  className={styles.navigationItem}
-                  initial={{ opacity: 0, x: -10 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{
-                    duration: 0.4,
-                    ease: 'easeOut',
-                    delay: 1.8,
-                  }}
-                  viewport={{ once: true, amount: 0.2 }}
-                >
+                </li>
+                <li className={styles.navigationItem}>
                   Эксперты
-                </motion.li>
-              </motion.ul>
-            </motion.div>
+                </li>
+              </ul>
+            </div>
 
-            <motion.div
-              className={styles.column}
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{
-                duration: 0.6,
-                ease: 'easeOut',
-                delay: 1.4,
-              }}
-              viewport={{ once: true, amount: 0.2 }}
-            >
-              <motion.h5
-                className={styles.sectionTitle}
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: 0.5,
-                  ease: 'easeOut',
-                  delay: 1.5,
-                }}
-                viewport={{ once: true, amount: 0.2 }}
-              >
+            <div className={styles.column}>
+              <h5 className={styles.sectionTitle}>
                 Документы
-              </motion.h5>
-              <motion.ul
-                className={styles.navigationList}
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{
-                  duration: 0.6,
-                  ease: 'easeOut',
-                  delay: 1.6,
-                }}
-                viewport={{ once: true, amount: 0.2 }}
-              >
-                <motion.li
-                  className={styles.navigationItem}
-                  initial={{ opacity: 0, x: -10 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{
-                    duration: 0.4,
-                    ease: 'easeOut',
-                    delay: 1.7,
-                  }}
-                  viewport={{ once: true, amount: 0.2 }}
-                >
+              </h5>
+              <ul className={styles.navigationList}>
+                <li className={styles.navigationItem}>
                   Пользовательское соглашение
-                </motion.li>
-                <motion.li
-                  className={styles.navigationItem}
-                  initial={{ opacity: 0, x: -10 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{
-                    duration: 0.4,
-                    ease: 'easeOut',
-                    delay: 1.8,
-                  }}
-                  viewport={{ once: true, amount: 0.2 }}
-                >
+                </li>
+                <li className={styles.navigationItem}>
                   Отзывы
-                </motion.li>
-                <motion.li
-                  className={styles.navigationItem}
-                  initial={{ opacity: 0, x: -10 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{
-                    duration: 0.4,
-                    ease: 'easeOut',
-                    delay: 1.9,
-                  }}
-                  viewport={{ once: true, amount: 0.2 }}
-                >
+                </li>
+                <li className={styles.navigationItem}>
                   Эксперты
-                </motion.li>
-              </motion.ul>
-            </motion.div>
+                </li>
+              </ul>
+            </div>
 
-            <motion.div
-              className={styles.descriptionText}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.7,
-                ease: 'easeOut',
-                delay: 1.5,
-              }}
-              viewport={{ once: true, amount: 0.2 }}
-            >
-              Размещённые на сайте продукты не являются лекарственными средствами Nutriscan
-              не осуществляет медицинскую деятельность и не оказывает Пользователям Сайта
-              медицинские услуги, в том числе направленные на профилактику, диагностику и лечение
+            <div className={styles.descriptionText}>
+              Размещённые на сайте продукты не являются лекарственными средствами Nutriscan
+              не осуществляет медицинскую деятельность и не оказывает Пользователям Сайта
+              медицинские услуги, в том числе направленные на профилактику, диагностику и лечение
               заболеваний.
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         </div>
-      </motion.div>
+      </div>
     </footer>
   );
 }

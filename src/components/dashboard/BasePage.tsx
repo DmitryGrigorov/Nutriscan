@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Typography, Space } from 'antd';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { getFontStyle } from '@/lib/fontUtils';
@@ -15,6 +15,16 @@ interface BasePageProps {
 
 export const BasePage: React.FC<BasePageProps> = ({ title, children, extra }) => {
   const isMobile = useMediaQuery('(max-width: 768px)');
+
+  useEffect(() => {
+    // Добавляем data-page атрибут к body для dashboard страниц
+    document.body.setAttribute('data-page', 'dashboard');
+    
+    return () => {
+      // Убираем атрибут при размонтировании
+      document.body.removeAttribute('data-page');
+    };
+  }, []);
 
   return (
     <Space direction="vertical" size="large" style={{ width: '100%' }}>

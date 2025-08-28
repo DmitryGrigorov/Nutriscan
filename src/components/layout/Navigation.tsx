@@ -31,7 +31,7 @@ export const Navigation = () => {
   const pathname = usePathname();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
 
   useEffect(() => {
     const checkMobile = () => {
@@ -347,60 +347,71 @@ export const Navigation = () => {
             menu={{
               items: user
                 ? [
-                    {
-                      key: '/dashboard/account',
-                      icon: <UserOutlined />,
-                      label: <Link href="/dashboard/account">Аккаунт</Link>,
-                    },
+                    // {
+                    //   key: '/dashboard/account',
+                    //   icon: <UserOutlined />,
+                    //   label: <Link href="/dashboard/account">Аккаунт</Link>,
+                    // },
                     {
                       key: '/dashboard',
                       icon: <UserOutlined />,
                       label: <Link href="/dashboard">Обзор</Link>,
                     },
                     {
-                      key: '/dashboard/supplements',
-                      icon: <MedicineBoxOutlined />,
-                      label: <Link href="/dashboard/supplements">Мои БАДы</Link>,
+                      type: 'divider' as const,
                     },
                     {
-                      key: '/dashboard/analyses',
-                      icon: <ExperimentOutlined />,
-                      label: <Link href="/dashboard/analyses">Мои анализы</Link>,
+                      key: 'logout',
+                      icon: <UserOutlined />,
+                      label: 'Выйти',
+                      onClick: async () => {
+                        await logout();
+                      },
                     },
-                    {
-                      key: '/dashboard/supplement-reminders',
-                      icon: <BellOutlined />,
-                      label: (
-                        <Link href="/dashboard/supplement-reminders">Напоминания о БАДах</Link>
-                      ),
-                    },
-                    {
-                      key: '/dashboard/analysis-reminders',
-                      icon: <BellOutlined />,
-                      label: (
-                        <Link href="/dashboard/analysis-reminders">Напоминания об анализах</Link>
-                      ),
-                    },
-                    {
-                      key: '/dashboard/recommendations',
-                      icon: <BarChartOutlined />,
-                      label: <Link href="/dashboard/recommendations">Рекомендации</Link>,
-                    },
-                    {
-                      key: '/dashboard/promotions',
-                      icon: <GiftOutlined />,
-                      label: <Link href="/dashboard/promotions">Акции</Link>,
-                    },
-                    {
-                      key: '/dashboard/surveys',
-                      icon: <FileTextOutlined />,
-                      label: <Link href="/dashboard/surveys">Опросы</Link>,
-                    },
-                    {
-                      key: '/dashboard/trends',
-                      icon: <LineChartOutlined />,
-                      label: <Link href="/dashboard/trends">Тренды</Link>,
-                    },
+                    // {
+                    //   key: '/dashboard/supplements',
+                    //   icon: <MedicineBoxOutlined />,
+                    //   label: <Link href="/dashboard/supplements">Мои БАДы</Link>,
+                    // },
+                    // {
+                    //   key: '/dashboard/analyses',
+                    //   icon: <ExperimentOutlined />,
+                    //   label: <Link href="/dashboard/analyses">Мои анализы</Link>,
+                    // },
+                    // {
+                    //   key: '/dashboard/supplement-reminders',
+                    //   icon: <BellOutlined />,
+                    //   label: (
+                    //     <Link href="/dashboard/supplement-reminders">Напоминания о БАДах</Link>
+                    //   ),
+                    // },
+                    // {
+                    //   key: '/dashboard/analysis-reminders',
+                    //   icon: <BellOutlined />,
+                    //   label: (
+                    //     <Link href="/dashboard/analysis-reminders">Напоминания об анализах</Link>
+                    //   ),
+                    // },
+                    // {
+                    //   key: '/dashboard/recommendations',
+                    //   icon: <BarChartOutlined />,
+                    //   label: <Link href="/dashboard/recommendations">Рекомендации</Link>,
+                    // },
+                    // {
+                    //   key: '/dashboard/promotions',
+                    //   icon: <GiftOutlined />,
+                    //   label: <Link href="/dashboard/promotions">Акции</Link>,
+                    // },
+                    // {
+                    //   key: '/dashboard/surveys',
+                    //   icon: <FileTextOutlined />,
+                    //   label: <Link href="/dashboard/surveys">Опросы</Link>,
+                    // },
+                    // {
+                    //   key: '/dashboard/trends',
+                    //   icon: <LineChartOutlined />,
+                    //   label: <Link href="/dashboard/trends">Тренды</Link>,
+                    // },
                     ...(user?.$id === '683409e1a4097e2da357' || user?.$id === '680658de4352f354f0a9'
                       ? [
                           {

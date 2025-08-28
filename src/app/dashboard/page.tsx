@@ -1,146 +1,131 @@
 'use client';
 
 import React from 'react';
-import { Card, Row, Col, Typography, Space } from 'antd';
-import {
-  FileTextOutlined,
-  MedicineBoxOutlined,
-  ExperimentOutlined,
-  LineChartOutlined,
-  GiftOutlined,
-  BulbOutlined,
-  CalendarOutlined,
-  BellOutlined,
-  UserOutlined,
-  HeartOutlined,
-  AppleOutlined,
-  DatabaseOutlined,
-} from '@ant-design/icons';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { BasePage } from '@/components/dashboard/BasePage';
-import '@/styles/dashboard.css';
-
-const { Title, Text } = Typography;
+import styles from './page.module.css';
 
 interface DashboardCardProps {
   title: string;
   description: string;
-  icon: React.ReactNode;
+  image: string;
   path: string;
 }
 
-const DashboardCard: React.FC<DashboardCardProps> = ({ title, description, icon, path }) => {
+const DashboardCard: React.FC<DashboardCardProps> = ({ title, description, image, path }) => {
   const router = useRouter();
 
   return (
-    <Card
-      hoverable
+    <div
+      className={styles.dashboardCard}
       onClick={() => router.push(path)}
-      className="dashboard-card"
-      bodyStyle={{
-        padding: '16px',
-      }}
     >
-      <Space direction="vertical" size="middle" style={{ width: '100%' }}>
-        <Space>
-          <div className="dashboard-icon">{icon}</div>
-          <Title level={4} className="dashboard-title">
-            {title}
-          </Title>
-        </Space>
-        <Text type="secondary" className="dashboard-description">
-          {description}
-        </Text>
-      </Space>
-    </Card>
+      <div className={styles.cardHeader}>
+        <div className={styles.iconWrapper}>
+          <Image
+            src={`/assets/images/dashboard/${image}`}
+            alt={title}
+            width={49}
+            height={49}
+          />
+        </div>
+      </div>
+      <h3 className={styles.cardTitle}>
+        {title}
+      </h3>
+      <p className={styles.cardDescription}>
+        {description}
+      </p>
+    </div>
   );
 };
 
 export default function DashboardPage() {
   const cards: DashboardCardProps[] = [
     {
-      title: 'Личный кабинет',
-      description: 'Управление личными данными и настройками',
-      icon: <UserOutlined />,
+      title: 'Персональная информация',
+      description: 'Личные данные и настройки',
+      image: 'personal_info.jpg',
       path: '/dashboard/account',
     },
     {
-      title: 'Опросы',
-      description: 'Пройдите необходимые опросы для получения персонализированных рекомендаций',
-      icon: <FileTextOutlined />,
-      path: '/dashboard/surveys',
-    },
-    {
-      title: 'Опросник информация о о себе',
-      description: 'Заполните информацию о себе для персонализации рекомендаций',
-      icon: <DatabaseOutlined />,
-      path: '/dashboard/surveys/user-profile-survey',
-    },
-    {
-      title: 'Опросник оценка здоровья',
-      description: 'Оцените ваше текущее состояние здоровья и образ жизни',
-      icon: <HeartOutlined />,
-      path: '/dashboard/surveys/health-assessment',
-    },
-    {
-      title: 'Опросник пищевые привычки',
-      description: 'Расскажите о ваших пищевых привычках и предпочтениях',
-      icon: <AppleOutlined />,
-      path: '/dashboard/surveys/nutrition-habits',
-    },
-    {
-      title: 'Анализы',
-      description: 'Просмотр и загрузка результатов медицинских анализов',
-      icon: <ExperimentOutlined />,
+      title: 'Лабораторные анализы ',
+      description: 'Загрузка и исследование результатов медицинских анализов',
+      image: 'lab.jpg',
       path: '/dashboard/analyses',
     },
     {
       title: 'Динамика показателей здоровья',
       description: 'Отслеживание изменений в показателях здоровья и анализов',
-      icon: <LineChartOutlined />,
+      image: 'markhealth.jpg',
       path: '/dashboard/trends',
+    },
+    {
+      title: 'Персональные рекомендации',
+      description: 'Рекомендации по здоровью и питанию',
+      image: 'recomend.jpg',
+      path: '/dashboard/surveys/supplements',
+    },
+    {
+      title: 'Опросы',
+      description: 'Пройдите наши опросы и получите персональные рекомендации',
+      image: 'surveys.jpg',
+      path: '/dashboard/surveys',
+    },
+    {
+      title: 'Анкета «Образ жизни»',
+      description: 'Оценка уровня физической активности и тренировок',
+      image: 'lifestyle.jpg',
+      path: 'dashboard/surveys/supplements',
+    },
+    {
+      title: 'Анкета «Пищевые привычки»',
+      description: 'Расскажите о ваших пищевых привычках и предпочтениях',
+      image: 'foodhabits.jpg',
+      path: '/dashboard/surveys/nutrition-habits',
+    },
+    {
+      title: 'Анкета «Оценка здоровья»',
+      description: 'Оценка текущего состояние здоровья и самочувствия',
+      image: 'health.jpg',
+      path: '/dashboard/surveys/user-profile-survey',
     },
     {
       title: 'История потребления БАДов',
       description: 'Управление приемом биологически активных добавок',
-      icon: <MedicineBoxOutlined />,
+      image: 'pills.jpg',
       path: '/dashboard/supplements',
     },
     {
-      title: 'Персональные рекомендации',
-      description: 'Персонализированные рекомендации по здоровью и питанию',
-      icon: <BulbOutlined />,
-      path: '/dashboard/recommendations',
-    },
-    {
-      title: 'Акции',
+      title: 'Акции и спецпредложения',
       description: 'Специальные предложения и скидки на БАДы и анализы',
-      icon: <GiftOutlined />,
+      image: 'percent.jpg',
       path: '/dashboard/promotions',
     },
     {
-      title: 'Напоминания о БАДах',
+      title: 'Напоминания о покупке БАДов',
       description: 'Управление напоминаниями о приеме добавок',
-      icon: <BellOutlined />,
+      image: 'notification.jpg',
       path: '/dashboard/supplement-reminders',
     },
     {
-      title: 'Напоминания об анализах',
-      description: 'Управление напоминаниями о сдаче анализов',
-      icon: <CalendarOutlined />,
+      title: 'Напоминания о сдаче анализов',
+      description: 'Управление напоминаниями о плановых анализах',
+      image: 'notification_analis.jpg',
       path: '/dashboard/analysis-reminders',
     },
   ];
 
   return (
-    <BasePage title="Панель управления">
-      <Row gutter={[16, 16]}>
-        {cards.map((card, index) => (
-          <Col xs={24} sm={12} md={8} lg={6} key={index}>
-            <DashboardCard {...card} />
-          </Col>
-        ))}
-      </Row>
+    <BasePage title="Личный профиль NutriScan">
+      <div className={styles.container}>
+        <div className={styles.cardsGrid}>
+          {cards.map((card, index) => (
+            <DashboardCard key={index} {...card} />
+          ))}
+        </div>
+      </div>
     </BasePage>
   );
 }

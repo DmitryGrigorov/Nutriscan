@@ -40,7 +40,7 @@ export default function AdminDashboard() {
 
   return (
     <div>
-      <h1>Панель управления</h1>
+      <h1>Личный профиль NutriScan</h1>
       <Row gutter={16}>
         <Col span={6}>
           <Card>

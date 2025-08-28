@@ -91,6 +91,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setUser(null);
       Cookies.remove('auth_token');
       message.success('Выход выполнен успешно');
+      router.push('/');
     } catch (error) {
       console.error('Logout error:', error);
       message.error('Ошибка при выходе');

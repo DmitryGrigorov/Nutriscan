@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import {
   BarChartOutlined,
@@ -12,13 +12,20 @@ import {
   BellOutlined,
   ShoppingCartOutlined,
   UserOutlined,
+  DownOutlined,
 } from '@ant-design/icons';
 import styles from './DashboardNav.module.css';
+
+interface SubMenuItem {
+  key: string;
+  label: string;
+}
 
 interface MenuItem {
   key: string;
   label: string;
   icon?: React.ReactNode;
+  children?: SubMenuItem[];
 }
 
 const menuItems: MenuItem[] = [
@@ -36,6 +43,28 @@ const menuItems: MenuItem[] = [
     key: '/dashboard/surveys',
     label: 'Опросы',
     icon: <FileTextOutlined />,
+    children: [
+      {
+        key: '/dashboard/surveys',
+        label: 'Показать все анкеты',
+      },
+      {
+        key: '/dashboard/surveys/supplements',
+        label: 'Основной опросник',
+      },
+      {
+        key: '/dashboard/surveys/health-assessment',
+        label: 'Анкета «Образ жизни»',
+      },
+      {
+        key: '/dashboard/surveys/nutrition-habits',
+        label: 'Анкета «Пищевые привычки»',
+      },
+      {
+        key: '/dashboard/surveys/user-profile-survey',
+        label: 'Анкета «Оценка здоровья»',
+      },
+    ],
   },
   {
     key: '/dashboard/analyses',
@@ -82,6 +111,7 @@ interface DashboardNavProps {
 export const DashboardNav: React.FC<DashboardNavProps> = ({ isMobile, onMenuClick }) => {
   const router = useRouter();
   const pathname = usePathname();
+  const [expandedItems, setExpandedItems] = useState<string[]>([]);
 
   const handleMenuClick = (key: string) => {
     router.push(key);
@@ -90,8 +120,27 @@ export const DashboardNav: React.FC<DashboardNavProps> = ({ isMobile, onMenuClic
     }
   };
 
+  const handleToggleExpand = (key: string) => {
+    setExpandedItems(prev => 
+      prev.includes(key) 
+        ? prev.filter(item => item !== key)
+        : [...prev, key]
+    );
+  };
+
   const isActive = (key: string) => {
     return key === pathname;
+  };
+
+  const isParentActive = (item: MenuItem) => {
+    if (item.children) {
+      return item.children.some(child => child.key === pathname);
+    }
+    return false;
+  };
+
+  const isExpanded = (key: string) => {
+    return expandedItems.includes(key);
   };
 
   const renderDesktopMenu = () => (
@@ -103,14 +152,40 @@ export const DashboardNav: React.FC<DashboardNavProps> = ({ isMobile, onMenuClic
         {menuItems.map((item) => (
           <div key={item.key}>
             <div
-              className={`${styles.navItem} ${isActive(item.key) ? styles.active : ''}`}
-              onClick={() => handleMenuClick(item.key)}
+              className={`${styles.navItem} ${
+                isActive(item.key) ? styles.active : ''
+              }`}
+              onClick={() => {
+                if (item.children) {
+                  handleToggleExpand(item.key);
+                } else {
+                  handleMenuClick(item.key);
+                }
+              }}
             >
               <div className={styles.navItemContent}>
                 {item.icon && <span className={styles.navItemIcon}>{item.icon}</span>}
                 <span className={styles.navItemLabel}>{item.label}</span>
               </div>
+              {item.children && (
+                <span className={`${styles.expandIcon} ${isExpanded(item.key) ? styles.expanded : ''}`}>
+                  <DownOutlined />
+                </span>
+              )}
             </div>
+            {item.children && isExpanded(item.key) && (
+              <div className={styles.submenu}>
+                {item.children.map((child) => (
+                  <div
+                    key={child.key}
+                    className={`${styles.submenuItem} ${isActive(child.key) ? styles.active : ''}`}
+                    onClick={() => handleMenuClick(child.key)}
+                  >
+                    <span className={styles.submenuItemLabel}>{child.label}</span>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         ))}
       </nav>
@@ -122,12 +197,38 @@ export const DashboardNav: React.FC<DashboardNavProps> = ({ isMobile, onMenuClic
       {menuItems.map((item) => (
         <div key={item.key}>
           <div
-            className={`${styles.mobileNavItem} ${isActive(item.key) ? styles.active : ''}`}
-            onClick={() => handleMenuClick(item.key)}
+            className={`${styles.mobileNavItem} ${
+              isActive(item.key) ? styles.active : ''
+            }`}
+            onClick={() => {
+              if (item.children) {
+                handleToggleExpand(item.key);
+              } else {
+                handleMenuClick(item.key);
+              }
+            }}
           >
             {item.icon && <span className={styles.navItemIcon}>{item.icon}</span>}
             <span>{item.label}</span>
+            {item.children && (
+              <span className={`${styles.expandIcon} ${isExpanded(item.key) ? styles.expanded : ''}`}>
+                <DownOutlined />
+              </span>
+            )}
           </div>
+          {item.children && isExpanded(item.key) && (
+            <div className={styles.mobileSubmenu}>
+              {item.children.map((child) => (
+                <div
+                  key={child.key}
+                  className={`${styles.mobileSubmenuItem} ${isActive(child.key) ? styles.active : ''}`}
+                  onClick={() => handleMenuClick(child.key)}
+                >
+                  <span>{child.label}</span>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       ))}
     </div>
