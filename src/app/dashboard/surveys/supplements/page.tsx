@@ -1749,7 +1749,7 @@ export default function SupplementsSurveyPage() {
       });
 
       message.success('Спасибо за заполнение анкеты!');
-      router.push('/dashboard/account');
+      router.push('/dashboard/account?tab=history');
     } catch (error) {
       message.error('Произошла ошибка при сохранении данных');
       console.error('Error saving survey:', error);

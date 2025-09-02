@@ -36,7 +36,7 @@ export default function CompleteProfilePage() {
   }
 
   const handleComplete = () => {
-    router.push('/dashboard');
+    router.push('/dashboard/surveys/supplements');
   };
 
   return <ProfileForm onComplete={handleComplete} mode="create" />;

@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { Spin, Modal, message } from 'antd';
 import { useAuth } from '@/contexts/AuthContext';
 import { appwriteApi } from '@/lib/appwrite/api';
@@ -35,6 +36,7 @@ interface GigaChatResponse {
 
 function DashboardContent() {
   const { user } = useAuth();
+  const searchParams = useSearchParams();
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
@@ -104,6 +106,14 @@ function DashboardContent() {
   useEffect(() => {
     loadData();
   }, [user]);
+
+  useEffect(() => {
+    // Проверяем URL-параметр tab и устанавливаем активный таб
+    const tabParam = searchParams.get('tab');
+    if (tabParam === 'history') {
+      setActiveTab('history');
+    }
+  }, [searchParams]);
 
   if (loading) {
     return (
@@ -472,7 +482,7 @@ function DashboardContent() {
                         }}
                         disabled={loadingGigaChat[entry.id]}
                       >
-                        {loadingGigaChat[entry.id] ? 'Загрузка...' : 'Анализ от GigaChat'}
+                        {loadingGigaChat[entry.id] ? 'Загрузка...' : 'Запустить анализ'}
                       </button>
                     )}
                   </div>

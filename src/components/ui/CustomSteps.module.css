@@ -187,3 +187,54 @@
 .steps.small .step {
   min-height: 48px;
 }
+
+/* Mobile adaptations */
+@media (max-width: 768px) {
+  .steps {
+    position: relative;
+  }
+
+  .step {
+    display: none;
+  }
+
+  /* Show only current step on mobile */
+  .step.process {
+    display: flex;
+  }
+
+  /* Also show completed steps with special styling */
+  .step.finish {
+    display: none;
+  }
+
+  /* Mobile current step styling */
+  .step.process {
+    background: rgba(19, 194, 194, 0.05);
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 16px;
+  }
+
+  .step.process .stepTail {
+    display: none;
+  }
+
+  .stepContent {
+    padding-top: 0;
+  }
+
+  .step.process .stepTitle {
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  .stepIcon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .stepNumber {
+    font-size: 12px;
+  }
+}
