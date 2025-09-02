@@ -14,8 +14,6 @@ services:
       - "3000"
     networks:
       - nutriscan-network
-    depends_on:
-      - nginx
 
   nginx:
     image: nginx:alpine
