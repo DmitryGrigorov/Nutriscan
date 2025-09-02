@@ -39,103 +39,115 @@ export const Navigation = () => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  const mobileMenuItems: MenuProps['items'] = [
-    {
-      key: '/',
-      label: <Link href="/">Главная</Link>,
-    },
-    {
-      key: '/about',
-      label: <Link href="/about">О нас</Link>,
-    },
-    {
-      type: 'divider' as const,
-    },
-    {
-      key: 'pharmacy-header',
-      label: (
-        <Text strong style={{ fontSize: '16px', color: '#16B6BE' }}>
-          Каталог продукции
-        </Text>
-      ),
-      disabled: true,
-    },
-    {
-      key: '/pharmacy',
-      label: <Link href="/pharmacy">Все продукты</Link>,
-    },
-    {
-      key: '/pharmacy/category',
-      label: <Link href="/pharmacy/category">Категории</Link>,
-    },
-    {
-      key: '/pharmacy/cart',
-      label: <Link href="/pharmacy/cart">Корзина</Link>,
-    },
-    {
-      type: 'divider' as const,
-    },
-    {
-      key: 'dashboard-header',
-      label: (
-        <Text strong style={{ fontSize: '16px', color: '#16B6BE' }}>
-          Личный кабинет
-        </Text>
-      ),
-      disabled: true,
-    },
-    {
-      key: '/dashboard/account',
-      label: <Link href="/dashboard/account">Аккаунт</Link>,
-    },
-    {
-      key: '/dashboard',
-      label: <Link href="/dashboard">Обзор</Link>,
-    },
-    {
-      key: '/dashboard/supplements',
-      label: <Link href="/dashboard/supplements">Мои БАДы</Link>,
-    },
-    {
-      key: '/dashboard/analyses',
-      label: <Link href="/dashboard/analyses">Мои анализы</Link>,
-    },
-    {
-      key: '/dashboard/supplement-reminders',
-      label: <Link href="/dashboard/supplement-reminders">Напоминания о БАДах</Link>,
-    },
-    {
-      key: '/dashboard/analysis-reminders',
-      label: <Link href="/dashboard/analysis-reminders">Напоминания об анализах</Link>,
-    },
-    {
-      key: '/dashboard/recommendations',
-      label: <Link href="/dashboard/recommendations">Рекомендации</Link>,
-    },
-    {
-      key: '/dashboard/promotions',
-      label: <Link href="/dashboard/promotions">Акции</Link>,
-    },
-    {
-      key: '/dashboard/surveys',
-      label: <Link href="/dashboard/surveys">Опросы</Link>,
-    },
-    {
-      key: '/dashboard/trends',
-      label: <Link href="/dashboard/trends">Тренды</Link>,
-    },
-    ...(user?.$id === '683409e1a4097e2da357' || user?.$id === '680658de4352f354f0a9'
-      ? [
+  const getMobileMenuItems = (): MenuProps['items'] => {
+    const baseItems = [
+      {
+        key: '/',
+        label: <Link href="/">Главная</Link>,
+      },
+      {
+        key: '/about',
+        label: <Link href="/about">О нас</Link>,
+      },
+      {
+        type: 'divider' as const,
+      },
+      {
+        key: 'pharmacy-header',
+        label: (
+          <Text strong style={{ fontSize: '16px', color: '#16B6BE' }}>
+            Каталог продукции
+          </Text>
+        ),
+        disabled: true,
+      },
+      {
+        key: '/pharmacy',
+        label: <Link href="/pharmacy">Все продукты</Link>,
+      },
+      {
+        key: '/pharmacy/category',
+        label: <Link href="/pharmacy/category">Категории</Link>,
+      },
+      {
+        key: '/pharmacy/cart',
+        label: <Link href="/pharmacy/cart">Корзина</Link>,
+      },
+    ];
+
+    // Добавляем пункты личного кабинета только для авторизованных пользователей
+    if (user) {
+      baseItems.push(
+        {
+          type: 'divider' as const,
+        },
+        {
+          key: 'dashboard-header',
+          label: (
+            <Text strong style={{ fontSize: '16px', color: '#16B6BE' }}>
+              Личный кабинет
+            </Text>
+          ),
+          disabled: true,
+        },
+        {
+          key: '/dashboard/account',
+          label: <Link href="/dashboard/account">Аккаунт</Link>,
+        },
+        {
+          key: '/dashboard',
+          label: <Link href="/dashboard">Обзор</Link>,
+        },
+        {
+          key: '/dashboard/supplements',
+          label: <Link href="/dashboard/supplements">Мои БАДы</Link>,
+        },
+        {
+          key: '/dashboard/analyses',
+          label: <Link href="/dashboard/analyses">Мои анализы</Link>,
+        },
+        {
+          key: '/dashboard/supplement-reminders',
+          label: <Link href="/dashboard/supplement-reminders">Напоминания о БАДах</Link>,
+        },
+        {
+          key: '/dashboard/analysis-reminders',
+          label: <Link href="/dashboard/analysis-reminders">Напоминания об анализах</Link>,
+        },
+        {
+          key: '/dashboard/recommendations',
+          label: <Link href="/dashboard/recommendations">Рекомендации</Link>,
+        },
+        {
+          key: '/dashboard/promotions',
+          label: <Link href="/dashboard/promotions">Акции</Link>,
+        },
+        {
+          key: '/dashboard/surveys',
+          label: <Link href="/dashboard/surveys">Опросы</Link>,
+        },
+        {
+          key: '/dashboard/trends',
+          label: <Link href="/dashboard/trends">Тренды</Link>,
+        }
+      );
+
+      // Админ панель для админов
+      if (user?.$id === '683409e1a4097e2da357' || user?.$id === '680658de4352f354f0a9') {
+        baseItems.push(
           {
             type: 'divider' as const,
           },
           {
             key: '/admin',
             label: <Link href="/admin">Админ панель</Link>,
-          },
-        ]
-      : []),
-  ];
+          }
+        );
+      }
+    }
+
+    return baseItems;
+  };
 
   const menuItems: MenuProps['items'] = [
     {
@@ -173,7 +185,7 @@ export const Navigation = () => {
     <Menu
       mode={mode}
       selectedKeys={[pathname]}
-      items={isMobile ? mobileMenuItems : menuItems}
+      items={isMobile ? getMobileMenuItems() : menuItems}
       expandIcon={({ isOpen }) => (
         <DownOutlined
           className={styles.menuExpandIcon}
@@ -259,7 +271,7 @@ export const Navigation = () => {
               <Menu
                 mode="vertical"
                 selectedKeys={[pathname]}
-                items={mobileMenuItems}
+                items={getMobileMenuItems()}
                 expandIcon={({ isOpen }) => (
                   <DownOutlined
                     className={styles.menuExpandIcon}
@@ -277,18 +289,33 @@ export const Navigation = () => {
               {/* Кнопка входа/личный кабинет в мобильном меню */}
               <div className={styles.fullscreenAuthSection}>
                 {user ? (
-                  <Button
-                    type="primary"
-                    size="large"
-                    block
-                    onClick={() => {
-                      router.push('/dashboard');
-                      setDrawerOpen(false);
-                    }}
-                    className={styles.mobileAuthButton}
-                  >
-                    {user.name}
-                  </Button>
+                  <Space direction="vertical" size="small" style={{ width: '100%' }}>
+                    <Button
+                      type="primary"
+                      size="large"
+                      block
+                      onClick={() => {
+                        router.push('/dashboard');
+                        setDrawerOpen(false);
+                      }}
+                      className={styles.mobileAuthButton}
+                    >
+                      {user.name}
+                    </Button>
+                    <Button
+                      type="default"
+                      size="large"
+                      block
+                      onClick={async () => {
+                        await logout();
+                        setDrawerOpen(false);
+                      }}
+                      className={styles.mobileLogoutButton}
+                      danger
+                    >
+                      Выйти
+                    </Button>
+                  </Space>
                 ) : (
                   <Space direction="vertical" size="small" style={{ width: '100%' }}>
                     <Button

@@ -7,7 +7,7 @@
 ## Структура файлов
 
 ```
-├── Dockerfile                  # Основной Docker образ для Next.js приложения  
+├── Dockerfile                  # Основной Docker образ для Next.js приложения
 ├── docker-compose.yml         # Базовая конфигурация (только HTTP)
 ├── docker-compose.dev.yml     # Конфигурация для разработки (HTTP)
 ├── docker-compose.prod.yml    # Конфигурация для продакшна (HTTP + HTTPS)
@@ -57,7 +57,7 @@ sed -i 's/your-domain.com/YOUR_ACTUAL_DOMAIN/g' nginx/conf.d/nutriscan.conf
 mkdir -p ssl/live/YOUR_DOMAIN/
 # Скопируйте ваши сертификаты:
 # - fullchain.pem
-# - privkey.pem  
+# - privkey.pem
 # - chain.pem
 
 # 3. Запуск в продакшн режиме
@@ -97,6 +97,7 @@ docker-compose -f docker-compose.prod.yml down -v
 ### Security Headers
 
 Nginx автоматически добавляет важные заголовки безопасности:
+
 - `X-Frame-Options: DENY`
 - `X-Content-Type-Options: nosniff`
 - `X-XSS-Protection: 1; mode=block`
@@ -159,7 +160,7 @@ docker-compose -f docker-compose.prod.yml exec nutriscan-app netstat -tlnp
 # Подробные логи nginx
 docker-compose -f docker-compose.prod.yml logs -f nginx | grep error
 
-# Логи Next.js приложения  
+# Логи Next.js приложения
 docker-compose -f docker-compose.prod.yml logs -f nutriscan-app
 ```
 
@@ -174,6 +175,6 @@ docker-compose -f docker-compose.prod.yml logs -f nutriscan-app
 ### Оптимизация
 
 - Статические файлы кэшируются на уровне nginx
-- Gzip сжатие для всех текстовых ресурсов  
+- Gzip сжатие для всех текстовых ресурсов
 - HTTP/2 для улучшенной производительности
 - Keepalive соединения для уменьшения накладных расходов

@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
+import { useAuth } from '@/contexts/AuthContext';
 import {
   BarChartOutlined,
   FileTextOutlined,
@@ -13,6 +14,12 @@ import {
   ShoppingCartOutlined,
   UserOutlined,
   DownOutlined,
+  HomeOutlined,
+  MedicineBoxOutlined,
+  InfoCircleOutlined,
+  PhoneOutlined,
+  LogoutOutlined,
+  SettingOutlined,
 } from '@ant-design/icons';
 import styles from './DashboardNav.module.css';
 
@@ -28,7 +35,7 @@ interface MenuItem {
   children?: SubMenuItem[];
 }
 
-const menuItems: MenuItem[] = [
+const dashboardMenuItems: MenuItem[] = [
   {
     key: '/dashboard/account',
     label: 'Личный кабинет',
@@ -99,15 +106,67 @@ const menuItems: MenuItem[] = [
   },
 ];
 
+const mainNavigationItems: MenuItem[] = [
+  {
+    key: '/',
+    label: 'Главная',
+    icon: <HomeOutlined />,
+  },
+  {
+    key: '/about',
+    label: 'О нас',
+    icon: <InfoCircleOutlined />,
+  },
+  {
+    key: '/pharmacy',
+    label: 'Каталог продукции',
+    icon: <MedicineBoxOutlined />,
+    children: [
+      {
+        key: '/pharmacy',
+        label: 'Каталог продукции',
+      },
+      {
+        key: '/pharmacy/category',
+        label: 'Категории',
+      },
+      {
+        key: '/pharmacy/cart',
+        label: 'Корзина',
+      },
+    ],
+  },
+  {
+    key: '/about',
+    label: 'Контакты',
+    icon: <PhoneOutlined />,
+  },
+];
+
 interface DashboardNavProps {
   isMobile?: boolean;
   onMenuClick?: () => void;
+  includeMainNavigation?: boolean;
 }
 
-export const DashboardNav: React.FC<DashboardNavProps> = ({ isMobile, onMenuClick }) => {
+export const DashboardNav: React.FC<DashboardNavProps> = ({
+  isMobile,
+  onMenuClick,
+  includeMainNavigation,
+}) => {
   const router = useRouter();
   const pathname = usePathname();
+  const { user, logout } = useAuth();
   const [expandedItems, setExpandedItems] = useState<string[]>([]);
+
+  const getMenuItems = () => {
+    if (isMobile && includeMainNavigation) {
+      return [...mainNavigationItems, ...dashboardMenuItems];
+    }
+    return dashboardMenuItems;
+  };
+
+  const menuItems = getMenuItems();
 
   const handleMenuClick = (key: string) => {
     router.push(key);
@@ -179,47 +238,160 @@ export const DashboardNav: React.FC<DashboardNavProps> = ({ isMobile, onMenuClic
     </div>
   );
 
-  const renderMobileMenu = () => (
-    <div className={styles.mobileNav}>
-      {menuItems.map((item) => (
-        <div key={item.key}>
-          <div
-            className={`${styles.mobileNavItem} ${isActive(item.key) ? styles.active : ''}`}
-            onClick={() => {
-              if (item.children) {
-                handleToggleExpand(item.key);
-              } else {
-                handleMenuClick(item.key);
-              }
-            }}
-          >
-            {item.icon && <span className={styles.navItemIcon}>{item.icon}</span>}
-            <span>{item.label}</span>
-            {item.children && (
-              <span
-                className={`${styles.expandIcon} ${isExpanded(item.key) ? styles.expanded : ''}`}
+  const renderMobileMenu = () => {
+    if (includeMainNavigation) {
+      return (
+        <div className={styles.mobileNav}>
+          {/* Основная навигация */}
+          <div className={styles.mobileSectionHeader}>Основное меню</div>
+          {mainNavigationItems.map((item) => (
+            <div key={item.key}>
+              <div
+                className={`${styles.mobileNavItem} ${isActive(item.key) ? styles.active : ''}`}
+                onClick={() => {
+                  if (item.children) {
+                    handleToggleExpand(item.key);
+                  } else {
+                    handleMenuClick(item.key);
+                  }
+                }}
               >
-                <DownOutlined />
-              </span>
-            )}
-          </div>
-          {item.children && isExpanded(item.key) && (
-            <div className={styles.mobileSubmenu}>
-              {item.children.map((child) => (
-                <div
-                  key={child.key}
-                  className={`${styles.mobileSubmenuItem} ${isActive(child.key) ? styles.active : ''}`}
-                  onClick={() => handleMenuClick(child.key)}
-                >
-                  <span>{child.label}</span>
+                {item.icon && <span className={styles.navItemIcon}>{item.icon}</span>}
+                <span>{item.label}</span>
+                {item.children && (
+                  <span
+                    className={`${styles.expandIcon} ${isExpanded(item.key) ? styles.expanded : ''}`}
+                  >
+                    <DownOutlined />
+                  </span>
+                )}
+              </div>
+              {item.children && isExpanded(item.key) && (
+                <div className={styles.mobileSubmenu}>
+                  {item.children.map((child) => (
+                    <div
+                      key={child.key}
+                      className={`${styles.mobileSubmenuItem} ${isActive(child.key) ? styles.active : ''}`}
+                      onClick={() => handleMenuClick(child.key)}
+                    >
+                      <span>{child.label}</span>
+                    </div>
+                  ))}
                 </div>
-              ))}
+              )}
+            </div>
+          ))}
+
+          {/* Личный кабинет */}
+          <div className={styles.mobileSectionHeader}>Личный кабинет</div>
+          {dashboardMenuItems.map((item) => (
+            <div key={item.key}>
+              <div
+                className={`${styles.mobileNavItem} ${isActive(item.key) ? styles.active : ''}`}
+                onClick={() => {
+                  if (item.children) {
+                    handleToggleExpand(item.key);
+                  } else {
+                    handleMenuClick(item.key);
+                  }
+                }}
+              >
+                {item.icon && <span className={styles.navItemIcon}>{item.icon}</span>}
+                <span>{item.label}</span>
+                {item.children && (
+                  <span
+                    className={`${styles.expandIcon} ${isExpanded(item.key) ? styles.expanded : ''}`}
+                  >
+                    <DownOutlined />
+                  </span>
+                )}
+              </div>
+              {item.children && isExpanded(item.key) && (
+                <div className={styles.mobileSubmenu}>
+                  {item.children.map((child) => (
+                    <div
+                      key={child.key}
+                      className={`${styles.mobileSubmenuItem} ${isActive(child.key) ? styles.active : ''}`}
+                      onClick={() => handleMenuClick(child.key)}
+                    >
+                      <span>{child.label}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+
+          {/* Дополнительные опции */}
+          <div className={styles.mobileSectionHeader}>Аккаунт</div>
+          {/* Админ панель для админов */}
+          {(user?.$id === '683409e1a4097e2da357' || user?.$id === '680658de4352f354f0a9') && (
+            <div className={styles.mobileNavItem} onClick={() => handleMenuClick('/admin')}>
+              <span className={styles.navItemIcon}>
+                <SettingOutlined />
+              </span>
+              <span>Админ панель</span>
             </div>
           )}
+          {/* Выход */}
+          <div
+            className={`${styles.mobileNavItem} ${styles.logoutItem}`}
+            onClick={async () => {
+              await logout();
+              if (onMenuClick) onMenuClick();
+            }}
+          >
+            <span className={styles.navItemIcon}>
+              <LogoutOutlined />
+            </span>
+            <span>Выйти</span>
+          </div>
         </div>
-      ))}
-    </div>
-  );
+      );
+    }
+
+    return (
+      <div className={styles.mobileNav}>
+        {menuItems.map((item) => (
+          <div key={item.key}>
+            <div
+              className={`${styles.mobileNavItem} ${isActive(item.key) ? styles.active : ''}`}
+              onClick={() => {
+                if (item.children) {
+                  handleToggleExpand(item.key);
+                } else {
+                  handleMenuClick(item.key);
+                }
+              }}
+            >
+              {item.icon && <span className={styles.navItemIcon}>{item.icon}</span>}
+              <span>{item.label}</span>
+              {item.children && (
+                <span
+                  className={`${styles.expandIcon} ${isExpanded(item.key) ? styles.expanded : ''}`}
+                >
+                  <DownOutlined />
+                </span>
+              )}
+            </div>
+            {item.children && isExpanded(item.key) && (
+              <div className={styles.mobileSubmenu}>
+                {item.children.map((child) => (
+                  <div
+                    key={child.key}
+                    className={`${styles.mobileSubmenuItem} ${isActive(child.key) ? styles.active : ''}`}
+                    onClick={() => handleMenuClick(child.key)}
+                  >
+                    <span>{child.label}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    );
+  };
 
   if (isMobile) {
     return renderMobileMenu();
