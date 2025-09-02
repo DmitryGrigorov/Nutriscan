@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  nutriscan-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nutriscan-app
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+    expose:
+      - "3000"
+    networks:
+      - nutriscan-network
+    depends_on:
+      - nginx
+
+  nginx:
+    image: nginx:alpine
+    container_name: nutriscan-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./ssl:/etc/nginx/ssl:ro
+      - /var/log/nginx:/var/log/nginx
+    networks:
+      - nutriscan-network
+    depends_on:
+      - nutriscan-app
+
+  # Опционально: для автоматического получения SSL сертификатов
+  certbot:
+    image: certbot/certbot
+    container_name: nutriscan-certbot
+    volumes:
+      - ./ssl:/etc/letsencrypt
+      - ./nginx/html:/var/www/html
+    command: certonly --webroot --webroot-path=/var/www/html --email your-email@domain.com --agree-tos --no-eff-email --force-renewal -d your-domain.com
+    profiles:
+      - ssl-setup
+
+networks:
+  nutriscan-network:
+    driver: bridge
+
+volumes:
+  ssl_data:

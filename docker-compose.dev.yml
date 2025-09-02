@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  nutriscan-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nutriscan-app-dev
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+    expose:
+      - "3000"
+    networks:
+      - nutriscan-network
+    depends_on:
+      - nginx
+
+  nginx:
+    image: nginx:alpine
+    container_name: nutriscan-nginx-dev
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx-dev.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/conf.d/nutriscan-dev.conf:/etc/nginx/conf.d/default.conf:ro
+      - /var/log/nginx:/var/log/nginx
+    networks:
+      - nutriscan-network
+    depends_on:
+      - nutriscan-app
+
+networks:
+  nutriscan-network:
+    driver: bridge
