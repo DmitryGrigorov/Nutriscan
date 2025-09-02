@@ -358,10 +358,10 @@ function DashboardContent() {
       }
 
       setGigaChatResponses((prev) => ({ ...prev, [entry.id]: data.content }));
-      message.success('Анализ данных от GigaChat успешно получен');
+      message.success('Анализ данных успешно получен');
     } catch (error) {
       console.error('Error getting GigaChat response:', error);
-      message.error('Не удалось получить анализ данных от GigaChat');
+      message.error('Не удалось получить анализ данных');
     } finally {
       setLoadingGigaChat((prev) => ({ ...prev, [entry.id]: false }));
     }
@@ -555,7 +555,7 @@ function DashboardContent() {
                   {gigaChatResponses[entry.id] && (
                     <div className={`${styles.responseSection} ${styles.gigaChat}`}>
                       <h4 className={`${styles.responseTitle} ${styles.gigaChat}`}>
-                        Анализ данных от GigaChat
+                        Анализ данных
                       </h4>
                       <div
                         className={styles.responseContent}
