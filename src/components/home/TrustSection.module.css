@@ -211,6 +211,13 @@
   width: 265px;
   height: 265px;
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.progressSvg {
+  display: block;
 }
 
 .progressText {
@@ -286,94 +293,157 @@
 /* Адаптивность для мобильных устройств */
 @media (max-width: 768px) {
   .container {
-    margin: 20px auto;
+    margin: 20px 16px;
     border-radius: 12px;
+    padding: 0;
   }
   
   .content {
     flex-direction: column;
     min-height: auto;
+    gap: 16px;
   }
   
   .leftColumn {
-    padding: 30px 20px;
     order: 1;
   }
   
   .rightColumn {
     order: 2;
+    gap: 16px;
   }
   
   .mainTitle {
-    font-size: 24px !important;
-    margin-bottom: 20px !important;
+    font-size: 28px !important;
+    margin-bottom: 24px !important;
+    text-align: left;
+    padding: 0 16px;
   }
   
-  .chatBubble {
-    display: none;
+  .reviewsStats {
+    width: 100%;
+    height: 300px;
+    padding: 32px 20px;
+    margin: 0;
   }
-
-  .progressChart {
-    display: none;
+  
+  .reviewsNumber,
+  .reviewsLabel {
+    font-size: 36px;
   }
-
+  
+  .reviewsSubtext {
+    font-size: 16px;
+    margin-top: 12px;
+  }
+  
+  .topSection {
+    width: 100%;
+    height: auto;
+    min-height: 200px;
+    flex-direction: column;
+    text-align: center;
+    gap: 16px;
+    padding: 24px 20px;
+    margin: 0;
+  }
+  
+  .usersNumber,
+  .usersLabel {
+    font-size: 32px;
+  }
+  
+  .usersDescription {
+    font-size: 16px;
+    text-align: center;
+  }
+  
   .taskImageContainer {
     display: none;
   }
   
-  .reviewsNumber {
-    font-size: 28px;
-  }
-  
-  .reviewsLabel {
-    font-size: 16px;
-  }
-  
-  .topSection {
-    flex-direction: column;
-    text-align: center;
-    gap: 15px;
-    padding: 25px 20px;
-  }
-  
-  .clipboardIllustration {
-    width: 100px;
-    height: 100px;
-  }
-  
-  .clipboard {
-    width: 70px;
-    height: 85px;
-  }
-  
-  .paper {
-    padding: 10px;
-    gap: 6px;
-  }
-  
-  .checkboxText {
-    font-size: 7px;
-  }
-  
-  .hand {
-    width: 35px;
-    height: 50px;
-  }
-  
   .bottomSection {
+    width: 100%;
+    height: auto;
+    min-height: 200px;
     flex-direction: column;
     text-align: center;
-    gap: 15px;
-    padding: 25px 20px;
+    gap: 16px;
+    padding: 24px 20px;
+    margin: 0;
   }
   
   .progressChart {
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
+    margin: 0 auto;
   }
   
   .progressText {
-    font-size: 20px;
+    font-size: 32px;
+  }
+  
+  .progressNumber {
+    font-size: 18px;
+  }
+  
+  .progressDescription {
+    font-size: 14px;
+    text-align: center;
+  }
+  
+  .progressNote {
+    font-size: 12px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    margin: 16px 12px;
+  }
+  
+  .mainTitle {
+    font-size: 24px !important;
+    padding: 0 12px;
+  }
+  
+  .reviewsStats {
+    height: 280px;
+    padding: 24px 16px;
+  }
+  
+  .reviewsNumber,
+  .reviewsLabel {
+    font-size: 32px;
+  }
+  
+  .reviewsSubtext {
+    font-size: 14px;
+  }
+  
+  .topSection,
+  .bottomSection {
+    padding: 20px 16px;
+    min-height: 180px;
+  }
+  
+  .usersNumber,
+  .usersLabel {
+    font-size: 28px;
+  }
+  
+  .usersDescription {
+    font-size: 14px;
+  }
+  
+  .progressChart {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .progressText {
+    font-size: 28px;
   }
   
   .progressNumber {
@@ -382,56 +452,5 @@
   
   .progressDescription {
     font-size: 13px;
-  }
-}
-
-@media (max-width: 480px) {
-  .container {
-    margin: 15px auto;
-  }
-  
-  .leftColumn {
-    padding: 25px 16px;
-  }
-  
-  .mainTitle {
-    font-size: 22px !important;
-  }
-  
-  .chatBubble {
-    width: 80px;
-    height: 80px;
-  }
-  
-  .reviewsNumber {
-    font-size: 24px;
-  }
-  
-  .topSection,
-  .bottomSection {
-    padding: 20px 16px;
-  }
-  
-  .usersNumber {
-    font-size: 20px;
-  }
-  
-  .clipboardIllustration {
-    width: 80px;
-    height: 80px;
-  }
-  
-  .clipboard {
-    width: 60px;
-    height: 70px;
-  }
-  
-  .progressChart {
-    width: 80px;
-    height: 80px;
-  }
-  
-  .progressText {
-    font-size: 18px;
   }
 }

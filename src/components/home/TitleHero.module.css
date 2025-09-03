@@ -367,6 +367,7 @@
 
   .recommendationsText {
     font-size: 18px;
+    white-space: nowrap;
   }
 
   .recommendationsArrow {
@@ -446,6 +447,7 @@
 
   .recommendationsText {
     font-size: 16px;
+    white-space: nowrap;
   }
 
   .recommendationsArrow {

@@ -192,6 +192,20 @@
     font-size: 16px;
   }
 
+  .testimonialInfo {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .rating {
+    order: 2;
+  }
+
+  .testimonialName {
+    order: 1;
+  }
+
   .testimonialCard {
     padding: 24px;
     width: 280px;
@@ -229,6 +243,20 @@
   .title {
     font-size: 24px;
     line-height: 120%;
+  }
+
+  .testimonialInfo {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .rating {
+    order: 2;
+  }
+
+  .testimonialName {
+    order: 1;
   }
 
   .testimonialCard {

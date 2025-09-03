@@ -115,9 +115,7 @@ export const TitleHero = () => {
                 whileTap={{ scale: 0.95 }}
               >
                 <span className={styles.recommendationsText}>
-                  Получить
-                  <br />
-                  рекомендации
+                  Получить рекомендации
                 </span>
                 <span className={styles.recommendationsArrow}>
                   <svg

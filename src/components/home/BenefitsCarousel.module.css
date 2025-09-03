@@ -415,47 +415,135 @@ linear-gradient(283.08deg, rgba(0, 75, 128, 0.3366) 19.14%, rgba(35, 167, 183, 0
 
 @media (max-width: 768px) {
   .container {
-    padding: 40px 16px;
+    padding: 0 16px;
   }
 
   .benefitsSection {
     margin-bottom: 60px;
   }
 
-  .benefitsTitle,
-  .testimonialsTitle {
-    font-size: 28px;
+  .benefitsHeader {
+    flex-direction: column;
+    gap: 24px;
+    align-items: flex-start;
+    margin-bottom: 32px;
+  }
+
+  .benefitsTitle {
+    font-size: 32px;
+    text-align: left;
+  }
+
+  .navigation {
+    align-self: flex-end;
+  }
+
+  .navButton {
+    width: 60px;
+    height: 50px;
   }
 
   .benefitCard {
     flex-direction: column;
-    padding: 40px 24px;
-    text-align: center;
+    min-height: 600px;
+    padding: 0;
+    gap: 0;
   }
 
-  .benefitContent {
-    margin-bottom: 32px;
+  .leftColumn,
+  .rightColumn {
+    width: 100%;
+    height: 300px;
+    margin: 0;
   }
 
-  .imageLeftColumn,
+  .leftColumn {
+    order: 1;
+  }
+
+  .rightColumn {
+    order: 2;
+  }
+
+  .leftColumnText {
+    padding: 32px 24px;
+  }
+
+  .leftColumnTextTitle {
+    font-size: 28px;
+    margin-bottom: 16px;
+  }
+
+  .leftColumnTextSubtitle {
+    font-size: 16px;
+    margin-bottom: 24px;
+  }
+
+  .button {
+    position: relative;
+    width: 100%;
+    max-width: 280px;
+    height: 50px;
+    bottom: auto;
+    margin-top: auto;
+  }
+
+  .imageLeftColumn {
+    background-size: cover;
+    background-position: center bottom;
+  }
+
   .imageRightColumn {
-    display: none;
+    background-size: contain;
+    background-position: center bottom;
+    left: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 12px;
   }
 
-  .testimonialsSection {
-    padding: 40px 24px;
+  .benefitsHeader {
+    margin-bottom: 24px;
   }
 
-  .avatarsGroup {
-    justify-content: center;
+  .benefitsTitle {
+    font-size: 28px;
   }
 
-  .avatar {
-    width: 60px;
-    height: 60px;
+  .navButton {
+    width: 50px;
+    height: 45px;
   }
 
-  .testimonialCard {
-    padding: 24px;
+  .benefitCard {
+    min-height: 550px;
+  }
+
+  .leftColumn,
+  .rightColumn {
+    height: 275px;
+  }
+
+  .leftColumnText {
+    padding: 24px 20px;
+  }
+
+  .leftColumnTextTitle {
+    font-size: 24px;
+    margin-bottom: 12px;
+  }
+
+  .leftColumnTextSubtitle {
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+
+  .button {
+    max-width: 240px;
+    height: 45px;
+    font-size: 16px;
   }
 }
