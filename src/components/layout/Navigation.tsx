@@ -233,9 +233,9 @@ export const Navigation = () => {
       >
         <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
           <Image
-            src={isMobile ? '/assets/icons/logo_small.svg' : '/assets/icons/logo.svg'}
+            src={isMobile ? '/assets/icons/logo.svg' : '/assets/icons/logo.svg'}
             alt="Nutriscan Logo"
-            width={isMobile ? 32 : 200}
+            width={isMobile ? 140 : 200}
             height={isMobile ? 32 : 40}
             style={{ marginRight: isMobile ? '8px' : '12px' }}
           />
