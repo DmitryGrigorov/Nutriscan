@@ -1757,9 +1757,13 @@ export default function SupplementsSurveyPage() {
   };
 
   const next = () => {
-    form.validateFields().then(() => {
-      setCurrentStep(currentStep + 1);
-    });
+    form.validateFields()
+      .then(() => {
+        setCurrentStep(currentStep + 1);
+      })
+      .catch(() => {
+        message.warning('Пожалуйста, заполните все обязательные поля перед переходом к следующему шагу');
+      });
   };
 
   const prev = () => {
