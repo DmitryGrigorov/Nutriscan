@@ -9,6 +9,14 @@
   border-right: 1px solid #f0f0f0;
 }
 
+/* Responsive styles for narrow screens */
+@media (max-width: 1679px) and (min-width: 769px) {
+  .sidebar {
+    width: 100%;
+    overflow-y: auto;
+  }
+}
+
 .sidebarHeader {
   padding: 24px;
   border-bottom: 1px solid #f0f0f0;

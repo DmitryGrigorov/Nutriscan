@@ -13,15 +13,19 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   const { user, loading } = useAuth();
   const router = useRouter();
   const [isMobile, setIsMobile] = useState(false);
+  const [isNarrowScreen, setIsNarrowScreen] = useState(false);
+  
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
+    const checkScreenSize = () => {
+      const width = window.innerWidth;
+      setIsMobile(width <= 768);
+      setIsNarrowScreen(width > 768 && width < 1680);
     };
 
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
 
-    return () => window.removeEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkScreenSize);
   }, []);
 
   useEffect(() => {
@@ -54,11 +58,21 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       {isMobile ? (
         <></>
       ) : (
-        <Sider width={250} theme="light">
+        <Sider 
+          width={isNarrowScreen ? 280 : 250} 
+          theme="light"
+          style={isNarrowScreen ? {
+            position: 'fixed',
+            height: '100vh',
+            left: 0,
+            top: 0,
+            zIndex: 100
+          } : {}}
+        >
           <DashboardNav />
         </Sider>
       )}
-      <Layout>
+      <Layout style={isNarrowScreen ? { marginLeft: 280 } : {}}>
         <Content
           style={{
             padding: isMobile ? '16px' : '24px',
