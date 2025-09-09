@@ -1817,7 +1817,7 @@ export default function SupplementsSurveyPage() {
                   {steps[currentStep].content}
 
                   {/* BMI Result Display */}
-                  {currentStep === 0 && bmiResult && (
+                  {currentStep === 1 && bmiResult && (
                     <div className={styles.bmiResult}>
                       <div className={styles.bmiIcon}>AI</div>
                       <div className={styles.bmiValue}>Ваш ИМТ = {bmiResult.value}</div>
