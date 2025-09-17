@@ -14,7 +14,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   const router = useRouter();
   const [isMobile, setIsMobile] = useState(false);
   const [isNarrowScreen, setIsNarrowScreen] = useState(false);
-  
+
   useEffect(() => {
     const checkScreenSize = () => {
       const width = window.innerWidth;
@@ -58,16 +58,20 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       {isMobile ? (
         <></>
       ) : (
-        <Sider 
-          width={isNarrowScreen ? 280 : 250} 
+        <Sider
+          width={isNarrowScreen ? 280 : 250}
           theme="light"
-          style={isNarrowScreen ? {
-            position: 'fixed',
-            height: '100vh',
-            left: 0,
-            top: 0,
-            zIndex: 100
-          } : {}}
+          style={
+            isNarrowScreen
+              ? {
+                  position: 'fixed',
+                  height: '100vh',
+                  left: 0,
+                  top: 0,
+                  zIndex: 100,
+                }
+              : {}
+          }
         >
           <DashboardNav />
         </Sider>

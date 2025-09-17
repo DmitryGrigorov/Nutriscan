@@ -114,9 +114,7 @@ export const TitleHero = () => {
                 whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
                 whileTap={{ scale: 0.95 }}
               >
-                <span className={styles.recommendationsText}>
-                  Получить рекомендации
-                </span>
+                <span className={styles.recommendationsText}>Получить рекомендации</span>
                 <span className={styles.recommendationsArrow}>
                   <svg
                     width="32"

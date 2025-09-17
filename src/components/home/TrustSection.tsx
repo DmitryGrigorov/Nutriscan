@@ -47,14 +47,7 @@ export function TrustSection() {
           <div className={styles.bottomSection}>
             <div className={styles.progressChart}>
               <svg width="100%" height="100%" viewBox="0 0 265 265" className={styles.progressSvg}>
-                <circle
-                  cx="50%"
-                  cy="50%"
-                  r="110.5"
-                  fill="none"
-                  stroke="#e2e8f0"
-                  strokeWidth="18"
-                />
+                <circle cx="50%" cy="50%" r="110.5" fill="none" stroke="#e2e8f0" strokeWidth="18" />
                 <circle
                   cx="50%"
                   cy="50%"

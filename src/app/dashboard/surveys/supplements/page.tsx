@@ -1757,12 +1757,15 @@ export default function SupplementsSurveyPage() {
   };
 
   const next = () => {
-    form.validateFields()
+    form
+      .validateFields()
       .then(() => {
         setCurrentStep(currentStep + 1);
       })
       .catch(() => {
-        message.warning('Пожалуйста, заполните все обязательные поля перед переходом к следующему шагу');
+        message.warning(
+          'Пожалуйста, заполните все обязательные поля перед переходом к следующему шагу'
+        );
       });
   };
 
